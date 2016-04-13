@@ -15,7 +15,8 @@ public class Territory
 
 	public Territory(String name)
 	{
-		occupier = null; // null represents a neutral territory and starts with 2 armies on it
+		occupier = null; // null represents a neutral territory and starts with
+							// 2 armies on it
 		numOccupyingArmies = 2;
 		ID = name;
 		neighbors = new HashSet<String>();
@@ -51,31 +52,31 @@ public class Territory
 	{
 		occupier = conqueror;
 	}
-	
+
 	public void addNeighbor(String other)
 	{
 		neighbors.add(other);
 	}
-	
+
 	public boolean isNeightbor(Territory other)
 	{
 		return neighbors.contains(other);
 	}
 
 	/*
-	 * Transfers armies from one territory to the other.
-	 * Throws and exception if the target does not belong to the current player
+	 * Transfers armies from one territory to the other. Throws and exception if
+	 * the target does not belong to the current player
 	 */
 	public void moveArmies(Territory other, int num)
 	{
-	    // TODO: replace exceptions with other error handling?
+		// TODO: replace exceptions with other error handling?
 		if (num > this.numOccupyingArmies)
 		{
-			throw new IllegalArgumentException("You do not have this many armies!");
+			return;
 		}
 		if (!other.getOccupier().equals(this.getOccupier()))
 		{
-			throw new IllegalArgumentException("You do not own this territory. Conquer it first");
+			return;
 		}
 
 		this.numOccupyingArmies -= num;

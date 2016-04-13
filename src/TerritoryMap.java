@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 
 /*
  * Instantiates and keeps track of all territories on the map. May get a little ugly because it creates all territories on the map
@@ -95,14 +96,12 @@ public class TerritoryMap
 	private HashSet<String> asia;
 	private HashSet<String> europe;
 	private HashSet<String> australia;
-	
-	//all locations
-	private HashMap<String,Territory> allTerritories;
+
+	// all locations
+	private HashMap<String, Territory> allTerritories;
 
 	public TerritoryMap()
 	{
-		// Here we go...
-		// North America
 		alaska = new Territory("Alaska");
 		alberta = new Territory("Alberta");
 		mexico = new Territory("Mexico");
@@ -419,6 +418,7 @@ public class TerritoryMap
 		china.addNeighbor(india.getID());
 		china.addNeighbor(pakistan.getID());
 		china.addNeighbor(kazakhstan.getID());
+		china.addNeighbor(philipines.getID());
 
 		india.addNeighbor(china.getID());
 		india.addNeighbor(pakistan.getID());
@@ -472,6 +472,7 @@ public class TerritoryMap
 
 		philipines.addNeighbor(indochina.getID());
 		philipines.addNeighbor(indonesia.getID());
+		philipines.addNeighbor(china.getID());
 
 		// Add territories to continent maps
 		// North America
@@ -487,15 +488,15 @@ public class TerritoryMap
 		northAmerica.add(mexico.getID());
 		northAmerica.add(cuba.getID());
 		northAmerica.add(centralAmerica.getID());
-		
-		//South America
+
+		// South America
 		southAmerica.add(venezuela.getID());
 		southAmerica.add(argentina.getID());
 		southAmerica.add(peru.getID());
 		southAmerica.add(bolivia.getID());
 		southAmerica.add(brazil.getID());
-		
-		//Africa
+
+		// Africa
 		africa.add(southAfrica.getID());
 		africa.add(madagascar.getID());
 		africa.add(congo.getID());
@@ -504,8 +505,8 @@ public class TerritoryMap
 		africa.add(egypt.getID());
 		africa.add(algeria.getID());
 		africa.add(morocco.getID());
-		
-		//Europe
+
+		// Europe
 		europe.add(spain.getID());
 		europe.add(france.getID());
 		europe.add(lowCountries.getID());
@@ -519,8 +520,8 @@ public class TerritoryMap
 		europe.add(sweden.getID());
 		europe.add(iceland.getID());
 		europe.add(unitedKingdom.getID());
-		
-		//Asia
+
+		// Asia
 		asia.add(saudiArabia.getID());
 		asia.add(turkey.getID());
 		asia.add(iran.getID());
@@ -537,17 +538,17 @@ public class TerritoryMap
 		asia.add(indochina.getID());
 		asia.add(kamchatka.getID());
 		asia.add(japan.getID());
-		
-		//Australia
+
+		// Australia
 		australia.add(philipines.getID());
 		australia.add(indonesia.getID());
 		australia.add(newGuinea.getID());
 		australia.add(eastAustralia.getID());
 		australia.add(westAustralia.getID());
-		
-		//Add all territories 
-		
-		//North America
+
+		// Add all territories
+
+		// North America
 		allTerritories.put(alaska.getID(), alaska);
 		allTerritories.put(alberta.getID(), alberta);
 		allTerritories.put(mexico.getID(), mexico);
@@ -560,16 +561,15 @@ public class TerritoryMap
 		allTerritories.put(quebec.getID(), quebec);
 		allTerritories.put(ontario.getID(), ontario);
 		allTerritories.put(westUS.getID(), westUS);
-		
-		//South America
+
+		// South America
 		allTerritories.put(brazil.getID(), brazil);
 		allTerritories.put(argentina.getID(), argentina);
 		allTerritories.put(peru.getID(), peru);
 		allTerritories.put(venezuela.getID(), venezuela);
 		allTerritories.put(bolivia.getID(), bolivia);
-		
-		//Europe
 
+		// Europe
 		allTerritories.put(unitedKingdom.getID(), unitedKingdom);
 		allTerritories.put(iceland.getID(), iceland);
 		allTerritories.put(scandinavia.getID(), scandinavia);
@@ -583,8 +583,8 @@ public class TerritoryMap
 		allTerritories.put(poland.getID(), poland);
 		allTerritories.put(czechoslovakia.getID(), czechoslovakia);
 		allTerritories.put(southernEurope.getID(), southernEurope);
-		
-		//Asia
+
+		// Asia
 		allTerritories.put(saudiArabia.getID(), saudiArabia);
 		allTerritories.put(turkey.getID(), turkey);
 		allTerritories.put(iran.getID(), iran);
@@ -601,8 +601,8 @@ public class TerritoryMap
 		allTerritories.put(irkutsk.getID(), irkutsk);
 		allTerritories.put(siberia.getID(), siberia);
 		allTerritories.put(yakutsk.getID(), yakutsk);
-		
-		//Africa
+
+		// Africa
 		allTerritories.put(morocco.getID(), morocco);
 		allTerritories.put(algeria.getID(), algeria);
 		allTerritories.put(egypt.getID(), egypt);
@@ -611,12 +611,24 @@ public class TerritoryMap
 		allTerritories.put(madagascar.getID(), madagascar);
 		allTerritories.put(southAfrica.getID(), southAfrica);
 		allTerritories.put(congo.getID(), congo);
-		
-		//Australia
+
+		// Australia
 		allTerritories.put(eastAustralia.getID(), eastAustralia);
 		allTerritories.put(westAustralia.getID(), westAustralia);
 		allTerritories.put(newGuinea.getID(), newGuinea);
 		allTerritories.put(indonesia.getID(), indonesia);
 		allTerritories.put(philipines.getID(), philipines);
+	}
+
+	public static boolean hasSet(Set<String> continentSet, HashMap<String, Territory> occupied)
+	{
+		for (String s : continentSet)
+		{
+			if (!occupied.keySet().contains(s))
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 }

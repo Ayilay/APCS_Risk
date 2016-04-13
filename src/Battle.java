@@ -15,7 +15,7 @@ public class Battle
 	/*
 	 * Constructor used for an all out attack. No going back, kiddo
 	 * @param t1 The territory from which the attacker is attacking from.
-	 * @param t2 The territory from which the defender is defending from. (Should reword that_
+	 * @param t2 The territory from which the defender is defending from. (Should reword that)
 	 */
 	public Battle(Territory t1, Territory t2)//t1 is the attacking territory, t2 is the defending one.
 	{
@@ -40,8 +40,7 @@ public class Battle
 	}
 
 	/*
-	 * Engages armies once according to rules. Automatically defaults to maximum
-	 * amount of armies possible
+	 * Engages armies once according to rules.
 	 */
 	public void doBattleOnce()
 	{
@@ -98,7 +97,7 @@ public class Battle
 	/*
 	 * Simulates a risk battle. Goes to completion - either the attacker or the
 	 * defender is wiped out.
-	 * 
+  	 * 
 	 * @return result of the battle - true if attacker won, false if defender
 	 * won.
 	 */
