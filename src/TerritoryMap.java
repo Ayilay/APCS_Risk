@@ -12,100 +12,7 @@ import java.util.Set;
 
 public class TerritoryMap
 {
-<<<<<<< HEAD
-	// Holy wall of text, batman
 
-	// Every single territory on the map.
-
-	// North america - 12
-	private Territory alaska;
-	private Territory alberta;
-	private Territory mexico;
-	private Territory eastUS;
-	private Territory cuba;
-	private Territory centralAmerica;
-	private Territory northWestTerritory;
-	private Territory hawaii;
-	private Territory greenland;
-	private Territory quebec;
-	private Territory ontario;
-	private Territory westUS;
-
-	// South america - 5
-
-	private Territory brazil;
-	private Territory argentina;
-	private Territory peru;
-	private Territory venezuela;
-	private Territory bolivia;
-
-	// Europe - 13
-
-	private Territory unitedKingdom;
-	private Territory iceland;
-	private Territory scandinavia;
-	private Territory sweden;
-	private Territory eastEurope;
-	private Territory lowCountries;
-	private Territory spain;
-	private Territory france;
-	private Territory denmark;
-	private Territory germany;
-	private Territory poland;
-	private Territory czechoslovakia;
-	private Territory southernEurope;
-
-	// asia - 16
-
-	private Territory saudiArabia;
-	private Territory turkey;
-	private Territory iran;
-	private Territory afganistan;
-	private Territory pakistan;
-	private Territory india;
-	private Territory indochina;
-	private Territory china;
-	private Territory mongolia;
-	private Territory kazakhstan;
-	private Territory japan;
-	private Territory ural;
-	private Territory kamchatka;
-	private Territory irkutsk;
-	private Territory siberia;
-	private Territory yakutsk;
-
-	// Africa - 8
-
-	private Territory morocco;
-	private Territory algeria;
-	private Territory egypt;
-	private Territory eastAfrica;
-	private Territory westAfrica;
-	private Territory madagascar;
-	private Territory southAfrica;
-	private Territory congo;
-
-	// Australia - 5
-
-	private Territory eastAustralia;
-	private Territory westAustralia;
-	private Territory newGuinea;
-	private Territory indonesia;
-	private Territory philippines;
-
-	// continent collections.
-	private HashSet<String> northAmerica;
-	private HashSet<String> southAmerica;
-	private HashSet<String> africa;
-	private HashSet<String> asia;
-	private HashSet<String> europe;
-	private HashSet<String> australia;
-
-	// all locations
-	private HashMap<String, Territory> allTerritories;
-
-	public TerritoryMap()
-=======
 	// continent collections (might turn into separate classes)
 	private static Set<String> northAmerica;
 	private static Set<String> southAmerica;
@@ -118,7 +25,6 @@ public class TerritoryMap
 	private static Map<String,Territory> allTerritories;
 
 	public static void init()
->>>>>>> 8a60346138572466f449383c7c6f90ce45b87fb7
 	{
 	    // Initialize Continent Sets
 	    northAmerica = new HashSet<String>();
@@ -198,19 +104,11 @@ public class TerritoryMap
 
 		// Australia
 
-<<<<<<< HEAD
-		eastAustralia = new Territory("Eastern Australia");
-		westAustralia = new Territory("Western Australia");
-		newGuinea = new Territory("New Guinea");
-		indonesia = new Territory("Indonesia");
-		philippines = new Territory("philippines");
-=======
 		Territory eastAustralia = new Territory("Eastern Australia");
 		Territory westAustralia = new Territory("Western Australia");
 		Territory newGuinea = new Territory("New Guinea");
 		Territory indonesia = new Territory("Indonesia");
-		Territory philipines = new Territory("Philipines");
->>>>>>> 8a60346138572466f449383c7c6f90ce45b87fb7
+		Territory philippines = new Territory("Philippines");
 
 		// Set each territory's neighbors. This may take a while.
 		// North America
