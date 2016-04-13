@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
 import java.util.Set;
 
 /*
@@ -12,7 +10,7 @@ public class Player
 	private int numReinforcements;//the total number of reinforcements the player can get
 	private int numReinforcementsAvailable;//how many more armies the player can deploy on this phase.
 	
-	private Map<String,Territory> occupied;//which locations the player has
+	private Set<String> occupiedTerritories;//which locations the player has
 	//Removed setOwned because we should check every turn for which sets and it really doesn't serve any purpose.
 	
 	private String name;
@@ -25,8 +23,8 @@ public class Player
 	public Player(String name, Territory starter)
 	{
 		numReinforcements = 3;
-		occupied = new HashMap<String, Territory>();
-		occupied.put(starter.getID(), starter);
+		occupiedTerritories = new HashSet<String>();
+		occupiedTerritories.add(starter.getID());
 		this.name = name;
 	}
 	/*
@@ -49,9 +47,9 @@ public class Player
 		battle.doBattle();
 		if(battle.getResult())
 		{
-			other.getOccupier().occupied.remove(other.getID());//Removes this territory from the other player's map
+			other.getOccupier().occupiedTerritories.remove(other.getID());//Removes this territory from the other player's map
 			other.setOccupier(this);
-			occupied.put(other.getID(), other);
+			occupiedTerritories.add(other.getID());
 		}
 	}
 	/*
@@ -62,13 +60,13 @@ public class Player
 	 */
 	public void getReinforcements()
 	{
-		if(occupied.size()<9)//Less than 9 armies means only 3 armies a turn
+		if(occupiedTerritories.size()<9)//Less than 9 armies means only 3 armies a turn
 		{
 			numReinforcements = 3;
 		}
 		else
 		{
-			numReinforcements = occupied.size()/3;
+			numReinforcements = occupiedTerritories.size()/3;
 		}
 		//Calculates based on the number of sets owned.
 		
@@ -80,7 +78,7 @@ public class Player
 	 */
 	public void deployReinforcements(Territory t)
 	{
-		if(!occupied.containsValue(t))
+		if(!occupiedTerritories.contains(t.getID()))
 		{
 			return;
 		}
@@ -89,19 +87,5 @@ public class Player
 			t.incrementArmies();
 			numReinforcements--;
 		}
-	}
-	/*
-	 * Tests if the player occupies all countries of a set.
-	 */
-	public boolean containsSet(Set<String> setName)
-	{
-		for(String s : setName)
-		{
-			if(!occupied.keySet().contains(s))
-			{
-				return false;
-			}
-		}
-		return true;
 	}
 }

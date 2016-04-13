@@ -87,7 +87,7 @@ public class TerritoryMap
 	private Territory westAustralia;
 	private Territory newGuinea;
 	private Territory indonesia;
-	private Territory philipines;
+	private Territory philippines;
 
 	// continent collections.
 	private HashSet<String> northAmerica;
@@ -171,7 +171,7 @@ public class TerritoryMap
 		westAustralia = new Territory("Western Australia");
 		newGuinea = new Territory("New Guinea");
 		indonesia = new Territory("Indonesia");
-		philipines = new Territory("Philipines");
+		philippines = new Territory("philippines");
 
 		// Set each territory's neighbors. This may take a while.
 		// North America
@@ -418,7 +418,7 @@ public class TerritoryMap
 		china.addNeighbor(india.getID());
 		china.addNeighbor(pakistan.getID());
 		china.addNeighbor(kazakhstan.getID());
-		china.addNeighbor(philipines.getID());
+		china.addNeighbor(philippines.getID());
 
 		india.addNeighbor(china.getID());
 		india.addNeighbor(pakistan.getID());
@@ -448,7 +448,7 @@ public class TerritoryMap
 		indochina.addNeighbor(china.getID());
 		indochina.addNeighbor(india.getID());
 		indochina.addNeighbor(indonesia.getID());
-		indochina.addNeighbor(philipines.getID());
+		indochina.addNeighbor(philippines.getID());
 
 		japan.addNeighbor(hawaii.getID());
 		japan.addNeighbor(kamchatka.getID());
@@ -468,11 +468,11 @@ public class TerritoryMap
 
 		indonesia.addNeighbor(indochina.getID());
 		indonesia.addNeighbor(eastAustralia.getID());
-		indonesia.addNeighbor(philipines.getID());
+		indonesia.addNeighbor(philippines.getID());
 
-		philipines.addNeighbor(indochina.getID());
-		philipines.addNeighbor(indonesia.getID());
-		philipines.addNeighbor(china.getID());
+		philippines.addNeighbor(indochina.getID());
+		philippines.addNeighbor(indonesia.getID());
+		philippines.addNeighbor(china.getID());
 
 		// Add territories to continent maps
 		// North America
@@ -540,7 +540,7 @@ public class TerritoryMap
 		asia.add(japan.getID());
 
 		// Australia
-		australia.add(philipines.getID());
+		australia.add(philippines.getID());
 		australia.add(indonesia.getID());
 		australia.add(newGuinea.getID());
 		australia.add(eastAustralia.getID());
@@ -617,14 +617,14 @@ public class TerritoryMap
 		allTerritories.put(westAustralia.getID(), westAustralia);
 		allTerritories.put(newGuinea.getID(), newGuinea);
 		allTerritories.put(indonesia.getID(), indonesia);
-		allTerritories.put(philipines.getID(), philipines);
+		allTerritories.put(philippines.getID(), philippines);
 	}
 
-	public static boolean hasSet(Set<String> continentSet, HashMap<String, Territory> occupied)
+	public static boolean hasSet(Set<String> continentSet, HashSet<String> occupied)
 	{
 		for (String s : continentSet)
 		{
-			if (!occupied.keySet().contains(s))
+			if (!occupied.contains(s))
 			{
 				return false;
 			}
