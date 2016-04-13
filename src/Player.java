@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /*
  * This program defines a player of the game. Not yet finished.
@@ -12,7 +13,7 @@ public class Player
 	private int numReinforcementsAvailable;//how many more armies the player can deploy on this phase.
 	
 	private Map<String,Territory> occupied;//which locations the player has
-	private ArrayList<String> setOwned;//contains the sets that the player has for bonuses
+	//Removed setOwned because we should check every turn for which sets and it really doesn't serve any purpose.
 	
 	private String name;
 	
@@ -26,7 +27,6 @@ public class Player
 		numReinforcements = 3;
 		occupied = new HashMap<String, Territory>();
 		occupied.put(starter.getID(), starter);
-		setOwned = new ArrayList<String>();
 		this.name = name;
 	}
 	/*
@@ -54,9 +54,24 @@ public class Player
 			occupied.put(other.getID(), other);
 		}
 	}
-	
+	/*
+	 * Gets the number of reinforcements available on a new turn according to the following rules:
+	 * Divide the number of territories by 3 and round down. Must be less than seven.
+	 * Also calculates the bonuses based on territories owned.
+	 * 
+	 */
 	public void getReinforcements()
 	{
+		if(occupied.size()<9)//Less than 9 armies means only 3 armies a turn
+		{
+			numReinforcements = 3;
+		}
+		else
+		{
+			numReinforcements = occupied.size()/3;
+		}
+		//Calculates based on the number of sets owned.
+		
 		numReinforcementsAvailable = numReinforcements;
 	}
 	
@@ -72,6 +87,21 @@ public class Player
 		else
 		{
 			t.incrementArmies();
+			numReinforcements--;
 		}
+	}
+	/*
+	 * Tests if the player occupies all countries of a set.
+	 */
+	public boolean containsSet(Set<String> setName)
+	{
+		for(String s : setName)
+		{
+			if(!occupied.keySet().contains(s))
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 }
