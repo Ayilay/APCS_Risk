@@ -68,6 +68,30 @@ public class Player
 		{
 			numReinforcements = occupiedTerritories.size()/3;
 		}
+		if(TerritoryMap.hasSet(TerritoryMap.africa, occupiedTerritories))
+		{
+			numReinforcements +=4;//4 reinforcements for owning all of Africa
+		}
+		if(TerritoryMap.hasSet(TerritoryMap.asia, occupiedTerritories))
+		{
+			numReinforcements +=8;
+		}
+		if(TerritoryMap.hasSet(TerritoryMap.australia, occupiedTerritories))
+		{
+			numReinforcements +=3;
+		}
+		if(TerritoryMap.hasSet(TerritoryMap.europe, occupiedTerritories))
+		{
+			numReinforcements +=6;
+		}
+		if(TerritoryMap.hasSet(TerritoryMap.northAmerica, occupiedTerritories))
+		{
+			numReinforcements +=5;
+		}
+		if(TerritoryMap.hasSet(TerritoryMap.southAmerica, occupiedTerritories))
+		{
+			numReinforcements +=3;
+		}
 		//Calculates based on the number of sets owned.
 		
 		numReinforcementsAvailable = numReinforcements;

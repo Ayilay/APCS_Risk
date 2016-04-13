@@ -14,12 +14,13 @@ public class TerritoryMap
 {
 
 	// continent collections (might turn into separate classes)
-	private static Set<String> northAmerica;
-	private static Set<String> southAmerica;
-	private static Set<String> africa;
-	private static Set<String> asia;
-	private static Set<String> europe;
-	private static Set<String> australia;
+	//Made protected so I can access them later
+	protected static Set<String> northAmerica;
+	protected static Set<String> southAmerica;
+	protected static Set<String> africa;
+	protected static Set<String> asia;
+	protected static Set<String> europe;
+	protected static Set<String> australia;
 	
 	//all locations
 	private static Map<String,Territory> allTerritories;
@@ -562,7 +563,7 @@ public class TerritoryMap
 	    return allTerritories.get(id);
 	}
 
-	public static boolean hasSet(Set<String> continentSet, HashSet<String> occupied)
+	public static boolean hasSet(Set<String> continentSet, Set<String> occupied)
 	{
 		for (String s : continentSet)
 		{
