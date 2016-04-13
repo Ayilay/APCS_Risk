@@ -1,14 +1,18 @@
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /*
- * Instantiates and keeps track of all territories on the map. May get a little ugly because it creates all territories on the map
+ * 
+ * A "static" class that instantiates and keeps track of all territories on the map.
+ * May get a little ugly because it creates all territories on the map
  * 
  */
 
 public class TerritoryMap
 {
+<<<<<<< HEAD
 	// Holy wall of text, batman
 
 	// Every single territory on the map.
@@ -101,77 +105,112 @@ public class TerritoryMap
 	private HashMap<String, Territory> allTerritories;
 
 	public TerritoryMap()
+=======
+	// continent collections (might turn into separate classes)
+	private static Set<String> northAmerica;
+	private static Set<String> southAmerica;
+	private static Set<String> africa;
+	private static Set<String> asia;
+	private static Set<String> europe;
+	private static Set<String> australia;
+	
+	//all locations
+	private static Map<String,Territory> allTerritories;
+
+	public static void init()
+>>>>>>> 8a60346138572466f449383c7c6f90ce45b87fb7
 	{
-		alaska = new Territory("Alaska");
-		alberta = new Territory("Alberta");
-		mexico = new Territory("Mexico");
-		eastUS = new Territory("Eastern United States");
-		cuba = new Territory("Cuba");
-		centralAmerica = new Territory("CentralAmerica");
-		northWestTerritory = new Territory("Northwest Territory");
-		hawaii = new Territory("Hawaii");
-		greenland = new Territory("Greenland");
-		quebec = new Territory("Quebec");
-		ontario = new Territory("Ontario");
-		westUS = new Territory("Western United States");
+	    // Initialize Continent Sets
+	    northAmerica = new HashSet<String>();
+	    southAmerica = new HashSet<String>();
+	    africa = new HashSet<String>();
+	    asia = new HashSet<String>();
+	    europe = new HashSet<String>();
+	    australia = new HashSet<String>();
+	    
+	    // Initialize allTerritories as a HashMap
+	    allTerritories = new HashMap<String, Territory>();
+
+		// Here we go...
+		// North America
+		Territory alaska = new Territory("Alaska");
+		Territory alberta = new Territory("Alberta");
+		Territory mexico = new Territory("Mexico");
+		Territory eastUS = new Territory("Eastern United States");
+		Territory cuba = new Territory("Cuba");
+		Territory centralAmerica = new Territory("CentralAmerica");
+		Territory northWestTerritory = new Territory("Northwest Territory");
+		Territory hawaii = new Territory("Hawaii");
+		Territory greenland = new Territory("Greenland");
+		Territory quebec = new Territory("Quebec");
+		Territory ontario = new Territory("Ontario");
+		Territory westUS = new Territory("Western United States");
 
 		// South America
-		brazil = new Territory("Brazil");
-		argentina = new Territory("Argentina");
-		peru = new Territory("Peru");
-		venezuela = new Territory("Venezuela");
-		bolivia = new Territory("Bolivia");
+		Territory brazil = new Territory("Brazil");
+		Territory argentina = new Territory("Argentina");
+		Territory peru = new Territory("Peru");
+		Territory venezuela = new Territory("Venezuela");
+		Territory bolivia = new Territory("Bolivia");
 
 		// Europe
-		unitedKingdom = new Territory("United Kingdom");
-		iceland = new Territory("Iceland");
-		scandinavia = new Territory("Scandinavia");
-		sweden = new Territory("Sweden");
-		eastEurope = new Territory("Eastern Europe");
-		lowCountries = new Territory("Low Countries");
-		spain = new Territory("Spain");
-		france = new Territory("France");
-		denmark = new Territory("Denmark");
-		germany = new Territory("Germany");
-		poland = new Territory("Poland");
-		czechoslovakia = new Territory("Czechoslovakia");
-		southernEurope = new Territory("Southern Europe");
+		Territory unitedKingdom = new Territory("United Kingdom");
+		Territory iceland = new Territory("Iceland");
+		Territory scandinavia = new Territory("Scandinavia");
+		Territory sweden = new Territory("Sweden");
+		Territory eastEurope = new Territory("Eastern Europe");
+		Territory lowCountries = new Territory("Low Countries");
+		Territory spain = new Territory("Spain");
+		Territory france = new Territory("France");
+		Territory denmark = new Territory("Denmark");
+		Territory germany = new Territory("Germany");
+		Territory poland = new Territory("Poland");
+		Territory czechoslovakia = new Territory("Czechoslovakia");
+		Territory southernEurope = new Territory("Southern Europe");
 
 		// Africa
-		morocco = new Territory("Morocco");
-		algeria = new Territory("Algeria");
-		egypt = new Territory("Egypt");
-		eastAfrica = new Territory("East Africa");
-		westAfrica = new Territory("West Africa");
-		madagascar = new Territory("Madagascar");
-		southAfrica = new Territory("South Africa");
-		congo = new Territory("Congo");
+		Territory morocco = new Territory("Morocco");
+		Territory algeria = new Territory("Algeria");
+		Territory egypt = new Territory("Egypt");
+		Territory eastAfrica = new Territory("East Africa");
+		Territory westAfrica = new Territory("West Africa");
+		Territory madagascar = new Territory("Madagascar");
+		Territory southAfrica = new Territory("South Africa");
+		Territory congo = new Territory("Congo");
 
 		// Asia
-		saudiArabia = new Territory("Saudi Arabia");
-		turkey = new Territory("Turkey");
-		iran = new Territory("Iran");
-		afganistan = new Territory("Afganistan");
-		pakistan = new Territory("Pakistan");
-		india = new Territory("India");
-		indochina = new Territory("Indochina");
-		china = new Territory("China");
-		mongolia = new Territory("Mongolia");
-		kazakhstan = new Territory("Kazakhstan");
-		japan = new Territory("Japan");
-		ural = new Territory("Ural");
-		kamchatka = new Territory("Kamchatka");
-		irkutsk = new Territory("Irkutsk");
-		siberia = new Territory("Siberia");
-		yakutsk = new Territory("Yakutsk");
+		Territory saudiArabia = new Territory("Saudi Arabia");
+		Territory turkey = new Territory("Turkey");
+		Territory iran = new Territory("Iran");
+		Territory afganistan = new Territory("Afganistan");
+		Territory pakistan = new Territory("Pakistan");
+		Territory india = new Territory("India");
+		Territory indochina = new Territory("Indochina");
+		Territory china = new Territory("China");
+		Territory mongolia = new Territory("Mongolia");
+		Territory kazakhstan = new Territory("Kazakhstan");
+		Territory japan = new Territory("Japan");
+		Territory ural = new Territory("Ural");
+		Territory kamchatka = new Territory("Kamchatka");
+		Territory irkutsk = new Territory("Irkutsk");
+		Territory siberia = new Territory("Siberia");
+		Territory yakutsk = new Territory("Yakutsk");
 
 		// Australia
 
+<<<<<<< HEAD
 		eastAustralia = new Territory("Eastern Australia");
 		westAustralia = new Territory("Western Australia");
 		newGuinea = new Territory("New Guinea");
 		indonesia = new Territory("Indonesia");
 		philippines = new Territory("philippines");
+=======
+		Territory eastAustralia = new Territory("Eastern Australia");
+		Territory westAustralia = new Territory("Western Australia");
+		Territory newGuinea = new Territory("New Guinea");
+		Territory indonesia = new Territory("Indonesia");
+		Territory philipines = new Territory("Philipines");
+>>>>>>> 8a60346138572466f449383c7c6f90ce45b87fb7
 
 		// Set each territory's neighbors. This may take a while.
 		// North America
@@ -618,6 +657,11 @@ public class TerritoryMap
 		allTerritories.put(newGuinea.getID(), newGuinea);
 		allTerritories.put(indonesia.getID(), indonesia);
 		allTerritories.put(philippines.getID(), philippines);
+	}
+	
+	public static Territory get(String id)
+	{
+	    return allTerritories.get(id);
 	}
 
 	public static boolean hasSet(Set<String> continentSet, HashSet<String> occupied)

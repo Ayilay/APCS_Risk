@@ -133,7 +133,7 @@ public class Battle
 	{
 		if(getResult())
 		{
-			attacker.moveArmies(defender, numAttackingArmies-1);
+			attacker.moveArmies(defender.getID(), numAttackingArmies-1);
 		}
 	}
 }
