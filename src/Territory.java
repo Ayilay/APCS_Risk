@@ -16,7 +16,7 @@ public class Territory
 		occupier = null;// null represents a neutral territory and starts with 2 armies on it
 		numOccupyingArmies = 2;
 		ID = name;
-		neighbors = new ArrayList<>();
+		neighbors = new ArrayList<Territory>();
 	}
 
 	// following two methods are for use in battles

@@ -1,4 +1,5 @@
-import java.util.Map;
+import java.util.HashMap;
+import java.util.HashSet;
 
 /*
  * Instantiates and keeps track of all territories on the map. May get a little ugly because it creates all territories on the map
@@ -87,12 +88,15 @@ public class TerritoryMap
 	private Territory philipines;
 
 	// continent collections.
-	private Map<String, Territory> northAmerica;
-	private Map<String, Territory> southAmerica;
-	private Map<String, Territory> africa;
-	private Map<String, Territory> asia;
-	private Map<String, Territory> europe;
-	private Map<String, Territory> australia;
+	private HashSet<String> northAmerica;
+	private HashSet<String> southAmerica;
+	private HashSet<String> africa;
+	private HashSet<String> asia;
+	private HashSet<String> europe;
+	private HashSet<String> australia;
+	
+	//all locations
+	private HashMap<String,Territory> allTerritories;
 
 	public TerritoryMap()
 	{
@@ -470,74 +474,148 @@ public class TerritoryMap
 
 		// Add territories to continent maps
 		// North America
-		northAmerica.put(alaska.getID(), alaska);
-		northAmerica.put(northWestTerritory.getID(), northWestTerritory);
-		northAmerica.put(greenland.getID(), greenland);
-		northAmerica.put(alberta.getID(), alberta);
-		northAmerica.put(ontario.getID(), ontario);
-		northAmerica.put(quebec.getID(), quebec);
-		northAmerica.put(hawaii.getID(), hawaii);
-		northAmerica.put(westUS.getID(), westUS);
-		northAmerica.put(eastUS.getID(), eastUS);
-		northAmerica.put(mexico.getID(), mexico);
-		northAmerica.put(cuba.getID(), cuba);
-		northAmerica.put(centralAmerica.getID(), centralAmerica);
+		northAmerica.add(alaska.getID());
+		northAmerica.add(northWestTerritory.getID());
+		northAmerica.add(greenland.getID());
+		northAmerica.add(alberta.getID());
+		northAmerica.add(ontario.getID());
+		northAmerica.add(quebec.getID());
+		northAmerica.add(hawaii.getID());
+		northAmerica.add(westUS.getID());
+		northAmerica.add(eastUS.getID());
+		northAmerica.add(mexico.getID());
+		northAmerica.add(cuba.getID());
+		northAmerica.add(centralAmerica.getID());
 		
 		//South America
-		southAmerica.put(venezuela.getID(), venezuela);
-		southAmerica.put(argentina.getID(), argentina);
-		southAmerica.put(peru.getID(), peru);
-		southAmerica.put(bolivia.getID(), bolivia);
-		southAmerica.put(brazil.getID(), brazil);
+		southAmerica.add(venezuela.getID());
+		southAmerica.add(argentina.getID());
+		southAmerica.add(peru.getID());
+		southAmerica.add(bolivia.getID());
+		southAmerica.add(brazil.getID());
 		
 		//Africa
-		africa.put(southAfrica.getID(), southAfrica);
-		africa.put(madagascar.getID(), madagascar);
-		africa.put(congo.getID(), congo);
-		africa.put(eastAfrica.getID(), eastAfrica);
-		africa.put(westAfrica.getID(), westAfrica);
-		africa.put(egypt.getID(), egypt);
-		africa.put(algeria.getID(), algeria);
-		africa.put(morocco.getID(), morocco);
+		africa.add(southAfrica.getID());
+		africa.add(madagascar.getID());
+		africa.add(congo.getID());
+		africa.add(eastAfrica.getID());
+		africa.add(westAfrica.getID());
+		africa.add(egypt.getID());
+		africa.add(algeria.getID());
+		africa.add(morocco.getID());
 		
 		//Europe
-		europe.put(spain.getID(), spain);
-		europe.put(france.getID(), france);
-		europe.put(lowCountries.getID(), lowCountries);
-		europe.put(germany.getID(),germany);
-		europe.put(southernEurope.getID(),southernEurope);
-		europe.put(poland.getID(), poland);
-		europe.put(eastEurope.getID(),eastEurope);
-		europe.put(czechoslovakia.getID(), czechoslovakia);
-		europe.put(denmark.getID(),denmark);
-		europe.put(scandinavia.getID(),scandinavia);
-		europe.put(sweden.getID(),sweden);
-		europe.put(iceland.getID(),iceland);
-		europe.put(unitedKingdom.getID(),unitedKingdom);
+		europe.add(spain.getID());
+		europe.add(france.getID());
+		europe.add(lowCountries.getID());
+		europe.add(germany.getID());
+		europe.add(southernEurope.getID());
+		europe.add(poland.getID());
+		europe.add(eastEurope.getID());
+		europe.add(czechoslovakia.getID());
+		europe.add(denmark.getID());
+		europe.add(scandinavia.getID());
+		europe.add(sweden.getID());
+		europe.add(iceland.getID());
+		europe.add(unitedKingdom.getID());
 		
 		//Asia
-		asia.put(saudiArabia.getID(), saudiArabia);
-		asia.put(turkey.getID(),turkey);
-		asia.put(iran.getID(),iran);
-		asia.put(pakistan.getID(),pakistan);
-		asia.put(afganistan.getID(),afganistan);
-		asia.put(kazakhstan.getID(),kazakhstan);
-		asia.put(ural.getID(),ural);
-		asia.put(siberia.getID(),siberia);
-		asia.put(china.getID(),china);
-		asia.put(india.getID(),india);
-		asia.put(irkutsk.getID(),irkutsk);
-		asia.put(yakutsk.getID(),yakutsk);
-		asia.put(mongolia.getID(),mongolia);
-		asia.put(indochina.getID(),indochina);
-		asia.put(kamchatka.getID(),kamchatka);
-		asia.put(japan.getID(),japan);
+		asia.add(saudiArabia.getID());
+		asia.add(turkey.getID());
+		asia.add(iran.getID());
+		asia.add(pakistan.getID());
+		asia.add(afganistan.getID());
+		asia.add(kazakhstan.getID());
+		asia.add(ural.getID());
+		asia.add(siberia.getID());
+		asia.add(china.getID());
+		asia.add(india.getID());
+		asia.add(irkutsk.getID());
+		asia.add(yakutsk.getID());
+		asia.add(mongolia.getID());
+		asia.add(indochina.getID());
+		asia.add(kamchatka.getID());
+		asia.add(japan.getID());
 		
 		//Australia
-		australia.put(philipines.getID(),philipines);
-		australia.put(indonesia.getID(),indonesia);
-		australia.put(newGuinea.getID(),newGuinea);
-		australia.put(eastAustralia.getID(),eastAustralia);
-		australia.put(westAustralia.getID(),westAustralia);
+		australia.add(philipines.getID());
+		australia.add(indonesia.getID());
+		australia.add(newGuinea.getID());
+		australia.add(eastAustralia.getID());
+		australia.add(westAustralia.getID());
+		
+		//Add all territories 
+		
+		//North America
+		allTerritories.put(alaska.getID(),alaska);
+		allTerritories.put(alberta.getID(), alberta);
+		allTerritories.put(mexico.getID(), mexico);
+		allTerritories.put(eastUS.getID(), eastUS);
+		allTerritories.put(cuba.getID(), cuba);
+		allTerritories.put(centralAmerica.getID(), centralAmerica);
+		allTerritories.put(northWestTerritory.getID(), northWestTerritory);
+		allTerritories.put(hawaii.getID(), hawaii);
+		allTerritories.put(greenland.getID(), greenland);
+		allTerritories.put(quebec.getID(), quebec);
+		allTerritories.put(ontario.getID(), ontario);
+		allTerritories.put(westUS.getID(), westUS);
+		
+		//South America
+		allTerritories.put(brazil.getID(),brazil);
+		allTerritories.put(argentina.getID(), argentina);
+		allTerritories.put(peru.getID(), peru);
+		allTerritories.put(venezuela.getID(), venezuela);
+		allTerritories.put(bolivia.getID(), bolivia);
+		
+		//Europe
+
+		allTerritories.put(unitedKingdom.getID(),unitedKingdom);
+		allTerritories.put(iceland.getID(),iceland);
+		allTerritories.put(scandinavia.getID(),scandinavia);
+		allTerritories.put(sweden.getID(),sweden);
+		allTerritories.put(eastEurope.getID(),eastEurope);
+		allTerritories.put(lowCountries.getID(),lowCountries);
+		allTerritories.put(spain.getID(),spain);
+		allTerritories.put(france.getID(),france);
+		allTerritories.put(denmark.getID(),denmark);
+		allTerritories.put(germany.getID(),germany);
+		allTerritories.put(poland.getID(),poland);
+		allTerritories.put(czechoslovakia.getID(),czechoslovakia);
+		allTerritories.put(southernEurope.getID(),southernEurope);
+		
+		//Asia
+		allTerritories.put(saudiArabia.getID(),saudiArabia);
+		allTerritories.put(turkey.getID(),turkey);
+		allTerritories.put(iran.getID(),iran);
+		allTerritories.put(afganistan.getID(),afganistan);
+		allTerritories.put(pakistan.getID(),pakistan);
+		allTerritories.put(india.getID(),india);
+		allTerritories.put(indochina.getID(),indochina);
+		allTerritories.put(china.getID(),china);
+		allTerritories.put(mongolia.getID(),mongolia);
+		allTerritories.put(kazakhstan.getID(),kazakhstan);
+		allTerritories.put(japan.getID(),japan);
+		allTerritories.put(ural.getID(),ural);
+		allTerritories.put(kamchatka.getID(),kamchatka);
+		allTerritories.put(irkutsk.getID(),irkutsk);
+		allTerritories.put(siberia.getID(),siberia);
+		allTerritories.put(yakutsk.getID(),yakutsk);
+		
+		//Africa
+		allTerritories.put(morocco.getID(),morocco);
+		allTerritories.put(algeria.getID(),algeria);
+		allTerritories.put(egypt.getID(),egypt);
+		allTerritories.put(eastAfrica.getID(),eastAfrica);
+		allTerritories.put(westAfrica.getID(),westAfrica);
+		allTerritories.put(madagascar.getID(),madagascar);
+		allTerritories.put(southAfrica.getID(),southAfrica);
+		allTerritories.put(congo.getID(),congo);
+		
+		//Australia
+		allTerritories.put(eastAustralia.getID(),eastAustralia);
+		allTerritories.put(westAustralia.getID(),westAustralia);
+		allTerritories.put(newGuinea.getID(),newGuinea);
+		allTerritories.put(indonesia.getID(),indonesia);
+		allTerritories.put(philipines.getID(),philipines);
 	}
 }
