@@ -69,7 +69,6 @@ public class Territory
 	 */
 	public void moveArmies(String otherID, int num)
 	{
-<<<<<<< HEAD
 	    // TODO: replace exceptions with other error handling?
 	    if(!isAdjacentTo(otherID))
 	    {
@@ -77,9 +76,6 @@ public class Territory
 	    }
 	    
 	    Territory other = TerritoryMap.get(otherID);
-=======
-		// TODO: replace exceptions with other error handling?
->>>>>>> ethan/master
 		if (num > this.numOccupyingArmies)
 		{
 			return;
