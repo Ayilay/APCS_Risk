@@ -66,9 +66,15 @@ public class Territory
 	 * Transfers armies from one territory to the other.
 	 * Throws and exception if the target does not belong to the current player
 	 */
-	public void moveArmies(Territory other, int num)
+	public void moveArmies(String otherID, int num)
 	{
 	    // TODO: replace exceptions with other error handling?
+	    if(!isAdjacentTo(otherID))
+	    {
+	        throw new IllegalArgumentException("Territories are not adjacent!");
+	    }
+	    
+	    Territory other = TerritoryMap.get(otherID);
 		if (num > this.numOccupyingArmies)
 		{
 			throw new IllegalArgumentException("You do not have this many armies!");
@@ -80,5 +86,15 @@ public class Territory
 
 		this.numOccupyingArmies -= num;
 		other.numOccupyingArmies += num;
+	}
+	
+	private boolean isAdjacentTo(String otherID)
+	{
+	    return (this.getAdjacentTerritories().contains(otherID));
+	}
+	
+	public Set<String> getAdjacentTerritories()
+	{
+	    return this.neighbors;
 	}
 }
