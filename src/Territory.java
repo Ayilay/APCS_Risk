@@ -1,22 +1,24 @@
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /*
  * This class creates and keeps track of each territory on the map.
  * Author: Ethan Yao
  */
+
 public class Territory
 {
 	private int numOccupyingArmies;
-	private String ID;// the name of this territory
+	private String ID; // the name of this territory
 	private Player occupier;
-	private ArrayList<Territory> neighbors;
+	private Set<String> neighbors; // Holds keys to Territories in TerritoryMap
 
 	public Territory(String name)
 	{
-		occupier = null;// null represents a neutral territory and starts with 2 armies on it
+		occupier = null; // null represents a neutral territory and starts with 2 armies on it
 		numOccupyingArmies = 2;
 		ID = name;
-		neighbors = new ArrayList<Territory>();
+		neighbors = new HashSet<String>();
 	}
 
 	// following two methods are for use in battles
@@ -50,7 +52,7 @@ public class Territory
 		occupier = conqueror;
 	}
 	
-	public void addNeighbor(Territory other)
+	public void addNeighbor(String other)
 	{
 		neighbors.add(other);
 	}
@@ -59,12 +61,14 @@ public class Territory
 	{
 		return neighbors.contains(other);
 	}
+
 	/*
 	 * Transfers armies from one territory to the other.
 	 * Throws and exception if the target does not belong to the current player
 	 */
 	public void moveArmies(Territory other, int num)
 	{
+	    // TODO: replace exceptions with other error handling?
 		if (num > this.numOccupyingArmies)
 		{
 			throw new IllegalArgumentException("You do not have this many armies!");
@@ -73,6 +77,7 @@ public class Territory
 		{
 			throw new IllegalArgumentException("You do not own this territory. Conquer it first");
 		}
+
 		this.numOccupyingArmies -= num;
 		other.numOccupyingArmies += num;
 	}

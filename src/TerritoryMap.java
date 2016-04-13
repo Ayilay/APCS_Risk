@@ -5,6 +5,7 @@ import java.util.HashSet;
  * Instantiates and keeps track of all territories on the map. May get a little ugly because it creates all territories on the map
  * 
  */
+
 public class TerritoryMap
 {
 	// Holy wall of text, batman
@@ -175,302 +176,302 @@ public class TerritoryMap
 
 		// Set each territory's neighbors. This may take a while.
 		// North America
-		alaska.addNeighbor(northWestTerritory);
-		alaska.addNeighbor(alberta);
-		alaska.addNeighbor(kamchatka);
+		alaska.addNeighbor(northWestTerritory.getID());
+		alaska.addNeighbor(alberta.getID());
+		alaska.addNeighbor(kamchatka.getID());
 
-		alberta.addNeighbor(alaska);
-		alberta.addNeighbor(westUS);
-		alberta.addNeighbor(ontario);
-		alberta.addNeighbor(northWestTerritory);
+		alberta.addNeighbor(alaska.getID());
+		alberta.addNeighbor(westUS.getID());
+		alberta.addNeighbor(ontario.getID());
+		alberta.addNeighbor(northWestTerritory.getID());
 
-		northWestTerritory.addNeighbor(greenland);
-		northWestTerritory.addNeighbor(ontario);
-		northWestTerritory.addNeighbor(alaska);
-		northWestTerritory.addNeighbor(alberta);
+		northWestTerritory.addNeighbor(greenland.getID());
+		northWestTerritory.addNeighbor(ontario.getID());
+		northWestTerritory.addNeighbor(alaska.getID());
+		northWestTerritory.addNeighbor(alberta.getID());
 
-		ontario.addNeighbor(northWestTerritory);
-		ontario.addNeighbor(greenland);
-		ontario.addNeighbor(quebec);
-		ontario.addNeighbor(eastUS);
-		ontario.addNeighbor(westUS);
-		ontario.addNeighbor(alberta);
+		ontario.addNeighbor(northWestTerritory.getID());
+		ontario.addNeighbor(greenland.getID());
+		ontario.addNeighbor(quebec.getID());
+		ontario.addNeighbor(eastUS.getID());
+		ontario.addNeighbor(westUS.getID());
+		ontario.addNeighbor(alberta.getID());
 
-		greenland.addNeighbor(iceland);
-		greenland.addNeighbor(ontario);
-		greenland.addNeighbor(quebec);
-		greenland.addNeighbor(northWestTerritory);
+		greenland.addNeighbor(iceland.getID());
+		greenland.addNeighbor(ontario.getID());
+		greenland.addNeighbor(quebec.getID());
+		greenland.addNeighbor(northWestTerritory.getID());
 
-		quebec.addNeighbor(greenland);
-		quebec.addNeighbor(eastUS);
-		quebec.addNeighbor(ontario);
+		quebec.addNeighbor(greenland.getID());
+		quebec.addNeighbor(eastUS.getID());
+		quebec.addNeighbor(ontario.getID());
 
-		westUS.addNeighbor(eastUS);
-		westUS.addNeighbor(hawaii);
-		westUS.addNeighbor(alberta);
-		westUS.addNeighbor(ontario);
-		westUS.addNeighbor(mexico);
+		westUS.addNeighbor(eastUS.getID());
+		westUS.addNeighbor(hawaii.getID());
+		westUS.addNeighbor(alberta.getID());
+		westUS.addNeighbor(ontario.getID());
+		westUS.addNeighbor(mexico.getID());
 
-		eastUS.addNeighbor(westUS);
-		eastUS.addNeighbor(quebec);
-		eastUS.addNeighbor(ontario);
-		eastUS.addNeighbor(mexico);
-		eastUS.addNeighbor(cuba);
+		eastUS.addNeighbor(westUS.getID());
+		eastUS.addNeighbor(quebec.getID());
+		eastUS.addNeighbor(ontario.getID());
+		eastUS.addNeighbor(mexico.getID());
+		eastUS.addNeighbor(cuba.getID());
 
-		mexico.addNeighbor(westUS);
-		mexico.addNeighbor(centralAmerica);
-		mexico.addNeighbor(cuba);
-		mexico.addNeighbor(eastUS);
+		mexico.addNeighbor(westUS.getID());
+		mexico.addNeighbor(centralAmerica.getID());
+		mexico.addNeighbor(cuba.getID());
+		mexico.addNeighbor(eastUS.getID());
 
-		cuba.addNeighbor(eastUS);
-		cuba.addNeighbor(mexico);
+		cuba.addNeighbor(eastUS.getID());
+		cuba.addNeighbor(mexico.getID());
 
-		centralAmerica.addNeighbor(venezuela);
-		centralAmerica.addNeighbor(mexico);
+		centralAmerica.addNeighbor(venezuela.getID());
+		centralAmerica.addNeighbor(mexico.getID());
 
-		hawaii.addNeighbor(westUS);
-		hawaii.addNeighbor(japan);
+		hawaii.addNeighbor(westUS.getID());
+		hawaii.addNeighbor(japan.getID());
 
 		// South America
-		venezuela.addNeighbor(peru);
-		venezuela.addNeighbor(brazil);
-		venezuela.addNeighbor(centralAmerica);
+		venezuela.addNeighbor(peru.getID());
+		venezuela.addNeighbor(brazil.getID());
+		venezuela.addNeighbor(centralAmerica.getID());
 
-		peru.addNeighbor(venezuela);
-		peru.addNeighbor(brazil);
-		peru.addNeighbor(bolivia);
-		peru.addNeighbor(argentina);
+		peru.addNeighbor(venezuela.getID());
+		peru.addNeighbor(brazil.getID());
+		peru.addNeighbor(bolivia.getID());
+		peru.addNeighbor(argentina.getID());
 
-		bolivia.addNeighbor(brazil);
-		bolivia.addNeighbor(argentina);
-		bolivia.addNeighbor(peru);
+		bolivia.addNeighbor(brazil.getID());
+		bolivia.addNeighbor(argentina.getID());
+		bolivia.addNeighbor(peru.getID());
 
-		brazil.addNeighbor(peru);
-		brazil.addNeighbor(argentina);
-		brazil.addNeighbor(bolivia);
-		brazil.addNeighbor(venezuela);
-		brazil.addNeighbor(westAfrica);
+		brazil.addNeighbor(peru.getID());
+		brazil.addNeighbor(argentina.getID());
+		brazil.addNeighbor(bolivia.getID());
+		brazil.addNeighbor(venezuela.getID());
+		brazil.addNeighbor(westAfrica.getID());
 
-		argentina.addNeighbor(peru);
-		argentina.addNeighbor(bolivia);
-		argentina.addNeighbor(brazil);
+		argentina.addNeighbor(peru.getID());
+		argentina.addNeighbor(bolivia.getID());
+		argentina.addNeighbor(brazil.getID());
 
 		// Africa
-		southAfrica.addNeighbor(madagascar);
-		southAfrica.addNeighbor(congo);
-		southAfrica.addNeighbor(eastAfrica);
+		southAfrica.addNeighbor(madagascar.getID());
+		southAfrica.addNeighbor(congo.getID());
+		southAfrica.addNeighbor(eastAfrica.getID());
 
-		madagascar.addNeighbor(southAfrica);
-		madagascar.addNeighbor(eastAfrica);
+		madagascar.addNeighbor(southAfrica.getID());
+		madagascar.addNeighbor(eastAfrica.getID());
 
-		eastAfrica.addNeighbor(congo);
-		eastAfrica.addNeighbor(madagascar);
-		eastAfrica.addNeighbor(westAfrica);
-		eastAfrica.addNeighbor(saudiArabia);
-		eastAfrica.addNeighbor(westAfrica);
-		eastAfrica.addNeighbor(egypt);
+		eastAfrica.addNeighbor(congo.getID());
+		eastAfrica.addNeighbor(madagascar.getID());
+		eastAfrica.addNeighbor(westAfrica.getID());
+		eastAfrica.addNeighbor(saudiArabia.getID());
+		eastAfrica.addNeighbor(westAfrica.getID());
+		eastAfrica.addNeighbor(egypt.getID());
 
-		congo.addNeighbor(eastAfrica);
-		congo.addNeighbor(westAfrica);
-		congo.addNeighbor(southAfrica);
+		congo.addNeighbor(eastAfrica.getID());
+		congo.addNeighbor(westAfrica.getID());
+		congo.addNeighbor(southAfrica.getID());
 
-		westAfrica.addNeighbor(brazil);
-		westAfrica.addNeighbor(algeria);
-		westAfrica.addNeighbor(morocco);
-		westAfrica.addNeighbor(eastAfrica);
-		westAfrica.addNeighbor(egypt);
-		westAfrica.addNeighbor(congo);
+		westAfrica.addNeighbor(brazil.getID());
+		westAfrica.addNeighbor(algeria.getID());
+		westAfrica.addNeighbor(morocco.getID());
+		westAfrica.addNeighbor(eastAfrica.getID());
+		westAfrica.addNeighbor(egypt.getID());
+		westAfrica.addNeighbor(congo.getID());
 
-		morocco.addNeighbor(westAfrica);
-		morocco.addNeighbor(algeria);
-		morocco.addNeighbor(spain);
+		morocco.addNeighbor(westAfrica.getID());
+		morocco.addNeighbor(algeria.getID());
+		morocco.addNeighbor(spain.getID());
 
-		algeria.addNeighbor(morocco);
-		algeria.addNeighbor(eastAfrica);
-		algeria.addNeighbor(egypt);
-		algeria.addNeighbor(southernEurope);
+		algeria.addNeighbor(morocco.getID());
+		algeria.addNeighbor(eastAfrica.getID());
+		algeria.addNeighbor(egypt.getID());
+		algeria.addNeighbor(southernEurope.getID());
 
-		egypt.addNeighbor(algeria);
-		egypt.addNeighbor(westAfrica);
-		egypt.addNeighbor(westAfrica);
-		egypt.addNeighbor(turkey);
-		egypt.addNeighbor(southernEurope);
+		egypt.addNeighbor(algeria.getID());
+		egypt.addNeighbor(westAfrica.getID());
+		egypt.addNeighbor(westAfrica.getID());
+		egypt.addNeighbor(turkey.getID());
+		egypt.addNeighbor(southernEurope.getID());
 
 		// Europe
-		iceland.addNeighbor(greenland);
-		iceland.addNeighbor(unitedKingdom);
-		iceland.addNeighbor(scandinavia);
+		iceland.addNeighbor(greenland.getID());
+		iceland.addNeighbor(unitedKingdom.getID());
+		iceland.addNeighbor(scandinavia.getID());
 
-		unitedKingdom.addNeighbor(iceland);
-		unitedKingdom.addNeighbor(france);
-		unitedKingdom.addNeighbor(scandinavia);
-		unitedKingdom.addNeighbor(lowCountries);
+		unitedKingdom.addNeighbor(iceland.getID());
+		unitedKingdom.addNeighbor(france.getID());
+		unitedKingdom.addNeighbor(scandinavia.getID());
+		unitedKingdom.addNeighbor(lowCountries.getID());
 
-		scandinavia.addNeighbor(denmark);
-		scandinavia.addNeighbor(iceland);
-		scandinavia.addNeighbor(unitedKingdom);
-		scandinavia.addNeighbor(poland);
-		scandinavia.addNeighbor(germany);
-		scandinavia.addNeighbor(lowCountries);
-		scandinavia.addNeighbor(sweden);
-		scandinavia.addNeighbor(eastEurope);
+		scandinavia.addNeighbor(denmark.getID());
+		scandinavia.addNeighbor(iceland.getID());
+		scandinavia.addNeighbor(unitedKingdom.getID());
+		scandinavia.addNeighbor(poland.getID());
+		scandinavia.addNeighbor(germany.getID());
+		scandinavia.addNeighbor(lowCountries.getID());
+		scandinavia.addNeighbor(sweden.getID());
+		scandinavia.addNeighbor(eastEurope.getID());
 
-		denmark.addNeighbor(scandinavia);
-		denmark.addNeighbor(germany);
+		denmark.addNeighbor(scandinavia.getID());
+		denmark.addNeighbor(germany.getID());
 
-		germany.addNeighbor(poland);
-		germany.addNeighbor(czechoslovakia);
-		germany.addNeighbor(france);
-		germany.addNeighbor(lowCountries);
-		germany.addNeighbor(southernEurope);
-		germany.addNeighbor(scandinavia);
-		germany.addNeighbor(denmark);
+		germany.addNeighbor(poland.getID());
+		germany.addNeighbor(czechoslovakia.getID());
+		germany.addNeighbor(france.getID());
+		germany.addNeighbor(lowCountries.getID());
+		germany.addNeighbor(southernEurope.getID());
+		germany.addNeighbor(scandinavia.getID());
+		germany.addNeighbor(denmark.getID());
 
-		poland.addNeighbor(germany);
-		poland.addNeighbor(czechoslovakia);
-		poland.addNeighbor(eastEurope);
-		poland.addNeighbor(scandinavia);
+		poland.addNeighbor(germany.getID());
+		poland.addNeighbor(czechoslovakia.getID());
+		poland.addNeighbor(eastEurope.getID());
+		poland.addNeighbor(scandinavia.getID());
 
-		france.addNeighbor(unitedKingdom);
-		france.addNeighbor(lowCountries);
-		france.addNeighbor(germany);
-		france.addNeighbor(spain);
-		france.addNeighbor(southernEurope);
+		france.addNeighbor(unitedKingdom.getID());
+		france.addNeighbor(lowCountries.getID());
+		france.addNeighbor(germany.getID());
+		france.addNeighbor(spain.getID());
+		france.addNeighbor(southernEurope.getID());
 
-		spain.addNeighbor(france);
-		spain.addNeighbor(morocco);
+		spain.addNeighbor(france.getID());
+		spain.addNeighbor(morocco.getID());
 
-		lowCountries.addNeighbor(france);
-		lowCountries.addNeighbor(germany);
-		lowCountries.addNeighbor(unitedKingdom);
-		lowCountries.addNeighbor(scandinavia);
+		lowCountries.addNeighbor(france.getID());
+		lowCountries.addNeighbor(germany.getID());
+		lowCountries.addNeighbor(unitedKingdom.getID());
+		lowCountries.addNeighbor(scandinavia.getID());
 
-		southernEurope.addNeighbor(germany);
-		southernEurope.addNeighbor(czechoslovakia);
-		southernEurope.addNeighbor(eastEurope);
-		southernEurope.addNeighbor(egypt);
-		southernEurope.addNeighbor(algeria);
-		southernEurope.addNeighbor(france);
-		southernEurope.addNeighbor(turkey);
+		southernEurope.addNeighbor(germany.getID());
+		southernEurope.addNeighbor(czechoslovakia.getID());
+		southernEurope.addNeighbor(eastEurope.getID());
+		southernEurope.addNeighbor(egypt.getID());
+		southernEurope.addNeighbor(algeria.getID());
+		southernEurope.addNeighbor(france.getID());
+		southernEurope.addNeighbor(turkey.getID());
 
-		czechoslovakia.addNeighbor(southernEurope);
-		czechoslovakia.addNeighbor(eastEurope);
-		czechoslovakia.addNeighbor(poland);
-		czechoslovakia.addNeighbor(germany);
+		czechoslovakia.addNeighbor(southernEurope.getID());
+		czechoslovakia.addNeighbor(eastEurope.getID());
+		czechoslovakia.addNeighbor(poland.getID());
+		czechoslovakia.addNeighbor(germany.getID());
 
-		eastEurope.addNeighbor(ural);
-		eastEurope.addNeighbor(kazakhstan);
-		eastEurope.addNeighbor(iran);
-		eastEurope.addNeighbor(turkey);
-		eastEurope.addNeighbor(scandinavia);
-		eastEurope.addNeighbor(poland);
-		eastEurope.addNeighbor(sweden);
-		eastEurope.addNeighbor(czechoslovakia);
-		eastEurope.addNeighbor(southernEurope);
+		eastEurope.addNeighbor(ural.getID());
+		eastEurope.addNeighbor(kazakhstan.getID());
+		eastEurope.addNeighbor(iran.getID());
+		eastEurope.addNeighbor(turkey.getID());
+		eastEurope.addNeighbor(scandinavia.getID());
+		eastEurope.addNeighbor(poland.getID());
+		eastEurope.addNeighbor(sweden.getID());
+		eastEurope.addNeighbor(czechoslovakia.getID());
+		eastEurope.addNeighbor(southernEurope.getID());
 
 		// Asia D:
-		turkey.addNeighbor(eastEurope);
-		turkey.addNeighbor(southernEurope);
-		turkey.addNeighbor(egypt);
-		turkey.addNeighbor(saudiArabia);
-		turkey.addNeighbor(iran);
+		turkey.addNeighbor(eastEurope.getID());
+		turkey.addNeighbor(southernEurope.getID());
+		turkey.addNeighbor(egypt.getID());
+		turkey.addNeighbor(saudiArabia.getID());
+		turkey.addNeighbor(iran.getID());
 
-		saudiArabia.addNeighbor(eastAfrica);
-		saudiArabia.addNeighbor(turkey);
+		saudiArabia.addNeighbor(eastAfrica.getID());
+		saudiArabia.addNeighbor(turkey.getID());
 
-		iran.addNeighbor(turkey);
-		iran.addNeighbor(eastEurope);
-		iran.addNeighbor(pakistan);
-		iran.addNeighbor(kazakhstan);
-		iran.addNeighbor(afganistan);
+		iran.addNeighbor(turkey.getID());
+		iran.addNeighbor(eastEurope.getID());
+		iran.addNeighbor(pakistan.getID());
+		iran.addNeighbor(kazakhstan.getID());
+		iran.addNeighbor(afganistan.getID());
 
-		pakistan.addNeighbor(india);
-		pakistan.addNeighbor(afganistan);
-		pakistan.addNeighbor(china);
-		pakistan.addNeighbor(kazakhstan);
-		pakistan.addNeighbor(iran);
+		pakistan.addNeighbor(india.getID());
+		pakistan.addNeighbor(afganistan.getID());
+		pakistan.addNeighbor(china.getID());
+		pakistan.addNeighbor(kazakhstan.getID());
+		pakistan.addNeighbor(iran.getID());
 
-		afganistan.addNeighbor(iran);
-		afganistan.addNeighbor(pakistan);
-		afganistan.addNeighbor(kazakhstan);
+		afganistan.addNeighbor(iran.getID());
+		afganistan.addNeighbor(pakistan.getID());
+		afganistan.addNeighbor(kazakhstan.getID());
 
-		kazakhstan.addNeighbor(china);
-		kazakhstan.addNeighbor(eastEurope);
-		kazakhstan.addNeighbor(iran);
-		kazakhstan.addNeighbor(afganistan);
-		kazakhstan.addNeighbor(ural);
+		kazakhstan.addNeighbor(china.getID());
+		kazakhstan.addNeighbor(eastEurope.getID());
+		kazakhstan.addNeighbor(iran.getID());
+		kazakhstan.addNeighbor(afganistan.getID());
+		kazakhstan.addNeighbor(ural.getID());
 
-		ural.addNeighbor(kazakhstan);
-		ural.addNeighbor(eastEurope);
-		ural.addNeighbor(china);
-		ural.addNeighbor(siberia);
+		ural.addNeighbor(kazakhstan.getID());
+		ural.addNeighbor(eastEurope.getID());
+		ural.addNeighbor(china.getID());
+		ural.addNeighbor(siberia.getID());
 
-		siberia.addNeighbor(ural);
-		siberia.addNeighbor(china);
-		siberia.addNeighbor(yakutsk);
-		siberia.addNeighbor(mongolia);
-		siberia.addNeighbor(irkutsk);
+		siberia.addNeighbor(ural.getID());
+		siberia.addNeighbor(china.getID());
+		siberia.addNeighbor(yakutsk.getID());
+		siberia.addNeighbor(mongolia.getID());
+		siberia.addNeighbor(irkutsk.getID());
 
-		china.addNeighbor(siberia);
-		china.addNeighbor(ural);
-		china.addNeighbor(mongolia);
-		china.addNeighbor(indochina);
-		china.addNeighbor(india);
-		china.addNeighbor(pakistan);
-		china.addNeighbor(kazakhstan);
+		china.addNeighbor(siberia.getID());
+		china.addNeighbor(ural.getID());
+		china.addNeighbor(mongolia.getID());
+		china.addNeighbor(indochina.getID());
+		china.addNeighbor(india.getID());
+		china.addNeighbor(pakistan.getID());
+		china.addNeighbor(kazakhstan.getID());
 
-		india.addNeighbor(china);
-		india.addNeighbor(pakistan);
-		india.addNeighbor(indochina);
+		india.addNeighbor(china.getID());
+		india.addNeighbor(pakistan.getID());
+		india.addNeighbor(indochina.getID());
 
-		yakutsk.addNeighbor(kamchatka);
-		yakutsk.addNeighbor(irkutsk);
-		yakutsk.addNeighbor(siberia);
+		yakutsk.addNeighbor(kamchatka.getID());
+		yakutsk.addNeighbor(irkutsk.getID());
+		yakutsk.addNeighbor(siberia.getID());
 
-		irkutsk.addNeighbor(yakutsk);
-		irkutsk.addNeighbor(kamchatka);
-		irkutsk.addNeighbor(siberia);
-		irkutsk.addNeighbor(mongolia);
+		irkutsk.addNeighbor(yakutsk.getID());
+		irkutsk.addNeighbor(kamchatka.getID());
+		irkutsk.addNeighbor(siberia.getID());
+		irkutsk.addNeighbor(mongolia.getID());
 
-		mongolia.addNeighbor(japan);
-		mongolia.addNeighbor(china);
-		mongolia.addNeighbor(irkutsk);
-		mongolia.addNeighbor(siberia);
-		mongolia.addNeighbor(kamchatka);
+		mongolia.addNeighbor(japan.getID());
+		mongolia.addNeighbor(china.getID());
+		mongolia.addNeighbor(irkutsk.getID());
+		mongolia.addNeighbor(siberia.getID());
+		mongolia.addNeighbor(kamchatka.getID());
 
-		kamchatka.addNeighbor(mongolia);
-		kamchatka.addNeighbor(alaska);
-		kamchatka.addNeighbor(irkutsk);
-		kamchatka.addNeighbor(yakutsk);
-		kamchatka.addNeighbor(japan);
+		kamchatka.addNeighbor(mongolia.getID());
+		kamchatka.addNeighbor(alaska.getID());
+		kamchatka.addNeighbor(irkutsk.getID());
+		kamchatka.addNeighbor(yakutsk.getID());
+		kamchatka.addNeighbor(japan.getID());
 
-		indochina.addNeighbor(china);
-		indochina.addNeighbor(india);
-		indochina.addNeighbor(indonesia);
-		indochina.addNeighbor(philipines);
+		indochina.addNeighbor(china.getID());
+		indochina.addNeighbor(india.getID());
+		indochina.addNeighbor(indonesia.getID());
+		indochina.addNeighbor(philipines.getID());
 
-		japan.addNeighbor(hawaii);
-		japan.addNeighbor(kamchatka);
-		japan.addNeighbor(mongolia);
+		japan.addNeighbor(hawaii.getID());
+		japan.addNeighbor(kamchatka.getID());
+		japan.addNeighbor(mongolia.getID());
 
 		// Australia
-		eastAustralia.addNeighbor(westAustralia);
-		eastAustralia.addNeighbor(newGuinea);
-		eastAustralia.addNeighbor(indonesia);
+		eastAustralia.addNeighbor(westAustralia.getID());
+		eastAustralia.addNeighbor(newGuinea.getID());
+		eastAustralia.addNeighbor(indonesia.getID());
 
-		westAustralia.addNeighbor(eastAustralia);
-		westAustralia.addNeighbor(newGuinea);
+		westAustralia.addNeighbor(eastAustralia.getID());
+		westAustralia.addNeighbor(newGuinea.getID());
 
-		newGuinea.addNeighbor(westAustralia);
-		newGuinea.addNeighbor(eastAustralia);
-		newGuinea.addNeighbor(indonesia);
+		newGuinea.addNeighbor(westAustralia.getID());
+		newGuinea.addNeighbor(eastAustralia.getID());
+		newGuinea.addNeighbor(indonesia.getID());
 
-		indonesia.addNeighbor(indochina);
-		indonesia.addNeighbor(eastAustralia);
-		indonesia.addNeighbor(philipines);
+		indonesia.addNeighbor(indochina.getID());
+		indonesia.addNeighbor(eastAustralia.getID());
+		indonesia.addNeighbor(philipines.getID());
 
-		philipines.addNeighbor(indochina);
-		philipines.addNeighbor(indonesia);
+		philipines.addNeighbor(indochina.getID());
+		philipines.addNeighbor(indonesia.getID());
 
 		// Add territories to continent maps
 		// North America
@@ -547,7 +548,7 @@ public class TerritoryMap
 		//Add all territories 
 		
 		//North America
-		allTerritories.put(alaska.getID(),alaska);
+		allTerritories.put(alaska.getID(), alaska);
 		allTerritories.put(alberta.getID(), alberta);
 		allTerritories.put(mexico.getID(), mexico);
 		allTerritories.put(eastUS.getID(), eastUS);
@@ -561,7 +562,7 @@ public class TerritoryMap
 		allTerritories.put(westUS.getID(), westUS);
 		
 		//South America
-		allTerritories.put(brazil.getID(),brazil);
+		allTerritories.put(brazil.getID(), brazil);
 		allTerritories.put(argentina.getID(), argentina);
 		allTerritories.put(peru.getID(), peru);
 		allTerritories.put(venezuela.getID(), venezuela);
@@ -569,53 +570,53 @@ public class TerritoryMap
 		
 		//Europe
 
-		allTerritories.put(unitedKingdom.getID(),unitedKingdom);
-		allTerritories.put(iceland.getID(),iceland);
-		allTerritories.put(scandinavia.getID(),scandinavia);
-		allTerritories.put(sweden.getID(),sweden);
-		allTerritories.put(eastEurope.getID(),eastEurope);
-		allTerritories.put(lowCountries.getID(),lowCountries);
-		allTerritories.put(spain.getID(),spain);
-		allTerritories.put(france.getID(),france);
-		allTerritories.put(denmark.getID(),denmark);
-		allTerritories.put(germany.getID(),germany);
-		allTerritories.put(poland.getID(),poland);
-		allTerritories.put(czechoslovakia.getID(),czechoslovakia);
-		allTerritories.put(southernEurope.getID(),southernEurope);
+		allTerritories.put(unitedKingdom.getID(), unitedKingdom);
+		allTerritories.put(iceland.getID(), iceland);
+		allTerritories.put(scandinavia.getID(), scandinavia);
+		allTerritories.put(sweden.getID(), sweden);
+		allTerritories.put(eastEurope.getID(), eastEurope);
+		allTerritories.put(lowCountries.getID(), lowCountries);
+		allTerritories.put(spain.getID(), spain);
+		allTerritories.put(france.getID(), france);
+		allTerritories.put(denmark.getID(), denmark);
+		allTerritories.put(germany.getID(), germany);
+		allTerritories.put(poland.getID(), poland);
+		allTerritories.put(czechoslovakia.getID(), czechoslovakia);
+		allTerritories.put(southernEurope.getID(), southernEurope);
 		
 		//Asia
-		allTerritories.put(saudiArabia.getID(),saudiArabia);
-		allTerritories.put(turkey.getID(),turkey);
-		allTerritories.put(iran.getID(),iran);
-		allTerritories.put(afganistan.getID(),afganistan);
-		allTerritories.put(pakistan.getID(),pakistan);
-		allTerritories.put(india.getID(),india);
-		allTerritories.put(indochina.getID(),indochina);
-		allTerritories.put(china.getID(),china);
-		allTerritories.put(mongolia.getID(),mongolia);
-		allTerritories.put(kazakhstan.getID(),kazakhstan);
-		allTerritories.put(japan.getID(),japan);
-		allTerritories.put(ural.getID(),ural);
-		allTerritories.put(kamchatka.getID(),kamchatka);
-		allTerritories.put(irkutsk.getID(),irkutsk);
-		allTerritories.put(siberia.getID(),siberia);
-		allTerritories.put(yakutsk.getID(),yakutsk);
+		allTerritories.put(saudiArabia.getID(), saudiArabia);
+		allTerritories.put(turkey.getID(), turkey);
+		allTerritories.put(iran.getID(), iran);
+		allTerritories.put(afganistan.getID(), afganistan);
+		allTerritories.put(pakistan.getID(), pakistan);
+		allTerritories.put(india.getID(), india);
+		allTerritories.put(indochina.getID(), indochina);
+		allTerritories.put(china.getID(), china);
+		allTerritories.put(mongolia.getID(), mongolia);
+		allTerritories.put(kazakhstan.getID(), kazakhstan);
+		allTerritories.put(japan.getID(), japan);
+		allTerritories.put(ural.getID(), ural);
+		allTerritories.put(kamchatka.getID(), kamchatka);
+		allTerritories.put(irkutsk.getID(), irkutsk);
+		allTerritories.put(siberia.getID(), siberia);
+		allTerritories.put(yakutsk.getID(), yakutsk);
 		
 		//Africa
-		allTerritories.put(morocco.getID(),morocco);
-		allTerritories.put(algeria.getID(),algeria);
-		allTerritories.put(egypt.getID(),egypt);
-		allTerritories.put(eastAfrica.getID(),eastAfrica);
-		allTerritories.put(westAfrica.getID(),westAfrica);
-		allTerritories.put(madagascar.getID(),madagascar);
-		allTerritories.put(southAfrica.getID(),southAfrica);
-		allTerritories.put(congo.getID(),congo);
+		allTerritories.put(morocco.getID(), morocco);
+		allTerritories.put(algeria.getID(), algeria);
+		allTerritories.put(egypt.getID(), egypt);
+		allTerritories.put(eastAfrica.getID(), eastAfrica);
+		allTerritories.put(westAfrica.getID(), westAfrica);
+		allTerritories.put(madagascar.getID(), madagascar);
+		allTerritories.put(southAfrica.getID(), southAfrica);
+		allTerritories.put(congo.getID(), congo);
 		
 		//Australia
-		allTerritories.put(eastAustralia.getID(),eastAustralia);
-		allTerritories.put(westAustralia.getID(),westAustralia);
-		allTerritories.put(newGuinea.getID(),newGuinea);
-		allTerritories.put(indonesia.getID(),indonesia);
-		allTerritories.put(philipines.getID(),philipines);
+		allTerritories.put(eastAustralia.getID(), eastAustralia);
+		allTerritories.put(westAustralia.getID(), westAustralia);
+		allTerritories.put(newGuinea.getID(), newGuinea);
+		allTerritories.put(indonesia.getID(), indonesia);
+		allTerritories.put(philipines.getID(), philipines);
 	}
 }
