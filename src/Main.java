@@ -6,7 +6,7 @@ public class Main
 		//TODO: implement GUI
 		int numPlayers = 2; //not sure how many players
 		Player[] players = new Player[numPlayers]; 
-		TerritoryMap tMap = new TerritoryMap();
+		TerritoryMap.init();
 		
 		Die_Roll die;
 		
