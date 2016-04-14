@@ -63,7 +63,7 @@ public class Main
 
 		// initialize players manually for testing purposes
 		players[0] = new Player("George", "Germany");
-		players[1] = new Player("PC", "Brazil");
+		players[1] = new Player("Richard Test", "China");
 
 		//for(int i = 0; i < numPlayers; i++)
 		//{
