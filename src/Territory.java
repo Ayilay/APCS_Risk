@@ -23,14 +23,14 @@ public class Territory
 	}
 
 	// following two methods are for use in battles
-	public void incrementArmies()
+	public void incrementArmiesBy(int amount)
 	{
-		numOccupyingArmies++;
+		numOccupyingArmies += amount;
 	}
 
-	public void decrementArmies()
+	public void decrementArmiesBy(int amount)
 	{
-		numOccupyingArmies--;
+		numOccupyingArmies -= amount;
 	}
 
 	public int getNumArmies()

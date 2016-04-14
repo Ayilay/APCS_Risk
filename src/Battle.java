@@ -50,20 +50,21 @@ public class Battle
 		switch (numAttackingArmies)// sets the number of dice used by the
 									// attacker
 		{
-		case 2://if two armies on attacking territory
-			numAttackDice = 1;
-			break;
-		case 3://if three armies on attacking territory
-			numAttackDice = 2;
-			break;
-		default:
-			numAttackDice = 3;
-			break;
+            case 2://if two armies on attacking territory
+                numAttackDice = 1;
+                break;
+            case 3://if three armies on attacking territory
+                numAttackDice = 2;
+                break;
+            default:
+                numAttackDice = 3;
+                break;
 		}
 		if (numDefendingArmies >= 2)
 		{
 			numDefenseDice = 2;
 		}
+
 		Die_Roll attackRoll = new Die_Roll(numAttackDice);
 		Die_Roll defenseRoll = new Die_Roll(numDefenseDice);
 
@@ -76,16 +77,17 @@ public class Battle
 			if (attackRoll.getRolls()[i] > defenseRoll.getRolls()[i])
 			{
 				numDefendingArmies--;
-				defender.decrementArmies();
+				defender.decrementArmiesBy(1);
 				System.out.println("Defending army lost");
 				
-			} else
+			} 
+			else
 			{
-				attacker.decrementArmies();
+				attacker.decrementArmiesBy(1);
 				numAttackingArmies--;
 				System.out.println("Attacking army lost");
 			}
-			if(numAttackingArmies==0||numDefendingArmies==0)
+			if(numAttackingArmies == 0 || numDefendingArmies == 0)
 			{
 				break;
 			}

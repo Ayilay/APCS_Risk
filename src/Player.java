@@ -25,6 +25,7 @@ public class Player
 		numReinforcements = 3;
 		occupiedTerritories = new HashSet<String>();
 		occupiedTerritories.add(starter);
+		TerritoryMap.get(starter).setOccupier(this);
 		this.name = name;
 	}
 	/*
@@ -58,7 +59,7 @@ public class Player
 	 * Also calculates the bonuses based on territories owned.
 	 * 
 	 */
-	public void getReinforcements()
+	public void calculateReinforcements()
 	{
 		if(occupiedTerritories.size()<9)//Less than 9 armies means only 3 armies a turn
 		{
@@ -70,27 +71,27 @@ public class Player
 		}
 		if(TerritoryMap.hasSet(TerritoryMap.africa, occupiedTerritories))
 		{
-			numReinforcements +=4;//4 reinforcements for owning all of Africa
+			numReinforcements += 4;//4 reinforcements for owning all of Africa
 		}
 		if(TerritoryMap.hasSet(TerritoryMap.asia, occupiedTerritories))
 		{
-			numReinforcements +=8;
+			numReinforcements += 8;
 		}
 		if(TerritoryMap.hasSet(TerritoryMap.australia, occupiedTerritories))
 		{
-			numReinforcements +=3;
+			numReinforcements += 3;
 		}
 		if(TerritoryMap.hasSet(TerritoryMap.europe, occupiedTerritories))
 		{
-			numReinforcements +=6;
+			numReinforcements += 6;
 		}
 		if(TerritoryMap.hasSet(TerritoryMap.northAmerica, occupiedTerritories))
 		{
-			numReinforcements +=5;
+			numReinforcements += 5;
 		}
 		if(TerritoryMap.hasSet(TerritoryMap.southAmerica, occupiedTerritories))
 		{
-			numReinforcements +=3;
+			numReinforcements += 3;
 		}
 		//Calculates based on the number of sets owned.
 		
@@ -100,22 +101,41 @@ public class Player
 	/*
 	 * Deploys reinforcements onto the selected territory.
 	 */
-	public void deployReinforcements(Territory t)
+	// TODO: return better error code?
+	public boolean deployReinforcements(String t, int amount)
 	{
-		if(!occupiedTerritories.contains(t.getID()))
+		if(!occupiedTerritories.contains(t))
 		{
-			return;
+			return false;
 		}
-		else
+		if(amount > numReinforcementsAvailable)
 		{
-			t.incrementArmies();
-			numReinforcements--;
+		    return false;
 		}
+
+        TerritoryMap.get(t).incrementArmiesBy(amount);
+        numReinforcementsAvailable -= amount;
+        return true;
 	}
 	
 	public String getName()
 	{
 	    return name;
+	}
+	
+	public int getTotalNumReinforcements()
+	{
+	    return numReinforcements;
+	}
+	
+	public int getNumReinforcementsAvailable()
+	{
+	    return numReinforcementsAvailable;
+	}
+	
+	public boolean ownsTerritory(String t)
+	{
+	    return occupiedTerritories.contains(t);
 	}
 	
 	public Set<String> getOccupiedTerritories()
