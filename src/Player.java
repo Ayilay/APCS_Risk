@@ -20,11 +20,11 @@ public class Player
 	 * @param name: The name of the player
 	 * @param starter: The territory the player initially control.
 	 */
-	public Player(String name, Territory starter)
+	public Player(String name, String starter)
 	{
 		numReinforcements = 3;
 		occupiedTerritories = new HashSet<String>();
-		occupiedTerritories.add(starter.getID());
+		occupiedTerritories.add(starter);
 		this.name = name;
 	}
 	/*
@@ -111,5 +111,10 @@ public class Player
 			t.incrementArmies();
 			numReinforcements--;
 		}
+	}
+	
+	public String getName()
+	{
+	    return name;
 	}
 }
