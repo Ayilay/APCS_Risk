@@ -117,4 +117,9 @@ public class Player
 	{
 	    return name;
 	}
+	
+	public Set<String> getOccupiedTerritories()
+	{
+	    return occupiedTerritories;
+	}
 }

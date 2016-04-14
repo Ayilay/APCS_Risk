@@ -24,6 +24,9 @@ public class TerritoryMap
 	
 	//all locations
 	private static Map<String,Territory> allTerritories;
+	
+	// Make sure nothing can instantiate a TerritoryMap
+	private TerritoryMap() {}
 
 	public static void init()
 	{
@@ -45,7 +48,7 @@ public class TerritoryMap
 		Territory mexico = new Territory("Mexico");
 		Territory eastUS = new Territory("Eastern United States");
 		Territory cuba = new Territory("Cuba");
-		Territory centralAmerica = new Territory("CentralAmerica");
+		Territory centralAmerica = new Territory("Central America");
 		Territory northWestTerritory = new Territory("Northwest Territory");
 		Territory hawaii = new Territory("Hawaii");
 		Territory greenland = new Territory("Greenland");
