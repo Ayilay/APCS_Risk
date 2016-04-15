@@ -67,8 +67,9 @@ public class Main
 		System.out.println("Choose a territory to attack from:");
 		System.out.println(temp);
 		String territoryFrom = br.readLine();
-		System.out.println("Choose number of armies to attack with. Opponent has" + TerritoryMap.get(territoryTo).getNumArmies());
-		int numArmies = br.read();
+		System.out.println("Choose number of armies to attack with. Opponent has " + TerritoryMap.get(territoryTo).getNumArmies());
+		System.out.println("You have: " + TerritoryMap.get(territoryFrom).getNumArmies());
+		int numArmies = Integer.parseInt(br.readLine());
 		p.attackOther(TerritoryMap.get(territoryFrom), TerritoryMap.get(territoryTo), numArmies);
 		
 	}
