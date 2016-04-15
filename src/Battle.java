@@ -19,7 +19,7 @@ public class Battle
 	 */
 	public Battle(Territory t1, Territory t2)//t1 is the attacking territory, t2 is the defending one.
 	{
-		numAttackingArmies = t1.getNumArmies();
+		numAttackingArmies = t1.getNumArmies()-1;
 		numDefendingArmies = t2.getNumArmies();
 		attacker = t1;
 		defender = t2;
@@ -106,7 +106,7 @@ public class Battle
 	public void doBattle()
 	{
 		System.out.println("Attack mounted from territory " + attacker.getID() + " to " + defender.getID());
-		while (numAttackingArmies != 1 && numDefendingArmies != 0)	//one army must stay behind on the territory
+		while (numAttackingArmies != 0 && numDefendingArmies != 0)	//one army must stay behind on the territory
 																	//that the attack originated from
 		{
 			doBattleOnce();

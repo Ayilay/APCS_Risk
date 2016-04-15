@@ -53,7 +53,7 @@ public class Main
 	}
 
 	// right this is ugly but it's for testing purposes XD
-	public void attackOther(Player p) throws IOException
+	private void attackOther(Player p) throws IOException
 	{
 		String territoryFrom = "", territoryTo = "";
 		int numArmies = 0;
@@ -97,7 +97,7 @@ public class Main
 		while (!valid)
 		{
 			numArmies = Integer.parseInt(br.readLine());
-			if (numArmies <= 0 || numArmies > TerritoryMap.get(territoryFrom).getNumArmies())
+			if (numArmies <= 0 || numArmies > TerritoryMap.get(territoryFrom).getNumArmies()-1)
 			{
 				System.out.println("no");
 			} else
@@ -110,7 +110,7 @@ public class Main
 	}
 
 	// Lol o(n^2) what is this garbage code i just wrote
-	public Set<String> getAvailableNeighbors(Player p)
+	private Set<String> getAvailableNeighbors(Player p)
 	{
 		Set<String> returnSet = new HashSet<String>();
 		Set<String> playerSet = p.getOccupiedTerritories();
