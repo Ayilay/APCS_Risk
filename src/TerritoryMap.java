@@ -257,6 +257,9 @@ public class TerritoryMap
 		scandinavia.addNeighbor(lowCountries.getID());
 		scandinavia.addNeighbor(sweden.getID());
 		scandinavia.addNeighbor(eastEurope.getID());
+		
+		sweden.addNeighbor(scandinavia.getID());
+		sweden.addNeighbor(eastEurope.getID());
 
 		denmark.addNeighbor(scandinavia.getID());
 		denmark.addNeighbor(germany.getID());
@@ -412,6 +415,7 @@ public class TerritoryMap
 		indonesia.addNeighbor(indochina.getID());
 		indonesia.addNeighbor(eastAustralia.getID());
 		indonesia.addNeighbor(philippines.getID());
+		indonesia.addNeighbor(newGuinea.getID());
 
 		philippines.addNeighbor(indochina.getID());
 		philippines.addNeighbor(indonesia.getID());
