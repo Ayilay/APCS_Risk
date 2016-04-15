@@ -125,7 +125,7 @@ public class Main
 					continue;
 				}
 			}
-			if (numArmies <= 0 || numArmies > TerritoryMap.get(territoryFrom).getNumArmies() - 1)
+			if (numArmies < 0 || numArmies > TerritoryMap.get(territoryFrom).getNumArmies() - 1)
 			{
 				System.out.println("no");
 			} else
@@ -171,8 +171,8 @@ public class Main
 		players = new Player[numPlayers];
 
 		// initialize players manually for testing purposes
-		players[0] = new Player("George", "Germany");
-		players[1] = new Player("Richard Test", "China");
+		players[0] = new Player("George", "Eastern Australia");
+		players[1] = new Player("Richard Test", "Greenland");
 
 		// for(int i = 0; i < numPlayers; i++)
 		// {
