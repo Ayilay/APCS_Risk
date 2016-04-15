@@ -94,4 +94,19 @@ public class Territory
 	{
 	    return this.neighbors;
 	}
+	
+	public Set<String> getAdjacentOccupiedTerritories(String ter)
+	{
+		Set<String> temp = new HashSet<String>();
+		
+		for(String s : TerritoryMap.get(ter).getAdjacentTerritories())
+		{
+			if(TerritoryMap.get(s).getOccupier().getName().equals(this.getOccupier().getName()))
+			{
+				temp.add(s);
+			}
+		}
+		
+		return temp;
+	}
 }
