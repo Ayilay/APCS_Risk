@@ -80,10 +80,6 @@ public class Territory
 		{
 			return;
 		}
-		if (!other.getOccupier().equals(this.getOccupier()))
-		{
-			return;
-		}
 
 		this.numOccupyingArmies -= num;
 		other.numOccupyingArmies += num;
