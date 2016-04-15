@@ -211,6 +211,58 @@ public class Main
 		}
 	}
 
+	private void fortifyTroops(Player p) throws IOException
+	{
+		Boolean isDone = false;
+		while(!isDone)
+		{
+			System.out.println("Select a territory to fortify");
+			System.out.println(p.getOccupiedTerritories());
+			String fortified = br.readLine();
+			
+			if(!p.ownsTerritory(fortified))
+			{
+				System.err.println("You do not own this territory");
+				continue;
+			}			
+			Territory fortifiedTer = TerritoryMap.get(fortified);
+
+			System.out.println("Select a territory to fortify from");
+			System.out.println(fortifiedTer.getAdjacentOccupiedTerritories());
+			String fortifier = br.readLine();
+			
+			if(!p.ownsTerritory(fortifier))
+			{
+				System.err.println("You do not own this territory");
+				continue;
+			}
+			
+			Territory fortifierTer = TerritoryMap.get(fortifier);
+
+			if(!fortifierTer.isNeightbor(fortifierTer))
+			{
+				System.err.println("territories are not neighbors");
+				continue;
+			}
+			
+			System.out.println("Number of armies to send ");
+			int numArmies = br.read();
+
+			if(numArmies > fortifierTer.getNumArmies())
+			{
+				System.err.println("Number of armies exceeds the amount ");
+			}
+			else if(numArmies <= 0)
+			{
+				System.err.println("Invalid number of armies");
+			}
+
+			fortifierTer.decrementArmiesBy(numArmies);
+			fortifiedTer.incrementArmiesBy(numArmies);	
+			
+			isDone = true;
+		}
+	}
 	private void getNumPlayers()
 	{
 		// TODO: get input from player
