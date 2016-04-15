@@ -48,7 +48,10 @@ public class Player
 		battle.doBattle();
 		if(battle.getResult())
 		{
-			other.getOccupier().occupiedTerritories.remove(other.getID());//Removes this territory from the other player's map
+			if(other.getOccupier()!=null)
+			{
+				other.getOccupier().occupiedTerritories.remove(other.getID());//Removes this territory from the other player's map
+			}
 			other.setOccupier(this);
 			occupiedTerritories.add(other.getID());
 		}

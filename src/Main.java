@@ -1,7 +1,8 @@
-import java.util.Set;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Main 
 {
@@ -42,10 +43,53 @@ public class Main
 				// Phase 1: Deploy Reinforcements
 				deployReinforcements(p);
 				
-				System.out.println("Turn over for " + playerName);
-				System.out.println();
+				// Phase 2: Attack a territory
+				attackOther(p);
+				
 			}
 		}
+	}
+	//right this is ugly but it's for testing purposes XD
+	public void attackOther(Player p) throws IOException
+	{
+		System.out.println("Choose a territory to attack");
+		System.out.println(getAvailableNeighbors(p));
+		String territoryTo = br.readLine();
+		Territory t = TerritoryMap.get(territoryTo);
+		Set<String> temp = new HashSet<String>();
+		for(String s : t.getAdjacentTerritories())
+		{
+			if(p.ownsTerritory(s))
+			{
+				temp.add(s);
+			}
+		}
+		System.out.println("Choose a territory to attack from:");
+		System.out.println(temp);
+		String territoryFrom = br.readLine();
+		System.out.println("Choose number of armies to attack with. Opponent has" + TerritoryMap.get(territoryTo).getNumArmies());
+		int numArmies = br.read();
+		p.attackOther(TerritoryMap.get(territoryFrom), TerritoryMap.get(territoryTo), numArmies);
+		
+	}
+	//Lol o(n^2) what is this garbage code i just wrote
+	public Set<String> getAvailableNeighbors(Player p)
+	{
+		Set<String> returnSet = new HashSet<String>();
+		Set<String> playerSet = p.getOccupiedTerritories();
+		for(String s:playerSet)
+		{
+			Territory t = TerritoryMap.get(s);
+			Set<String> neighbors = t.getAdjacentTerritories();
+			for(String k : neighbors)
+			{
+				if(!playerSet.contains(k))
+				{
+					returnSet.add(k);
+				}
+			}
+		}
+		return returnSet;
 	}
 	
 	/*
