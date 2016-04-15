@@ -87,7 +87,20 @@ public class Main
 		}
 		System.out.println("Choose a territory to attack from:");
 		System.out.println(available);
-		territoryFrom = br.readLine();
+		valid = false;
+		while (!valid)
+		{
+			territoryFrom = br.readLine();
+			if(!t.getAdjacentTerritories().contains(territoryFrom)||TerritoryMap.get(territoryFrom)==null)
+			{
+				System.out.println("no");
+			}
+			else
+			{
+				valid = true;
+			}
+			
+		}
 
 		System.out.println(
 				"Choose number of armies to attack with. Opponent has " + TerritoryMap.get(territoryTo).getNumArmies());
@@ -96,8 +109,23 @@ public class Main
 		numArmies = 0;
 		while (!valid)
 		{
-			numArmies = Integer.parseInt(br.readLine());
-			if (numArmies <= 0 || numArmies > TerritoryMap.get(territoryFrom).getNumArmies()-1)
+			String numArmiesStr = br.readLine();
+			if (numArmiesStr.equals(""))
+				numArmies = 1;
+			else if (numArmiesStr.equals("all"))
+				numArmies = TerritoryMap.get(territoryFrom).getNumArmies()-1;
+			else
+			{
+				try
+				{
+					numArmies = Integer.parseInt(numArmiesStr);
+				} catch (NumberFormatException e)
+				{
+					System.err.println("Bad number of armies");
+					continue;
+				}
+			}
+			if (numArmies <= 0 || numArmies > TerritoryMap.get(territoryFrom).getNumArmies() - 1)
 			{
 				System.out.println("no");
 			} else
@@ -216,97 +244,94 @@ public class Main
 
 	private void fortifyTroops(Player p) throws IOException
 	{
-	    if(p.getOccupiedTerritories().size() == 1)
-	    {
-	        System.out.println("Nothing to fortify");
-	        return;
-	    }
+		if (p.getOccupiedTerritories().size() == 1)
+		{
+			System.out.println("Nothing to fortify");
+			return;
+		}
 
 		Boolean isDone = false;
-		while(!isDone)
+		while (!isDone)
 		{
 			System.out.println("Select a territory to fortify");
 			System.out.println(p.getOccupiedTerritories());
 			String fortified = br.readLine();
-			
-			if(fortified.equals(""))
+
+			if (fortified.equals(""))
 			{
-			    System.out.println("Not fortifying anything");
-			    isDone = true;
-			    continue;
+				System.out.println("Not fortifying anything");
+				isDone = true;
+				continue;
 			}
-			if(!p.ownsTerritory(fortified))
+			if (!p.ownsTerritory(fortified))
 			{
 				System.err.println("You do not own this territory");
 				continue;
-			}			
+			}
 			Territory fortifiedTer = TerritoryMap.get(fortified);
 			System.out.println(fortified + " has " + fortifiedTer.getNumArmies() + " armies");
 
 			System.out.println("Select a territory to fortify from");
 			System.out.println(fortifiedTer.getAdjacentOccupiedTerritories());
 			String fortifier = br.readLine();
-			
-			if(!p.ownsTerritory(fortifier))
+
+			if (!p.ownsTerritory(fortifier))
 			{
 				System.err.println("You do not own this territory");
 				continue;
 			}
-			
+
 			Territory fortifierTer = TerritoryMap.get(fortifier);
 			System.out.println(fortifier + " has " + fortifierTer.getNumArmies() + " armies");
 
-			if(!fortifiedTer.isNeighborWith(fortifier))
+			if (!fortifiedTer.isNeighborWith(fortifier))
 			{
 				System.err.println("territories are not neighbors");
 				continue;
 			}
-			
+
 			System.out.println("Number of armies to send (default 1):");
 			String numArmiesStr = br.readLine();
 			int numArmies;
 
-			if(numArmiesStr.equals(""))
-			    numArmies = 1;
-			else if(numArmiesStr.equals("all"))
-			    numArmies = fortifierTer.getNumArmies() - 1;
+			if (numArmiesStr.equals(""))
+				numArmies = 1;
+			else if (numArmiesStr.equals("all"))
+				numArmies = fortifierTer.getNumArmies() - 1;
 			else
 			{
-			    try
-			    {
-			        numArmies = Integer.parseInt(numArmiesStr);
-			    }
-			    catch(NumberFormatException e)
-			    {
-			        System.err.println("Bad number of armies");
-			        continue;
-			    }
+				try
+				{
+					numArmies = Integer.parseInt(numArmiesStr);
+				} catch (NumberFormatException e)
+				{
+					System.err.println("Bad number of armies");
+					continue;
+				}
 			}
 
-
-			if(numArmies >= fortifierTer.getNumArmies())
+			if (numArmies >= fortifierTer.getNumArmies())
 			{
 				System.err.println("Number of armies exceeds the amount ");
 				continue;
-			}
-			else if(numArmies < 0)
+			} else if (numArmies < 0)
 			{
 				System.err.println("Invalid number of armies");
 				continue;
-			}
-			else if(numArmies == 0)
+			} else if (numArmies == 0)
 			{
-			    System.out.println("Not fortifying anything");
-			    isDone = true;
-			    continue;
-            }
+				System.out.println("Not fortifying anything");
+				isDone = true;
+				continue;
+			}
 
 			fortifierTer.decrementArmiesBy(numArmies);
-			fortifiedTer.incrementArmiesBy(numArmies);	
-			
+			fortifiedTer.incrementArmiesBy(numArmies);
+
 			isDone = true;
 		}
 	}
+
 	private void getNumPlayers()
 	{
 		// TODO: get input from player

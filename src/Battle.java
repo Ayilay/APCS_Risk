@@ -111,7 +111,7 @@ public class Battle
 		{
 			doBattleOnce();
 		}
-		if (numAttackingArmies == 1)
+		if (numAttackingArmies == 0)
 		{
 			System.out.println("Defender won");
 			outcome = false;
@@ -135,7 +135,7 @@ public class Battle
 	{
 		if(getResult())
 		{
-			attacker.moveArmies(defender.getID(), numAttackingArmies-1);
+			attacker.moveArmies(defender.getID(), numAttackingArmies);
 		}
 	}
 }
