@@ -58,7 +58,7 @@ public class Territory
 		neighbors.add(other);
 	}
 
-	public boolean isNeightbor(Territory other)
+	public boolean isNeightbor(String other)
 	{
 		return neighbors.contains(other);
 	}
@@ -97,14 +97,16 @@ public class Territory
 	
 	public Set<String> getAdjacentOccupiedTerritories()
 	{
+	    // No sense in checking adjacent territories that don't belong to anyone
+	    if(this.occupier == null) return null;
+
 		Set<String> temp = new HashSet<String>();
 		
 		for(String s : this.getAdjacentTerritories())
 		{
-			if(TerritoryMap.get(s).getOccupier().getName().equals(this.getOccupier().getName()))
-			{
-				temp.add(s);
-			}
+		    if(TerritoryMap.get(s).getOccupier() != null) // Both territories are occupied by some player
+                if(TerritoryMap.get(s).getOccupier().getName().equals(this.getOccupier().getName()))
+                    temp.add(s);
 		}
 		
 		return temp;
