@@ -256,7 +256,7 @@ public class Main
 			Territory fortifierTer = TerritoryMap.get(fortifier);
 			System.out.println(fortifier + " has " + fortifierTer.getNumArmies() + " armies");
 
-			if(!fortifiedTer.isNeightbor(fortifier))
+			if(!fortifiedTer.isNeighborWith(fortifier))
 			{
 				System.err.println("territories are not neighbors");
 				continue;

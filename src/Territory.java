@@ -58,7 +58,7 @@ public class Territory
 		neighbors.add(other);
 	}
 
-	public boolean isNeightbor(String other)
+	public boolean isNeighborWith(String other)
 	{
 		return neighbors.contains(other);
 	}
@@ -70,7 +70,7 @@ public class Territory
 	public void moveArmies(String otherID, int num)
 	{
 	    // TODO: replace exceptions with other error handling?
-	    if(!isAdjacentTo(otherID))
+	    if(!isNeighborWith(otherID))
 	    {
 	        throw new IllegalArgumentException("Territories are not adjacent!");
 	    }
@@ -83,11 +83,6 @@ public class Territory
 
 		this.numOccupyingArmies -= num;
 		other.numOccupyingArmies += num;
-	}
-	
-	private boolean isAdjacentTo(String otherID)
-	{
-	    return (this.getAdjacentTerritories().contains(otherID));
 	}
 	
 	public Set<String> getAdjacentTerritories()
