@@ -604,4 +604,9 @@ public class TerritoryMap
 	    
 	    return totalBonus;
 	}
+	
+	public static Set<String> getAllTerritories()
+	{
+		return allTerritories.keySet();
+	}
 }

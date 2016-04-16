@@ -2,36 +2,35 @@ import java.util.*;
 import java.math.*;
 public class CardDeck 
 {
-	private Queue<Card> cards = new LinkedList<Card>();
-	private String[] rearranged;
-	
-	public void init(Set<String> s)
+	private static Queue<Card> cards = new LinkedList<Card>();
+		
+	public static void init(Set<String> s)
 	{
-		rearranged = (String[])s.toArray();
+		Object[] rearranged = s.toArray();
 		rearranged = shuffle(rearranged);
 		
 		for(int i = 0; i < s.size(); i++)
 		{
-			Card card = new Card(rearranged[i], (int)(2*Math.random()+1));
+			Card card = new Card((String)rearranged[i], (int)(2*Math.random()+1));
 			cards.add(card);
 		}
 	}
 	
-	public static String[] shuffle(String[] t)
+	public static Object[] shuffle(Object[] t)
 	{
 		
 		for (int i = t.length - 1; i > 0; i--)
 	    {
 			int rand = (int)((t.length - 1) * Math.random());
 			
-			String temp = t[i];
+			String temp = (String)t[i];
 			t[rand] = t[i];
 			t[i] = temp;
 	    }
 		return t;
 	}
 	
-	public Card deal()
+	public static Card deal()
 	{
 		return cards.poll();
 	}

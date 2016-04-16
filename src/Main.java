@@ -22,7 +22,15 @@ public class Main
 	{
 		// TODO: implement GUI
 		init();
-
+		
+		CardDeck.init(TerritoryMap.getAllTerritories());
+		
+		//Prints out the value of a random card generated
+		Card card = CardDeck.deal();
+		Card card2 = CardDeck.deal();
+		System.out.println(card.getTerritory() + " " + card.getValue());
+		System.out.println(card2.getTerritory() + " " + card2.getValue());
+		
 		Die_Roll die;
 
 		while (true)
