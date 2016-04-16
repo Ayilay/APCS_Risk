@@ -22,14 +22,6 @@ public class Main
 		// TODO: implement GUI
 		init();
 		
-		CardDeck.init(TerritoryMap.getAllTerritories());
-		
-		//Prints out the value of a random card generated
-		Card card = CardDeck.deal();
-		Card card2 = CardDeck.deal();
-		System.out.println(card.getTerritory() + " " + card.getValue());
-		System.out.println(card2.getTerritory() + " " + card2.getValue());
-		
 		while (players.length > 1)
 		{
 			for (Player p : players)
@@ -186,6 +178,14 @@ public class Main
 		players[0] = new Player("George", "Ontario");
 		players[1] = new Player("Richard", "China");
 
+		CardDeck.init(TerritoryMap.getAllTerritories());
+		
+		//Prints out the value of a random card generated
+		//Card card = CardDeck.deal();
+		//Card card2 = CardDeck.deal();
+		//System.out.println(card.getTerritory() + " " + card.getValue());
+		//System.out.println(card2.getTerritory() + " " + card2.getValue());
+		
 		// for(int i = 0; i < numPlayers; i++)
 		// {
 		// String name = "Derp" + i;

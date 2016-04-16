@@ -1,6 +1,6 @@
 import java.util.HashSet;
 import java.util.Set;
-
+import java.util.ArrayList;
 /*
  * This program defines a player of the game. Not yet finished.
  * Author: Ethan Yao
@@ -9,7 +9,7 @@ public class Player
 {
 	private int numReinforcements;//the total number of reinforcements the player can get
 	private int numReinforcementsAvailable;//how many more armies the player can deploy on this phase.
-	
+	private ArrayList<Card> deck;
 	private Set<String> occupiedTerritories;//which locations the player has
 	//Removed setOwned because we should check every turn for which sets and it really doesn't serve any purpose.
 	
@@ -27,6 +27,8 @@ public class Player
 		occupiedTerritories.add(starter);
 		TerritoryMap.get(starter).setOccupier(this);
 		this.name = name;
+		
+		deck = new ArrayList<Card>();
 	}
 	/*
 	 * Mounts an attack from a territory to another.
@@ -122,5 +124,15 @@ public class Player
 	public Set<String> getOccupiedTerritories()
 	{
 	    return occupiedTerritories;
+	}
+	
+	public ArrayList<Card> getCards()
+	{
+		return deck;
+	}
+	
+	public void addCards(Card c)
+	{
+		deck.add(c);
 	}
 }
