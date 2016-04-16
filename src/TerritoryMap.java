@@ -417,6 +417,7 @@ public class TerritoryMap
 		indonesia.addNeighbor(eastAustralia.getID());
 		indonesia.addNeighbor(philippines.getID());
 		indonesia.addNeighbor(newGuinea.getID());
+		indonesia.addNeighbor(westAustralia.getID());
 
 		philippines.addNeighbor(indochina.getID());
 		philippines.addNeighbor(indonesia.getID());

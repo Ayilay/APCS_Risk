@@ -164,7 +164,7 @@ public class Main
 	/*
 	 * Initialize the players and the TerritoryMap
 	 */
-	private void init()
+	private void init() throws IOException
 	{
 		TerritoryMap.init();
 
@@ -174,9 +174,27 @@ public class Main
 		int numPlayers = getNumPlayers();
 		players = new Player[numPlayers];
 
-		// initialize players manually for testing purposes
-		players[0] = new Player("George", "Ontario");
-		players[1] = new Player("Richard", "China");
+		for(int i = 0; i < numPlayers;i++)
+		{
+			System.out.println("Enter player name");
+			String name = br.readLine();
+			String territory = "";
+			boolean valid = false;
+			while(!valid)
+			{
+				System.out.println("Enter Starting Territory");
+				territory = br.readLine();
+				if(TerritoryMap.get(territory)==null)
+				{
+					System.out.println("Not a valid territory");
+				}
+				else
+				{
+					valid = true;
+				}
+			}
+			players[i] = new Player(name,territory);
+		}
 
 		CardDeck.init(TerritoryMap.getAllTerritories());
 		
@@ -344,9 +362,32 @@ public class Main
 		}
 	}
 
-	private int getNumPlayers()
+	private int getNumPlayers() throws IOException
 	{
-		// TODO: get input from player
-		return 2;
+		System.out.println("How many players will be playing?");
+		boolean valid = false;
+		String input = "";
+		int numPlayers = 0;
+		while(!valid)
+		{
+			input = br.readLine();
+			try
+			{
+				numPlayers = Integer.parseInt(input);
+			} catch (NumberFormatException e)
+			{
+				System.err.println("Bad number of players");
+				continue;
+			}
+			if(numPlayers<=0||numPlayers>5)
+			{
+				System.out.println("Too many/too little");
+			}
+			else
+			{
+				valid = true;
+			}
+		}
+		return numPlayers;
 	}
 }
