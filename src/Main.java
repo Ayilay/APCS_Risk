@@ -21,7 +21,15 @@ public class Main
 	{
 		// TODO: implement GUI
 		init();
-
+		
+		CardDeck.init(TerritoryMap.getAllTerritories());
+		
+		//Prints out the value of a random card generated
+		Card card = CardDeck.deal();
+		Card card2 = CardDeck.deal();
+		System.out.println(card.getTerritory() + " " + card.getValue());
+		System.out.println(card2.getTerritory() + " " + card2.getValue());
+		
 		while (players.length > 1)
 		{
 			for (Player p : players)
@@ -104,20 +112,6 @@ public class Main
                     valid = true;
                 }
             }
-            valid = false;
-            while (!valid)
-            {
-                territoryFrom = br.readLine();
-                if(!t.getAdjacentTerritories().contains(territoryFrom))
-                {
-                    System.out.println("no");
-                }
-                else
-                {
-                    valid = true;
-                }
-                
-            }
 
             // Get number of armies to attack with
             System.out.println(
@@ -189,8 +183,8 @@ public class Main
 		players = new Player[numPlayers];
 
 		// initialize players manually for testing purposes
-		players[0] = new Player("George", "Germany");
-		players[1] = new Player("Richard Test", "China");
+		players[0] = new Player("George", "Ontario");
+		players[1] = new Player("Richard", "China");
 
 		// for(int i = 0; i < numPlayers; i++)
 		// {
