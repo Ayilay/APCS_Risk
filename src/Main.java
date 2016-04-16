@@ -70,7 +70,7 @@ public class Main
 			// Choose a territory to attack
 			System.out.println("Choose a territory to attack");
 			boolean valid = false;
-			System.out.println(getAttackTargets(p));
+			System.out.println(p.getAttackTargets());
 			while(!valid)
 			{
 				territoryTo = br.readLine();
@@ -78,7 +78,7 @@ public class Main
 				{
 					System.out.println("Nice try you own this one");
 				}
-				else if(!getAttackTargets(p).contains(territoryTo))
+				else if(!p.getAttackTargets().contains(territoryTo))
 				{
 					System.out.println("can't attack");
 				}
@@ -143,26 +143,6 @@ public class Main
 			}
 			p.attackOther(TerritoryMap.get(territoryFrom), TerritoryMap.get(territoryTo), numArmies);
 		}
-	}
-
-	// Returns all territories that can be attacked by Player p
-	private Set<String> getAttackTargets(Player p)
-	{
-		Set<String> returnSet = new HashSet<String>();
-		Set<String> playerSet = p.getOccupiedTerritories();
-		for(String s : playerSet)
-		{
-			Territory t = TerritoryMap.get(s);
-			Set<String> neighbors = t.getAdjacentTerritories();
-			for(String k : neighbors)
-			{
-				if(!playerSet.contains(k))
-				{
-					returnSet.add(k);
-				}
-			}
-		}
-		return returnSet;
 	}
 
 	/*
