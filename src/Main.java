@@ -7,7 +7,6 @@ import java.util.Set;
 public class Main
 {
 	private Player[] players;
-	private int numPlayers;
 
 	// for cmd line inputs, will be replaced by GUI input
 	private BufferedReader br;
@@ -23,9 +22,7 @@ public class Main
 		// TODO: implement GUI
 		init();
 
-		Die_Roll die;
-
-		while (true)
+		while (players.length > 1)
 		{
 			for (Player p : players)
 			{
@@ -55,90 +52,96 @@ public class Main
 	// right this is ugly but it's for testing purposes XD
 	private void attackOther(Player p) throws IOException
 	{
-		String territoryFrom = "", territoryTo = "";
-		int numArmies = 0;
+	    boolean doneAttacking = false;
+	    while(!doneAttacking)
+	    {
+	        System.out.print("Do you wish to continue attacking? (y/n): ");
+	        String input = br.readLine();
+	        if(input != null && input.toLowerCase().charAt(0) == 'n')
+	        {
+	            doneAttacking = true;
+	            System.out.println("Done attacking");
+	            return;
+	        }
 
-		System.out.println("Choose a territory to attack");
-		boolean valid = false;
-		System.out.println(getAvailableNeighbors(p));
+            String territoryFrom = "", territoryTo = "";
+            int numArmies = 0;
 
-		while (!valid)
-		{
-			territoryTo = br.readLine();
-			if (p.getOccupiedTerritories().contains(territoryTo))
-			{
-				System.out.println("Nice try you own this one");
-			} else if (!getAvailableNeighbors(p).contains(territoryTo))
-			{
-				System.out.println("can't attack");
-			} else
-			{
-				valid = true;
-			}
-		}
-		Territory t = TerritoryMap.get(territoryTo);
-		Set<String> available = new HashSet<String>();
-		for (String s : t.getAdjacentTerritories())
-		{
-			if (p.ownsTerritory(s))
-			{
-				available.add(s);
-			}
-		}
-		System.out.println("Choose a territory to attack from:");
-		System.out.println(available);
-		valid = false;
-		while (!valid)
-		{
-			territoryFrom = br.readLine();
-			if(!t.getAdjacentTerritories().contains(territoryFrom)||TerritoryMap.get(territoryFrom)==null)
-			{
-				System.out.println("no");
-			}
-			else
-			{
-				valid = true;
-			}
-			
-		}
+            System.out.println("Choose a territory to attack");
+            boolean valid = false;
+            System.out.println(getAttackTargets(p));
 
-		System.out.println(
-				"Choose number of armies to attack with. Opponent has " + TerritoryMap.get(territoryTo).getNumArmies());
-		System.out.println("You have: " + TerritoryMap.get(territoryFrom).getNumArmies());
-		valid = false;
-		numArmies = 0;
-		while (!valid)
-		{
-			String numArmiesStr = br.readLine();
-			if (numArmiesStr.equals(""))
-				numArmies = 1;
-			else if (numArmiesStr.equals("all"))
-				numArmies = TerritoryMap.get(territoryFrom).getNumArmies()-1;
-			else
-			{
-				try
-				{
-					numArmies = Integer.parseInt(numArmiesStr);
-				} catch (NumberFormatException e)
-				{
-					System.err.println("Bad number of armies");
-					continue;
-				}
-			}
-			if (numArmies <= 0 || numArmies > TerritoryMap.get(territoryFrom).getNumArmies() - 1)
-			{
-				System.out.println("no");
-			} else
-			{
-				valid = true;
-			}
-		}
-		p.attackOther(TerritoryMap.get(territoryFrom), TerritoryMap.get(territoryTo), numArmies);
+            while (!valid)
+            {
+                territoryTo = br.readLine();
+                if (p.getOccupiedTerritories().contains(territoryTo))
+                {
+                    System.out.println("Nice try you own this one");
+                } else if (!getAttackTargets(p).contains(territoryTo))
+                {
+                    System.out.println("can't attack");
+                } else
+                {
+                    valid = true;
+                }
+            }
+            Territory t = TerritoryMap.get(territoryTo);
+            Set<String> available = t.getAdjacentTerritoriesOccupiedBy(p);
+            System.out.println("Choose a territory to attack from:");
+            System.out.println(available);
 
+            valid = false;
+            while (!valid)
+            {
+                territoryFrom = br.readLine();
+                if(!t.getAdjacentTerritories().contains(territoryFrom))
+                {
+                    System.out.println("no");
+                }
+                else
+                {
+                    valid = true;
+                }
+                
+            }
+
+            System.out.println(
+                    "Choose number of armies to attack with. Opponent has " + TerritoryMap.get(territoryTo).getNumArmies());
+            System.out.println("You have: " + TerritoryMap.get(territoryFrom).getNumArmies());
+            valid = false;
+            numArmies = 0;
+            while (!valid)
+            {
+                String numArmiesStr = br.readLine();
+                if (numArmiesStr.equals(""))
+                    numArmies = 1;
+                else if (numArmiesStr.equals("all"))
+                    numArmies = TerritoryMap.get(territoryFrom).getNumArmies()-1;
+                else
+                {
+                    try
+                    {
+                        numArmies = Integer.parseInt(numArmiesStr);
+                    } catch (NumberFormatException e)
+                    {
+                        System.err.println("Bad number of armies");
+                        continue;
+                    }
+                }
+                if (numArmies <= 0 || numArmies > TerritoryMap.get(territoryFrom).getNumArmies() - 1)
+                {
+                    System.out.println("no");
+                } else
+                {
+                    valid = true;
+                }
+            }
+            p.attackOther(TerritoryMap.get(territoryFrom), TerritoryMap.get(territoryTo), numArmies);
+	    }
 	}
 
-	// Lol o(n^2) what is this garbage code i just wrote
-	private Set<String> getAvailableNeighbors(Player p)
+	// Returns all territories that can be attacked by Player p
+	private Set<String> getAttackTargets(Player p)
 	{
 		Set<String> returnSet = new HashSet<String>();
 		Set<String> playerSet = p.getOccupiedTerritories();
@@ -167,7 +170,7 @@ public class Main
 		// For cmd line inputs, will be replaced by GUI inputs
 		br = new BufferedReader(new InputStreamReader(System.in));
 
-		getNumPlayers();
+		int numPlayers = getNumPlayers();
 		players = new Player[numPlayers];
 
 		// initialize players manually for testing purposes
@@ -272,7 +275,7 @@ public class Main
 			System.out.println(fortified + " has " + fortifiedTer.getNumArmies() + " armies");
 
 			System.out.println("Select a territory to fortify from");
-			System.out.println(fortifiedTer.getAdjacentOccupiedTerritories());
+			System.out.println(fortifiedTer.getAdjacentTerritoriesOccupiedBy(p));
 			String fortifier = br.readLine();
 
 			if (!p.ownsTerritory(fortifier))
@@ -332,9 +335,9 @@ public class Main
 		}
 	}
 
-	private void getNumPlayers()
+	private int getNumPlayers()
 	{
 		// TODO: get input from player
-		numPlayers = 2;
+		return 2;
 	}
 }

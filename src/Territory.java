@@ -90,17 +90,17 @@ public class Territory
 	    return this.neighbors;
 	}
 	
-	public Set<String> getAdjacentOccupiedTerritories()
+	public Set<String> getAdjacentTerritoriesOccupiedBy(Player p)
 	{
 	    // No sense in checking adjacent territories that don't belong to anyone
-	    if(this.occupier == null) return null;
+	    if(p == null) return null;
 
 		Set<String> temp = new HashSet<String>();
 		
 		for(String s : this.getAdjacentTerritories())
 		{
 		    if(TerritoryMap.get(s).getOccupier() != null) // Both territories are occupied by some player
-                if(TerritoryMap.get(s).getOccupier().getName().equals(this.getOccupier().getName()))
+                if(TerritoryMap.get(s).getOccupier().getName().equals(p.getName()))
                     temp.add(s);
 		}
 		
