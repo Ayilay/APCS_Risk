@@ -1,8 +1,9 @@
 import java.util.HashSet;
 import java.util.Set;
 import java.util.ArrayList;
+
 /*
- * This program defines a player of the game. Not yet finished.
+ * This program defines a player of the game.
  * Author: Ethan Yao
  */
 public class Player
@@ -11,11 +12,10 @@ public class Player
 	private int numReinforcementsAvailable;//how many more armies the player can deploy on this phase.
 	private ArrayList<Card> deck;
 	private Set<String> occupiedTerritories;//which locations the player has
-	//Removed setOwned because we should check every turn for which sets and it really doesn't serve any purpose.
-	
+
 	private String name;
-	
-	/*
+
+	/**
 	 * Default constructor. Takes the player's name and starting territory. Starts off with 3 reinforcements per turn
 	 * @param name: The name of the player
 	 * @param starter: The territory the player initially control.
@@ -27,10 +27,11 @@ public class Player
 		occupiedTerritories.add(starter);
 		TerritoryMap.get(starter).setOccupier(this);
 		this.name = name;
-		
+
 		deck = new ArrayList<Card>();
 	}
-	/*
+
+	/**
 	 * Mounts an attack from a territory to another.
 	 * @param attacker: The territory that the attack is being mounted from.
 	 * @param other: The territory being invaded.
@@ -38,19 +39,11 @@ public class Player
 	 */
 	public void attackOther(Territory attacker, Territory other, int armies)
 	{
-		Battle battle;
-		if(armies == 0)
-		{
-			battle = new Battle(attacker,other);
-		}
-		else
-		{
-			battle = new Battle(attacker,other,armies);
-		}
+		Battle battle = new Battle(attacker, other, armies);
 		battle.doBattle();
 		if(battle.getResult())
 		{
-			if(other.getOccupier()!=null)
+			if(other.getOccupier() != null)
 			{
 				other.getOccupier().occupiedTerritories.remove(other.getID());//Removes this territory from the other player's map
 			}
@@ -58,33 +51,33 @@ public class Player
 			occupiedTerritories.add(other.getID());
 		}
 	}
-	/*
+
+	/**
 	 * Gets the number of reinforcements available on a new turn according to the following rules:
 	 * Divide the number of territories by 3 and round down. Must be less than seven.
 	 * Also calculates the bonuses based on territories owned.
-	 * 
+	 *
 	 */
 	public void calculateReinforcements()
 	{
-		if(occupiedTerritories.size()<9)//Less than 9 armies means only 3 armies a turn
+		if(occupiedTerritories.size() < 9) //Less than 9 armies means only 3 armies a turn
 		{
 			numReinforcements = 3;
 		}
 		else
 		{
-			numReinforcements = occupiedTerritories.size()/3;
+			numReinforcements = occupiedTerritories.size() / 3;
 		}
 
 		//Calculates based on the number of sets owned.
 		numReinforcements += TerritoryMap.calculateArmyBonusFromContinents(occupiedTerritories);
-		
+
 		numReinforcementsAvailable = numReinforcements;
 	}
-	
+
 	/*
 	 * Deploys reinforcements onto the selected territory.
 	 */
-	// TODO: return better error code?
 	public boolean deployReinforcements(String t, int amount)
 	{
 		if(!occupiedTerritories.contains(t))
@@ -93,44 +86,44 @@ public class Player
 		}
 		if(amount > numReinforcementsAvailable)
 		{
-		    return false;
+			return false;
 		}
 
-        TerritoryMap.get(t).incrementArmiesBy(amount);
-        numReinforcementsAvailable -= amount;
-        return true;
+		TerritoryMap.get(t).incrementArmiesBy(amount);
+		numReinforcementsAvailable -= amount;
+		return true;
 	}
-	
+
 	public String getName()
 	{
-	    return name;
+		return name;
 	}
-	
+
 	public int getTotalNumReinforcements()
 	{
-	    return numReinforcements;
+		return numReinforcements;
 	}
-	
+
 	public int getNumReinforcementsAvailable()
 	{
-	    return numReinforcementsAvailable;
+		return numReinforcementsAvailable;
 	}
-	
+
 	public boolean ownsTerritory(String t)
 	{
-	    return occupiedTerritories.contains(t);
+		return occupiedTerritories.contains(t);
 	}
-	
+
 	public Set<String> getOccupiedTerritories()
 	{
-	    return occupiedTerritories;
+		return occupiedTerritories;
 	}
-	
+
 	public ArrayList<Card> getCards()
 	{
 		return deck;
 	}
-	
+
 	public void addCards(Card c)
 	{
 		deck.add(c);

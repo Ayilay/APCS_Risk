@@ -16,7 +16,7 @@ public class Territory
 	public Territory(String name)
 	{
 		occupier = null; // null represents a neutral territory and starts with
-							// 2 armies on it
+		// 2 armies on it
 		numOccupyingArmies = 2;
 		ID = name;
 		neighbors = new HashSet<String>();
@@ -69,14 +69,14 @@ public class Territory
 	 */
 	public void moveArmies(String otherID, int num)
 	{
-	    // TODO: replace exceptions with other error handling?
-	    if(!isNeighborWith(otherID))
-	    {
-	        throw new IllegalArgumentException("Territories are not adjacent!");
-	    }
-	    
-	    Territory other = TerritoryMap.get(otherID);
-		if (num > this.numOccupyingArmies)
+		// TODO: replace exceptions with other error handling?
+		if(!isNeighborWith(otherID))
+		{
+			throw new IllegalArgumentException("Territories are not adjacent!");
+		}
+
+		Territory other = TerritoryMap.get(otherID);
+		if(num > this.numOccupyingArmies)
 		{
 			return;
 		}
@@ -84,26 +84,26 @@ public class Territory
 		this.numOccupyingArmies -= num;
 		other.numOccupyingArmies += num;
 	}
-	
+
 	public Set<String> getAdjacentTerritories()
 	{
-	    return this.neighbors;
+		return this.neighbors;
 	}
-	
+
 	public Set<String> getAdjacentTerritoriesOccupiedBy(Player p)
 	{
-	    // No sense in checking adjacent territories that don't belong to anyone
-	    if(p == null) return null;
+		// No sense in checking adjacent territories that don't belong to anyone
+		if(p == null) return null;
 
 		Set<String> temp = new HashSet<String>();
-		
+
 		for(String s : this.getAdjacentTerritories())
 		{
-		    if(TerritoryMap.get(s).getOccupier() != null) // Both territories are occupied by some player
-                if(TerritoryMap.get(s).getOccupier().getName().equals(p.getName()))
-                    temp.add(s);
+			if(TerritoryMap.get(s).getOccupier() != null) // Both territories are occupied by some player
+				if(TerritoryMap.get(s).getOccupier().getName().equals(p.getName()))
+					temp.add(s);
 		}
-		
+
 		return temp;
 	}
 }

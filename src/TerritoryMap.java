@@ -1,13 +1,12 @@
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 /*
- * 
+ *
  * A "static" class that instantiates and keeps track of all territories on the map.
  * May get a little ugly because it creates all territories on the map
- * 
+ *
  */
 
 public class TerritoryMap
@@ -21,27 +20,27 @@ public class TerritoryMap
 	private static Continent asia;
 	private static Continent europe;
 	private static Continent australia;
-	
+
 	//all territories and continents (groups of territories)
 	private static Map<String, Territory> allTerritories;
 	private static Map<String, Continent> allContinents;
-	
+
 	// Make sure nothing can instantiate a TerritoryMap
 	private TerritoryMap() {}
 
 	public static void init()
 	{
-	    // Initialize Continent Sets
-	    northAmerica = new Continent("North America", 5);
-	    southAmerica = new Continent("South America", 3);
-	    africa = new Continent("Africa", 4);
-	    asia = new Continent("Asia", 8);
-	    europe = new Continent("Europe", 6);
-	    australia = new Continent("Australia", 3);
-	    
-	    // Initialize allTerritories as a HashMap
-	    allTerritories = new HashMap<String, Territory>();
-	    allContinents = new HashMap<String, Continent> ();
+		// Initialize Continent Sets
+		northAmerica = new Continent("North America", 5);
+		southAmerica = new Continent("South America", 3);
+		africa = new Continent("Africa", 4);
+		asia = new Continent("Asia", 8);
+		europe = new Continent("Europe", 6);
+		australia = new Continent("Australia", 3);
+
+		// Initialize allTerritories as a HashMap
+		allTerritories = new HashMap<String, Territory>();
+		allContinents = new HashMap<String, Continent> ();
 
 		// Here we go...
 		// North America
@@ -116,7 +115,10 @@ public class TerritoryMap
 		Territory indonesia = new Territory("Indonesia");
 		Territory philippines = new Territory("Philippines");
 
+        ////////////////////////////////////////////////////////////
 		// Set each territory's neighbors. This may take a while.
+        ////////////////////////////////////////////////////////////
+
 		// North America
 		alaska.addNeighbor(northWestTerritory.getID());
 		alaska.addNeighbor(alberta.getID());
@@ -257,7 +259,7 @@ public class TerritoryMap
 		scandinavia.addNeighbor(lowCountries.getID());
 		scandinavia.addNeighbor(sweden.getID());
 		scandinavia.addNeighbor(eastEurope.getID());
-		
+
 		sweden.addNeighbor(scandinavia.getID());
 		sweden.addNeighbor(eastEurope.getID());
 
@@ -495,7 +497,9 @@ public class TerritoryMap
 		australia.addTerritory(eastAustralia.getID());
 		australia.addTerritory(westAustralia.getID());
 
-		// Add all territories
+        ////////////////////////////////////////////////////////////
+        // Add all territories
+        ////////////////////////////////////////////////////////////
 
 		// North America
 		allTerritories.put(alaska.getID(), alaska);
@@ -567,7 +571,7 @@ public class TerritoryMap
 		allTerritories.put(newGuinea.getID(), newGuinea);
 		allTerritories.put(indonesia.getID(), indonesia);
 		allTerritories.put(philippines.getID(), philippines);
-		
+
 		// Put the Continents in allContinents
 		allContinents.put(northAmerica.getID(), northAmerica);
 		allContinents.put(southAmerica.getID(), southAmerica);
@@ -576,37 +580,37 @@ public class TerritoryMap
 		allContinents.put(europe.getID(), europe);
 		allContinents.put(australia.getID(), australia);
 	}
-	
+
 	public static Territory get(String id)
 	{
-	    return allTerritories.get(id);
+		return allTerritories.get(id);
 	}
 
 	public static boolean ownsContinent(String continent, Set<String> occupied)
 	{
-		for (String s : allContinents.get(continent).getTerritories())
+		for(String s : allContinents.get(continent).getTerritories())
 		{
-			if (!occupied.contains(s))
+			if(!occupied.contains(s))
 			{
 				return false;
 			}
 		}
 		return true;
 	}
-	
+
 	public static int calculateArmyBonusFromContinents(Set<String> occupied)
 	{
-	    int totalBonus = 0;
+		int totalBonus = 0;
 
-	    for(String continent : allContinents.keySet())
-	    {
-	        if(ownsContinent(continent, occupied))
-	            totalBonus += allContinents.get(continent).getArmyBonus();
-	    }
-	    
-	    return totalBonus;
+		for(String continent : allContinents.keySet())
+		{
+			if(ownsContinent(continent, occupied))
+				totalBonus += allContinents.get(continent).getArmyBonus();
+		}
+
+		return totalBonus;
 	}
-	
+
 	public static Set<String> getAllTerritories()
 	{
 		return allTerritories.keySet();
