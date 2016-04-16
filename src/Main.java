@@ -67,10 +67,10 @@ public class Main
             String territoryFrom = "", territoryTo = "";
             int numArmies = 0;
 
+            // Choose a territory to attack
             System.out.println("Choose a territory to attack");
             boolean valid = false;
             System.out.println(getAttackTargets(p));
-
             while (!valid)
             {
                 territoryTo = br.readLine();
@@ -85,11 +85,25 @@ public class Main
                     valid = true;
                 }
             }
+
+            // Get territory to attack from
             Territory t = TerritoryMap.get(territoryTo);
             Set<String> available = t.getAdjacentTerritoriesOccupiedBy(p);
             System.out.println("Choose a territory to attack from:");
             System.out.println(available);
-
+            valid = false;
+            while (!valid)
+            {
+                territoryFrom = br.readLine();
+                if(!t.getAdjacentTerritories().contains(territoryFrom))
+                {
+                    System.out.println("no");
+                }
+                else
+                {
+                    valid = true;
+                }
+            }
             valid = false;
             while (!valid)
             {
@@ -105,6 +119,7 @@ public class Main
                 
             }
 
+            // Get number of armies to attack with
             System.out.println(
                     "Choose number of armies to attack with. Opponent has " + TerritoryMap.get(territoryTo).getNumArmies());
             System.out.println("You have: " + TerritoryMap.get(territoryFrom).getNumArmies());
@@ -128,7 +143,7 @@ public class Main
                         continue;
                     }
                 }
-                if (numArmies <= 0 || numArmies > TerritoryMap.get(territoryFrom).getNumArmies() - 1)
+                if (numArmies < 0 || numArmies > TerritoryMap.get(territoryFrom).getNumArmies() - 1)
                 {
                     System.out.println("no");
                 } else
