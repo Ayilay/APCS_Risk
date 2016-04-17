@@ -94,6 +94,25 @@ public class Player
 		return true;
 	}
 
+	// Returns all territories that can be attacked by Player p
+	public Set<String> getAttackTargets()
+	{
+		Set<String> returnSet = new HashSet<String>();
+		for(String s : occupiedTerritories)
+		{
+			Territory t = TerritoryMap.get(s);
+			Set<String> neighbors = t.getAdjacentTerritories();
+			for(String k : neighbors)
+			{
+				if(!occupiedTerritories.contains(k))
+				{
+					returnSet.add(k);
+				}
+			}
+		}
+		return returnSet;
+	}
+
 	public String getName()
 	{
 		return name;
