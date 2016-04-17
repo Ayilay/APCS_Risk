@@ -11,17 +11,7 @@ import java.util.Set;
 
 public class TerritoryMap
 {
-
-	// continent collections (might turn into separate classes)
-	//Made protected so I can access them later
-	private static Continent northAmerica;
-	private static Continent southAmerica;
-	private static Continent africa;
-	private static Continent asia;
-	private static Continent europe;
-	private static Continent australia;
-
-	//all territories and continents (groups of territories)
+	// all territories and continents (groups of territories)
 	private static Map<String, Territory> allTerritories;
 	private static Map<String, Continent> allContinents;
 
@@ -30,15 +20,15 @@ public class TerritoryMap
 
 	public static void init()
 	{
-		// Initialize Continent Sets
-		northAmerica = new Continent("North America", 5);
-		southAmerica = new Continent("South America", 3);
-		africa = new Continent("Africa", 4);
-		asia = new Continent("Asia", 8);
-		europe = new Continent("Europe", 6);
-		australia = new Continent("Australia", 3);
+		// Initialize Continents
+		Continent northAmerica = new Continent("North America", 5);
+		Continent southAmerica = new Continent("South America", 3);
+		Continent africa = new Continent("Africa", 4);
+		Continent asia = new Continent("Asia", 8);
+		Continent europe = new Continent("Europe", 6);
+		Continent australia = new Continent("Australia", 3);
 
-		// Initialize allTerritories as a HashMap
+		// Initialize Maps
 		allTerritories = new HashMap<String, Territory>();
 		allContinents = new HashMap<String, Continent> ();
 
@@ -425,7 +415,10 @@ public class TerritoryMap
 		philippines.addNeighbor(indonesia.getID());
 		philippines.addNeighbor(china.getID());
 
+		////////////////////////////////////////////////////////////
 		// Add territories to continent maps
+		////////////////////////////////////////////////////////////
+
 		// North America
 		northAmerica.addTerritory(alaska.getID());
 		northAmerica.addTerritory(northWestTerritory.getID());
@@ -498,7 +491,7 @@ public class TerritoryMap
 		australia.addTerritory(westAustralia.getID());
 
 		////////////////////////////////////////////////////////////
-		// Add all territories
+		// Add all territories to allTerritories
 		////////////////////////////////////////////////////////////
 
 		// North America
@@ -572,7 +565,10 @@ public class TerritoryMap
 		allTerritories.put(indonesia.getID(), indonesia);
 		allTerritories.put(philippines.getID(), philippines);
 
+		////////////////////////////////////////////////////////////
 		// Put the Continents in allContinents
+		////////////////////////////////////////////////////////////
+
 		allContinents.put(northAmerica.getID(), northAmerica);
 		allContinents.put(southAmerica.getID(), southAmerica);
 		allContinents.put(africa.getID(), africa);
