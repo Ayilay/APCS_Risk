@@ -1,11 +1,12 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Set;
 
 public class Main
 {
-	private Player[] players;
+	private ArrayList<Player> players;
 
 	// for cmd line inputs, will be replaced by GUI input
 	private BufferedReader br;
@@ -21,7 +22,7 @@ public class Main
 		// TODO: implement GUI
 		init();
 
-		while(players.length > 1)
+		while(players.size() > 1)
 		{
 			for(Player p : players)
 			{
@@ -313,7 +314,7 @@ public class Main
 		br = new BufferedReader(new InputStreamReader(System.in));
 
 		int numPlayers = getNumPlayers();
-		players = new Player[numPlayers];
+		players = new ArrayList<Player>();
 
 		for(int i = 0; i < numPlayers; i++)
 		{
@@ -334,7 +335,7 @@ public class Main
 					valid = true;
 				}
 			}
-			players[i] = new Player(name, territory);
+			players.set(i, new Player(name, territory));
 		}
 
 		CardDeck.init(TerritoryMap.getAllTerritories());
