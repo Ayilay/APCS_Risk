@@ -335,7 +335,7 @@ public class Main
 					valid = true;
 				}
 			}
-			players.set(i, new Player(name, territory));
+			players.add(new Player(name, territory));
 		}
 
 		CardDeck.init(TerritoryMap.getAllTerritories());
