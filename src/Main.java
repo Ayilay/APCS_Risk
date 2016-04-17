@@ -22,31 +22,39 @@ public class Main
 		// TODO: implement GUI
 		init();
 
-		while(players.size() > 1)
+		while (players.size() > 1)
 		{
-			for(Player p : players)
+			for (int i = 0; i < players.size(); i++)
 			{
-				// CMDLine stuff, will be replaced by GUI Output
-				String playerName = p.getName();
-				Set<String> territories = p.getOccupiedTerritories();
+				Player p = players.get(i);
+				if (p.getOccupiedTerritories().isEmpty())
+				{
+					players.remove(i);
+					i--;
+				} else
+				{
+					// CMDLine stuff, will be replaced by GUI Output
+					String playerName = p.getName();
+					Set<String> territories = p.getOccupiedTerritories();
 
-				System.out.println("====================");
-				System.out.println(playerName + "'s turn");
-				System.out.println("--------------------");
-				System.out.println(playerName + "'s territories:");
-				System.out.println(territories);
+					System.out.println("====================");
+					System.out.println(playerName + "'s turn");
+					System.out.println("--------------------");
+					System.out.println(playerName + "'s territories:");
+					System.out.println(territories);
 
-				// Phase 1: Deploy Reinforcements
-				deployReinforcements(p);
+					// Phase 1: Deploy Reinforcements
+					deployReinforcements(p);
 
-				// Phase 2: Attack a territory
-				attackOther(p);
+					// Phase 2: Attack a territory
+					attackOther(p);
 
-				// Phase 3: Fortify an owned territory
-				fortifyTroops(p);
-
+					// Phase 3: Fortify an owned territory
+					fortifyTroops(p);
+				}
 			}
 		}
+		System.out.println("Congratulations, " + players.get(0).getName() + ". You won!");
 	}
 
 	////////////////////////////////////////////////////////////
@@ -58,13 +66,13 @@ public class Main
 
 		System.out.println("Phase 1: Deploy Reinforcements");
 		p.calculateReinforcements();
-		while(p.getNumReinforcementsAvailable() > 0)
+		while (p.getNumReinforcementsAvailable() > 0)
 		{
 			System.out.println("Total reinforcements for " + p.getName() + ": " + p.getNumReinforcementsAvailable());
 			System.out.print("Select territory to deploy to: ");
 			String territory = br.readLine();
 
-			if(!p.ownsTerritory(territory))
+			if (!p.ownsTerritory(territory))
 			{
 				System.err.println("You do not own this territory. Try again");
 				continue;
@@ -78,30 +86,27 @@ public class Main
 			int numArmies = 1;
 			try
 			{
-				if(numArmiesStr.equals(""))
+				if (numArmiesStr.equals(""))
 					numArmies = 1;
-				else if(numArmiesStr.equals("all"))
+				else if (numArmiesStr.equals("all"))
 					numArmies = p.getNumReinforcementsAvailable();
 				else
 					numArmies = Integer.parseInt(numArmiesStr);
-			}
-			catch(NumberFormatException e)	// In case user enters
-				// non-numerical value
+			} catch (NumberFormatException e) // In case user enters
+			// non-numerical value
 			{
 				System.err.println("Bad number of armies to deploy, try again");
 				continue;
 			}
 
 			// Check if numArmies is valid
-			if(numArmies < 0 || numArmies > p.getNumReinforcementsAvailable())
+			if (numArmies < 0 || numArmies > p.getNumReinforcementsAvailable())
 			{
 				System.err.println("You do not have such number of armies, try again");
-			}
-			else if(numArmies == 0)
+			} else if (numArmies == 0)
 			{
 				System.out.println("Cancelling deploy to " + territory);
-			}
-			else
+			} else
 			{
 				System.out.println("Deploying " + numArmies + " to " + territory);
 				p.deployReinforcements(territory, numArmies);
@@ -113,11 +118,11 @@ public class Main
 	private void attackOther(Player p) throws IOException
 	{
 		boolean doneAttacking = false;
-		while(!doneAttacking)
+		while (!doneAttacking)
 		{
 			System.out.print("Do you wish to continue attacking? (y/n): ");
 			String input = br.readLine();
-			if(input != null && input.toLowerCase().charAt(0) == 'n')
+			if (input != null && input.toLowerCase().charAt(0) == 'n')
 			{
 				doneAttacking = true;
 				System.out.println("Done attacking");
@@ -131,18 +136,16 @@ public class Main
 			System.out.println("Choose a territory to attack");
 			boolean valid = false;
 			System.out.println(p.getAttackTargets());
-			while(!valid)
+			while (!valid)
 			{
 				territoryToID = br.readLine();
-				if(p.ownsTerritory(territoryToID))
+				if (p.ownsTerritory(territoryToID))
 				{
 					System.out.println("Nice try you own this one");
-				}
-				else if(!p.canAttack(territoryToID))
+				} else if (!p.canAttack(territoryToID))
 				{
 					System.out.println("Can only attack neighboring territories");
-				}
-				else
+				} else
 				{
 					valid = true;
 				}
@@ -154,14 +157,13 @@ public class Main
 			System.out.println("Choose a territory to attack from:");
 			System.out.println(available);
 			valid = false;
-			while(!valid)
+			while (!valid)
 			{
 				territoryFromID = br.readLine();
-				if(!territoryTo.isNeighborWith(territoryFromID))
+				if (!territoryTo.isNeighborWith(territoryFromID))
 				{
 					System.out.println("no");
-				}
-				else
+				} else
 				{
 					valid = true;
 				}
@@ -169,35 +171,32 @@ public class Main
 			Territory territoryFrom = TerritoryMap.get(territoryFromID);
 
 			// Get number of armies to attack with
-			System.out.println(
-			    "Choose number of armies to attack with. Opponent has " + territoryTo.getNumArmies());
+			System.out.println("Choose number of armies to attack with. Opponent has " + territoryTo.getNumArmies());
 			System.out.println("You have: " + territoryFrom.getNumArmies());
 			valid = false;
 			numArmies = 0;
-			while(!valid)
+			while (!valid)
 			{
 				String numArmiesStr = br.readLine();
-				if(numArmiesStr.equals(""))
+				if (numArmiesStr.equals(""))
 					numArmies = 1;
-				else if(numArmiesStr.equals("all"))
+				else if (numArmiesStr.equals("all"))
 					numArmies = TerritoryMap.get(territoryFromID).getNumArmies() - 1;
 				else
 				{
 					try
 					{
 						numArmies = Integer.parseInt(numArmiesStr);
-					}
-					catch(NumberFormatException e)
+					} catch (NumberFormatException e)
 					{
 						System.err.println("Bad number of armies");
 						continue;
 					}
 				}
-				if(numArmies < 0 || numArmies > territoryFrom.getNumArmies() - 1)
+				if (numArmies < 0 || numArmies > territoryFrom.getNumArmies() - 1)
 				{
 					System.err.println("Bad number of armies");
-				}
-				else
+				} else
 				{
 					valid = true;
 				}
@@ -208,26 +207,26 @@ public class Main
 
 	private void fortifyTroops(Player p) throws IOException
 	{
-		if(p.getOccupiedTerritories().size() == 1)
+		if (p.getOccupiedTerritories().size() == 1)
 		{
 			System.out.println("Nothing to fortify");
 			return;
 		}
 
 		Boolean isDone = false;
-		while(!isDone)
+		while (!isDone)
 		{
 			System.out.println("Select a territory to fortify");
 			System.out.println(p.getOccupiedTerritories());
 			String fortified = br.readLine();
 
-			if(fortified.equals(""))
+			if (fortified.equals(""))
 			{
 				System.out.println("Not fortifying anything");
 				isDone = true;
 				continue;
 			}
-			if(!p.ownsTerritory(fortified))
+			if (!p.ownsTerritory(fortified))
 			{
 				System.err.println("You do not own this territory");
 				continue;
@@ -239,7 +238,7 @@ public class Main
 			System.out.println(fortifiedTer.getAdjacentTerritoriesOccupiedBy(p));
 			String fortifier = br.readLine();
 
-			if(!p.ownsTerritory(fortifier))
+			if (!p.ownsTerritory(fortifier))
 			{
 				System.err.println("You do not own this territory");
 				continue;
@@ -248,7 +247,7 @@ public class Main
 			Territory fortifierTer = TerritoryMap.get(fortifier);
 			System.out.println(fortifier + " has " + fortifierTer.getNumArmies() + " armies");
 
-			if(!fortifiedTer.isNeighborWith(fortifier))
+			if (!fortifiedTer.isNeighborWith(fortifier))
 			{
 				System.err.println("territories are not neighbors");
 				continue;
@@ -258,34 +257,31 @@ public class Main
 			String numArmiesStr = br.readLine();
 			int numArmies;
 
-			if(numArmiesStr.equals(""))
+			if (numArmiesStr.equals(""))
 				numArmies = 1;
-			else if(numArmiesStr.equals("all"))
+			else if (numArmiesStr.equals("all"))
 				numArmies = fortifierTer.getNumArmies() - 1;
 			else
 			{
 				try
 				{
 					numArmies = Integer.parseInt(numArmiesStr);
-				}
-				catch(NumberFormatException e)
+				} catch (NumberFormatException e)
 				{
 					System.err.println("Bad number of armies");
 					continue;
 				}
 			}
 
-			if(numArmies >= fortifierTer.getNumArmies())
+			if (numArmies >= fortifierTer.getNumArmies())
 			{
 				System.err.println("Number of armies exceeds the amount ");
 				continue;
-			}
-			else if(numArmies < 0)
+			} else if (numArmies < 0)
 			{
 				System.err.println("Invalid number of armies");
 				continue;
-			}
-			else if(numArmies == 0)
+			} else if (numArmies == 0)
 			{
 				System.out.println("Not fortifying anything");
 				isDone = true;
@@ -316,21 +312,20 @@ public class Main
 		int numPlayers = getNumPlayers();
 		players = new ArrayList<Player>();
 
-		for(int i = 0; i < numPlayers; i++)
+		for (int i = 0; i < numPlayers; i++)
 		{
 			System.out.println("Enter player name");
 			String name = br.readLine();
 			String territory = "";
 			boolean valid = false;
-			while(!valid)
+			while (!valid)
 			{
 				System.out.println("Enter Starting Territory");
 				territory = br.readLine();
-				if(TerritoryMap.get(territory) == null)
+				if (TerritoryMap.get(territory) == null)
 				{
 					System.out.println("Not a valid territory");
-				}
-				else
+				} else
 				{
 					valid = true;
 				}
@@ -347,23 +342,21 @@ public class Main
 		boolean valid = false;
 		String input = "";
 		int numPlayers = 0;
-		while(!valid)
+		while (!valid)
 		{
 			input = br.readLine();
 			try
 			{
 				numPlayers = Integer.parseInt(input);
-			}
-			catch(NumberFormatException e)
+			} catch (NumberFormatException e)
 			{
 				System.err.println("Bad number of players");
 				continue;
 			}
-			if(numPlayers <= 0 || numPlayers > 5)
+			if (numPlayers <= 0 || numPlayers > 5)
 			{
 				System.out.println("Too many/too little");
-			}
-			else
+			} else
 			{
 				valid = true;
 			}
