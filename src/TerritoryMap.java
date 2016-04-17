@@ -227,9 +227,10 @@ public class TerritoryMap
 
 		egypt.addNeighbor(algeria.getID());
 		egypt.addNeighbor(westAfrica.getID());
-		egypt.addNeighbor(westAfrica.getID());
 		egypt.addNeighbor(turkey.getID());
 		egypt.addNeighbor(southernEurope.getID());
+		egypt.addNeighbor(eastAfrica.getID());
+		egypt.addNeighbor(saudiArabia.getID());
 
 		// Europe
 		iceland.addNeighbor(greenland.getID());
@@ -315,6 +316,7 @@ public class TerritoryMap
 
 		saudiArabia.addNeighbor(eastAfrica.getID());
 		saudiArabia.addNeighbor(turkey.getID());
+		saudiArabia.addNeighbor(egypt.getID());
 
 		iran.addNeighbor(turkey.getID());
 		iran.addNeighbor(eastEurope.getID());
