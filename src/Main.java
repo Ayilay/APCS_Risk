@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashSet;
 import java.util.Set;
 
 public class Main
@@ -49,158 +48,9 @@ public class Main
 		}
 	}
 
-	// right this is ugly but it's for testing purposes XD
-	private void attackOther(Player p) throws IOException
-	{
-		boolean doneAttacking = false;
-		while(!doneAttacking)
-		{
-			System.out.print("Do you wish to continue attacking? (y/n): ");
-			String input = br.readLine();
-			if(input != null && input.toLowerCase().charAt(0) == 'n')
-			{
-				doneAttacking = true;
-				System.out.println("Done attacking");
-				return;
-			}
-
-			String territoryFrom = "", territoryTo = "";
-			int numArmies = 0;
-
-			// Choose a territory to attack
-			System.out.println("Choose a territory to attack");
-			boolean valid = false;
-			System.out.println(p.getAttackTargets());
-			while(!valid)
-			{
-				territoryTo = br.readLine();
-				if(p.getOccupiedTerritories().contains(territoryTo))
-				{
-					System.out.println("Nice try you own this one");
-				}
-				else if(!p.getAttackTargets().contains(territoryTo))
-				{
-					System.out.println("can't attack");
-				}
-				else
-				{
-					valid = true;
-				}
-			}
-
-			// Get territory to attack from
-			Territory t = TerritoryMap.get(territoryTo);
-			Set<String> available = t.getAdjacentTerritoriesOccupiedBy(p);
-			System.out.println("Choose a territory to attack from:");
-			System.out.println(available);
-			valid = false;
-			while(!valid)
-			{
-				territoryFrom = br.readLine();
-				if(!t.getAdjacentTerritories().contains(territoryFrom))
-				{
-					System.out.println("no");
-				}
-				else
-				{
-					valid = true;
-				}
-			}
-
-			// Get number of armies to attack with
-			System.out.println(
-			    "Choose number of armies to attack with. Opponent has " + TerritoryMap.get(territoryTo).getNumArmies());
-			System.out.println("You have: " + TerritoryMap.get(territoryFrom).getNumArmies());
-			valid = false;
-			numArmies = 0;
-			while(!valid)
-			{
-				String numArmiesStr = br.readLine();
-				if(numArmiesStr.equals(""))
-					numArmies = 1;
-				else if(numArmiesStr.equals("all"))
-					numArmies = TerritoryMap.get(territoryFrom).getNumArmies() - 1;
-				else
-				{
-					try
-					{
-						numArmies = Integer.parseInt(numArmiesStr);
-					}
-					catch(NumberFormatException e)
-					{
-						System.err.println("Bad number of armies");
-						continue;
-					}
-				}
-				if(numArmies < 0 || numArmies > TerritoryMap.get(territoryFrom).getNumArmies() - 1)
-				{
-					System.out.println("no");
-				}
-				else
-				{
-					valid = true;
-				}
-			}
-			p.attackOther(TerritoryMap.get(territoryFrom), TerritoryMap.get(territoryTo), numArmies);
-		}
-	}
-
-	/*
-	 * Initialize the players and the TerritoryMap
-	 */
-	private void init() throws IOException
-	{
-		TerritoryMap.init();
-
-		// For cmd line inputs, will be replaced by GUI inputs
-		br = new BufferedReader(new InputStreamReader(System.in));
-
-		int numPlayers = getNumPlayers();
-		players = new Player[numPlayers];
-
-		for(int i = 0; i < numPlayers; i++)
-		{
-			System.out.println("Enter player name");
-			String name = br.readLine();
-			String territory = "";
-			boolean valid = false;
-			while(!valid)
-			{
-				System.out.println("Enter Starting Territory");
-				territory = br.readLine();
-				if(TerritoryMap.get(territory) == null)
-				{
-					System.out.println("Not a valid territory");
-				}
-				else
-				{
-					valid = true;
-				}
-			}
-			players[i] = new Player(name, territory);
-		}
-
-		CardDeck.init(TerritoryMap.getAllTerritories());
-
-		//Prints out the value of a random card generated
-		//Card card = CardDeck.deal();
-		//Card card2 = CardDeck.deal();
-		//System.out.println(card.getTerritory() + " " + card.getValue());
-		//System.out.println(card2.getTerritory() + " " + card2.getValue());
-
-		// for(int i = 0; i < numPlayers; i++)
-		// {
-		// String name = "Derp" + i;
-		// String territoryID = "null";
-		//
-		// //TODO: Change these displays to GUI later and pass in values to
-		// variables
-		// System.out.println("Player " + (i + 1) + ": Enter name");
-		// System.out.println("Player " + (i + 1) + ": Choose Territory");
-		//
-		// players[i] = new Player(name, territoryID);
-		// }
-	}
+	////////////////////////////////////////////////////////////
+	// Player Turn Methods
+	////////////////////////////////////////////////////////////
 
 	private void deployReinforcements(Player p) throws IOException
 	{
@@ -234,7 +84,7 @@ public class Main
 				else
 					numArmies = Integer.parseInt(numArmiesStr);
 			}
-			catch(NumberFormatException e)    // In case user enters
+			catch(NumberFormatException e)	// In case user enters
 				// non-numerical value
 			{
 				System.err.println("Bad number of armies to deploy, try again");
@@ -256,6 +106,102 @@ public class Main
 				p.deployReinforcements(territory, numArmies);
 			}
 			System.out.println();
+		}
+	}
+
+	private void attackOther(Player p) throws IOException
+	{
+		boolean doneAttacking = false;
+		while(!doneAttacking)
+		{
+			System.out.print("Do you wish to continue attacking? (y/n): ");
+			String input = br.readLine();
+			if(input != null && input.toLowerCase().charAt(0) == 'n')
+			{
+				doneAttacking = true;
+				System.out.println("Done attacking");
+				return;
+			}
+
+			String territoryFromID = "", territoryToID = "";
+			int numArmies = 0;
+
+			// Choose a territory to attack
+			System.out.println("Choose a territory to attack");
+			boolean valid = false;
+			System.out.println(p.getAttackTargets());
+			while(!valid)
+			{
+				territoryToID = br.readLine();
+				if(p.ownsTerritory(territoryToID))
+				{
+					System.out.println("Nice try you own this one");
+				}
+				else if(!p.canAttack(territoryToID))
+				{
+					System.out.println("Can only attack neighboring territories");
+				}
+				else
+				{
+					valid = true;
+				}
+			}
+			Territory territoryTo = TerritoryMap.get(territoryToID);
+
+			// Get territory to attack from
+			Set<String> available = territoryTo.getAdjacentTerritoriesOccupiedBy(p);
+			System.out.println("Choose a territory to attack from:");
+			System.out.println(available);
+			valid = false;
+			while(!valid)
+			{
+				territoryFromID = br.readLine();
+				if(!territoryTo.isNeighborWith(territoryFromID))
+				{
+					System.out.println("no");
+				}
+				else
+				{
+					valid = true;
+				}
+			}
+			Territory territoryFrom = TerritoryMap.get(territoryFromID);
+
+			// Get number of armies to attack with
+			System.out.println(
+			    "Choose number of armies to attack with. Opponent has " + territoryTo.getNumArmies());
+			System.out.println("You have: " + territoryFrom.getNumArmies());
+			valid = false;
+			numArmies = 0;
+			while(!valid)
+			{
+				String numArmiesStr = br.readLine();
+				if(numArmiesStr.equals(""))
+					numArmies = 1;
+				else if(numArmiesStr.equals("all"))
+					numArmies = TerritoryMap.get(territoryFromID).getNumArmies() - 1;
+				else
+				{
+					try
+					{
+						numArmies = Integer.parseInt(numArmiesStr);
+					}
+					catch(NumberFormatException e)
+					{
+						System.err.println("Bad number of armies");
+						continue;
+					}
+				}
+				if(numArmies < 0 || numArmies > territoryFrom.getNumArmies() - 1)
+				{
+					System.err.println("Bad number of armies");
+				}
+				else
+				{
+					valid = true;
+				}
+			}
+			p.attackOther(territoryFrom, territoryTo, numArmies);
 		}
 	}
 
@@ -350,6 +296,48 @@ public class Main
 
 			isDone = true;
 		}
+	}
+
+	////////////////////////////////////////////////////////////
+	// Init Methods
+	////////////////////////////////////////////////////////////
+
+	/*
+	 * Initialize the players and the TerritoryMap
+	 */
+	private void init() throws IOException
+	{
+		TerritoryMap.init();
+
+		// For cmd line inputs, will be replaced by GUI inputs
+		br = new BufferedReader(new InputStreamReader(System.in));
+
+		int numPlayers = getNumPlayers();
+		players = new Player[numPlayers];
+
+		for(int i = 0; i < numPlayers; i++)
+		{
+			System.out.println("Enter player name");
+			String name = br.readLine();
+			String territory = "";
+			boolean valid = false;
+			while(!valid)
+			{
+				System.out.println("Enter Starting Territory");
+				territory = br.readLine();
+				if(TerritoryMap.get(territory) == null)
+				{
+					System.out.println("Not a valid territory");
+				}
+				else
+				{
+					valid = true;
+				}
+			}
+			players[i] = new Player(name, territory);
+		}
+
+		CardDeck.init(TerritoryMap.getAllTerritories());
 	}
 
 	private int getNumPlayers() throws IOException

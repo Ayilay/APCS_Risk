@@ -133,6 +133,11 @@ public class Player
 		return occupiedTerritories.contains(t);
 	}
 
+	public boolean canAttack(String t)
+	{
+		return getAttackTargets().contains(t);
+	}
+
 	public Set<String> getOccupiedTerritories()
 	{
 		return occupiedTerritories;
