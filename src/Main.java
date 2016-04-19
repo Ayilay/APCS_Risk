@@ -22,7 +22,7 @@ public class Main
 		// TODO: implement GUI
 		init();
 
-		while(players.size() > 1)
+		while(players.size() != 1)
 		{
 			for(int i = 0; i < players.size(); i++)
 			{
@@ -126,7 +126,7 @@ public class Main
 		{
 			System.out.print("Do you wish to continue attacking? (y/n): ");
 			String input = br.readLine();
-			if(input != null && input.toLowerCase().charAt(0) == 'n')
+			if(!(input.equals("")) && input.toLowerCase().charAt(0) == 'n')
 			{
 				doneAttacking = true;
 				System.out.println("Done attacking");

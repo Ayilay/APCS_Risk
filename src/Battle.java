@@ -34,6 +34,9 @@ public class Battle
 		switch(numAttackingArmies) // sets the number of dice used by the
 			// attacker
 		{
+			case 1://if one army used to attack
+				numAttackDice = 1;
+				break;
 			case 2://if two armies on attacking territory
 				numAttackDice = 1;
 				break;
