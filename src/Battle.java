@@ -1,6 +1,6 @@
 /**
  * This class is responsible for battle mechanics
- * Simluates a battle bewteen 2 territories
+ * Simulates a battle between 2 territories
  */
 public class Battle
 {

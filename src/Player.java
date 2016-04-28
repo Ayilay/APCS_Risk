@@ -36,8 +36,9 @@ public class Player
 	 * @param attacker: The territory that the attack is being mounted from.
 	 * @param other: The territory being invaded.
 	 * @param armies: The number of armies being used for the attack. If this number is zero, an all out attack is mounted
+	 * @return Returns result of battle.
 	 */
-	public void attackOther(Territory attacker, Territory other, int armies)
+	public boolean attackOther(Territory attacker, Territory other, int armies)
 	{
 		Battle battle = new Battle(attacker, other, armies);
 		battle.doBattle();
@@ -50,6 +51,7 @@ public class Player
 			other.setOccupier(this);
 			occupiedTerritories.add(other.getID());
 		}
+		return battle.getResult();
 	}
 
 	/**
@@ -71,6 +73,8 @@ public class Player
 
 		//Calculates based on the number of sets owned.
 		numReinforcements += TerritoryMap.calculateArmyBonusFromContinents(occupiedTerritories);
+		//Super Hax Mode: For use with Achievement testing only. Comment out if playing actual game :)
+		numReinforcements+=100;
 
 		numReinforcementsAvailable = numReinforcements;
 	}

@@ -7,6 +7,7 @@ import java.util.Set;
 public class Main
 {
 	private ArrayList<Player> players;
+	private Timeline timeline;
 
 	// for cmd line inputs, will be replaced by GUI input
 	private BufferedReader br;
@@ -21,16 +22,21 @@ public class Main
 	{
 		// TODO: implement GUI
 		init();
-
+		int turn = 0;
 		while(players.size() != 1)
 		{
 			for(int i = 0; i < players.size(); i++)
 			{
 				Player p = players.get(i);
+				if(p.equals(players.get(0)))
+				{
+					turn++;//increment turn count when back to first player
+				}
 				if(p.getOccupiedTerritories().isEmpty())
 				{
 					players.remove(i);
 					i--;
+					timeline.addPlayerConquered(turn, p);
 				}
 				else
 				{
@@ -48,7 +54,7 @@ public class Main
 					deployReinforcements(p);
 
 					// Phase 2: Attack a territory
-					attackOther(p);
+					attackOther(p,turn);
 
 					// Phase 3: Fortify an owned territory
 					fortifyTroops(p);
@@ -56,6 +62,12 @@ public class Main
 			}
 		}
 		System.out.println("Congratulations, " + players.get(0).getName() + ". You won!");
+		System.out.println("See timeline? (y/n)");
+		String answer = br.readLine();
+		if(answer.equals("y"))
+		{
+			System.out.println(timeline.toString());
+		}
 	}
 
 	////////////////////////////////////////////////////////////
@@ -119,7 +131,7 @@ public class Main
 		}
 	}
 
-	private void attackOther(Player p) throws IOException
+	private void attackOther(Player p, int turn) throws IOException//turn is used for timeline purposes
 	{
 		boolean doneAttacking = false;
 		while(!doneAttacking)
@@ -210,7 +222,15 @@ public class Main
 					valid = true;
 				}
 			}
-			p.attackOther(territoryFrom, territoryTo, numArmies);
+			boolean result = p.attackOther(territoryFrom, territoryTo, numArmies);
+			if(result)
+			{
+				timeline.addVictoryToTimeline(turn, territoryTo.getID(), p);
+			}
+			else
+			{
+				timeline.addDefenseVictory(turn, territoryTo.getID(), p);
+			}
 		}
 	}
 
@@ -317,6 +337,7 @@ public class Main
 	private void init() throws IOException
 	{
 		TerritoryMap.init();
+		timeline = new Timeline();
 
 		// For cmd line inputs, will be replaced by GUI inputs
 		br = new BufferedReader(new InputStreamReader(System.in));
@@ -334,7 +355,7 @@ public class Main
 			{
 				System.out.println("Enter Starting Territory");
 				territory = br.readLine();
-				if(TerritoryMap.get(territory) == null)
+				if(TerritoryMap.get(territory) == null||TerritoryMap.get(territory).getOccupier()!=null)
 				{
 					System.out.println("Not a valid territory");
 				}
