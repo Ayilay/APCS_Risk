@@ -67,7 +67,7 @@ class NuclearGandhi extends Achievement
 		int continents = 0;
 		for(String continent : TerritoryMap.getAllContinents())
 		{
-			if(TerritoryMap.ownsContinent(continent, p.getOccupiedTerritories()))
+			if(p.ownsContinent(continent))
 			{
 				continents++;
 			}
