@@ -7,36 +7,30 @@ public class AchievementManager
 
 }
 
-class Trump extends Achievement
+class Trump extends Achievement//self explanatory
 {
 	public Trump()
 	{
 		super("I will build a great, great wall", // name
 				"Have more than one hundred armies deployed "// description
-						+ "along the southern border of the United States",
+						+ "in the United States",
 				50, true);// bonus, one time
 	}
 
 	@Override
 	public boolean isFullfilled(Player p)
 	{
-		if(p.getOccupiedTerritories().contains("Eastern United States")
-				&& p.getOccupiedTerritories().contains("Western United States"))
+		if(p.ownsTerritory("Eastern United States")
+				&& p.ownsTerritory("Western United States"))
 		{
 			if(TerritoryMap.get("Eastern United States").getNumArmies()
 					+ TerritoryMap.get("Western United States").getNumArmies() > 100)
 			{
 				return true;
 			}
-			else;
-			{
-				return false;
-			}
 		}
-		else
-		{
-			return false;
-		}
+
+		return false;
 	}
 }
 class IslandHopping extends Achievement
@@ -50,9 +44,9 @@ class IslandHopping extends Achievement
 	}
 	public boolean isFullfilled(Player p)
 	{
-		return p.ownsTerritory("Philippines")&&p.ownsTerritory("Indonesia")
-				&&p.ownsTerritory("Hawaii")&&p.ownsTerritory("New Guinea")
-				&&p.ownsTerritory("Eastern Australia")&&p.ownsTerritory("Western Australia")
+		return p.ownsTerritory("Philippines") && p.ownsTerritory("Indonesia")
+				&& p.ownsTerritory("Hawaii") && p.ownsTerritory("New Guinea")
+				&& p.ownsTerritory("Eastern Australia") && p.ownsTerritory("Western Australia")
 				&& p.ownsTerritory("Iceland");
 		//owns every island
 	}
@@ -82,7 +76,6 @@ class NuclearGandhi extends Achievement
 	}
 	
 }
-
 class RussianWinter extends Achievement
 {
 	public RussianWinter()

@@ -8,6 +8,7 @@ public class Main
 {
 	private ArrayList<Player> players;
 	private Timeline timeline;
+	private int turn = 0;
 
 	// for cmd line inputs, will be replaced by GUI input
 	private BufferedReader br;
@@ -22,7 +23,6 @@ public class Main
 	{
 		// TODO: implement GUI
 		init();
-		int turn = 0;
 		while(players.size() != 1)
 		{
 			for(int i = 0; i < players.size(); i++)
@@ -54,7 +54,7 @@ public class Main
 					deployReinforcements(p);
 
 					// Phase 2: Attack a territory
-					attackOther(p,turn);
+					attackOther(p);
 
 					// Phase 3: Fortify an owned territory
 					fortifyTroops(p);
@@ -131,7 +131,7 @@ public class Main
 		}
 	}
 
-	private void attackOther(Player p, int turn) throws IOException//turn is used for timeline purposes
+	private void attackOther(Player p) throws IOException
 	{
 		boolean doneAttacking = false;
 		while(!doneAttacking)

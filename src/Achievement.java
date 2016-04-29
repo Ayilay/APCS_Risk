@@ -17,4 +17,17 @@ public abstract class Achievement
 		this.oneTime = oneTime;
 	}
 	public abstract boolean isFullfilled(Player p);
+	public String achieved()//message printed when achievement achieved
+	{
+		String congrats = "Achievement achieved! " + this.name + "\n" + this.description;
+		if(oneTime)
+		{
+			congrats += "\n You receive a one time bonus of " + this.bonus + " armies next turn";
+		}
+		else
+		{
+			congrats += "\n" + this.bonus + " armies will be added to your reinforcements every turn!";
+		}
+		return congrats;		 
+	}
 }
