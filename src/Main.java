@@ -226,6 +226,8 @@ public class Main
 			if(result)
 			{
 				timeline.addVictoryToTimeline(turn, territoryTo.getID(), p);
+				Card c = CardDeck.deal();
+				p.addCards(c);
 			}
 			else
 			{
