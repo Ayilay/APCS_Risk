@@ -347,10 +347,23 @@ public class Main
 
 		for(int i = 0; i < numPlayers; i++)
 		{
-			System.out.println("Enter player name");
-			String name = br.readLine();
-			String territory = "";
+			String name = "";
 			boolean valid = false;
+			while(!valid)
+			{
+				System.out.println("Enter player name");
+				name = br.readLine();
+				if(players.contains(name))
+				{
+					System.out.println("Already a user with that name");
+				}
+				else
+				{
+					valid = true;
+				}
+			}
+			String territory = "";
+			valid = false;
 			while(!valid)
 			{
 				System.out.println("Enter Starting Territory");
