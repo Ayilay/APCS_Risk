@@ -6,7 +6,8 @@ public class CardDeck
 
 	public static void init(Set<String> s)
 	{
-		Object[] rearranged = s.toArray();
+		
+		String[] rearranged = s.toArray(new String[s.size()]);
 		rearranged = shuffle(rearranged);
 
 		for(int i = 0; i < s.size(); i++)
@@ -16,14 +17,14 @@ public class CardDeck
 		}
 	}
 
-	public static Object[] shuffle(Object[] t)
+	public static String[] shuffle(String[] t)
 	{
 
 		for(int i = t.length - 1; i > 0; i--)
 		{
 			int rand = (int)((t.length - 1) * Math.random());
 
-			String temp = (String)t[i];
+			String temp = t[i];
 			t[rand] = t[i];
 			t[i] = temp;
 		}
