@@ -19,4 +19,10 @@ public class Card
 	{
 		return territory;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return territory + " - " + stars;
+	}
 }

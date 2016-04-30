@@ -49,6 +49,11 @@ public class Main
 					System.out.println("--------------------");
 					System.out.println(playerName + "'s territories:");
 					System.out.println(territories);
+					System.out.println(playerName + "'s cards");
+					for(Card c : p.getCards())
+					{
+						System.out.println(c.toString());
+					}
 
 					// Phase 1: Deploy Reinforcements
 					deployReinforcements(p);
