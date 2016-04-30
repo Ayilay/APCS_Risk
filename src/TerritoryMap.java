@@ -584,16 +584,10 @@ public class TerritoryMap
 		return allTerritories.get(id);
 	}
 
-	public static boolean ownsContinent(String continent, Set<String> occupied)
+	public static boolean continentIsSubsetOfSet(String continent, Set<String> occupied)
 	{
-		for(String s : allContinents.get(continent).getTerritories())
-		{
-			if(!occupied.contains(s))
-			{
-				return false;
-			}
-		}
-		return true;
+		// returns true if every single territory in "continent" is contained in "occupied"
+		return occupied.containsAll(allContinents.get(continent).getTerritories());
 	}
 
 	public static int calculateArmyBonusFromContinents(Set<String> occupied)
@@ -602,7 +596,7 @@ public class TerritoryMap
 
 		for(String continent : allContinents.keySet())
 		{
-			if(ownsContinent(continent, occupied))
+			if(continentIsSubsetOfSet(continent, occupied))
 				totalBonus += allContinents.get(continent).getArmyBonus();
 		}
 

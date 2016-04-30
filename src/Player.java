@@ -137,6 +137,11 @@ public class Player
 		return occupiedTerritories.contains(t);
 	}
 
+	public boolean ownsContinent(String c)
+	{
+		return TerritoryMap.continentIsSubsetOfSet(c, occupiedTerritories);
+	}
+
 	public boolean canAttack(String t)
 	{
 		return getAttackTargets().contains(t);
