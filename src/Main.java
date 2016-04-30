@@ -351,15 +351,16 @@ public class Main
 			boolean valid = false;
 			while(!valid)
 			{
+				valid = true;
 				System.out.println("Enter player name");
 				name = br.readLine();
-				if(players.contains(name))
+				for(Player p : players)
 				{
-					System.out.println("Already a user with that name");
-				}
-				else
-				{
-					valid = true;
+					if(p.getName().equals(name))
+					{
+						System.out.println("Already player with that name");
+						valid = false;
+					}
 				}
 			}
 			String territory = "";
