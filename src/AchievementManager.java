@@ -1,10 +1,24 @@
+import java.util.ArrayList;
+
 /*
  * Creates all the achievements and stores them.
  * WORK IN PROGRESS
  */
 public class AchievementManager
 {
-
+	public static ArrayList<Achievement> achievements;
+	public static void init()
+	{
+		Achievement trump = new Trump();
+		Achievement islands = new IslandHopping();
+		Achievement gandhi = new NuclearGandhi();
+		achievements = new ArrayList<Achievement>();
+		
+		achievements.add(trump);
+		achievements.add(islands);
+		achievements.add(gandhi);
+		
+	}
 }
 
 class Trump extends Achievement//self explanatory
@@ -14,7 +28,7 @@ class Trump extends Achievement//self explanatory
 		super("I will build a great, great wall", // name
 				"Have more than one hundred armies deployed "// description
 						+ "in the United States",
-				50, true);// bonus, one time
+				50);// bonus
 	}
 
 	@Override
@@ -39,7 +53,7 @@ class IslandHopping extends Achievement
 	{
 		super("Island Hopping", 
 				"Conquer every island on the map",
-				20,true);
+				20);
 		//a one time bonus of 20 armies
 	}
 	public boolean isFullfilled(Player p)
@@ -58,7 +72,7 @@ class NuclearGandhi extends Achievement
 	{
 		super("Nuclear Gandhi"
 				,"Our words are backed by NUCLEAR WEAPONS!",
-				40,true);
+				40);
 	}
 
 	@Override
@@ -82,7 +96,7 @@ class RussianWinter extends Achievement
 	{
 		super("If you're going to attack Russia in winter...",
 				"...pack some winter clothes",
-				20,true);
+				20);
 	}
 
 	@Override

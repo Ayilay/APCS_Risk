@@ -12,6 +12,7 @@ public class Player
 	private int numReinforcementsAvailable;//how many more armies the player can deploy on this phase.
 	private ArrayList<Card> deck;
 	private Set<String> occupiedTerritories;//which locations the player has
+	private ArrayList<Achievement> notFulfilled;//achievements that the player has not yet obtained
 
 	private String name;
 
@@ -29,6 +30,23 @@ public class Player
 		this.name = name;
 
 		deck = new ArrayList<Card>();
+		notFulfilled = new ArrayList<Achievement>(AchievementManager.achievements);
+	}
+	public int checkAchievements()
+	{
+		int bonus = 0;
+		for(int i = 0; i < notFulfilled.size(); i++)
+		{
+			if(notFulfilled.get(i).isFullfilled(this))
+			{
+				bonus += notFulfilled.get(i).getBonus();
+				System.out.println(notFulfilled.get(i).achieved());
+				notFulfilled.remove(i);
+				i--;
+			}
+				
+		}
+		return bonus;
 	}
 
 	/**
@@ -73,6 +91,7 @@ public class Player
 
 		//Calculates based on the number of sets owned.
 		numReinforcements += TerritoryMap.calculateArmyBonusFromContinents(occupiedTerritories);
+		numReinforcements += checkAchievements();
 		//Super Hax Mode: For use with Achievement testing only. Comment out if playing actual game :)
 		numReinforcements+=100;
 

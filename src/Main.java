@@ -344,6 +344,7 @@ public class Main
 	private void init() throws IOException
 	{
 		TerritoryMap.init();
+		AchievementManager.init();
 		timeline = new Timeline();
 
 		// For cmd line inputs, will be replaced by GUI inputs
