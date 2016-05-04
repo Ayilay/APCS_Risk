@@ -98,7 +98,7 @@ public class Main
 
 			// Get the number of armies to deploy. Can also enter "all"
 			// If nothing entered, then assume 1 army
-			System.out.println(territory + " has " + TerritoryMap.get(territory).getNumArmies() + " armies on it");
+			System.out.println(territory + " has " + TerritoryMap.getNumArmiesDeployedOn(territory) + " armies on it");
 			System.out.print("How many armies to deploy? (default 1): ");
 			String numArmiesStr = br.readLine();
 			int numArmies = 1;
@@ -205,7 +205,7 @@ public class Main
 				if(numArmiesStr.equals(""))
 					numArmies = 1;
 				else if(numArmiesStr.equals("all"))
-					numArmies = TerritoryMap.get(territoryFromID).getNumArmies() - 1;
+					numArmies = TerritoryMap.getNumArmiesDeployedOn(territoryFromID) - 1;
 				else
 				{
 					try
@@ -377,7 +377,7 @@ public class Main
 			{
 				System.out.println("Enter Starting Territory");
 				territory = br.readLine();
-				if(TerritoryMap.get(territory) == null||TerritoryMap.get(territory).getOccupier()!=null)
+				if(TerritoryMap.getOccupierOnTerritory(territory) == null||TerritoryMap.get(territory)!=null)
 				{
 					System.out.println("Not a valid territory");
 				}

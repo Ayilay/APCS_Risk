@@ -612,4 +612,14 @@ public class TerritoryMap
 	{
 		return allContinents.keySet();
 	}
+
+	public static int getNumArmiesDeployedOn(String id)
+	{
+		return allTerritories.get(id).getNumArmies();
+	}
+
+	public static Player getOccupierOnTerritory(String id)
+	{
+		return allTerritories.get(id).getOccupier();
+	}
 }

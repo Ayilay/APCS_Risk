@@ -99,8 +99,8 @@ public class Territory
 
 		for(String s : this.getAdjacentTerritories())
 		{
-			if(TerritoryMap.get(s).getOccupier() != null) // Both territories are occupied by some player
-				if(TerritoryMap.get(s).getOccupier().getName().equals(p.getName()))
+			if(TerritoryMap.getOccupierOnTerritory(s) != null) // Both territories are occupied by some player
+				if(TerritoryMap.getOccupierOnTerritory(s).getName().equals(p.getName()))
 					temp.add(s);
 		}
 

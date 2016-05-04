@@ -37,8 +37,8 @@ class Trump extends Achievement//self explanatory
 		if(p.ownsTerritory("Eastern United States")
 				&& p.ownsTerritory("Western United States"))
 		{
-			if(TerritoryMap.get("Eastern United States").getNumArmies()
-					+ TerritoryMap.get("Western United States").getNumArmies() > 100)
+			if(TerritoryMap.getNumArmiesDeployedOn("Eastern United States")
+					+ TerritoryMap.getNumArmiesDeployedOn("Western United States") > 100)
 			{
 				return true;
 			}
