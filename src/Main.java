@@ -1,28 +1,63 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Set;
 
 public class Main
 {
-	private ArrayList<Player> players;
-	private Timeline timeline;
-	private int turn = 0;
-
-	// for cmd line inputs, will be replaced by GUI input
-	private BufferedReader br;
+	private static GameController riskGameController; 
+	private static UserInterface userInterface;
 
 	public static void main(String[] args) throws IOException
 	{
-		Main riskGame = new Main();
-		riskGame.play();
+		riskGameController = new GameController();
+		userInterface = new CLIManager();
+		
+		// Get player names and starting territories
+		initPlayers();
+	}
+	
+	private static void initPlayers()
+	{
+		int numPlayers = userInterface.getNumPlayers();
+		for(int i = 0; i < numPlayers; i++)
+        {
+			String name = "";
+			boolean valid = false;
+			while(!valid)
+			{
+				valid = true;
+				name = userInterface.getPlayerName();
+				for(String takenName : riskGameController.getPlayerNames())
+				{
+					if(takenName.equals(name))
+					{
+						userInterface.generateWarning("Already player with that name");
+						valid = false;
+					}
+				}
+			}
+			String territory = "";
+			valid = false;
+			while(!valid)
+			{
+				territory = userInterface.getStartingTerritory(name);
+				if(TerritoryMap.get(territory) == null ||
+                    TerritoryMap.getOccupierOnTerritory(territory) != null)
+				{
+					userInterface.generateWarning("Not a valid territory");
+				}
+				else
+				{
+					valid = true;
+				}
+			}
+
+			riskGameController.addPlayer(new Player(name, territory));
+        }
 	}
 
-	private void play() throws IOException
+	//TODO: copied and pasted code below, integrate with new model
+	/*
+	public void play() throws IOException
 	{
-		// TODO: implement GUI
-		init();
 		while(players.size() != 1)
 		{
 			for(int i = 0; i < players.size(); i++)
@@ -338,9 +373,6 @@ public class Main
 	// Init Methods
 	////////////////////////////////////////////////////////////
 
-	/*
-	 * Initialize the players and the TerritoryMap
-	 */
 	private void init() throws IOException
 	{
 		TerritoryMap.init();
@@ -391,34 +423,5 @@ public class Main
 
 		CardDeck.init(TerritoryMap.getAllTerritories());
 	}
-
-	private int getNumPlayers() throws IOException
-	{
-		System.out.println("How many players will be playing?");
-		boolean valid = false;
-		String input = "";
-		int numPlayers = 0;
-		while(!valid)
-		{
-			input = br.readLine();
-			try
-			{
-				numPlayers = Integer.parseInt(input);
-			}
-			catch(NumberFormatException e)
-			{
-				System.err.println("Bad number of players");
-				continue;
-			}
-			if(numPlayers <= 0 || numPlayers > 5)
-			{
-				System.out.println("Too many/too little");
-			}
-			else
-			{
-				valid = true;
-			}
-		}
-		return numPlayers;
-	}
+	*/
 }
