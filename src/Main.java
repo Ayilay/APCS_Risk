@@ -2,23 +2,23 @@ import java.io.IOException;
 
 public class Main
 {
-	private static GameController riskGameController; 
+	private static GameController riskGameController;
 	private static UserInterface userInterface;
 
 	public static void main(String[] args) throws IOException
 	{
 		riskGameController = new GameController();
 		userInterface = new CLIManager();
-		
+
 		// Get player names and starting territories
 		initPlayers();
 	}
-	
+
 	private static void initPlayers()
 	{
 		int numPlayers = userInterface.getNumPlayers();
 		for(int i = 0; i < numPlayers; i++)
-        {
+		{
 			String name = "";
 			boolean valid = false;
 			while(!valid)
@@ -40,7 +40,7 @@ public class Main
 			{
 				territory = userInterface.getStartingTerritory(name);
 				if(TerritoryMap.get(territory) == null ||
-                    TerritoryMap.getOccupierOnTerritory(territory) != null)
+				        TerritoryMap.getOccupierOnTerritory(territory) != null)
 				{
 					userInterface.generateWarning("Not a valid territory");
 				}
@@ -51,7 +51,7 @@ public class Main
 			}
 
 			riskGameController.addPlayer(new Player(name, territory));
-        }
+		}
 	}
 
 	//TODO: copied and pasted code below, integrate with new model

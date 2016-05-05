@@ -607,7 +607,7 @@ public class TerritoryMap
 	{
 		return allTerritories.keySet();
 	}
-	
+
 	public static Set<String> getAllContinents()
 	{
 		return allContinents.keySet();

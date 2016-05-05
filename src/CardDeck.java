@@ -6,7 +6,7 @@ public class CardDeck
 
 	public static void init(Set<String> s)
 	{
-		
+
 		String[] rearranged = s.toArray(new String[s.size()]);
 		rearranged = shuffle(rearranged);
 

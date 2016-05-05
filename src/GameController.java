@@ -26,7 +26,7 @@ public class GameController
 		Set<String> names = new HashSet<String>();
 		for(Player p : players)
 			names.add(p.getName());
-		
+
 		return names;
 	}
 }

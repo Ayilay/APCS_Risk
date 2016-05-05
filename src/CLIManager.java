@@ -4,12 +4,12 @@ import java.io.InputStreamReader;
 
 public class CLIManager implements UserInterface
 {
-    BufferedReader br;
+	BufferedReader br;
 
-    public CLIManager()
-    {
+	public CLIManager()
+	{
 		br = new BufferedReader(new InputStreamReader(System.in));
-    }
+	}
 
 	@Override
 	public int getNumPlayers()
@@ -22,7 +22,7 @@ public class CLIManager implements UserInterface
 		{
 			try
 			{
-                input = br.readLine();
+				input = br.readLine();
 				numPlayers = Integer.parseInt(input);
 			}
 			catch(NumberFormatException e)
@@ -61,7 +61,7 @@ public class CLIManager implements UserInterface
 		{
 			e.printStackTrace();
 		}
-		
+
 		return name;
 	}
 
@@ -79,7 +79,7 @@ public class CLIManager implements UserInterface
 		{
 			e.printStackTrace();
 		}
-		
+
 		return territoryID;
 	}
 

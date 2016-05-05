@@ -18,7 +18,7 @@ public abstract class Achievement
 	{
 		String congrats = "Achievement achieved! " + this.name + "\n" + this.description;
 		congrats += "\n You receive a one time bonus of " + this.bonus + " armies next turn";
-		return congrats;		 
+		return congrats;
 	}
 	public int getBonus()
 	{

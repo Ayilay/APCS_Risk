@@ -44,7 +44,7 @@ public class Player
 				notFulfilled.remove(i);
 				i--;
 			}
-				
+
 		}
 		return bonus;
 	}
@@ -93,7 +93,7 @@ public class Player
 		numReinforcements += TerritoryMap.calculateArmyBonusFromContinents(occupiedTerritories);
 		numReinforcements += checkAchievements();
 		//Super Hax Mode: For use with Achievement testing only. Comment out if playing actual game :)
-		numReinforcements+=100;
+		numReinforcements += 100;
 
 		numReinforcementsAvailable = numReinforcements;
 	}
