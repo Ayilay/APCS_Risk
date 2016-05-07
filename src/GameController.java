@@ -37,6 +37,8 @@ public class GameController
 			deployReinforcements(p);
 			attackTerritory(p);
 			fortifyTroops(p);
+
+			turn ++;
 		}
 	}
 

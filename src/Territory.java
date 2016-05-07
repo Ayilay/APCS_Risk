@@ -69,10 +69,9 @@ public class Territory
 	 */
 	public void moveArmies(String otherID, int num)
 	{
-		// TODO: replace exceptions with other error handling?
 		if(!isNeighborWith(otherID))
 		{
-			throw new IllegalArgumentException("Territories are not adjacent!");
+			return;
 		}
 
 		Territory other = TerritoryMap.get(otherID);

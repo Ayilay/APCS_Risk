@@ -58,7 +58,7 @@ public class Player
 	 */
 	public boolean attackOther(Territory attacker, Territory other, int armies)
 	{
-		Battle battle = new Battle(attacker, other, armies);
+		BattleHandler battle = new BattleHandler(attacker, other, armies);
 		battle.doBattle();
 		if(battle.getResult())
 		{
@@ -93,7 +93,7 @@ public class Player
 		numReinforcements += TerritoryMap.calculateArmyBonusFromContinents(occupiedTerritories);
 		numReinforcements += checkAchievements();
 		//Super Hax Mode: For use with Achievement testing only. Comment out if playing actual game :)
-		numReinforcements += 100;
+		//numReinforcements += 100;
 
 		numReinforcementsAvailable = numReinforcements;
 	}
