@@ -584,6 +584,11 @@ public class TerritoryMap
 		return allTerritories.get(id);
 	}
 
+	public static boolean isValidTerritory(String id)
+	{
+		return allTerritories.containsKey(id);
+	}
+
 	public static boolean continentIsSubsetOfSet(String continent, Set<String> occupied)
 	{
 		// returns true if every single territory in "continent" is contained in "occupied"

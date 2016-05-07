@@ -180,4 +180,8 @@ public class Player
 	{
 		deck.add(c);
 	}
+	public boolean hasNoTerritories()
+	{
+		return occupiedTerritories.isEmpty();
+	}
 }
