@@ -63,6 +63,11 @@ public class Territory
 		return neighbors.contains(other);
 	}
 
+	public boolean isOccupiedByPlayer()
+	{
+		return occupier != null;
+	}
+
 	/*
 	 * Transfers armies from one territory to the other. Throws and exception if
 	 * the target does not belong to the current player
@@ -104,5 +109,10 @@ public class Territory
 		}
 
 		return temp;
+	}
+
+	public void disownOccupier()
+	{
+		occupier = null;
 	}
 }

@@ -32,6 +32,7 @@ public class Player
 		deck = new ArrayList<Card>();
 		notFulfilled = new ArrayList<Achievement>(AchievementManager.achievements);
 	}
+
 	public int checkAchievements()
 	{
 		int bonus = 0;
@@ -53,23 +54,26 @@ public class Player
 	 * Mounts an attack from a territory to another.
 	 * @param attacker: The territory that the attack is being mounted from.
 	 * @param other: The territory being invaded.
-	 * @param armies: The number of armies being used for the attack. If this number is zero, an all out attack is mounted
+	 * @param armies: The number of armies being used for the attack.
 	 * @return Returns result of battle.
 	 */
-	public boolean attackOther(Territory attacker, Territory other, int armies)
+	public BattleResults attackTerritory(String attackerID, String defenderID, int armies)
 	{
-		BattleHandler battle = new BattleHandler(attacker, other, armies);
-		battle.doBattle();
-		if(battle.getResult())
+		Territory defender = TerritoryMap.get(defenderID);
+
+		BattleResults results = BattleHandler.doFullBattle(attackerID, defenderID, armies);
+		if(results.getAttackSuccess())
 		{
-			if(other.getOccupier() != null)
+			if(defender.isOccupiedByPlayer()) // make sure territory is owned by some player
 			{
-				other.getOccupier().occupiedTerritories.remove(other.getID());//Removes this territory from the other player's map
+				defender.getOccupier().disownTerritory(defenderID);
+				defender.disownOccupier();
 			}
-			other.setOccupier(this);
-			occupiedTerritories.add(other.getID());
+			defender.setOccupier(this);
+			occupiedTerritories.add(defender.getID());
 		}
-		return battle.getResult();
+
+		return results;
 	}
 
 	/**
@@ -136,6 +140,11 @@ public class Player
 		return returnSet;
 	}
 
+	public void disownTerritory(String t)
+	{
+		occupiedTerritories.remove(t);
+	}
+
 	public String getName()
 	{
 		return name;
@@ -161,7 +170,7 @@ public class Player
 		return TerritoryMap.continentIsSubsetOfSet(c, occupiedTerritories);
 	}
 
-	public boolean canAttack(String t)
+	public boolean isValidAttackTarget(String t)
 	{
 		return getAttackTargets().contains(t);
 	}
@@ -180,6 +189,7 @@ public class Player
 	{
 		deck.add(c);
 	}
+
 	public boolean hasNoTerritories()
 	{
 		return occupiedTerritories.isEmpty();

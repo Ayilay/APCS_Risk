@@ -172,6 +172,112 @@ public class CLIManager implements UserInterface
 	}
 
 	////////////////////////////////////////////////////////////
+	//	Attack Territories methods
+	////////////////////////////////////////////////////////////
+
+	@Override
+	public boolean getFinishedAttacking()
+	{
+		System.out.print("Do you wish to continue attacking? (y/n): ");
+
+		String input = "";
+		try
+		{
+			input = br.readLine();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+
+		if(!(input.equals("")) && input.toLowerCase().charAt(0) == 'n')
+		{
+			System.out.println("Done attacking");
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public String getTerritoryToAttack(Player p)
+	{
+		System.out.println("Choose a territory to attack");
+		System.out.println(p.getAttackTargets());
+
+		String terr = "";
+		try
+		{
+			terr = br.readLine();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+
+		return terr;
+	}
+
+	@Override
+	public String getTerritoryToAttackFrom(Player p, String territoryToAttack)
+	{
+		System.out.println("Choose a territory to attack from:");
+		System.out.println(TerritoryMap.get(territoryToAttack).getAdjacentTerritoriesOccupiedBy(p));
+
+		String terr = "";
+		try
+		{
+			terr = br.readLine();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+
+		return terr;
+	}
+
+	@Override
+	public int getNumArmiesToAttackWith(Player p, String territoryToAttackID, String territoryToAttackFromID)
+	{
+		System.out.println("Choose number of armies to attack with. Opponent has " + TerritoryMap.getNumArmiesDeployedOn(territoryToAttackID));
+		System.out.println("You have " + (TerritoryMap.getNumArmiesDeployedOn(territoryToAttackFromID) - 1) + " armies (1 must stay behind)");
+
+		int numArmies = 0;
+		String numArmiesStr = "";
+		try
+		{
+			numArmiesStr = br.readLine();
+			if(numArmiesStr.equals(""))
+				numArmies = 1;
+			else if(numArmiesStr.equals("all"))
+				numArmies = TerritoryMap.getNumArmiesDeployedOn(territoryToAttackFromID) - 1;
+			else
+			{
+				numArmies = Integer.parseInt(numArmiesStr);
+			}
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+		catch(NumberFormatException e)
+		{
+			System.err.println("Bad number of armies");
+			return -1;
+		}
+
+		return numArmies;
+	}
+
+	@Override
+	public void displayBattleResults(BattleResults results)
+	{
+		System.out.println(results.getAttackSuccess() ? "Attacker Won" : "Defender Won");
+		System.out.println("Attacker Losses: " + results.getNumAttackerLosses());
+		System.out.println("Defender Losses: " + results.getNumDefenderLosses());
+	}
+
+	////////////////////////////////////////////////////////////
 	//	Utility Methods
 	////////////////////////////////////////////////////////////
 

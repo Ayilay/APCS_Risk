@@ -15,6 +15,7 @@ public class GameController
 	{
 		players = new ArrayList<Player>();
 		userInterface = new CLIManager();
+		timeline = new Timeline();
 
 		turn = 0;
 		currentPlayerTurn = 0;
@@ -83,7 +84,71 @@ public class GameController
 
 	private void attackTerritory(Player p)
 	{
-		// TODO Auto-generated method stub
+		boolean doneAttacking = false;
+		while(!doneAttacking)
+		{
+			doneAttacking = userInterface.getFinishedAttacking();
+			if(doneAttacking)
+				break;
+
+			// Get territory to attack
+			String territoryToAttackID = "";
+			while(true)
+			{
+				territoryToAttackID = userInterface.getTerritoryToAttack(p);
+				if(!p.isValidAttackTarget(territoryToAttackID))
+				{
+					userInterface.generateWarning("not a valid territory to attack");
+					continue;
+				}
+
+				break;
+			}
+			Territory territoryToAttack = TerritoryMap.get(territoryToAttackID);
+
+			// Get territory to attack from
+			String territoryToAttackFromID = "";
+			while(true)
+			{
+				territoryToAttackFromID = userInterface.getTerritoryToAttackFrom(p, territoryToAttackID);
+				if(!territoryToAttack.isNeighborWith(territoryToAttackFromID))
+				{
+					userInterface.generateWarning("Cannot attack from selected territory");
+					continue;
+				}
+
+				break;
+			}
+			Territory territoryToAttackFrom = TerritoryMap.get(territoryToAttackFromID);
+
+			// Get number of armies to attack with
+			int numArmies = 0;
+			while(true)
+			{
+				numArmies = userInterface.getNumArmiesToAttackWith(p, territoryToAttackID, territoryToAttackFromID);
+				if(numArmies < 0 || numArmies > territoryToAttackFrom.getNumArmies() - 1)
+				{
+					userInterface.generateWarning("Bad number of armies");
+					continue;
+				}
+
+				break;
+			}
+
+			// Do the actual battle
+			BattleResults results = p.attackTerritory(territoryToAttackFromID, territoryToAttackID, numArmies);
+			userInterface.displayBattleResults(results);
+			if(results.getAttackSuccess())
+			{
+				timeline.addVictoryToTimeline(turn, territoryToAttack.getID(), p);
+				Card c = CardDeck.deal();
+				p.addCards(c);
+			}
+			else
+			{
+				timeline.addDefenseVictory(turn, territoryToAttack.getID(), p);
+			}
+		}
 
 	}
 
@@ -169,125 +234,9 @@ public class GameController
 
 	//TODO: copied and pasted code below, integrate with new model
 	/*
-	public void play() throws IOException
-	{
-		System.out.println("Congratulations, " + players.get(0).getName() + ". You won!");
-		System.out.println("See timeline? (y/n)");
-		String answer = br.readLine();
-		if(answer.equals("y"))
-		{
-			System.out.println(timeline.toString());
-		}
-	}
-
 	////////////////////////////////////////////////////////////
 	// Player Turn Methods
 	////////////////////////////////////////////////////////////
-
-	private void attackOther(Player p) throws IOException
-	{
-		boolean doneAttacking = false;
-		while(!doneAttacking)
-		{
-			System.out.print("Do you wish to continue attacking? (y/n): ");
-			String input = br.readLine();
-			if(!(input.equals("")) && input.toLowerCase().charAt(0) == 'n')
-			{
-				doneAttacking = true;
-				System.out.println("Done attacking");
-				return;
-			}
-
-			String territoryFromID = "", territoryToID = "";
-			int numArmies = 0;
-
-			// Choose a territory to attack
-			System.out.println("Choose a territory to attack");
-			boolean valid = false;
-			System.out.println(p.getAttackTargets());
-			while(!valid)
-			{
-				territoryToID = br.readLine();
-				if(p.ownsTerritory(territoryToID))
-				{
-					System.out.println("Nice try you own this one");
-				}
-				else if(!p.canAttack(territoryToID))
-				{
-					System.out.println("Can only attack neighboring territories");
-				}
-				else
-				{
-					valid = true;
-				}
-			}
-			Territory territoryTo = TerritoryMap.get(territoryToID);
-
-			// Get territory to attack from
-			Set<String> available = territoryTo.getAdjacentTerritoriesOccupiedBy(p);
-			System.out.println("Choose a territory to attack from:");
-			System.out.println(available);
-			valid = false;
-			while(!valid)
-			{
-				territoryFromID = br.readLine();
-				if(!territoryTo.isNeighborWith(territoryFromID))
-				{
-					System.out.println("no");
-				}
-				else
-				{
-					valid = true;
-				}
-			}
-			Territory territoryFrom = TerritoryMap.get(territoryFromID);
-
-			// Get number of armies to attack with
-			System.out.println("Choose number of armies to attack with. Opponent has " + territoryTo.getNumArmies());
-			System.out.println("You have: " + territoryFrom.getNumArmies());
-			valid = false;
-			numArmies = 0;
-			while(!valid)
-			{
-				String numArmiesStr = br.readLine();
-				if(numArmiesStr.equals(""))
-					numArmies = 1;
-				else if(numArmiesStr.equals("all"))
-					numArmies = TerritoryMap.getNumArmiesDeployedOn(territoryFromID) - 1;
-				else
-				{
-					try
-					{
-						numArmies = Integer.parseInt(numArmiesStr);
-					}
-					catch(NumberFormatException e)
-					{
-						System.err.println("Bad number of armies");
-						continue;
-					}
-				}
-				if(numArmies < 0 || numArmies > territoryFrom.getNumArmies() - 1)
-				{
-					System.err.println("Bad number of armies");
-				}
-				else
-				{
-					valid = true;
-				}
-			}
-			boolean result = p.attackOther(territoryFrom, territoryTo, numArmies);
-			if(result)
-			{
-				timeline.addVictoryToTimeline(turn, territoryTo.getID(), p);
-				Card c = CardDeck.deal();
-				p.addCards(c);
-			}
-			else
-			{
-				timeline.addDefenseVictory(turn, territoryTo.getID(), p);
-			}
-		}
-	}
 
 	private void fortifyTroops(Player p) throws IOException
 	{
@@ -380,61 +329,6 @@ public class GameController
 
 			isDone = true;
 		}
-	}
-
-	////////////////////////////////////////////////////////////
-	// Init Methods
-	////////////////////////////////////////////////////////////
-
-	private void init() throws IOException
-	{
-		TerritoryMap.init();
-		AchievementManager.init();
-		timeline = new Timeline();
-
-		// For cmd line inputs, will be replaced by GUI inputs
-		br = new BufferedReader(new InputStreamReader(System.in));
-
-		int numPlayers = getNumPlayers();
-		players = new ArrayList<Player>();
-
-		for(int i = 0; i < numPlayers; i++)
-		{
-			String name = "";
-			boolean valid = false;
-			while(!valid)
-			{
-				valid = true;
-				System.out.println("Enter player name");
-				name = br.readLine();
-				for(Player p : players)
-				{
-					if(p.getName().equals(name))
-					{
-						System.out.println("Already player with that name");
-						valid = false;
-					}
-				}
-			}
-			String territory = "";
-			valid = false;
-			while(!valid)
-			{
-				System.out.println("Enter Starting Territory");
-				territory = br.readLine();
-				if(TerritoryMap.getOccupierOnTerritory(territory) == null||TerritoryMap.get(territory)!=null)
-				{
-					System.out.println("Not a valid territory");
-				}
-				else
-				{
-					valid = true;
-				}
-			}
-			players.add(new Player(name, territory));
-		}
-
-		CardDeck.init(TerritoryMap.getAllTerritories());
 	}
 	*/
 }
