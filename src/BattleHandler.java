@@ -9,7 +9,8 @@ public class BattleHandler
 	 */
 	public static BattleResults doBattleOnce(String attackerID, String defenderID, int numAttackingArmies)
 	{
-		if(TerritoryMap.getNumArmiesDeployedOn(attackerID) < numAttackingArmies)
+
+		if(numAttackingArmies >= TerritoryMap.getNumArmiesDeployedOn(attackerID))
 			return new BattleResults(false, 0, 0);
 
 		Territory attacker = TerritoryMap.get(attackerID);
@@ -71,10 +72,14 @@ public class BattleHandler
 		{
 			return new BattleResults(false, attackerLosses, defenderLosses); // Attacker lost the battle
 		}
-		else
+		else if(numDefendingArmies == 0)
 		{
 			attacker.moveArmies(defenderID, numAttackingArmies);
 			return new BattleResults(true, attackerLosses, defenderLosses); // Attacker won the battle
+		}
+		else
+		{
+			return new BattleResults(false, attackerLosses, defenderLosses); // Tie
 		}
 	}
 
@@ -98,6 +103,7 @@ public class BattleHandler
 			//that the attack originated from
 		{
 			BattleResults results = doBattleOnce(attackerID, defenderID, numAttackingArmies);
+
 			numAttackingArmies -= results.getNumAttackerLosses();
 			numDefendingArmies -= results.getNumDefenderLosses();
 

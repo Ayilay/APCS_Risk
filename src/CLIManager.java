@@ -103,11 +103,11 @@ public class CLIManager implements UserInterface
 		System.out.println("--------------------");
 		System.out.println(playerName + "'s territories:");
 		System.out.println(territories);
-		System.out.println(playerName + "'s cards");
-		for(Card c : p.getCards())
-		{
-			System.out.println(c.toString());
-		}
+		//System.out.println(playerName + "'s cards");
+		//for(Card c : p.getCards())
+		//{
+		//	System.out.println(c.toString());
+		//}
 	}
 
 	////////////////////////////////////////////////////////////
@@ -285,5 +285,17 @@ public class CLIManager implements UserInterface
 	public void generateWarning(String string)
 	{
 		System.err.println(string);
+	}
+
+	public void nullInput()
+	{
+		try
+		{
+			br.readLine();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 }
