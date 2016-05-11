@@ -194,4 +194,15 @@ public class Player
 	{
 		return occupiedTerritories.isEmpty();
 	}
+
+	// Return true if player has at least 2 armies on at least 1 territory
+	public boolean hasArmiesToAttackWith()
+	{
+		for(String terrID : occupiedTerritories)
+		{
+			if(TerritoryMap.getNumArmiesDeployedOn(terrID) > 1)
+				return true;
+		}
+		return false;
+	}
 }

@@ -84,11 +84,17 @@ public class GameController
 
 	private void attackTerritory(Player p)
 	{
-		boolean doneAttacking = false;
-		while(!doneAttacking)
+		while(true)
 		{
-			doneAttacking = userInterface.getFinishedAttacking();
-			if(doneAttacking)
+			// Check if user has enough armies to attack with
+			if(!p.hasArmiesToAttackWith())
+			{
+				userInterface.generateWarning("You have no more armies to attack with!");
+				break;
+			}
+
+			// See if user wants to continue attacking
+			if(userInterface.getFinishedAttacking())
 				break;
 
 			// Get territory to attack
