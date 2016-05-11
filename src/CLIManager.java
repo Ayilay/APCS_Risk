@@ -20,25 +20,11 @@ public class CLIManager implements UserInterface
 	public int getNumPlayers()
 	{
 		System.out.println("How many players will be playing?");
-		boolean valid = false;
-		String input = "";
+
 		int numPlayers = 0;
-		while(!valid)
+		while(true)
 		{
-			try
-			{
-				input = br.readLine();
-				numPlayers = Integer.parseInt(input);
-			}
-			catch(NumberFormatException e)
-			{
-				generateWarning("Bad number of players");
-				continue;
-			}
-			catch(IOException e)
-			{
-				e.printStackTrace();
-			}
+			numPlayers = getNumberInput(0);
 
 			if(numPlayers < 2 || numPlayers > 5)
 			{
@@ -46,9 +32,10 @@ public class CLIManager implements UserInterface
 			}
 			else
 			{
-				valid = true;
+				break;
 			}
 		}
+
 		return numPlayers;
 	}
 
@@ -57,16 +44,7 @@ public class CLIManager implements UserInterface
 	{
 		System.out.print("Enter player name: ");
 
-		String name = "";
-		try
-		{
-			name = br.readLine();
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
-
+		String name = getStringInput();
 		return name;
 	}
 
@@ -75,16 +53,7 @@ public class CLIManager implements UserInterface
 	{
 		System.out.print("Enter starting territory for " + playerName + ": ");
 
-		String territoryID = "";
-		try
-		{
-			territoryID = br.readLine();
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
-
+		String territoryID = getStringInput();
 		return territoryID;
 	}
 
@@ -115,21 +84,12 @@ public class CLIManager implements UserInterface
 	////////////////////////////////////////////////////////////
 
 	@Override
-	public String selectDeployTerritory(Player p)
+	public String getDeployTerritory(Player p)
 	{
 		System.out.println("Total reinforcements for " + p.getName() + ": " + p.getNumReinforcementsAvailable());
 		System.out.print("Select territory to deploy to: ");
 
-		String terr = "";
-		try
-		{
-			terr = br.readLine();
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
-
+		String terr = getStringInput();
 		return terr;
 	}
 
@@ -139,34 +99,9 @@ public class CLIManager implements UserInterface
 		System.out.println(deployTerritory + " has " + TerritoryMap.getNumArmiesDeployedOn(deployTerritory) + " armies on it");
 		System.out.print("How many armies to deploy? (default 1): ");
 
-		String numArmiesStr =  "";
 		int numArmies = 1;
 
-		// keep trying to parse valid input
-		while(true)
-		{
-			try
-			{
-				numArmiesStr = br.readLine();
-				if(numArmiesStr.equals(""))
-					numArmies = 1;
-				else if(numArmiesStr.equals("all"))
-					numArmies = p.getNumReinforcementsAvailable();
-				else
-					numArmies = Integer.parseInt(numArmiesStr);
-			}
-			catch(NumberFormatException e) // In case user enters non-numerical value
-			{
-				generateWarning("bad input, must be number, try again");
-				continue;
-			}
-			catch(IOException e)
-			{
-				e.printStackTrace();
-				continue;
-			}
-			break;
-		}
+		numArmies = getNumberInput(p.getNumReinforcementsAvailable());
 
 		return numArmies;
 	}
@@ -180,15 +115,7 @@ public class CLIManager implements UserInterface
 	{
 		System.out.print("Do you wish to continue attacking? (y/n): ");
 
-		String input = "";
-		try
-		{
-			input = br.readLine();
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
+		String input = getStringInput();
 
 		if(!(input.equals("")) && input.toLowerCase().charAt(0) == 'n')
 		{
@@ -204,16 +131,7 @@ public class CLIManager implements UserInterface
 		System.out.println("Choose a territory to attack");
 		System.out.println(p.getAttackTargets());
 
-		String terr = "";
-		try
-		{
-			terr = br.readLine();
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
-
+		String terr = getStringInput();
 		return terr;
 	}
 
@@ -223,49 +141,18 @@ public class CLIManager implements UserInterface
 		System.out.println("Choose a territory to attack from:");
 		System.out.println(TerritoryMap.get(territoryToAttack).getAdjacentTerritoriesOccupiedBy(p));
 
-		String terr = "";
-		try
-		{
-			terr = br.readLine();
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
-
+		String terr = getStringInput();
 		return terr;
 	}
 
 	@Override
 	public int getNumArmiesToAttackWith(Player p, String territoryToAttackID, String territoryToAttackFromID)
 	{
+		int maxArmies = getNumberInput(TerritoryMap.getNumArmiesDeployedOn(territoryToAttackFromID) - 1);
 		System.out.println("Choose number of armies to attack with. Opponent has " + TerritoryMap.getNumArmiesDeployedOn(territoryToAttackID));
-		System.out.println("You have " + (TerritoryMap.getNumArmiesDeployedOn(territoryToAttackFromID) - 1) + " armies (1 must stay behind)");
+		System.out.println("You have " + maxArmies + " armies (1 must stay behind)");
 
-		int numArmies = 0;
-		String numArmiesStr = "";
-		try
-		{
-			numArmiesStr = br.readLine();
-			if(numArmiesStr.equals(""))
-				numArmies = 1;
-			else if(numArmiesStr.equals("all"))
-				numArmies = TerritoryMap.getNumArmiesDeployedOn(territoryToAttackFromID) - 1;
-			else
-			{
-				numArmies = Integer.parseInt(numArmiesStr);
-			}
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
-		catch(NumberFormatException e)
-		{
-			System.err.println("Bad number of armies");
-			return -1;
-		}
-
+		int numArmies = getNumberInput(maxArmies);
 		return numArmies;
 	}
 
@@ -275,6 +162,41 @@ public class CLIManager implements UserInterface
 		System.out.println(results.getAttackSuccess() ? "Attacker Won" : "Defender Won");
 		System.out.println("Attacker Losses: " + results.getNumAttackerLosses());
 		System.out.println("Defender Losses: " + results.getNumDefenderLosses());
+	}
+
+	////////////////////////////////////////////////////////////
+	//	Fortify Troops methods
+	////////////////////////////////////////////////////////////
+
+	@Override
+	public String getTerritoryToFortify(Player p)
+	{
+		System.out.println("Select a territory to fortify");
+		System.out.println(p.getOccupiedTerritories());
+
+		String terr = getStringInput();
+		return terr;
+	}
+
+	@Override
+	public String getTerritoryToFortifyFrom(Player p, String terrID)
+	{
+		Territory terr = TerritoryMap.get(terrID);
+
+		System.out.println("Select a territory to fortify from");
+		System.out.println(terr.getAdjacentTerritoriesOccupiedBy(p));
+
+		String terrToFortifyFrom = getStringInput();
+		return terrToFortifyFrom;
+	}
+
+	public int getNumArmiesToFortify(String terrToFortFrom)
+	{
+		int maxArmies = TerritoryMap.getNumArmiesDeployedOn(terrToFortFrom);
+		System.out.println("Number of armies to send (max of " + maxArmies + "):");
+
+		int numArmies = getNumberInput(maxArmies);
+		return numArmies;
 	}
 
 	////////////////////////////////////////////////////////////
@@ -297,5 +219,55 @@ public class CLIManager implements UserInterface
 		{
 			e.printStackTrace();
 		}
+	}
+
+	private String getStringInput()
+	{
+		String str = "";
+		try
+		{
+			str = br.readLine();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+
+		return str;
+	}
+
+	private int getNumberInput(int defaultMax)
+	{
+		int num = 0;
+		String numStr = "";
+		while(true)
+		{
+			try
+			{
+				numStr = br.readLine();
+				if(numStr.equals(""))
+					num = 1;
+				else if(numStr.equals("all"))
+					num = defaultMax;
+				else
+				{
+					num = Integer.parseInt(numStr);
+				}
+			}
+			catch(IOException e)
+			{
+				e.printStackTrace();
+				continue;
+			}
+			catch(NumberFormatException e)
+			{
+				System.err.println("Bad input, need integer input");
+				return -1;
+			}
+
+			break;
+		}
+
+		return num;
 	}
 }

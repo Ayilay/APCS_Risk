@@ -627,4 +627,9 @@ public class TerritoryMap
 	{
 		return allTerritories.get(id).getOccupier();
 	}
+
+	public static void transferArmies(String territoryToFortifyFromID, String territoryToFortifyID, int numArmies)
+	{
+		allTerritories.get(territoryToFortifyFromID).moveArmies(territoryToFortifyID, numArmies);
+	}
 }

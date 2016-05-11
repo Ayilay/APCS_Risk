@@ -9,7 +9,7 @@ public interface UserInterface
 	void promptPlayerTurn(Player p);
 
 	// Deploy Armies Methods
-	public String selectDeployTerritory(Player p);
+	public String getDeployTerritory(Player p);
 	public int getNumArmiesToDeploy(Player p, String deployTerritory);
 
 	// Attack Territories methods
@@ -18,6 +18,11 @@ public interface UserInterface
 	public String getTerritoryToAttackFrom(Player p, String territoryToAttack);
 	public int getNumArmiesToAttackWith(Player p, String territoryToAttackID, String territoryToAttackFromID);
 	public void displayBattleResults(BattleResults results);
+
+	// Fortify Troops methods
+	public String getTerritoryToFortify(Player p);
+	public String getTerritoryToFortifyFrom(Player p, String terrID);
+	public int getNumArmiesToFortify(String terrToFortFrom);
 
 	// Utility Methods
 	public void generateWarning(String string);

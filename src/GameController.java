@@ -52,7 +52,7 @@ public class GameController
 		p.calculateReinforcements();
 		while(p.getNumReinforcementsAvailable() > 0)
 		{
-			String territory = userInterface.selectDeployTerritory(p);
+			String territory = userInterface.getDeployTerritory(p);
 
 			if(!TerritoryMap.isValidTerritory(territory))
 			{
@@ -160,8 +160,62 @@ public class GameController
 
 	private void fortifyTroops(Player p)
 	{
-		// TODO Auto-generated method stub
+		if(p.getOccupiedTerritories().size() == 1)
+		{
+			userInterface.generateWarning("Nothing to fortify, skipping turn");
+			return;
+		}
 
+		while(true)
+		{
+			// Get territory to fortify
+			String territoryToFortifyID = userInterface.getTerritoryToFortify(p);
+			if(territoryToFortifyID.equals(""))
+			{
+				userInterface.generateWarning("Not fortifying anything");
+				break;
+			}
+			if(!p.ownsTerritory(territoryToFortifyID))
+			{
+				userInterface.generateWarning("You do not own this territory");
+				continue;
+			}
+			Territory territoryToFortify = TerritoryMap.get(territoryToFortifyID);
+
+			// Get territory to fortify from
+			String territoryToFortifyFromID = userInterface.getTerritoryToFortifyFrom(p, territoryToFortifyID);
+			if(!p.ownsTerritory(territoryToFortifyFromID))
+			{
+				userInterface.generateWarning("You do not own this territory");
+				continue;
+			}
+			if(!territoryToFortify.isNeighborWith(territoryToFortifyFromID))
+			{
+				userInterface.generateWarning("territories are not neighbors");
+				continue;
+			}
+
+			// Get num armies to fortify with
+			int numArmies = userInterface.getNumArmiesToFortify(territoryToFortifyFromID);
+			if(numArmies >= TerritoryMap.getNumArmiesDeployedOn(territoryToFortifyFromID))
+			{
+				userInterface.generateWarning("Don't have that many armies to fortify with");
+				continue;
+			}
+			else if(numArmies < 0)
+			{
+				userInterface.generateWarning("Invalid number of armies");
+				continue;
+			}
+			else if(numArmies == 0)
+			{
+				userInterface.generateWarning("Cancelling Fortification");
+				break;
+			}
+
+			TerritoryMap.transferArmies(territoryToFortifyFromID, territoryToFortifyID, numArmies);
+			break;
+		}
 	}
 
 	////////////////////////////////////////////////////////////
@@ -204,15 +258,6 @@ public class GameController
 
 			players.add(new Player(name, territory));
 		}
-	}
-
-	private Set<String> getPlayerNames()
-	{
-		Set<String> names = new HashSet<String>();
-		for(Player p : players)
-			names.add(p.getName());
-
-		return names;
 	}
 
 	private boolean isStillPlaying()
