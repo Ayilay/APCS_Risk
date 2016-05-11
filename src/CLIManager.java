@@ -72,11 +72,11 @@ public class CLIManager implements UserInterface
 		System.out.println("--------------------");
 		System.out.println(playerName + "'s territories:");
 		System.out.println(territories);
-		//System.out.println(playerName + "'s cards");
-		//for(Card c : p.getCards())
-		//{
-		//	System.out.println(c.toString());
-		//}
+		System.out.println(playerName + "'s cards");
+		for(Card c : p.getCards())
+		{
+			System.out.print("[" + c.toString() + "] ");
+		}
 	}
 
 	////////////////////////////////////////////////////////////
@@ -91,6 +91,131 @@ public class CLIManager implements UserInterface
 
 		String terr = getStringInput();
 		return terr;
+	}
+	
+	public int selectCardUse()
+	{
+		String response = "";
+		boolean isDone = false;
+		while(!isDone)
+		{
+			System.out.println("Use a Card? Enter Y for yes or N for no ");
+			response = getStringInput();
+	
+			if(response.equalsIgnoreCase("y"))
+				return 1;
+			else if(!response.equalsIgnoreCase("n"))
+			{
+				System.out.println("Enter Y or N");
+				continue;
+			}
+
+			System.out.println("Trade a Card? Enter Y for yes or N for no ");
+			response = getStringInput();
+			
+			if(response.equalsIgnoreCase("y"))
+				return 2;
+			else if(!response.equalsIgnoreCase("n"))
+			{
+				System.out.println("Enter Y or N");
+				continue;
+			}
+			else if(response.equalsIgnoreCase("n"))
+				isDone = true;
+		}
+		return 3;
+	}
+	public Card selectCard(Player p) 
+	{
+		if(p.getCards().size() == 0)
+		{
+			System.out.println("You do not have any cards");
+			return null;
+		}	
+		String territory = "";
+		int value = 0;
+		Card c = null;
+		
+		boolean isDone = false;
+		while(!isDone)
+		{
+			System.out.println("Enter the Territory of the card you want to use. Press Q to quit ");
+			territory = getStringInput();
+			
+			if(territory.equalsIgnoreCase("q"))
+				return null;
+				
+			System.out.println("Enter the number of armies of the card. Press Q to quit ");			
+			value = getNumberInput(3);
+			
+			if(territory.equalsIgnoreCase("q"))
+				return null;
+			
+			c = new Card(territory, value);
+			
+			if(!p.getCards().contains(c))
+			{
+				System.out.println("You do not own this card");
+				continue;
+			}
+			else if(!p.getOccupiedTerritories().contains(c.getTerritory()))
+			{
+				System.out.println("You do not own this territory");
+				continue;
+			}
+			
+			isDone = true;
+		
+		}
+		return c;
+	}
+	
+	@Override
+	public void useCard(Player p) //TODO: allow player to exit
+	{
+		Card c = this.selectCard(p);
+		if(c == null)
+			return;
+		p.getCards().remove(c);
+		p.deployReinforcements(c.getTerritory(), c.getValue());
+	}
+	
+	@Override
+	public void tradeCardSets(Player p, CardDeck deck) //TODO: actually trade with other players
+	{	
+		if(p.getCards().size() < 3)
+		{
+			System.out.println("You do not have enough cards");
+			return;
+		}
+		Card c1 = null;
+		Card c2 = null;
+		Card c3 = null;
+		boolean isDone = false;
+		
+		while(!isDone)
+		{
+			System.out.println("Select 3 cards to trade. The three cards must be the same value");
+			c1 = this.selectCard(p);
+			c2 = this.selectCard(p);
+			c3 = this.selectCard(p);
+			if(c1.getValue() != c2.getValue() || c2.getValue() != c3.getValue() || c1.getValue() != c3.getValue())
+			{
+				System.out.println("Must be 3 Cards of the same value");
+				continue;
+			}
+			isDone = true;
+		}
+		
+		p.getCards().remove(c1);
+		p.getCards().remove(c2);
+		p.getCards().remove(c3);
+		deck.getDeck().add(c1);
+		deck.getDeck().add(c2);
+		deck.getDeck().add(c3);
+		
+		p.addReinforcements((p.getSetsTraded()+1) * 2);
+		p.incrementSets();
 	}
 
 	@Override
@@ -220,7 +345,7 @@ public class CLIManager implements UserInterface
 			e.printStackTrace();
 		}
 	}
-
+	
 	private String getStringInput()
 	{
 		String str = "";

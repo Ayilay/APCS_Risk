@@ -13,7 +13,8 @@ public class Player
 	private ArrayList<Card> deck;
 	private Set<String> occupiedTerritories;//which locations the player has
 	private ArrayList<Achievement> notFulfilled;//achievements that the player has not yet obtained
-
+	private int setsTraded;
+	
 	private String name;
 
 	/**
@@ -23,6 +24,7 @@ public class Player
 	 */
 	public Player(String name, String starter)
 	{
+		setsTraded = 0;
 		numReinforcements = 3;
 		occupiedTerritories = new HashSet<String>();
 		occupiedTerritories.add(starter);
@@ -204,5 +206,20 @@ public class Player
 				return true;
 		}
 		return false;
+	}
+	
+	public int getSetsTraded()
+	{
+		return setsTraded;
+	}
+	
+	public void addReinforcements(int num)
+	{
+		numReinforcements += num;
+	}	
+	
+	public void incrementSets()
+	{
+		setsTraded++;
 	}
 }

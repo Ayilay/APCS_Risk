@@ -8,7 +8,7 @@ public class GameController
 	private Timeline timeline;
 	private int turn;
 	private int currentPlayerTurn; // Player currently playing
-
+	private CardDeck deck;
 	private static UserInterface userInterface;
 
 	public GameController()
@@ -19,8 +19,10 @@ public class GameController
 
 		turn = 0;
 		currentPlayerTurn = 0;
-
+		
+	
 		TerritoryMap.init();
+		deck = new CardDeck(TerritoryMap.getAllTerritories());
 		AchievementManager.init();
 
 		// Get player names and starting territories
@@ -35,6 +37,7 @@ public class GameController
 			userInterface.promptPlayerTurn(p);
 
 			// Perform the player actions
+			useCards(p);
 			deployReinforcements(p);
 			attackTerritory(p);
 			fortifyTroops(p);
@@ -47,6 +50,17 @@ public class GameController
 	//	Player Turn Methods
 	////////////////////////////////////////////////////////////
 
+	private void useCards(Player p)
+	{
+		switch(userInterface.selectCardUse())
+		{
+			case 1: userInterface.useCard(p); break;
+			case 2: userInterface.tradeCardSets(p, deck); break;
+			case 3: break;
+		}
+	
+	}
+	
 	private void deployReinforcements(Player p)
 	{
 		p.calculateReinforcements();
@@ -147,7 +161,7 @@ public class GameController
 			if(results.getAttackSuccess())
 			{
 				timeline.addVictoryToTimeline(turn, territoryToAttack.getID(), p);
-				Card c = CardDeck.deal();
+				Card c = deck.deal();
 				p.addCards(c);
 			}
 			else
@@ -260,6 +274,14 @@ public class GameController
 		}
 	}
 
+	private Set<String> getPlayerNames()
+	{
+		Set<String> names = new HashSet<String>();
+		for(Player p : players)
+			names.add(p.getName());
+		
+		return names;
+	}
 	private boolean isStillPlaying()
 	{
 		return players.size() != 1;
