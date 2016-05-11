@@ -8,14 +8,14 @@ public class CardDeck
 	{
 		String[] rearranged = s.toArray(new String[s.size()]);
 		rearranged = shuffle(rearranged);
-	
+
 		for(int i = 0; i < s.size(); i++)
 		{
 			Card card = new Card((String)rearranged[i], (int)(2 * Math.random() + 1));
 			cards.add(card);
 		}
 	}
-	
+
 	public static String[] shuffle(String[] t)
 	{
 		for(int i = t.length - 1; i > 0; i--)
@@ -33,13 +33,13 @@ public class CardDeck
 	{
 		if(cards.size() == 0)
 			return null;
-		
+
 		return cards.poll();
 	}
-	
+
 	public Queue<Card> getDeck()
 	{
 		return cards;
 	}
-	
+
 }

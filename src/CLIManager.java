@@ -80,19 +80,9 @@ public class CLIManager implements UserInterface
 	}
 
 	////////////////////////////////////////////////////////////
-	//	Deploy Armies methods
+	//	Use Card Methods
 	////////////////////////////////////////////////////////////
 
-	@Override
-	public String getDeployTerritory(Player p)
-	{
-		System.out.println("Total reinforcements for " + p.getName() + ": " + p.getNumReinforcementsAvailable());
-		System.out.print("Select territory to deploy to: ");
-
-		String terr = getStringInput();
-		return terr;
-	}
-	
 	public int selectCardUse()
 	{
 		String response = "";
@@ -101,7 +91,7 @@ public class CLIManager implements UserInterface
 		{
 			System.out.println("Use a Card? Enter Y for yes or N for no ");
 			response = getStringInput();
-	
+
 			if(response.equalsIgnoreCase("y"))
 				return 1;
 			else if(!response.equalsIgnoreCase("n"))
@@ -112,7 +102,7 @@ public class CLIManager implements UserInterface
 
 			System.out.println("Trade a Card? Enter Y for yes or N for no ");
 			response = getStringInput();
-			
+
 			if(response.equalsIgnoreCase("y"))
 				return 2;
 			else if(!response.equalsIgnoreCase("n"))
@@ -125,34 +115,35 @@ public class CLIManager implements UserInterface
 		}
 		return 3;
 	}
-	public Card selectCard(Player p) 
+
+	public Card selectCard(Player p)
 	{
 		if(p.getCards().size() == 0)
 		{
 			System.out.println("You do not have any cards");
 			return null;
-		}	
+		}
 		String territory = "";
 		int value = 0;
 		Card c = null;
-		
+
 		boolean isDone = false;
 		while(!isDone)
 		{
 			System.out.println("Enter the Territory of the card you want to use. Press Q to quit ");
 			territory = getStringInput();
-			
+
 			if(territory.equalsIgnoreCase("q"))
 				return null;
-				
-			System.out.println("Enter the number of armies of the card. Press Q to quit ");			
+
+			System.out.println("Enter the number of armies of the card. Press Q to quit ");
 			value = getNumberInput(3);
-			
+
 			if(territory.equalsIgnoreCase("q"))
 				return null;
-			
+
 			c = new Card(territory, value);
-			
+
 			if(!p.getCards().contains(c))
 			{
 				System.out.println("You do not own this card");
@@ -163,13 +154,13 @@ public class CLIManager implements UserInterface
 				System.out.println("You do not own this territory");
 				continue;
 			}
-			
+
 			isDone = true;
-		
+
 		}
 		return c;
 	}
-	
+
 	@Override
 	public void useCard(Player p) //TODO: allow player to exit
 	{
@@ -179,10 +170,10 @@ public class CLIManager implements UserInterface
 		p.getCards().remove(c);
 		p.deployReinforcements(c.getTerritory(), c.getValue());
 	}
-	
+
 	@Override
 	public void tradeCardSets(Player p, CardDeck deck) //TODO: actually trade with other players
-	{	
+	{
 		if(p.getCards().size() < 3)
 		{
 			System.out.println("You do not have enough cards");
@@ -192,7 +183,7 @@ public class CLIManager implements UserInterface
 		Card c2 = null;
 		Card c3 = null;
 		boolean isDone = false;
-		
+
 		while(!isDone)
 		{
 			System.out.println("Select 3 cards to trade. The three cards must be the same value");
@@ -206,16 +197,30 @@ public class CLIManager implements UserInterface
 			}
 			isDone = true;
 		}
-		
+
 		p.getCards().remove(c1);
 		p.getCards().remove(c2);
 		p.getCards().remove(c3);
 		deck.getDeck().add(c1);
 		deck.getDeck().add(c2);
 		deck.getDeck().add(c3);
-		
-		p.addReinforcements((p.getSetsTraded()+1) * 2);
+
+		p.addReinforcements((p.getSetsTraded() + 1) * 2);
 		p.incrementSets();
+	}
+
+	////////////////////////////////////////////////////////////
+	//	Deploy Armies methods
+	////////////////////////////////////////////////////////////
+
+	@Override
+	public String getDeployTerritory(Player p)
+	{
+		System.out.println("Total reinforcements for " + p.getName() + ": " + p.getNumReinforcementsAvailable());
+		System.out.print("Select territory to deploy to: ");
+
+		String terr = getStringInput();
+		return terr;
 	}
 
 	@Override
@@ -345,7 +350,7 @@ public class CLIManager implements UserInterface
 			e.printStackTrace();
 		}
 	}
-	
+
 	private String getStringInput()
 	{
 		String str = "";

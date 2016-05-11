@@ -19,8 +19,8 @@ public class GameController
 
 		turn = 0;
 		currentPlayerTurn = 0;
-		
-	
+
+
 		TerritoryMap.init();
 		deck = new CardDeck(TerritoryMap.getAllTerritories());
 		AchievementManager.init();
@@ -54,13 +54,18 @@ public class GameController
 	{
 		switch(userInterface.selectCardUse())
 		{
-			case 1: userInterface.useCard(p); break;
-			case 2: userInterface.tradeCardSets(p, deck); break;
-			case 3: break;
+			case 1:
+				userInterface.useCard(p);
+				break;
+			case 2:
+				userInterface.tradeCardSets(p, deck);
+				break;
+			case 3:
+				break;
 		}
-	
+
 	}
-	
+
 	private void deployReinforcements(Player p)
 	{
 		p.calculateReinforcements();
@@ -279,7 +284,7 @@ public class GameController
 		Set<String> names = new HashSet<String>();
 		for(Player p : players)
 			names.add(p.getName());
-		
+
 		return names;
 	}
 	private boolean isStillPlaying()

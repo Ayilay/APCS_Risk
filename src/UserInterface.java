@@ -7,13 +7,13 @@ public interface UserInterface
 
 	// Pre Player Turn Methods
 	void promptPlayerTurn(Player p);
-	
+
 	//Use Card Methods
 	public Card selectCard(Player p);
 	public int selectCardUse();
 	public void useCard(Player p);
 	public void tradeCardSets(Player p, CardDeck deck);
-	
+
 	// Deploy Armies Methods
 	public String getDeployTerritory(Player p);
 	public int getNumArmiesToDeploy(Player p, String deployTerritory);
@@ -32,5 +32,5 @@ public interface UserInterface
 
 	// Utility Methods
 	public void generateWarning(String string);
-	
+
 }

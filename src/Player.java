@@ -14,7 +14,7 @@ public class Player
 	private Set<String> occupiedTerritories;//which locations the player has
 	private ArrayList<Achievement> notFulfilled;//achievements that the player has not yet obtained
 	private int setsTraded;
-	
+
 	private String name;
 
 	/**
@@ -207,17 +207,17 @@ public class Player
 		}
 		return false;
 	}
-	
+
 	public int getSetsTraded()
 	{
 		return setsTraded;
 	}
-	
+
 	public void addReinforcements(int num)
 	{
 		numReinforcements += num;
-	}	
-	
+	}
+
 	public void incrementSets()
 	{
 		setsTraded++;
