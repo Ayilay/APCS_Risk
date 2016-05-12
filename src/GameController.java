@@ -14,7 +14,7 @@ public class GameController
 	public GameController()
 	{
 		players = new ArrayList<Player>();
-		userInterface = new CLIManager();
+		userInterface = new GUIManager();
 		timeline = new Timeline();
 
 		turn = 0;
@@ -334,6 +334,7 @@ public class GameController
 
 		return names;
 	}
+
 	private boolean isStillPlaying()
 	{
 		return players.size() != 1;
