@@ -72,10 +72,19 @@ public class CLIManager implements UserInterface
 		System.out.println("--------------------");
 		System.out.println(playerName + "'s territories:");
 		System.out.println(territories);
+
 		System.out.println(playerName + "'s cards");
-		for(Card c : p.getCards())
+		if(!p.hasCards())
 		{
-			System.out.print("[" + c.toString() + "] ");
+			System.out.println("(No Cards)");
+		}
+		else
+		{
+			for(Card c : p.getCards())
+			{
+				System.out.print("[" + c.toString() + "] ");
+			}
+			System.out.println();
 		}
 	}
 
@@ -118,7 +127,7 @@ public class CLIManager implements UserInterface
 
 	public Card selectCard(Player p)
 	{
-		if(p.getCards().size() == 0)
+		if(!p.hasCards())
 		{
 			System.out.println("You do not have any cards");
 			return null;
@@ -164,7 +173,7 @@ public class CLIManager implements UserInterface
 	@Override
 	public void useCard(Player p) //TODO: allow player to exit
 	{
-		Card c = this.selectCard(p);
+		Card c = selectCard(p);
 		if(c == null)
 			return;
 		p.getCards().remove(c);
@@ -187,9 +196,9 @@ public class CLIManager implements UserInterface
 		while(!isDone)
 		{
 			System.out.println("Select 3 cards to trade. The three cards must be the same value");
-			c1 = this.selectCard(p);
-			c2 = this.selectCard(p);
-			c3 = this.selectCard(p);
+			c1 = selectCard(p);
+			c2 = selectCard(p);
+			c3 = selectCard(p);
 			if(c1.getValue() != c2.getValue() || c2.getValue() != c3.getValue() || c1.getValue() != c3.getValue())
 			{
 				System.out.println("Must be 3 Cards of the same value");
@@ -269,7 +278,7 @@ public class CLIManager implements UserInterface
 	public String getTerritoryToAttackFrom(Player p, String territoryToAttack)
 	{
 		System.out.println("Choose a territory to attack from:");
-		System.out.println(TerritoryMap.get(territoryToAttack).getAdjacentTerritoriesOccupiedBy(p));
+		System.out.println(TerritoryMap.get(territoryToAttack).getValidAttackerTerritoriesOccupiedBy(p));
 
 		String terr = getStringInput();
 		return terr;
@@ -278,7 +287,7 @@ public class CLIManager implements UserInterface
 	@Override
 	public int getNumArmiesToAttackWith(Player p, String territoryToAttackID, String territoryToAttackFromID)
 	{
-		int maxArmies = getNumberInput(TerritoryMap.getNumArmiesDeployedOn(territoryToAttackFromID) - 1);
+		int maxArmies = TerritoryMap.getNumArmiesDeployedOn(territoryToAttackFromID) - 1;
 		System.out.println("Choose number of armies to attack with. Opponent has " + TerritoryMap.getNumArmiesDeployedOn(territoryToAttackID));
 		System.out.println("You have " + maxArmies + " armies (1 must stay behind)");
 
@@ -299,10 +308,35 @@ public class CLIManager implements UserInterface
 	////////////////////////////////////////////////////////////
 
 	@Override
+	public boolean getWantsToFortify(Player p)
+	{
+		System.out.print("Do you want to fortify? (y/n): ");
+		String input = getStringInput();
+
+		while(true)
+		{
+			if(input.length() == 0)
+				return false;
+
+			switch(input.toLowerCase().charAt(0))
+			{
+				case 'y':
+					return true;
+				case 'n':
+					return false;
+				default:
+					generateWarning("Bad input, try again");
+					continue;
+			}
+		}
+
+	}
+
+	@Override
 	public String getTerritoryToFortify(Player p)
 	{
 		System.out.println("Select a territory to fortify");
-		System.out.println(p.getOccupiedTerritories());
+		System.out.println(p.getFortifyTargets());
 
 		String terr = getStringInput();
 		return terr;
@@ -314,7 +348,7 @@ public class CLIManager implements UserInterface
 		Territory terr = TerritoryMap.get(terrID);
 
 		System.out.println("Select a territory to fortify from");
-		System.out.println(terr.getAdjacentTerritoriesOccupiedBy(p));
+		System.out.println(terr.getValidFortifiers());
 
 		String terrToFortifyFrom = getStringInput();
 		return terrToFortifyFrom;
@@ -322,7 +356,7 @@ public class CLIManager implements UserInterface
 
 	public int getNumArmiesToFortify(String terrToFortFrom)
 	{
-		int maxArmies = TerritoryMap.getNumArmiesDeployedOn(terrToFortFrom);
+		int maxArmies = TerritoryMap.getNumArmiesDeployedOn(terrToFortFrom) - 1;
 		System.out.println("Number of armies to send (max of " + maxArmies + "):");
 
 		int numArmies = getNumberInput(maxArmies);

@@ -26,6 +26,7 @@ public interface UserInterface
 	public void displayBattleResults(BattleResults results);
 
 	// Fortify Troops methods
+	public boolean getWantsToFortify(Player p);
 	public String getTerritoryToFortify(Player p);
 	public String getTerritoryToFortifyFrom(Player p, String terrID);
 	public int getNumArmiesToFortify(String terrToFortFrom);

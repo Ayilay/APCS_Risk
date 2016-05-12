@@ -1,4 +1,5 @@
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.ArrayList;
 
@@ -129,6 +130,9 @@ public class Player
 		Set<String> returnSet = new HashSet<String>();
 		for(String s : occupiedTerritories)
 		{
+			if(TerritoryMap.getNumArmiesDeployedOn(s) < 2)
+				continue;
+
 			Territory t = TerritoryMap.get(s);
 			Set<String> neighbors = t.getAdjacentTerritories();
 			for(String k : neighbors)
@@ -172,6 +176,8 @@ public class Player
 		return TerritoryMap.continentIsSubsetOfSet(c, occupiedTerritories);
 	}
 
+	// Returns true if selected territory neighbors a player owned territory
+	// and if at least 1 neighbor territory has at least 2 armies
 	public boolean isValidAttackTarget(String t)
 	{
 		return getAttackTargets().contains(t);
@@ -221,5 +227,50 @@ public class Player
 	public void incrementSets()
 	{
 		setsTraded++;
+	}
+
+	// returns all the owned territories that have at least one
+	// adjacent territory with at least 1 army
+	public Set<String> getFortifyTargets()
+	{
+		Set<String> targets = new HashSet<String>(occupiedTerritories);
+
+		Iterator<String> iter = targets.iterator();
+		while(iter.hasNext())
+		{
+			String terrID = iter.next();
+
+			Iterator<String> neighborIter = TerritoryMap.get(terrID).getAdjacentTerritoriesOccupiedBy(this).iterator();
+			while(neighborIter.hasNext())
+			{
+				String neighborTerr = neighborIter.next();
+				int numRemoved = 0;
+				if(TerritoryMap.getNumArmiesDeployedOn(neighborTerr) < 2)
+				{
+					// in case we need to remove more than 1 element, advance the iterator
+					if(numRemoved != 0)
+						iter.next();
+					iter.remove();
+					numRemoved ++;
+				}
+			}
+		}
+
+		return targets;
+	}
+
+	public boolean getCanFortify()
+	{
+		return getFortifyTargets().size() != 0;
+	}
+
+	public boolean canFortifyTerritory(String territoryToFortifyFromID)
+	{
+		return getFortifyTargets().contains(territoryToFortifyFromID);
+	}
+
+	public boolean hasCards()
+	{
+		return deck.size() != 0;
 	}
 }

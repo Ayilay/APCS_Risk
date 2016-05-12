@@ -1,4 +1,3 @@
-
 public class Card
 {
 	private String territory;
@@ -24,5 +23,15 @@ public class Card
 	public String toString()
 	{
 		return territory + " - " + stars;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if(!(obj instanceof Card))
+			return false;
+		Card other = (Card) obj;
+
+		return territory.equals(other.getTerritory()) && stars == other.getValue();
 	}
 }

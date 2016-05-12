@@ -52,6 +52,9 @@ public class GameController
 
 	private void useCards(Player p)
 	{
+		if(!p.hasCards())
+			return;
+
 		switch(userInterface.selectCardUse())
 		{
 			case 1:
@@ -141,6 +144,11 @@ public class GameController
 					userInterface.generateWarning("Cannot attack from selected territory");
 					continue;
 				}
+				if(TerritoryMap.getNumArmiesDeployedOn(territoryToAttackFromID) < 2)
+				{
+					userInterface.generateWarning("Selected territory does not have enough armies to attack");
+					continue;
+				}
 
 				break;
 			}
@@ -181,36 +189,39 @@ public class GameController
 	{
 		if(p.getOccupiedTerritories().size() == 1)
 		{
-			userInterface.generateWarning("Nothing to fortify, skipping turn");
+			userInterface.generateWarning("Nowhere to fortify from, skipping turn");
 			return;
 		}
+		if(!p.getCanFortify())
+		{
+			userInterface.generateWarning("Not enough armies to fortify anything, skipping turn");
+			return;
+		}
+
+		if(!userInterface.getWantsToFortify(p))
+			return;
 
 		while(true)
 		{
 			// Get territory to fortify
 			String territoryToFortifyID = userInterface.getTerritoryToFortify(p);
-			if(territoryToFortifyID.equals(""))
+			if(!p.canFortifyTerritory(territoryToFortifyID))
 			{
-				userInterface.generateWarning("Not fortifying anything");
-				break;
-			}
-			if(!p.ownsTerritory(territoryToFortifyID))
-			{
-				userInterface.generateWarning("You do not own this territory");
+				userInterface.generateWarning("You cannot fortify this territory");
 				continue;
 			}
 			Territory territoryToFortify = TerritoryMap.get(territoryToFortifyID);
 
 			// Get territory to fortify from
 			String territoryToFortifyFromID = userInterface.getTerritoryToFortifyFrom(p, territoryToFortifyID);
-			if(!p.ownsTerritory(territoryToFortifyFromID))
+			if(!TerritoryMap.isValidTerritory(territoryToFortifyFromID))
 			{
-				userInterface.generateWarning("You do not own this territory");
+				userInterface.generateWarning("Not a valid territory");
 				continue;
 			}
-			if(!territoryToFortify.isNeighborWith(territoryToFortifyFromID))
+			if(!territoryToFortify.isValidFortifier(territoryToFortifyFromID))
 			{
-				userInterface.generateWarning("territories are not neighbors");
+				userInterface.generateWarning("Not a valid territory to fortify from");
 				continue;
 			}
 
@@ -243,40 +254,42 @@ public class GameController
 
 	private void initPlayers()
 	{
-		int numPlayers = userInterface.getNumPlayers();
+		//int numPlayers = userInterface.getNumPlayers();
 
-		for(int i = 0; i < numPlayers; i++)
-		{
-			String name = "";
-			boolean valid = false;
-			while(!valid)
-			{
-				valid = true;
-				name = userInterface.getPlayerName();
-				if(getPlayerNames().contains(name))
-				{
-					userInterface.generateWarning("Already player with that name");
-					valid = false;
-				}
-			}
-			String territory = "";
-			valid = false;
-			while(!valid)
-			{
-				territory = userInterface.getStartingTerritory(name);
-				if(TerritoryMap.get(territory) == null ||
-				        TerritoryMap.getOccupierOnTerritory(territory) != null)
-				{
-					userInterface.generateWarning("Not a valid territory");
-				}
-				else
-				{
-					valid = true;
-				}
-			}
+		//for(int i = 0; i < numPlayers; i++)
+		//{
+		//	String name = "";
+		//	boolean valid = false;
+		//	while(!valid)
+		//	{
+		//		valid = true;
+		//		name = userInterface.getPlayerName();
+		//		if(getPlayerNames().contains(name))
+		//		{
+		//			userInterface.generateWarning("Already player with that name");
+		//			valid = false;
+		//		}
+		//	}
+		//	String territory = "";
+		//	valid = false;
+		//	while(!valid)
+		//	{
+		//		territory = userInterface.getStartingTerritory(name);
+		//		if(TerritoryMap.get(territory) == null ||
+		//		        TerritoryMap.getOccupierOnTerritory(territory) != null)
+		//		{
+		//			userInterface.generateWarning("Not a valid territory");
+		//		}
+		//		else
+		//		{
+		//			valid = true;
+		//		}
+		//	}
 
-			players.add(new Player(name, territory));
-		}
+		//	players.add(new Player(name, territory));
+		//}
+		players.add(new Player("George", "Germany"));
+		players.add(new Player("Richard", "China"));
 	}
 
 	private Set<String> getPlayerNames()

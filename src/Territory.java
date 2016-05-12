@@ -1,4 +1,5 @@
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /*
@@ -111,8 +112,43 @@ public class Territory
 		return temp;
 	}
 
+	public Set<String> getValidAttackerTerritoriesOccupiedBy(Player p)
+	{
+		Set<String> territories = getAdjacentTerritoriesOccupiedBy(p);
+		Iterator<String> iter = territories.iterator();
+		while(iter.hasNext())
+		{
+			String terrID = iter.next();
+			if(TerritoryMap.getNumArmiesDeployedOn(terrID) < 2)
+				iter.remove();
+		}
+
+		return territories;
+	}
+
 	public void disownOccupier()
 	{
 		occupier = null;
+	}
+
+	public Set<String> getValidFortifiers()
+	{
+		Set<String> targets = new HashSet<String>(getAdjacentTerritoriesOccupiedBy(occupier));
+
+		Iterator<String> iter = targets.iterator();
+		while(iter.hasNext())
+		{
+			String terrID = iter.next();
+
+			if(TerritoryMap.getNumArmiesDeployedOn(terrID) < 2)
+				iter.remove();
+		}
+
+		return targets;
+	}
+
+	public boolean isValidFortifier(String terrID)
+	{
+		return getValidFortifiers().contains(terrID);
 	}
 }
