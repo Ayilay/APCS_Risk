@@ -91,8 +91,8 @@ public class CLIManager implements UserInterface
 	////////////////////////////////////////////////////////////
 	//	Use Card Methods
 	////////////////////////////////////////////////////////////
-
-	public int selectCardUse()
+	@Override
+	public boolean promptUseCard()
 	{
 		String response = "";
 		boolean isDone = false;
@@ -100,29 +100,50 @@ public class CLIManager implements UserInterface
 		{
 			System.out.println("Use a Card? Enter Y for yes or N for no ");
 			response = getStringInput();
-
-			if(response.equalsIgnoreCase("y"))
-				return 1;
-			else if(!response.equalsIgnoreCase("n"))
+			
+			if(!response.equalsIgnoreCase("y") || !response.equalsIgnoreCase("n"))
 			{
-				System.out.println("Enter Y or N");
+				System.out.println("Enter Yes or No");
 				continue;
-			}
-
-			System.out.println("Trade a Card? Enter Y for yes or N for no ");
-			response = getStringInput();
-
-			if(response.equalsIgnoreCase("y"))
-				return 2;
-			else if(!response.equalsIgnoreCase("n"))
-			{
-				System.out.println("Enter Y or N");
-				continue;
-			}
-			else if(response.equalsIgnoreCase("n"))
-				isDone = true;
+			}	
+			isDone = true;
 		}
-		return 3;
+		
+		if(response.equalsIgnoreCase("n"))
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+	
+	public boolean promptTradeCard()
+	{
+		String response = "";
+		boolean isDone = false;
+		while(!isDone)
+		{
+			System.out.println("Trade Cards? Enter Y for yes or N for no ");
+			response = getStringInput();
+			
+			if(!response.equalsIgnoreCase("y") || !response.equalsIgnoreCase("n"))
+			{
+				System.out.println("Enter Yes or No");
+				continue;
+			}	
+			isDone = true;
+		}
+		
+		if(response.equalsIgnoreCase("n"))
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
 	}
 
 	public Card selectCard(Player p)
@@ -132,6 +153,7 @@ public class CLIManager implements UserInterface
 			System.out.println("You do not have any cards");
 			return null;
 		}
+		
 		String territory = "";
 		int value = 0;
 		Card c = null;
@@ -168,54 +190,6 @@ public class CLIManager implements UserInterface
 
 		}
 		return c;
-	}
-
-	@Override
-	public void useCard(Player p) //TODO: allow player to exit
-	{
-		Card c = selectCard(p);
-		if(c == null)
-			return;
-		p.getCards().remove(c);
-		p.deployReinforcements(c.getTerritory(), c.getValue());
-	}
-
-	@Override
-	public void tradeCardSets(Player p, CardDeck deck) //TODO: actually trade with other players
-	{
-		if(p.getCards().size() < 3)
-		{
-			System.out.println("You do not have enough cards");
-			return;
-		}
-		Card c1 = null;
-		Card c2 = null;
-		Card c3 = null;
-		boolean isDone = false;
-
-		while(!isDone)
-		{
-			System.out.println("Select 3 cards to trade. The three cards must be the same value");
-			c1 = selectCard(p);
-			c2 = selectCard(p);
-			c3 = selectCard(p);
-			if(c1.getValue() != c2.getValue() || c2.getValue() != c3.getValue() || c1.getValue() != c3.getValue())
-			{
-				System.out.println("Must be 3 Cards of the same value");
-				continue;
-			}
-			isDone = true;
-		}
-
-		p.getCards().remove(c1);
-		p.getCards().remove(c2);
-		p.getCards().remove(c3);
-		deck.getDeck().add(c1);
-		deck.getDeck().add(c2);
-		deck.getDeck().add(c3);
-
-		p.addReinforcements((p.getSetsTraded() + 1) * 2);
-		p.incrementSets();
 	}
 
 	////////////////////////////////////////////////////////////

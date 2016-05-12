@@ -54,19 +54,53 @@ public class GameController
 	{
 		if(!p.hasCards())
 			return;
-
-		switch(userInterface.selectCardUse())
+		
+		if(userInterface.promptUseCard())
 		{
-			case 1:
-				userInterface.useCard(p);
-				break;
-			case 2:
-				userInterface.tradeCardSets(p, deck);
-				break;
-			case 3:
-				break;
-		}
+			Card c = userInterface.selectCard(p);
+			if(c == null)
+				return;
+			p.getCards().remove(c);
+			p.deployReinforcements(c.getTerritory(), c.getValue());
+		}	
+		
+		if(userInterface.promptTradeCard())
+		{
+			if(p.getCards().size() < 3)
+			{
+				userInterface.generateWarning("You do not have enough cards");
+				return;
+			}
+			Card c1 = null;
+			Card c2 = null;
+			Card c3 = null;
+			boolean isDone = false;
 
+			while(!isDone)
+			{
+				System.out.println("Select 3 cards to trade. The three cards must be the same value");
+				c1 = userInterface.selectCard(p);
+				c2 = userInterface.selectCard(p);
+				c3 = userInterface.selectCard(p);
+				if(c1.getValue() != c2.getValue() || c2.getValue() != c3.getValue() || c1.getValue() != c3.getValue())
+				{
+					userInterface.generateWarning("Must be 3 Cards of the same value");
+					continue;
+				}
+				isDone = true;
+			}
+
+			p.getCards().remove(c1);
+			p.getCards().remove(c2);
+			p.getCards().remove(c3);
+			deck.getDeck().add(c1);
+			deck.getDeck().add(c2);
+			deck.getDeck().add(c3);
+
+			p.addReinforcements((p.getSetsTraded() + 1) * 2);
+			p.incrementSets();
+		}
+		
 	}
 
 	private void deployReinforcements(Player p)
@@ -322,104 +356,4 @@ public class GameController
 
 		return p;
 	}
-
-	//TODO: copied and pasted code below, integrate with new model
-	/*
-	////////////////////////////////////////////////////////////
-	// Player Turn Methods
-	////////////////////////////////////////////////////////////
-
-	private void fortifyTroops(Player p) throws IOException
-	{
-		if(p.getOccupiedTerritories().size() == 1)
-		{
-			System.out.println("Nothing to fortify");
-			return;
-		}
-
-		Boolean isDone = false;
-		while(!isDone)
-		{
-			System.out.println("Select a territory to fortify");
-			System.out.println(p.getOccupiedTerritories());
-			String fortified = br.readLine();
-
-			if(fortified.equals(""))
-			{
-				System.out.println("Not fortifying anything");
-				isDone = true;
-				continue;
-			}
-			if(!p.ownsTerritory(fortified))
-			{
-				System.err.println("You do not own this territory");
-				continue;
-			}
-			Territory fortifiedTer = TerritoryMap.get(fortified);
-			System.out.println(fortified + " has " + fortifiedTer.getNumArmies() + " armies");
-
-			System.out.println("Select a territory to fortify from");
-			System.out.println(fortifiedTer.getAdjacentTerritoriesOccupiedBy(p));
-			String fortifier = br.readLine();
-
-			if(!p.ownsTerritory(fortifier))
-			{
-				System.err.println("You do not own this territory");
-				continue;
-			}
-
-			Territory fortifierTer = TerritoryMap.get(fortifier);
-			System.out.println(fortifier + " has " + fortifierTer.getNumArmies() + " armies");
-
-			if(!fortifiedTer.isNeighborWith(fortifier))
-			{
-				System.err.println("territories are not neighbors");
-				continue;
-			}
-
-			System.out.println("Number of armies to send (default 1):");
-			String numArmiesStr = br.readLine();
-			int numArmies;
-
-			if(numArmiesStr.equals(""))
-				numArmies = 1;
-			else if(numArmiesStr.equals("all"))
-				numArmies = fortifierTer.getNumArmies() - 1;
-			else
-			{
-				try
-				{
-					numArmies = Integer.parseInt(numArmiesStr);
-				}
-				catch(NumberFormatException e)
-				{
-					System.err.println("Bad number of armies");
-					continue;
-				}
-			}
-
-			if(numArmies >= fortifierTer.getNumArmies())
-			{
-				System.err.println("Number of armies exceeds the amount ");
-				continue;
-			}
-			else if(numArmies < 0)
-			{
-				System.err.println("Invalid number of armies");
-				continue;
-			}
-			else if(numArmies == 0)
-			{
-				System.out.println("Not fortifying anything");
-				isDone = true;
-				continue;
-			}
-
-			fortifierTer.decrementArmiesBy(numArmies);
-			fortifiedTer.incrementArmiesBy(numArmies);
-
-			isDone = true;
-		}
-	}
-	*/
 }

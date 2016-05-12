@@ -10,9 +10,9 @@ public interface UserInterface
 
 	//Use Card Methods
 	public Card selectCard(Player p);
-	public int selectCardUse();
-	public void useCard(Player p);
-	public void tradeCardSets(Player p, CardDeck deck);
+	public boolean promptUseCard();
+	public boolean promptTradeCard();
+
 
 	// Deploy Armies Methods
 	public String getDeployTerritory(Player p);
