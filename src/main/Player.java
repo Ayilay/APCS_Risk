@@ -223,6 +223,44 @@ public class Player
 		}
 		return false;
 	}
+	
+	public boolean hasCardsToUse()
+	{
+		for(String terrID : occupiedTerritories)
+		{
+			for(Card c : deck)
+			{
+				if(c.getTerritory().equals(terrID))
+					return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean hasCardsToTrade()
+	{
+		if(deck.size() < 3)
+			return false;
+		
+		int numOne = 0;
+		int numTwo = 0;
+		int numThree = 0;
+		
+		for(Card c: deck)
+		{
+			if(c.getValue() == 1)
+				numOne++;
+			if(c.getValue() == 2)
+				numTwo++;
+			if(c.getValue() == 3)
+				numThree++;
+		}
+		
+		if(numOne >= 3 || numTwo >= 3 || numThree >= 3)
+			return true;
+		else
+			return false;
+	}
 
 	public int getSetsTraded()
 	{

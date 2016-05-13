@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 
 import battle.BattleResults;
 import card.Card;
@@ -24,7 +26,7 @@ public class GUIManager implements UserInterface
 
 		// Uncomment the following if necessary
 		//window.setResizable(false);
-
+		window.add(new JLabel(new ImageIcon("Risk_Final_Map.png")));
 		window.setVisible(true);
 
 		try

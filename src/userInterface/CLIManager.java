@@ -108,7 +108,7 @@ public class CLIManager implements UserInterface
 			System.out.println("Use a Card? Enter Y for yes or N for no ");
 			response = getStringInput();
 			
-			if(!response.equalsIgnoreCase("y") || !response.equalsIgnoreCase("n"))
+			if(!response.equalsIgnoreCase("y") && !response.equalsIgnoreCase("n"))
 			{
 				System.out.println("Enter Yes or No");
 				continue;
@@ -135,7 +135,7 @@ public class CLIManager implements UserInterface
 			System.out.println("Trade Cards? Enter Y for yes or N for no ");
 			response = getStringInput();
 			
-			if(!response.equalsIgnoreCase("y") || !response.equalsIgnoreCase("n"))
+			if(!response.equalsIgnoreCase("y") && !response.equalsIgnoreCase("n"))
 			{
 				System.out.println("Enter Yes or No");
 				continue;

@@ -11,6 +11,7 @@ import card.CardDeck;
 import territoryMap.Territory;
 import territoryMap.TerritoryMap;
 import userInterface.GUIManager;
+import userInterface.CLIManager;
 import userInterface.UserInterface;
 
 public class GameController
@@ -25,7 +26,7 @@ public class GameController
 	public GameController()
 	{
 		players = new ArrayList<Player>();
-		userInterface = new GUIManager();
+		userInterface = new CLIManager();
 		timeline = new Timeline();
 
 		turn = 0;
@@ -66,52 +67,61 @@ public class GameController
 		if(!p.hasCards())
 			return;
 		
-		if(userInterface.promptUseCard())
+		if(p.hasCardsToUse())
 		{
-			Card c = userInterface.selectCard(p);
-			if(c == null)
-				return;
-			p.getCards().remove(c);
-			p.deployReinforcements(c.getTerritory(), c.getValue());
-		}	
-		
-		if(userInterface.promptTradeCard())
-		{
-			if(p.getCards().size() < 3)
-			{
-				userInterface.generateWarning("You do not have enough cards");
-				return;
-			}
-			Card c1 = null;
-			Card c2 = null;
-			Card c3 = null;
-			boolean isDone = false;
-
-			while(!isDone)
-			{
-				System.out.println("Select 3 cards to trade. The three cards must be the same value");
-				c1 = userInterface.selectCard(p);
-				c2 = userInterface.selectCard(p);
-				c3 = userInterface.selectCard(p);
-				if(c1.getValue() != c2.getValue() || c2.getValue() != c3.getValue() || c1.getValue() != c3.getValue())
+			test:
+				if(userInterface.promptUseCard())
 				{
-					userInterface.generateWarning("Must be 3 Cards of the same value");
-					continue;
-				}
-				isDone = true;
-			}
-
-			p.getCards().remove(c1);
-			p.getCards().remove(c2);
-			p.getCards().remove(c3);
-			deck.getDeck().add(c1);
-			deck.getDeck().add(c2);
-			deck.getDeck().add(c3);
-
-			p.addReinforcements((p.getSetsTraded() + 1) * 2);
-			p.incrementSets();
+					Card c = userInterface.selectCard(p);
+					if(c == null)
+						break test;
+					p.getCards().remove(c);
+					p.deployReinforcements(c.getTerritory(), c.getValue());
+				}	
+		}
+		else if(!p.hasCardsToUse())
+		{
+			userInterface.generateWarning("You do not have cards to use");
 		}
 		
+		if(p.hasCardsToTrade())
+		{
+			if(userInterface.promptTradeCard())
+			{
+				Card c1 = null;
+				Card c2 = null;
+				Card c3 = null;
+				boolean isDone = false;
+
+				while(!isDone)
+				{
+					System.out.println("Select 3 cards to trade. The three cards must be the same value");
+					c1 = userInterface.selectCard(p);
+					c2 = userInterface.selectCard(p);
+					c3 = userInterface.selectCard(p);
+					if(c1.getValue() != c2.getValue() || c2.getValue() != c3.getValue() || c1.getValue() != c3.getValue())
+					{
+						userInterface.generateWarning("Must be 3 Cards of the same value");
+						continue;
+					}
+					isDone = true;
+				}
+
+				p.getCards().remove(c1);
+				p.getCards().remove(c2);
+				p.getCards().remove(c3);
+				deck.getDeck().add(c1);
+				deck.getDeck().add(c2);
+				deck.getDeck().add(c3);
+
+				p.addReinforcements((p.getSetsTraded() + 1) * 2);
+				p.incrementSets();
+			}
+		}
+		else if(!p.hasCardsToTrade())
+		{
+			userInterface.generateWarning("You do not have cards to trade");
+		}
 	}
 
 	private void deployReinforcements(Player p)
