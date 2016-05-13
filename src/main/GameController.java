@@ -1,6 +1,17 @@
+package main;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
+import achievement.AchievementManager;
+import battle.BattleResults;
+import battle.Timeline;
+import card.Card;
+import card.CardDeck;
+import territoryMap.Territory;
+import territoryMap.TerritoryMap;
+import userInterface.GUIManager;
+import userInterface.UserInterface;
 
 public class GameController
 {

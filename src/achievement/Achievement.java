@@ -1,3 +1,6 @@
+package achievement;
+import main.Player;
+
 /*
  * This class provides the template for an achievement system
  * . Each achievement will be a subclass that defines a constructor and one method

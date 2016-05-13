@@ -1,3 +1,7 @@
+package battle;
+import territoryMap.Territory;
+import territoryMap.TerritoryMap;
+
 /**
  * This class is responsible for battle mechanics
  * Simulates a battle between 2 territories

@@ -1,4 +1,8 @@
+package achievement;
 import java.util.ArrayList;
+
+import main.Player;
+import territoryMap.TerritoryMap;
 
 /*
  * Creates all the achievements and stores them.

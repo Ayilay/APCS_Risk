@@ -1,6 +1,16 @@
+package main;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+
+import achievement.Achievement;
+import achievement.AchievementManager;
+import battle.BattleHandler;
+import battle.BattleResults;
+import card.Card;
+import territoryMap.Territory;
+import territoryMap.TerritoryMap;
+
 import java.util.ArrayList;
 
 /*

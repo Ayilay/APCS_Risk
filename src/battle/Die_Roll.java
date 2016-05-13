@@ -1,3 +1,4 @@
+package battle;
 /*
  * This program rolls the specified number of dice and records those rolls
  * in an array. It also keeps track of the highest roll.

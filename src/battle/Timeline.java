@@ -1,5 +1,8 @@
+package battle;
 import java.util.LinkedList;
 import java.util.Queue;
+
+import main.Player;
 
 /*
  * This class will keep a record of everything that goes on in the game.

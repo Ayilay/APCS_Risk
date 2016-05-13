@@ -1,7 +1,14 @@
+package userInterface;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Set;
+
+import battle.BattleResults;
+import card.Card;
+import main.Player;
+import territoryMap.Territory;
+import territoryMap.TerritoryMap;
 
 public class CLIManager implements UserInterface
 {

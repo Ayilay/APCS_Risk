@@ -1,6 +1,10 @@
+package territoryMap;
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+
+import main.Player;
 
 /*
  * This class creates and keeps track of each territory on the map.

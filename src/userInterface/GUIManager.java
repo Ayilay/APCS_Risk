@@ -1,7 +1,13 @@
+package userInterface;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 import javax.swing.JFrame;
+
+import battle.BattleResults;
+import card.Card;
+import main.Player;
 
 public class GUIManager implements UserInterface
 {
@@ -79,24 +85,17 @@ public class GUIManager implements UserInterface
 	}
 
 	@Override
-	public int selectCardUse()
+	public boolean promptUseCard()
 	{
-		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
-		return 0;
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
-	public void useCard(Player p)
+	public boolean promptTradeCard()
 	{
-		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void tradeCardSets(Player p, CardDeck deck)
-	{
-		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
-
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	////////////////////////////////////////////////////////////

@@ -1,3 +1,4 @@
+package battle;
 public class BattleResults
 {
 	private boolean attackerVictory;

@@ -1,3 +1,8 @@
+package userInterface;
+import battle.BattleResults;
+import card.Card;
+import main.Player;
+
 public interface UserInterface
 {
 	// Init methods for players
