@@ -1,5 +1,6 @@
 package userInterface;
 
+import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -37,6 +38,15 @@ public class GUIManager implements UserInterface
 		{
 			e.printStackTrace();
 		}
+		//Allows termination of program when closed
+		window.addWindowListener(new java.awt.event.WindowAdapter()
+		{
+			public void windowClosing(WindowEvent evt)
+			{
+				System.exit(0);
+			}
+		});
+
 	}
 
 	////////////////////////////////////////////////////////////
