@@ -1,27 +1,19 @@
 package userInterface;
 
-public class GUI_Init extends GUIManager
+public class GUI_Init 
 {
-
-	////////////////////////////////////////////////////////////
-	//	Init Methods
-	////////////////////////////////////////////////////////////
-
-	@Override
-	public int getNumPlayers()
+	public static int getNumPlayers()
 	{
 		return 0;
 	}
 
-	@Override
-	public String getPlayerName()
+	public static String getPlayerName()
 	{
 		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public String getStartingTerritory(String playerName)
+	public static String getStartingTerritory(String playerName)
 	{
 		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
 		return null;

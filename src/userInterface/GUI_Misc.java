@@ -2,14 +2,14 @@ package userInterface;
 
 import main.Player;
 
-public class GUI_Misc extends GUIManager
+public class GUI_Misc 
 {
 	////////////////////////////////////////////////////////////
 	//	Pre Player Turn Methods
 	////////////////////////////////////////////////////////////
 
-	@Override
-	public void promptPlayerTurn(Player p)
+	
+	public static void promptPlayerTurn(Player p)
 	{
 		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
 
@@ -19,8 +19,8 @@ public class GUI_Misc extends GUIManager
 	//	Utility Methods
 	////////////////////////////////////////////////////////////
 
-	@Override
-	public void generateWarning(String string)
+	
+	public static void generateWarning(String string)
 	{
 		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
 

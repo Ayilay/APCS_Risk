@@ -2,10 +2,9 @@ package userInterface;
 
 import main.Player;
 
-public class GUI_PlayerTurn extends GUIManager
+public class GUI_PlayerTurn 
 {
-	@Override
-	public void promptPlayerTurn(Player p)
+	public static void promptPlayerTurn(Player p)
 	{
 		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
 

@@ -2,32 +2,28 @@ package userInterface;
 
 import main.Player;
 
-public class GUI_Reinforce extends GUIManager
+public class GUI_Reinforce 
 {
 
-	@Override
-	public boolean getWantsToFortify(Player p)
+	public static boolean getWantsToFortify(Player p)
 	{
 		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
-	public String getTerritoryToFortify(Player p)
+	public static String getTerritoryToFortify(Player p)
 	{
 		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public String getTerritoryToFortifyFrom(Player p, String terrID)
+	public static String getTerritoryToFortifyFrom(Player p, String terrID)
 	{
 		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public int getNumArmiesToFortify(String terrToFortFrom)
+	public static int getNumArmiesToFortify(String terrToFortFrom)
 	{
 		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
 		return 0;
