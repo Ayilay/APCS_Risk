@@ -56,22 +56,19 @@ public class GUIManager implements UserInterface
 	@Override
 	public int getNumPlayers()
 	{
-		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
-		return 0;
+		return GUI_Init.getNumPlayers();
 	}
 
 	@Override
 	public String getPlayerName()
 	{
-		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
-		return null;
+		return GUI_Init.getPlayerName();
 	}
 
 	@Override
 	public String getStartingTerritory(String playerName)
 	{
-		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
-		return null;
+		return GUI_Init.getStartingTerritory(playerName);
 	}
 
 	////////////////////////////////////////////////////////////
