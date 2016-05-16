@@ -12,7 +12,7 @@ public class CardDeck
 
 		for(int i = 0; i < s.size(); i++)
 		{
-			Card card = new Card((String)rearranged[i], (int)(2 * Math.random() + 1));
+			Card card = new Card((String)rearranged[i], (int)(3 * Math.random() + 1));
 			cards.add(card);
 		}
 	}
