@@ -223,7 +223,7 @@ public class Player
 		}
 		return false;
 	}
-	
+
 	public boolean hasCardsToUse()
 	{
 		for(String terrID : occupiedTerritories)
@@ -236,17 +236,17 @@ public class Player
 		}
 		return false;
 	}
-	
+
 	public boolean hasCardsToTrade()
 	{
 		if(deck.size() < 3)
 			return false;
-		
+
 		int numOne = 0;
 		int numTwo = 0;
 		int numThree = 0;
-		
-		for(Card c: deck)
+
+		for(Card c : deck)
 		{
 			if(c.getValue() == 1)
 				numOne++;
@@ -255,7 +255,7 @@ public class Player
 			if(c.getValue() == 3)
 				numThree++;
 		}
-		
+
 		if(numOne >= 3 || numTwo >= 3 || numThree >= 3)
 			return true;
 		else
@@ -321,12 +321,12 @@ public class Player
 	{
 		return deck.size() != 0;
 	}
-	
+
 	public void displayCards()
 	{
 		for(Card c : deck)
 		{
-			System.out.print("[Territory: " + c.getTerritory() + " Value: " + c.getValue() +"]");
+			System.out.print("[Territory: " + c.getTerritory() + " Value: " + c.getValue() + "]");
 		}
 	}
 }

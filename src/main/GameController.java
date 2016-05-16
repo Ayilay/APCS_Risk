@@ -26,7 +26,7 @@ public class GameController
 	public GameController()
 	{
 		players = new ArrayList<Player>();
-		userInterface = new CLIManager();
+		userInterface = new GUIManager();
 		timeline = new Timeline();
 
 		turn = 0;
@@ -66,24 +66,24 @@ public class GameController
 	{
 		if(!p.hasCards())
 			return;
-		
+
 		if(p.hasCardsToUse())
 		{
 			test:
-				if(userInterface.promptUseCard())
-				{
-					Card c = userInterface.selectCard(p);
-					if(c == null)
-						break test;
-					p.getCards().remove(c);
-					p.deployReinforcements(c.getTerritory(), c.getValue());
-				}	
+			if(userInterface.promptUseCard())
+			{
+				Card c = userInterface.selectCard(p);
+				if(c == null)
+					break test;
+				p.getCards().remove(c);
+				p.deployReinforcements(c.getTerritory(), c.getValue());
+			}
 		}
 		else if(!p.hasCardsToUse())
 		{
 			userInterface.generateWarning("You do not have cards to use");
 		}
-		
+
 		if(p.hasCardsToTrade())
 		{
 			if(userInterface.promptTradeCard())
@@ -309,42 +309,42 @@ public class GameController
 
 	private void initPlayers()
 	{
-		//int numPlayers = userInterface.getNumPlayers();
+		int numPlayers = userInterface.getNumPlayers();
 
-		//for(int i = 0; i < numPlayers; i++)
-		//{
-		//	String name = "";
-		//	boolean valid = false;
-		//	while(!valid)
-		//	{
-		//		valid = true;
-		//		name = userInterface.getPlayerName();
-		//		if(getPlayerNames().contains(name))
-		//		{
-		//			userInterface.generateWarning("Already player with that name");
-		//			valid = false;
-		//		}
-		//	}
-		//	String territory = "";
-		//	valid = false;
-		//	while(!valid)
-		//	{
-		//		territory = userInterface.getStartingTerritory(name);
-		//		if(TerritoryMap.get(territory) == null ||
-		//		        TerritoryMap.getOccupierOnTerritory(territory) != null)
-		//		{
-		//			userInterface.generateWarning("Not a valid territory");
-		//		}
-		//		else
-		//		{
-		//			valid = true;
-		//		}
-		//	}
+		for(int i = 0; i < numPlayers; i++)
+		{
+			String name = "";
+			boolean valid = false;
+			while(!valid)
+			{
+				valid = true;
+				name = userInterface.getPlayerName();
+				if(getPlayerNames().contains(name))
+				{
+					userInterface.generateWarning("Already player with that name");
+					valid = false;
+				}
+			}
+			String territory = "";
+			valid = false;
+			while(!valid)
+			{
+				territory = userInterface.getStartingTerritory(name);
+				if(TerritoryMap.get(territory) == null ||
+				        TerritoryMap.getOccupierOnTerritory(territory) != null)
+				{
+					userInterface.generateWarning("Not a valid territory");
+				}
+				else
+				{
+					valid = true;
+				}
+			}
 
-		//	players.add(new Player(name, territory));
-		//}
-		players.add(new Player("George", "Germany"));
-		players.add(new Player("Richard", "China"));
+			players.add(new Player(name, territory));
+		}
+		//players.add(new Player("George", "Germany"));
+		//players.add(new Player("Richard", "China"));
 	}
 
 	private Set<String> getPlayerNames()

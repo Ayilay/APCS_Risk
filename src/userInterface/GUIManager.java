@@ -1,12 +1,13 @@
 package userInterface;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 import battle.BattleResults;
 import card.Card;
@@ -15,6 +16,7 @@ import main.Player;
 public class GUIManager implements UserInterface
 {
 	private JFrame window;
+	private JPanel panel;
 	BufferedReader br;
 
 	public GUIManager()
@@ -25,19 +27,14 @@ public class GUIManager implements UserInterface
 		window.setTitle("Risk (GUI TEST)");
 		window.setSize(1200, 700);
 
-		// Uncomment the following if necessary
-		//window.setResizable(false);
-		window.add(new JLabel(new ImageIcon("Risk_Final_Map.png")));
-		window.setVisible(true);
+		panel = new JPanel(new GridBagLayout());
+		GridBagConstraints constr = new GridBagConstraints();
 
-		try
-		{
-			br.readLine();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
+		// add the elements
+
+
+		//window.add(new JLabel(new ImageIcon("Risk_Final_Map.png")));
+
 		//Allows termination of program when closed
 		window.addWindowListener(new java.awt.event.WindowAdapter()
 		{
@@ -47,6 +44,7 @@ public class GUIManager implements UserInterface
 			}
 		});
 
+		window.setVisible(true);
 	}
 
 	////////////////////////////////////////////////////////////

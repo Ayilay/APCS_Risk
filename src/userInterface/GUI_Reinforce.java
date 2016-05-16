@@ -2,7 +2,7 @@ package userInterface;
 
 import main.Player;
 
-public class GUI_Reinforce 
+public class GUI_Reinforce
 {
 
 	public static boolean getWantsToFortify(Player p)

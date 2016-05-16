@@ -2,7 +2,7 @@ package userInterface;
 
 import main.Player;
 
-public class GUI_Deploy 
+public class GUI_Deploy
 {
 	public static String getDeployTerritory(Player p)
 	{
