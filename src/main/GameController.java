@@ -38,24 +38,24 @@ public class GameController
 		AchievementManager.init();
 
 		// Get player names and starting territories
-		initPlayers();
+		//initPlayers();
 	}
 
 	public void play()
 	{
-		while(isStillPlaying())
-		{
-			Player p = getNextPlayer();
-			userInterface.promptPlayerTurn(p);
+		//while(isStillPlaying())
+		//{
+		//	Player p = getNextPlayer();
+		//	userInterface.promptPlayerTurn(p);
 
-			// Perform the player actions
-			useCards(p);
-			deployReinforcements(p);
-			attackTerritory(p);
-			fortifyTroops(p);
+		//	// Perform the player actions
+		//	useCards(p);
+		//	deployReinforcements(p);
+		//	attackTerritory(p);
+		//	fortifyTroops(p);
 
-			turn ++;
-		}
+		//	turn ++;
+		//}
 	}
 
 	////////////////////////////////////////////////////////////
@@ -311,40 +311,40 @@ public class GameController
 	{
 		int numPlayers = userInterface.getNumPlayers();
 
-		for(int i = 0; i < numPlayers; i++)
-		{
-			String name = "";
-			boolean valid = false;
-			while(!valid)
-			{
-				valid = true;
-				name = userInterface.getPlayerName();
-				if(getPlayerNames().contains(name))
-				{
-					userInterface.generateWarning("Already player with that name");
-					valid = false;
-				}
-			}
-			String territory = "";
-			valid = false;
-			while(!valid)
-			{
-				territory = userInterface.getStartingTerritory(name);
-				if(TerritoryMap.get(territory) == null ||
-				        TerritoryMap.getOccupierOnTerritory(territory) != null)
-				{
-					userInterface.generateWarning("Not a valid territory");
-				}
-				else
-				{
-					valid = true;
-				}
-			}
+		//for(int i = 0; i < numPlayers; i++)
+		//{
+		//	String name = "";
+		//	boolean valid = false;
+		//	while(!valid)
+		//	{
+		//		valid = true;
+		//		name = userInterface.getPlayerName();
+		//		if(getPlayerNames().contains(name))
+		//		{
+		//			userInterface.generateWarning("Already player with that name");
+		//			valid = false;
+		//		}
+		//	}
+		//	String territory = "";
+		//	valid = false;
+		//	while(!valid)
+		//	{
+		//		territory = userInterface.getStartingTerritory(name);
+		//		if(TerritoryMap.get(territory) == null ||
+		//		        TerritoryMap.getOccupierOnTerritory(territory) != null)
+		//		{
+		//			userInterface.generateWarning("Not a valid territory");
+		//		}
+		//		else
+		//		{
+		//			valid = true;
+		//		}
+		//	}
 
-			players.add(new Player(name, territory));
-		}
-		//players.add(new Player("George", "Germany"));
-		//players.add(new Player("Richard", "China"));
+		//	players.add(new Player(name, territory));
+		//}
+		players.add(new Player("George", "Germany"));
+		players.add(new Player("Richard", "China"));
 	}
 
 	private Set<String> getPlayerNames()
