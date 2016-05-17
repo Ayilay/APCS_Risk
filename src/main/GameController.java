@@ -38,7 +38,9 @@ public class GameController
 		AchievementManager.init();
 
 		// Get player names and starting territories
-		//initPlayers();
+		initPlayers();
+		//players.add(new Player("Richard","China"));
+		//players.add(new Player("Fluffles","Mongolia"));
 	}
 
 	public void play()
@@ -197,6 +199,11 @@ public class GameController
 				if(!territoryToAttack.isNeighborWith(territoryToAttackFromID))
 				{
 					userInterface.generateWarning("Cannot attack from selected territory");
+					continue;
+				}
+				if(TerritoryMap.getOccupierOnTerritory(territoryToAttackFromID) == null || !p.getName().equals(TerritoryMap.getOccupierOnTerritory(territoryToAttackFromID).getName()))
+				{
+					userInterface.generateWarning("You do not own this territory");
 					continue;
 				}
 				if(TerritoryMap.getNumArmiesDeployedOn(territoryToAttackFromID) < 2)
