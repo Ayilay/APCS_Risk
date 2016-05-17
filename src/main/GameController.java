@@ -26,7 +26,7 @@ public class GameController
 	public GameController()
 	{
 		players = new ArrayList<Player>();
-		userInterface = new GUIManager();
+		userInterface = new CLIManager();
 		timeline = new Timeline();
 
 		turn = 0;
@@ -39,6 +39,8 @@ public class GameController
 
 		// Get player names and starting territories
 		initPlayers();
+		//players.add(new Player("Richard","China"));
+		//players.add(new Player("Fluffles","Mongolia"));
 	}
 
 	public void play()
@@ -197,6 +199,11 @@ public class GameController
 				if(!territoryToAttack.isNeighborWith(territoryToAttackFromID))
 				{
 					userInterface.generateWarning("Cannot attack from selected territory");
+					continue;
+				}
+				if(TerritoryMap.getOccupierOnTerritory(territoryToAttackFromID) == null || !p.getName().equals(TerritoryMap.getOccupierOnTerritory(territoryToAttackFromID).getName()))
+				{
+					userInterface.generateWarning("You do not own this territory");
 					continue;
 				}
 				if(TerritoryMap.getNumArmiesDeployedOn(territoryToAttackFromID) < 2)
