@@ -2,7 +2,7 @@ package userInterface;
 
 import main.Player;
 
-public class GUI_PlayerTurn 
+public class GUI_PlayerTurn
 {
 	public static void promptPlayerTurn(Player p)
 	{

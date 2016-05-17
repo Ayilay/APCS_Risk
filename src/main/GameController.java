@@ -26,7 +26,7 @@ public class GameController
 	public GameController()
 	{
 		players = new ArrayList<Player>();
-		userInterface = new CLIManager();
+		userInterface = new GUIManager();
 		timeline = new Timeline();
 
 		turn = 0;
@@ -38,24 +38,24 @@ public class GameController
 		AchievementManager.init();
 
 		// Get player names and starting territories
-		initPlayers();
+		//initPlayers();
 	}
 
 	public void play()
 	{
-		while(isStillPlaying())
-		{
-			Player p = getNextPlayer();
-			userInterface.promptPlayerTurn(p);
+		//while(isStillPlaying())
+		//{
+		//	Player p = getNextPlayer();
+		//	userInterface.promptPlayerTurn(p);
 
-			// Perform the player actions
-			useCards(p);
-			deployReinforcements(p);
-			attackTerritory(p);
-			fortifyTroops(p);
+		//	// Perform the player actions
+		//	useCards(p);
+		//	deployReinforcements(p);
+		//	attackTerritory(p);
+		//	fortifyTroops(p);
 
-			turn ++;
-		}
+		//	turn ++;
+		//}
 	}
 
 	////////////////////////////////////////////////////////////
@@ -66,24 +66,24 @@ public class GameController
 	{
 		if(!p.hasCards())
 			return;
-		
+
 		if(p.hasCardsToUse())
 		{
 			test:
-				if(userInterface.promptUseCard())
-				{
-					Card c = userInterface.selectCard(p);
-					if(c == null)
-						break test;
-					p.getCards().remove(c);
-					p.deployReinforcements(c.getTerritory(), c.getValue());
-				}	
+			if(userInterface.promptUseCard())
+			{
+				Card c = userInterface.selectCard(p);
+				if(c == null)
+					break test;
+				p.getCards().remove(c);
+				p.deployReinforcements(c.getTerritory(), c.getValue());
+			}
 		}
 		else if(!p.hasCardsToUse())
 		{
 			userInterface.generateWarning("You do not have cards to use");
 		}
-		
+
 		if(p.hasCardsToTrade())
 		{
 			if(userInterface.promptTradeCard())
@@ -309,7 +309,7 @@ public class GameController
 
 	private void initPlayers()
 	{
-		//int numPlayers = userInterface.getNumPlayers();
+		int numPlayers = userInterface.getNumPlayers();
 
 		//for(int i = 0; i < numPlayers; i++)
 		//{

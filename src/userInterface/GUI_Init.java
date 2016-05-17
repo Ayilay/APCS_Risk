@@ -24,12 +24,12 @@ public class GUI_Init
 	{
 		int x = getNumPlayers();
 		System.out.println(x);
-		for(int i = 0; i<x;i++)
+		for(int i = 0; i < x; i++)
 		{
 			String s = getPlayerName();
 			System.out.println(s);
 			System.out.println(getStartingTerritory(s));
-			
+
 		}
 	}
 
@@ -40,7 +40,7 @@ public class GUI_Init
 		JOptionPane optionPane = new JOptionPane();
 		JSlider slider = getSlider(optionPane);
 		optionPane.setMessage(new Object[]
-		{ "How many players will be playing?", slider });
+		                      { "How many players will be playing?", slider });
 		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);
 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
 		JDialog dialog = optionPane.createDialog(parent, "Risk Set-Up");

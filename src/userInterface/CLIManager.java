@@ -107,15 +107,15 @@ public class CLIManager implements UserInterface
 		{
 			System.out.println("Use a Card? Enter Y for yes or N for no ");
 			response = getStringInput();
-			
+
 			if(!response.equalsIgnoreCase("y") && !response.equalsIgnoreCase("n"))
 			{
 				System.out.println("Enter Yes or No");
 				continue;
-			}	
+			}
 			isDone = true;
 		}
-		
+
 		if(response.equalsIgnoreCase("n"))
 		{
 			return false;
@@ -125,7 +125,7 @@ public class CLIManager implements UserInterface
 			return true;
 		}
 	}
-	
+
 	public boolean promptTradeCard()
 	{
 		String response = "";
@@ -134,15 +134,15 @@ public class CLIManager implements UserInterface
 		{
 			System.out.println("Trade Cards? Enter Y for yes or N for no ");
 			response = getStringInput();
-			
+
 			if(!response.equalsIgnoreCase("y") && !response.equalsIgnoreCase("n"))
 			{
 				System.out.println("Enter Yes or No");
 				continue;
-			}	
+			}
 			isDone = true;
 		}
-		
+
 		if(response.equalsIgnoreCase("n"))
 		{
 			return false;
@@ -160,7 +160,7 @@ public class CLIManager implements UserInterface
 			System.out.println("You do not have any cards");
 			return null;
 		}
-		
+
 		String territory = "";
 		int value = 0;
 		Card c = null;
