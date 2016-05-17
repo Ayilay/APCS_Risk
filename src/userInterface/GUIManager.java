@@ -5,9 +5,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.event.WindowEvent;
 import java.awt.Toolkit;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -54,37 +54,61 @@ public class GUIManager implements UserInterface
 		gameStateArea = new JPanel();
 		footerArea = new JPanel();
 
+		
 		GridBagConstraints constr = new GridBagConstraints();
+		
+		System.out.println(window.getWidth());
+		System.out.println(window.getHeight());
+		
+		mainPane.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		mainPane.setBackground(Color.BLACK);
+		
+		ImageIcon img = new ImageIcon("Risk_Final_Map.png");		
+		
+		window.add(mainPane);
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //terminates the program on close
+		window.setVisible(true);
+//TODO: Setting the window to visible allows me to access the dimensions of the mainPane,
+//TODO: but I can not add anything to the window after this. Make sure setVisible is at the END
+		
+		int width = mainPane.getWidth();
+		int height = mainPane.getHeight();
+		System.out.println(width);
+		System.out.println(height);
+		//mainPane.setVisible(true);
 
 		// add the elements
 		constr.weightx = 0;
 		constr.weighty = 0;
 
+		
 		// Player Name area
 		constr.gridx = 0;
 		constr.gridy = 0;
 		constr.fill = GridBagConstraints.VERTICAL;
 		constr.gridheight = 2;
 		playerNameArea.setBackground(Color.RED);
+		playerNameArea.setPreferredSize(new Dimension((int)(width*200/1200),(int)(height*120/700)));
 		playerNameArea.setVisible(true);
-		playerNameArea.setPreferredSize(new Dimension(200, 120));
 		mainPane.add(playerNameArea, constr);
 
-		// Message Area
+ 		// Message Area
 		constr.gridx = 1;
 		constr.gridy = 0;
 		constr.fill = GridBagConstraints.NONE;
 		constr.gridheight = 1;
 		messageArea.setBackground(Color.ORANGE);
-		messageArea.setPreferredSize(new Dimension(1000, 600 - 512));
-		mainPane.add(messageArea, constr);
+		messageArea.setPreferredSize(new Dimension((int)(width*1000/1200),(int)(height*(600-512)/700)));
 		messageArea.setVisible(true);
+		mainPane.add(messageArea, constr);
+		
 
 		// Game State area
 		constr.gridx = 0;
 		constr.gridy = 2;
 		gameStateArea.setBackground(Color.blue);
-		gameStateArea.setPreferredSize(new Dimension(200, 300));
+		gameStateArea.setPreferredSize(new Dimension((int)(width*200/1200),(int)(height*300/700)));
+		gameStateArea.setVisible(true);
 		mainPane.add(gameStateArea, constr);
 
 		// Player Statistics Area
@@ -93,7 +117,8 @@ public class GUIManager implements UserInterface
 		constr.gridheight = 2;
 		constr.fill = GridBagConstraints.VERTICAL;
 		playerStatsArea.setBackground(Color.magenta);
-		playerStatsArea.setPreferredSize(new Dimension(200, 100));
+		playerStatsArea.setPreferredSize(new Dimension((int)(width*200/1200),(int)(height*100/700)));
+		playerStatsArea.setVisible(true);
 		mainPane.add(playerStatsArea, constr);
 
 		// Map Area
@@ -101,32 +126,35 @@ public class GUIManager implements UserInterface
 		constr.gridy = 1;
 		constr.fill = GridBagConstraints.BOTH;
 		constr.gridheight = 3;
-		mapArea.setBackground(Color.black);
-		mapArea.setPreferredSize(new Dimension(1000, 512));
+		mapArea.add(new JLabel(img));
+		mapArea.setBackground(Color.WHITE);
+		mapArea.setPreferredSize(new Dimension((int)(width*1000/1200),(int)(height*512/700)));
+		mapArea.setVisible(true);
 		mainPane.add(mapArea, constr);
-
+//1200
 		// Footer
 		constr.gridx = 1;
 		constr.gridy = 4;
 		constr.gridheight = 1;
 		footerArea.setBackground(Color.cyan);
-		footerArea.setPreferredSize(new Dimension(100, 10));
+		footerArea.setPreferredSize(new Dimension((int)(width*100/1200),(int)(height*10/700)));
+		footerArea.setVisible(true);
 		mainPane.add(footerArea, constr);
-
-
+		
+	
+		
 		//Allows termination of program when closed
-		window.addWindowListener(new java.awt.event.WindowAdapter()
-		{
-			public void windowClosing(WindowEvent evt)
-			{
-				System.exit(0);
-			}
-		});
-
-		window.add(mainPane);
-		window.setVisible(true);
+		//window.addWindowListener(new java.awt.event.WindowAdapter()
+		//{
+		//	public void windowClosing(WindowEvent evt)
+		//	{
+		//		System.exit(0);
+		//	}
+		//});
+		
 	}
-
+	
+	
 	////////////////////////////////////////////////////////////
 	//	Init Methods
 	////////////////////////////////////////////////////////////
