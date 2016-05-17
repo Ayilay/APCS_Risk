@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.WindowEvent;
+import java.awt.Toolkit;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -32,22 +34,25 @@ public class GUIManager implements UserInterface
 
 	private BufferedReader br;
 
+	private final int WIDTH = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+	private final int HEIGHT = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+	
 	public GUIManager()
 	{
 		br = new BufferedReader(new InputStreamReader(System.in));
 
 		window = new JFrame();
 		window.setTitle("Risk (GUI TEST)");
-		window.setSize(1200, 700);
-		window.setResizable(false);
+		window.setSize(WIDTH,HEIGHT);
+		//window.setResizable(false);
 
 		mainPane = new JPanel(new GridBagLayout());
-		mapArea = new JPanel(null);
-		messageArea = new JPanel(null);
-		playerNameArea = new JPanel(null);
-		playerStatsArea = new JPanel(null);
-		gameStateArea = new JPanel(null);
-		footerArea = new JPanel(null);
+		mapArea = new JPanel();
+		messageArea = new JPanel();
+		playerNameArea = new JPanel();
+		playerStatsArea = new JPanel();
+		gameStateArea = new JPanel();
+		footerArea = new JPanel();
 
 		GridBagConstraints constr = new GridBagConstraints();
 
