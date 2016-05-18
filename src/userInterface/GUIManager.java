@@ -43,7 +43,7 @@ public class GUIManager implements UserInterface
 
 		window = new JFrame();
 		window.setTitle("Risk (GUI TEST)");
-		window.setSize(WIDTH,HEIGHT);
+		window.setSize(1230,745);
 		//window.setResizable(false);
 
 		mainPane = new JPanel(new GridBagLayout());
@@ -60,7 +60,7 @@ public class GUIManager implements UserInterface
 		System.out.println(window.getWidth());
 		System.out.println(window.getHeight());
 		
-		mainPane.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		//mainPane.setPreferredSize(new Dimension(1200, 700));
 		mainPane.setBackground(Color.BLACK);
 		
 		ImageIcon img = new ImageIcon("Risk_Final_Map.png");		
@@ -71,10 +71,10 @@ public class GUIManager implements UserInterface
 //TODO: Setting the window to visible allows me to access the dimensions of the mainPane,
 //TODO: but I can not add anything to the window after this. Make sure setVisible is at the END
 		
-		int width = mainPane.getWidth() - 100;
-		int height = mainPane.getHeight() - 20;
-		System.out.println(width);
-		System.out.println(height);
+		//int width = mainPane.getWidth() - 100;
+		//int height = mainPane.getHeight() - 20;
+		//System.out.println(width);
+		//System.out.println(height);
 		//mainPane.setVisible(true);
 
 		// add the elements
@@ -88,7 +88,7 @@ public class GUIManager implements UserInterface
 		constr.fill = GridBagConstraints.VERTICAL;
 		constr.gridheight = 2;
 		playerNameArea.setBackground(Color.RED);
-		playerNameArea.setPreferredSize(new Dimension((int)(width*200/1200),(int)(height*120/700)));
+		playerNameArea.setPreferredSize(new Dimension(200,120));
 		playerNameArea.setVisible(true);
 		mainPane.add(playerNameArea, constr);
 
@@ -98,7 +98,7 @@ public class GUIManager implements UserInterface
 		constr.fill = GridBagConstraints.NONE;
 		constr.gridheight = 1;
 		messageArea.setBackground(Color.ORANGE);
-		messageArea.setPreferredSize(new Dimension((int)(width*1000/1200),(int)(height*(600-512)/700)));
+		messageArea.setPreferredSize(new Dimension(1000,(600-512)));
 		messageArea.setVisible(true);
 		mainPane.add(messageArea, constr);
 		
@@ -107,7 +107,7 @@ public class GUIManager implements UserInterface
 		constr.gridx = 0;
 		constr.gridy = 2;
 		gameStateArea.setBackground(Color.blue);
-		gameStateArea.setPreferredSize(new Dimension((int)(width*200/1200),(int)(height*300/700)));
+		gameStateArea.setPreferredSize(new Dimension(200,300));
 		gameStateArea.setVisible(true);
 		mainPane.add(gameStateArea, constr);
 
@@ -117,7 +117,7 @@ public class GUIManager implements UserInterface
 		constr.gridheight = 2;
 		constr.fill = GridBagConstraints.VERTICAL;
 		playerStatsArea.setBackground(Color.magenta);
-		playerStatsArea.setPreferredSize(new Dimension((int)(width*200/1200),(int)(height*100/700)));
+		playerStatsArea.setPreferredSize(new Dimension(200,100));
 		playerStatsArea.setVisible(true);
 		mainPane.add(playerStatsArea, constr);
 
@@ -128,7 +128,7 @@ public class GUIManager implements UserInterface
 		constr.gridheight = 3;
 		mapArea.add(new JLabel(img));
 		mapArea.setBackground(Color.WHITE);
-		mapArea.setPreferredSize(new Dimension((int)(width*1000/1200),(int)(height*512/700)));
+		mapArea.setPreferredSize(new Dimension(1000,512));
 		mapArea.setVisible(true);
 		mainPane.add(mapArea, constr);
 //1200
@@ -137,7 +137,7 @@ public class GUIManager implements UserInterface
 		constr.gridy = 4;
 		constr.gridheight = 1;
 		footerArea.setBackground(Color.cyan);
-		footerArea.setPreferredSize(new Dimension((int)(width*100/1200),(int)(height*10/700)));
+		footerArea.setPreferredSize(new Dimension(100,10));
 		footerArea.setVisible(true);
 		mainPane.add(footerArea, constr);
 		
