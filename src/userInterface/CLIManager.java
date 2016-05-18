@@ -270,7 +270,7 @@ public class CLIManager implements UserInterface
 	{
 		int maxArmies = TerritoryMap.getNumArmiesDeployedOn(territoryToAttackFromID) - 1;
 		System.out.println("Choose number of armies to attack with. Opponent has " + TerritoryMap.getNumArmiesDeployedOn(territoryToAttackID));
-		System.out.println("You have " + maxArmies + " armies (1 must stay behind)");
+		System.out.println("You have " + maxArmies + " armies to attack with (1 must stay behind)");
 
 		int numArmies = getNumberInput(maxArmies);
 		return numArmies;

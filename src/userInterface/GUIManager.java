@@ -117,8 +117,7 @@ public class GUIManager implements UserInterface
 		constr.gridheight = 2;
 		constr.fill = GridBagConstraints.VERTICAL;
 		playerStatsArea.setBackground(Color.magenta);
-		playerStatsArea.setPreferredSize(new Dimension((int)(width*200/1200),(int)(height*100/700)));
-		playerStatsArea.setVisible(true);
+		playerStatsArea.setPreferredSize(new Dimension(200, 50));
 		mainPane.add(playerStatsArea, constr);
 
 		// Map Area
@@ -137,8 +136,7 @@ public class GUIManager implements UserInterface
 		constr.gridy = 4;
 		constr.gridheight = 1;
 		footerArea.setBackground(Color.cyan);
-		footerArea.setPreferredSize(new Dimension((int)(width*100/1200),(int)(height*10/700)));
-		footerArea.setVisible(true);
+		footerArea.setPreferredSize(new Dimension(100, 50));
 		mainPane.add(footerArea, constr);
 		
 	
