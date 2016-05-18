@@ -71,8 +71,8 @@ public class GUIManager implements UserInterface
 //TODO: Setting the window to visible allows me to access the dimensions of the mainPane,
 //TODO: but I can not add anything to the window after this. Make sure setVisible is at the END
 		
-		int width = mainPane.getWidth();
-		int height = mainPane.getHeight();
+		int width = mainPane.getWidth() - 100;
+		int height = mainPane.getHeight() - 20;
 		System.out.println(width);
 		System.out.println(height);
 		//mainPane.setVisible(true);
