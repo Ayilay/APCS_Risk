@@ -3,6 +3,7 @@ package userInterface;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -19,8 +20,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import battle.BattleResults;
 import card.Card;
@@ -52,6 +57,7 @@ public class GUIManager implements UserInterface
 	private final int WIDTH = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private final int HEIGHT = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
+	private JLabel playerLabel;
 	public GUIManager()
 	{
 		br = new BufferedReader(new InputStreamReader(System.in));
@@ -105,6 +111,7 @@ public class GUIManager implements UserInterface
 
 
 		// Player Name area
+		playerLabel = new JLabel();
 		constr.gridx = 0;
 		constr.gridy = 0;
 		constr.fill = GridBagConstraints.VERTICAL;
@@ -204,23 +211,65 @@ public class GUIManager implements UserInterface
 	////////////////////////////////////////////////////////////
 	//	Init Methods
 	////////////////////////////////////////////////////////////
-
+	/*
+	 * Slider code modified off: http://www.java2s.com/Tutorial/Java/0240__Swing/UsingJOptionPanewithaJSlider.htm
+	 * Textfield code modified off http://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html#input
+	 */
 	@Override
 	public int getNumPlayers()
 	{
-		return GUI_Init.getNumPlayers();
+		JFrame parent = new JFrame();
+
+		JOptionPane optionPane = new JOptionPane();
+		JSlider slider = getSlider(optionPane);
+		optionPane.setMessage(new Object[]
+		                      { "How many players will be playing?", slider });
+		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);
+		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
+		JDialog dialog = optionPane.createDialog(parent, "Risk Set-Up");
+		dialog.setVisible(true);
+		return (Integer) slider.getValue();
+	}
+
+	private static JSlider getSlider(final JOptionPane dialog)
+	{
+		JSlider slider = new JSlider(2, 5);
+		slider.setMajorTickSpacing(1);
+		slider.setPaintTicks(true);
+		slider.setPaintLabels(true);
+		ChangeListener changeListener = new ChangeListener()
+		{
+			public void stateChanged(ChangeEvent changeEvent)
+			{
+				JSlider theSlider = (JSlider) changeEvent.getSource();
+				if(!theSlider.getValueIsAdjusting())
+				{
+					dialog.setInputValue(new Integer(theSlider.getValue()));
+				}
+			}
+		};
+		return slider;
 	}
 
 	@Override
 	public String getPlayerName()
 	{
-		return GUI_Init.getPlayerName();
+		JFrame parent = new JFrame();
+		JOptionPane optionPane = new JOptionPane();
+		optionPane.setMessage(JOptionPane.QUESTION_MESSAGE);
+		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
+		String s = (String) optionPane.showInputDialog(parent, "Enter player name", "Player");
+		return s;
 	}
 
 	@Override
 	public String getStartingTerritory(String playerName)
 	{
-		return GUI_Init.getStartingTerritory(playerName);
+		JFrame parent = new JFrame();
+		JOptionPane optionPane = new JOptionPane();
+		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
+		String s = (String) optionPane.showInputDialog(parent, "Enter Starting territory, " + playerName, "Territory");
+		return s;
 	}
 
 	////////////////////////////////////////////////////////////
@@ -230,8 +279,10 @@ public class GUIManager implements UserInterface
 	@Override
 	public void promptPlayerTurn(Player p)
 	{
-		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
-
+		playerLabel.setText(p.getName());
+		playerLabel.setFont(new Font("Times New Roman", 20, 20));
+		playerNameArea.add(playerLabel);
+		
 	}
 
 	////////////////////////////////////////////////////////////
@@ -259,6 +310,7 @@ public class GUIManager implements UserInterface
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
 
 	////////////////////////////////////////////////////////////
 	//	Deploy Armies methods
@@ -356,7 +408,8 @@ public class GUIManager implements UserInterface
 	@Override
 	public void generateWarning(String string)
 	{
-		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
-
+		JLabel label = new JLabel(string);
+		label.setFont(new Font("Times New Roman", 20, 20));
+		messageArea.add(label);
 	}
 }

@@ -1,4 +1,5 @@
 package main;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,36 +33,34 @@ public class GameController
 		turn = 0;
 		currentPlayerTurn = 0;
 
-
 		TerritoryMap.init();
 		deck = new CardDeck(TerritoryMap.getAllTerritories());
 		AchievementManager.init();
 
 		// Get player names and starting territories
 		initPlayers();
-		//players.add(new Player("Richard","China"));
-		//players.add(new Player("Fluffles","Mongolia"));
+		// players.add(new Player("Richard","China"));
+		// players.add(new Player("Fluffles","Mongolia"));
 	}
 
 	public void play()
 	{
-		//while(isStillPlaying())
-		//{
-		//	Player p = getNextPlayer();
-		//	userInterface.promptPlayerTurn(p);
+		while(isStillPlaying())
+		{
+			Player p = getNextPlayer();
+			userInterface.promptPlayerTurn(p);
 
-		//	// Perform the player actions
-		//	useCards(p);
-		//	deployReinforcements(p);
-		//	attackTerritory(p);
-		//	fortifyTroops(p);
+			// // Perform the player actions
+			// useCards(p);
+			// deployReinforcements(p);
+			// attackTerritory(p);
+			// fortifyTroops(p);
 
-		//	turn ++;
-		//}
+			// turn ++;
+		}
 	}
-
 	////////////////////////////////////////////////////////////
-	//	Player Turn Methods
+	// Player Turn Methods
 	////////////////////////////////////////////////////////////
 
 	private void useCards(Player p)
@@ -71,8 +70,7 @@ public class GameController
 
 		if(p.hasCardsToUse())
 		{
-			test:
-			if(userInterface.promptUseCard())
+			test: if(userInterface.promptUseCard())
 			{
 				Card c = userInterface.selectCard(p);
 				if(c == null)
@@ -101,7 +99,8 @@ public class GameController
 					c1 = userInterface.selectCard(p);
 					c2 = userInterface.selectCard(p);
 					c3 = userInterface.selectCard(p);
-					if(c1.getValue() != c2.getValue() || c2.getValue() != c3.getValue() || c1.getValue() != c3.getValue())
+					if(c1.getValue() != c2.getValue() || c2.getValue() != c3.getValue()
+							|| c1.getValue() != c3.getValue())
 					{
 						userInterface.generateWarning("Must be 3 Cards of the same value");
 						continue;
@@ -201,7 +200,8 @@ public class GameController
 					userInterface.generateWarning("Cannot attack from selected territory");
 					continue;
 				}
-				if(TerritoryMap.getOccupierOnTerritory(territoryToAttackFromID) == null || !p.getName().equals(TerritoryMap.getOccupierOnTerritory(territoryToAttackFromID).getName()))
+				if(TerritoryMap.getOccupierOnTerritory(territoryToAttackFromID) == null
+						|| !p.getName().equals(TerritoryMap.getOccupierOnTerritory(territoryToAttackFromID).getName()))
 				{
 					userInterface.generateWarning("You do not own this territory");
 					continue;
@@ -311,45 +311,45 @@ public class GameController
 	}
 
 	////////////////////////////////////////////////////////////
-	//	Utility Methods
+	// Utility Methods
 	////////////////////////////////////////////////////////////
 
 	private void initPlayers()
 	{
-		int numPlayers = userInterface.getNumPlayers();
+		// int numPlayers = userInterface.getNumPlayers();
 
-		//for(int i = 0; i < numPlayers; i++)
-		//{
-		//	String name = "";
-		//	boolean valid = false;
-		//	while(!valid)
-		//	{
-		//		valid = true;
-		//		name = userInterface.getPlayerName();
-		//		if(getPlayerNames().contains(name))
-		//		{
-		//			userInterface.generateWarning("Already player with that name");
-		//			valid = false;
-		//		}
-		//	}
-		//	String territory = "";
-		//	valid = false;
-		//	while(!valid)
-		//	{
-		//		territory = userInterface.getStartingTerritory(name);
-		//		if(TerritoryMap.get(territory) == null ||
-		//		        TerritoryMap.getOccupierOnTerritory(territory) != null)
-		//		{
-		//			userInterface.generateWarning("Not a valid territory");
-		//		}
-		//		else
-		//		{
-		//			valid = true;
-		//		}
-		//	}
+		// for(int i = 0; i < numPlayers; i++)
+		// {
+		// String name = "";
+		// boolean valid = false;
+		// while(!valid)
+		// {
+		// valid = true;
+		// name = userInterface.getPlayerName();
+		// if(getPlayerNames().contains(name))
+		// {
+		// userInterface.generateWarning("Already player with that name");
+		// valid = false;
+		// }
+		// }
+		// String territory = "";
+		// valid = false;
+		// while(!valid)
+		// {
+		// territory = userInterface.getStartingTerritory(name);
+		// if(TerritoryMap.get(territory) == null ||
+		// TerritoryMap.getOccupierOnTerritory(territory) != null)
+		// {
+		// userInterface.generateWarning("Not a valid territory");
+		// }
+		// else
+		// {
+		// valid = true;
+		// }
+		// }
 
-		//	players.add(new Player(name, territory));
-		//}
+		// players.add(new Player(name, territory));
+		// }
 		players.add(new Player("George", "Germany"));
 		players.add(new Player("Richard", "China"));
 	}
@@ -381,7 +381,7 @@ public class GameController
 			p = players.get(currentPlayerTurn);
 		}
 
-		currentPlayerTurn ++;
+		currentPlayerTurn++;
 
 		return p;
 	}
