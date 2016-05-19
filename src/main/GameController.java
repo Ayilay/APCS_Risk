@@ -49,7 +49,7 @@ public class GameController
 		{
 			Player p = getNextPlayer();
 			userInterface.promptPlayerTurn(p);
-
+			userInterface.generateWarning("This is a test!");
 			// // Perform the player actions
 			// useCards(p);
 			// deployReinforcements(p);
