@@ -45,6 +45,7 @@ public class GUIManager implements UserInterface
 	private JPanel footerArea;
 
 	private JLabel playerNameArea_label;
+	private JLabel messageArea_label;
 
 	private JPanel deck;
 	private JPanel initPane;
@@ -70,11 +71,14 @@ public class GUIManager implements UserInterface
 
 		mainPane = new JPanel(new GridBagLayout());
 		mapArea = new JPanel();
-		messageArea = new JPanel();
+		messageArea = new JPanel(new BorderLayout());
 		playerNameArea = new JPanel(new BorderLayout());
 		playerStatsArea = new JPanel();
 		gameStateArea = new JPanel();
 		footerArea = new JPanel();
+
+		playerNameArea_label = new JLabel();
+		messageArea_label = new JLabel();
 
 		GridBagConstraints constr = new GridBagConstraints();
 
@@ -100,19 +104,12 @@ public class GUIManager implements UserInterface
 		//TODO: Setting the window to visible allows me to access the dimensions of the mainPane,
 		//TODO: but I can not add anything to the window after this. Make sure setVisible is at the END
 
-		//int width = mainPane.getWidth() - 100;
-		//int height = mainPane.getHeight() - 20;
-		//System.out.println(width);
-		//System.out.println(height);
-		//mainPane.setVisible(true);
-
 		// add the elements
 		constr.weightx = 0;
 		constr.weighty = 0;
 
 
 		// Player Name area
-		playerNameArea_label = new JLabel();
 		constr.gridx = 0;
 		constr.gridy = 0;
 		constr.fill = GridBagConstraints.VERTICAL;
@@ -135,6 +132,12 @@ public class GUIManager implements UserInterface
 		constr.gridheight = 1;
 		messageArea.setBackground(Color.ORANGE);
 		messageArea.setPreferredSize(new Dimension(1000, (600 - 512)));
+
+		messageArea_label.setPreferredSize(new Dimension(1000, (600 - 512)));
+		messageArea_label.setHorizontalAlignment(JLabel.CENTER);
+		messageArea_label.setVerticalAlignment(JLabel.CENTER);
+		messageArea.add(messageArea_label, BorderLayout.CENTER);
+
 		messageArea.setVisible(true);
 		mainPane.add(messageArea, constr);
 
@@ -436,9 +439,9 @@ public class GUIManager implements UserInterface
 	@Override
 	public void generateWarning(String string)
 	{
-		JLabel label = new JLabel(string);
-		label.setFont(new Font("Times New Roman", 20, 20));
-		messageArea.add(label);
+		messageArea_label.setForeground(Color.BLACK);
+		messageArea_label.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		messageArea_label.setText(string);
 	}
 
 	public int getFontSize(JLabel label, String text)
