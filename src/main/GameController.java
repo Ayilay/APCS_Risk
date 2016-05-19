@@ -316,45 +316,42 @@ public class GameController
 
 	private void initPlayers()
 	{
-		// int numPlayers = userInterface.getNumPlayers();
+		int numPlayers = userInterface.getNumPlayers();
 
-		// for(int i = 0; i < numPlayers; i++)
-		// {
-		// String name = "";
-		// boolean valid = false;
-		// while(!valid)
-		// {
-		// valid = true;
-		// name = userInterface.getPlayerName();
-		// if(getPlayerNames().contains(name))
-		// {
-		// userInterface.generateWarning("Already player with that name");
-		// valid = false;
-		// }
-		// }
-		// String territory = "";
-		// valid = false;
-		// while(!valid)
-		// {
-		// territory = userInterface.getStartingTerritory(name);
-		// if(TerritoryMap.get(territory) == null ||
-		// TerritoryMap.getOccupierOnTerritory(territory) != null)
-		// {
-		// userInterface.generateWarning("Not a valid territory");
-		// }
-		// else
-		// {
-		// valid = true;
-		// }
-		// }
+		for(int i = 0; i < numPlayers; i++)
+		{
+			String name = "";
+			boolean valid = false;
+			while(!valid)
+			{
+				valid = true;
+				name = userInterface.getPlayerName();
+				if(getPlayerNames().contains(name))
+				{
+					userInterface.generateWarning("Already player with that name");
+					valid = false;
+				}
+			}
+			String territory = "";
+			valid = false;
+			while(!valid)
+			{
+				territory = userInterface.getStartingTerritory(name);
+				if(TerritoryMap.get(territory) == null || TerritoryMap.getOccupierOnTerritory(territory) != null)
+				{
+					userInterface.generateWarning("Not a valid territory");
+				}
+				else
+				{
+					valid = true;
+				}
+			}
 
-		// players.add(new Player(name, territory));
-		// }
-		players.add(new Player("George", "Germany"));
-		players.add(new Player("Richard", "China"));
-		//Testing card drawings
+			players.add(new Player(name, territory));
+		}
+		// Testing card drawings
 		players.get(0).addCards(deck.deal());
- 	}
+	}
 
 	private Set<String> getPlayerNames()
 	{
