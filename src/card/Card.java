@@ -1,16 +1,14 @@
 package card;
 
 import java.awt.Color;
-import java.awt.FlowLayout;
+import java.awt.Dimension;
+import java.awt.Image;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import territoryMap.TerritoryMap;
 
 public class Card
 {
@@ -61,10 +59,20 @@ public class Card
 		ImageIcon ter = new ImageIcon("territory icons/" + territory + ".png");
 		ImageIcon val = new ImageIcon("territory icons/" + numStars + "stars.png");
 		
+		Image img = ter.getImage();//rescale
+		Image newImg = img.getScaledInstance(ter.getIconWidth()/2, ter.getIconHeight()/2, Image.SCALE_SMOOTH);
+		ter = new ImageIcon(newImg);
+		
+		img = val.getImage();
+		newImg = img.getScaledInstance(val.getIconWidth()/2, val.getIconHeight()/2, Image.SCALE_SMOOTH);
+		val = new ImageIcon(newImg);
+		
 		card.add(new JLabel(ter));
 		card.add(new JLabel(val));
 		
 		card.setBorder(BorderFactory.createLineBorder(Color.black));
+		
+		card.setSize(new Dimension(20,20));
 		return card;
 		
 	}

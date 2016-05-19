@@ -281,6 +281,7 @@ public class GUIManager implements UserInterface
 	@Override
 	public void promptPlayerTurn(Player p)
 	{
+		//TODO: Does not clear card pane on new turn
 		playerLabel.setText(p.getName());
 		playerLabel.setFont(new Font("Times New Roman", 20, 20));
 		playerNameArea.add(playerLabel);
@@ -290,8 +291,6 @@ public class GUIManager implements UserInterface
 			JPanel panel = c.drawCard();
 			deck.add(panel);
 		}
-		
-		
 	}
 
 	////////////////////////////////////////////////////////////
