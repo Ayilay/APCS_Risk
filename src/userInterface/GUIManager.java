@@ -157,6 +157,8 @@ public class GUIManager implements UserInterface
 		playerStatsArea.add(initPane, "1");
 		playerStatsArea.add(deck, "2");
 		
+		
+		
 		cardDisplay.show(playerStatsArea, "1");
 		
 		cards.addActionListener(new ActionListener(){
@@ -282,6 +284,13 @@ public class GUIManager implements UserInterface
 		playerLabel.setText(p.getName());
 		playerLabel.setFont(new Font("Times New Roman", 20, 20));
 		playerNameArea.add(playerLabel);
+		
+		for(Card c : p.getCards())
+		{
+			JPanel panel = c.drawCard();
+			deck.add(panel);
+		}
+		
 		
 	}
 

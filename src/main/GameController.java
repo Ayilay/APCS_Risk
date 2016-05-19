@@ -352,7 +352,9 @@ public class GameController
 		// }
 		players.add(new Player("George", "Germany"));
 		players.add(new Player("Richard", "China"));
-	}
+		//Testing card drawings
+		players.get(0).addCards(deck.deal());
+ 	}
 
 	private Set<String> getPlayerNames()
 	{
