@@ -13,6 +13,7 @@ import java.awt.event.WindowEvent;
 import java.awt.Toolkit;
 import java.awt.CardLayout;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 import javax.swing.ImageIcon;
@@ -43,13 +44,14 @@ public class GUIManager implements UserInterface
 	private JPanel gameStateArea;
 	private JPanel footerArea;
 
+	private JLabel playerNameArea_label;
+
 	private JPanel deck;
 	private JPanel initPane;
-	
 
 	private JButton cards;
 	private JButton back;
-	
+
 	private CardLayout cardDisplay;
 
 	private BufferedReader br;
@@ -57,33 +59,32 @@ public class GUIManager implements UserInterface
 	private final int WIDTH = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private final int HEIGHT = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
-	private JLabel playerLabel;
 	public GUIManager()
 	{
 		br = new BufferedReader(new InputStreamReader(System.in));
 
 		window = new JFrame();
 		window.setTitle("Risk (GUI TEST)");
-		window.setSize(1230,745);
+		window.setSize(1230, 745);
 		//window.setResizable(false);
 
 		mainPane = new JPanel(new GridBagLayout());
 		mapArea = new JPanel();
 		messageArea = new JPanel();
-		playerNameArea = new JPanel();
+		playerNameArea = new JPanel(new BorderLayout());
 		playerStatsArea = new JPanel();
 		gameStateArea = new JPanel();
 		footerArea = new JPanel();
+
+		GridBagConstraints constr = new GridBagConstraints();
 
 		deck = new JPanel();
 		initPane = new JPanel();
 
 		cards = new JButton("Display cards");
 		back = new JButton("Back");
-		
-		cardDisplay = new CardLayout();
 
-		GridBagConstraints constr = new GridBagConstraints();
+		cardDisplay = new CardLayout();
 
 		System.out.println(window.getWidth());
 		System.out.println(window.getHeight());
@@ -91,7 +92,7 @@ public class GUIManager implements UserInterface
 		//mainPane.setPreferredSize(new Dimension(1200, 700));
 		mainPane.setBackground(Color.BLACK);
 
-		ImageIcon img = new ImageIcon("Risk_Final_Map.png");		
+		ImageIcon img = new ImageIcon("Risk_Final_Map.png");
 
 		window.add(mainPane);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //terminates the program on close
@@ -111,13 +112,19 @@ public class GUIManager implements UserInterface
 
 
 		// Player Name area
-		playerLabel = new JLabel();
+		playerNameArea_label = new JLabel();
 		constr.gridx = 0;
 		constr.gridy = 0;
 		constr.fill = GridBagConstraints.VERTICAL;
 		constr.gridheight = 2;
 		playerNameArea.setBackground(Color.RED);
-		playerNameArea.setPreferredSize(new Dimension(200,120));
+		playerNameArea.setPreferredSize(new Dimension(200, 120));
+
+		playerNameArea_label.setPreferredSize(new Dimension(200, 120));
+		playerNameArea_label.setHorizontalAlignment(JLabel.CENTER);
+		playerNameArea_label.setVerticalAlignment(JLabel.CENTER);
+		playerNameArea.add(playerNameArea_label, BorderLayout.CENTER);
+
 		playerNameArea.setVisible(true);
 		mainPane.add(playerNameArea, constr);
 
@@ -127,7 +134,7 @@ public class GUIManager implements UserInterface
 		constr.fill = GridBagConstraints.NONE;
 		constr.gridheight = 1;
 		messageArea.setBackground(Color.ORANGE);
-		messageArea.setPreferredSize(new Dimension(1000,(600-512)));
+		messageArea.setPreferredSize(new Dimension(1000, (600 - 512)));
 		messageArea.setVisible(true);
 		mainPane.add(messageArea, constr);
 
@@ -136,7 +143,7 @@ public class GUIManager implements UserInterface
 		constr.gridx = 0;
 		constr.gridy = 2;
 		gameStateArea.setBackground(Color.blue);
-		gameStateArea.setPreferredSize(new Dimension(200,300));
+		gameStateArea.setPreferredSize(new Dimension(200, 300));
 		gameStateArea.setVisible(true);
 		mainPane.add(gameStateArea, constr);
 
@@ -147,28 +154,30 @@ public class GUIManager implements UserInterface
 		constr.fill = GridBagConstraints.VERTICAL;
 		playerStatsArea.setLayout(cardDisplay);
 		playerStatsArea.setBackground(Color.magenta);
-		playerStatsArea.setPreferredSize(new Dimension(200,100));
+		playerStatsArea.setPreferredSize(new Dimension(200, 100));
 
 		initPane.add(cards);
 		initPane.setBackground(Color.GREEN);
 		deck.add(back);
 		deck.setBackground(Color.MAGENTA);
-		
+
 		playerStatsArea.add(initPane, "1");
 		playerStatsArea.add(deck, "2");
-		
-		
-		
+
 		cardDisplay.show(playerStatsArea, "1");
-		
-		cards.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0){
+
+		cards.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0)
+			{
 				cardDisplay.show(playerStatsArea, "2");
 			}
 		});
-		
-		back.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0){
+
+		back.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0)
+			{
 				cardDisplay.show(playerStatsArea, "1");
 			}
 		});
@@ -183,7 +192,7 @@ public class GUIManager implements UserInterface
 		constr.gridheight = 3;
 		mapArea.add(new JLabel(img));
 		mapArea.setBackground(Color.WHITE);
-		mapArea.setPreferredSize(new Dimension(1000,512));
+		mapArea.setPreferredSize(new Dimension(1000, 512));
 		mapArea.setVisible(true);
 		mainPane.add(mapArea, constr);
 
@@ -192,7 +201,7 @@ public class GUIManager implements UserInterface
 		constr.gridy = 4;
 		constr.gridheight = 1;
 		footerArea.setBackground(Color.cyan);
-		footerArea.setPreferredSize(new Dimension(100,10));
+		footerArea.setPreferredSize(new Dimension(100, 10));
 		footerArea.setVisible(true);
 		mainPane.add(footerArea, constr);
 
@@ -282,14 +291,25 @@ public class GUIManager implements UserInterface
 	public void promptPlayerTurn(Player p)
 	{
 		//TODO: Does not clear card pane on new turn
-		playerLabel.setText(p.getName());
-		playerLabel.setFont(new Font("Times New Roman", 20, 20));
-		playerNameArea.add(playerLabel);
-		
 		for(Card c : p.getCards())
 		{
 			JPanel panel = c.drawCard();
 			deck.add(panel);
+		}
+
+		String text = p.getName() + "'s Turn";
+		playerNameArea_label.setForeground(Color.BLACK);
+		int fontSize = getFontSize(playerNameArea_label, text);
+		playerNameArea_label.setFont(new Font("Times New Roman", Font.PLAIN, fontSize));
+		playerNameArea_label.setText(text);
+		try
+		{
+			br.readLine();
+		}
+		catch(IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -318,7 +338,7 @@ public class GUIManager implements UserInterface
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 
 	////////////////////////////////////////////////////////////
 	//	Deploy Armies methods
@@ -419,5 +439,11 @@ public class GUIManager implements UserInterface
 		JLabel label = new JLabel(string);
 		label.setFont(new Font("Times New Roman", 20, 20));
 		messageArea.add(label);
+	}
+
+	public int getFontSize(JLabel label, String text)
+	{
+		int fontSizeToUse = (int)(300.0 / text.length());
+		return fontSizeToUse;
 	}
 }
