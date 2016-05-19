@@ -100,7 +100,7 @@ public class GameController
 					c2 = userInterface.selectCard(p);
 					c3 = userInterface.selectCard(p);
 					if(c1.getValue() != c2.getValue() || c2.getValue() != c3.getValue()
-							|| c1.getValue() != c3.getValue())
+					        || c1.getValue() != c3.getValue())
 					{
 						userInterface.generateWarning("Must be 3 Cards of the same value");
 						continue;
@@ -201,7 +201,7 @@ public class GameController
 					continue;
 				}
 				if(TerritoryMap.getOccupierOnTerritory(territoryToAttackFromID) == null
-						|| !p.getName().equals(TerritoryMap.getOccupierOnTerritory(territoryToAttackFromID).getName()))
+				        || !p.getName().equals(TerritoryMap.getOccupierOnTerritory(territoryToAttackFromID).getName()))
 				{
 					userInterface.generateWarning("You do not own this territory");
 					continue;
@@ -318,38 +318,41 @@ public class GameController
 	{
 		int numPlayers = userInterface.getNumPlayers();
 
-		for(int i = 0; i < numPlayers; i++)
-		{
-			String name = "";
-			boolean valid = false;
-			while(!valid)
-			{
-				valid = true;
-				name = userInterface.getPlayerName();
-				if(getPlayerNames().contains(name))
-				{
-					userInterface.generateWarning("Already player with that name");
-					valid = false;
-				}
-			}
-			String territory = "";
-			valid = false;
-			while(!valid)
-			{
-				territory = userInterface.getStartingTerritory(name);
-				if(TerritoryMap.get(territory) == null || TerritoryMap.getOccupierOnTerritory(territory) != null)
-				{
-					userInterface.generateWarning("Not a valid territory");
-				}
-				else
-				{
-					valid = true;
-				}
-			}
+		//for(int i = 0; i < numPlayers; i++)
+		//{
+		//	String name = "";
+		//	boolean valid = false;
+		//	while(!valid)
+		//	{
+		//		valid = true;
+		//		name = userInterface.getPlayerName();
+		//		if(getPlayerNames().contains(name))
+		//		{
+		//			userInterface.generateWarning("Already player with that name");
+		//			valid = false;
+		//		}
+		//	}
+		//	String territory = "";
+		//	valid = false;
+		//	while(!valid)
+		//	{
+		//		territory = userInterface.getStartingTerritory(name);
+		//		if(TerritoryMap.get(territory) == null ||
+		//		        TerritoryMap.getOccupierOnTerritory(territory) != null)
+		//		{
+		//			userInterface.generateWarning("Not a valid territory");
+		//		}
+		//		else
+		//		{
+		//			valid = true;
+		//		}
+		//	}
 
-			players.add(new Player(name, territory));
-		}
-		// Testing card drawings
+		//	players.add(new Player(name, territory));
+		//}
+		players.add(new Player("Richard's long name", "China"));
+		players.add(new Player("George", "Germany"));
+		//Testing card drawings
 		players.get(0).addCards(deck.deal());
 	}
 
