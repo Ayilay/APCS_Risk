@@ -3,6 +3,7 @@ package userInterface;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -26,6 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.JScrollPane;
 
 import battle.BattleResults;
 import buttons.GreenlandButton;
@@ -52,7 +54,8 @@ public class GUIManager implements UserInterface
 
 	private JPanel deck;
 	private JPanel initPane;
-
+	private JScrollPane scroll;
+	
 	private JButton cards;
 	private JButton back;
 
@@ -80,12 +83,13 @@ public class GUIManager implements UserInterface
 
 		playerNameArea_label = new JLabel();
 		messageArea_label = new JLabel();
-
+		
 		GridBagConstraints constr = new GridBagConstraints();
 
 		deck = new JPanel();
 		initPane = new JPanel();
-
+		scroll = new JScrollPane(deck);
+		
 		cards = new JButton("Display cards");
 		back = new JButton("Back");
 
@@ -104,12 +108,19 @@ public class GUIManager implements UserInterface
 		//TODO: Setting the window to visible allows me to access the dimensions of the mainPane,
 		//TODO: but I can not add anything to the window after this. Make sure setVisible is at the END
 
+		//int width = mainPane.getWidth() - 100;
+		//int height = mainPane.getHeight() - 20;
+		//System.out.println(width);
+		//System.out.println(height);
+		//mainPane.setVisible(true);
+
 		// add the elements
 		constr.weightx = 0;
 		constr.weighty = 0;
 
 
 		// Player Name area
+		playerNameArea_label = new JLabel();
 		constr.gridx = 0;
 		constr.gridy = 0;
 		constr.fill = GridBagConstraints.VERTICAL;
@@ -132,12 +143,10 @@ public class GUIManager implements UserInterface
 		constr.gridheight = 1;
 		messageArea.setBackground(Color.ORANGE);
 		messageArea.setPreferredSize(new Dimension(1000, (600 - 512)));
-
-		messageArea_label.setPreferredSize(new Dimension(1000, (600 - 512)));
+		messageArea_label.setPreferredSize(new Dimension(1000,(600-512)));
 		messageArea_label.setHorizontalAlignment(JLabel.CENTER);
 		messageArea_label.setVerticalAlignment(JLabel.CENTER);
 		messageArea.add(messageArea_label, BorderLayout.CENTER);
-
 		messageArea.setVisible(true);
 		mainPane.add(messageArea, constr);
 
@@ -162,10 +171,14 @@ public class GUIManager implements UserInterface
 		initPane.add(cards);
 		initPane.setBackground(Color.GREEN);
 		deck.add(back);
-		deck.setBackground(Color.MAGENTA);
-		
+		deck.setBackground(Color.DARK_GRAY);
+		back.setAlignmentX(Component.CENTER_ALIGNMENT);
+		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+	    scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+	//    scroll.setBounds(50, 30, 300, 50);
+		scroll.setBackground(Color.MAGENTA);
 		playerStatsArea.add(initPane, "1");
-		playerStatsArea.add(deck, "2");
+		playerStatsArea.add(scroll, "2");
 
 		cardDisplay.show(playerStatsArea, "1");
 
@@ -289,8 +302,12 @@ public class GUIManager implements UserInterface
 		deck.removeAll();
 		deck.add(back);
 		//TODO: Does not clear card pane on new turn
+		deck.removeAll();
+		deck.add(back);
+		deck.setBackground(Color.DARK_GRAY);
 		for(Card c : p.getCards())
 		{
+			System.out.println(c.getTerritory());
 			JPanel panel = c.drawCard();
 			deck.add(panel);
 		}
@@ -319,6 +336,7 @@ public class GUIManager implements UserInterface
 	@Override
 	public Card selectCard(Player p)
 	{
+		cardDisplay.show(playerStatsArea, "2");
 		generateWarning("Select a card");
 		boolean selected = false;
 		lastCardSelected = null;
@@ -331,6 +349,7 @@ public class GUIManager implements UserInterface
 			}
 		}
 		return lastCardSelected;
+		
 	}
 
 	@Override
@@ -344,6 +363,7 @@ public class GUIManager implements UserInterface
 		{
 			return true;
 		}
+		
 		return false;
 	}
 

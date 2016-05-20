@@ -75,10 +75,14 @@ public class Card
 		newImg = img.getScaledInstance(val.getIconWidth() / 2, val.getIconHeight() / 2, Image.SCALE_SMOOTH);
 		val = new ImageIcon(newImg);
 
+		JLabel name = new JLabel(territory);
+		name.setForeground(Color.BLACK);
+		
+		card.add(name);
 		card.add(new JLabel(ter));
 		card.add(new JLabel(val));
 
-		card.setBorder(BorderFactory.createLineBorder(Color.black));
+		card.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 		
 		JButton btn = new JButton("Use");
