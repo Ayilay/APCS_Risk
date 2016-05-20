@@ -2,6 +2,7 @@ package userInterface;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -171,6 +172,7 @@ public class GUIManager implements UserInterface
 		initPane.setBackground(Color.GREEN);
 		deck.add(back);
 		deck.setBackground(Color.DARK_GRAY);
+		back.setAlignmentX(Component.CENTER_ALIGNMENT);
 		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	    scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 	//    scroll.setBounds(50, 30, 300, 50);
@@ -306,8 +308,12 @@ public class GUIManager implements UserInterface
 	public void promptPlayerTurn(Player p)
 	{
 		//TODO: Does not clear card pane on new turn
+		deck.removeAll();
+		deck.add(back);
+		deck.setBackground(Color.DARK_GRAY);
 		for(Card c : p.getCards())
 		{
+			System.out.println(c.getTerritory());
 			JPanel panel = c.drawCard();
 			deck.add(panel);
 		}
@@ -336,14 +342,15 @@ public class GUIManager implements UserInterface
 	@Override
 	public Card selectCard(Player p)
 	{
-		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
+		cardDisplay.show(playerStatsArea, "2");
+		
 		return null;
 	}
 
 	@Override
 	public boolean promptUseCard()
 	{
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
