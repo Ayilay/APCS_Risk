@@ -51,7 +51,7 @@ public class GameController
 			userInterface.promptPlayerTurn(p);
 			userInterface.generateWarning("This is a test!");
 			// // Perform the player actions
-			// useCards(p);
+			useCards(p);
 			// deployReinforcements(p);
 			// attackTerritory(p);
 			// fortifyTroops(p);
@@ -72,6 +72,7 @@ public class GameController
 		{
 			test: if(userInterface.promptUseCard())
 			{
+				userInterface.generateWarning("Select a card");
 				Card c = userInterface.selectCard(p);
 				if(c == null)
 					break test;
@@ -95,7 +96,7 @@ public class GameController
 
 				while(!isDone)
 				{
-					System.out.println("Select 3 cards to trade. The three cards must be the same value");
+					userInterface.generateWarning("Select 3 cards to trade. The three cards must be the same value");
 					c1 = userInterface.selectCard(p);
 					c2 = userInterface.selectCard(p);
 					c3 = userInterface.selectCard(p);
@@ -316,8 +317,7 @@ public class GameController
 
 	private void initPlayers()
 	{
-		int numPlayers = userInterface.getNumPlayers();
-
+		//int numPlayers = userInterface.getNumPlayers();
 		//for(int i = 0; i < numPlayers; i++)
 		//{
 		//	String name = "";
@@ -353,7 +353,8 @@ public class GameController
 		players.add(new Player("Richard's long name", "China"));
 		players.add(new Player("George", "Germany"));
 		//Testing card drawings
-		players.get(0).addCards(deck.deal());
+		players.get(0).addCards(new Card("China",3));
+		players.get(1).addCards(new Card("Germany",3));
 	}
 
 	private Set<String> getPlayerNames()

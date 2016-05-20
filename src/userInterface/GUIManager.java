@@ -7,12 +7,12 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +30,9 @@ import javax.swing.event.ChangeListener;
 import battle.BattleResults;
 import buttons.GreenlandButton;
 import card.Card;
+import card.CardDeck;
 import main.Player;
+import territoryMap.TerritoryMap;
 
 public class GUIManager implements UserInterface
 {
@@ -284,6 +286,8 @@ public class GUIManager implements UserInterface
 	@Override
 	public void promptPlayerTurn(Player p)
 	{
+		deck.removeAll();
+		deck.add(back);
 		//TODO: Does not clear card pane on new turn
 		for(Card c : p.getCards())
 		{
@@ -315,7 +319,17 @@ public class GUIManager implements UserInterface
 	@Override
 	public Card selectCard(Player p)
 	{
-		System.out.println("You selected this card!: " + lastCardSelected.toString());
+		generateWarning("Select a card");
+		boolean selected = false;
+		lastCardSelected = null;
+		while(!selected)
+		{
+			if(lastCardSelected != null)
+			{
+				generateWarning("You selected card with: " + lastCardSelected.toString());
+				selected = true;
+			}
+		}
 		return lastCardSelected;
 	}
 
@@ -457,3 +471,4 @@ public class GUIManager implements UserInterface
 		mapArea.add(greenland);
 	}
 }
+

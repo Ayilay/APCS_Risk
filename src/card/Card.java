@@ -80,12 +80,10 @@ public class Card
 
 		card.setBorder(BorderFactory.createLineBorder(Color.black));
 
-		card.setSize(new Dimension(20, 20));
 		
 		JButton btn = new JButton("Use");
 		btn.addActionListener(new ActionListener()
 				{
-
 					@Override
 					public void actionPerformed(ActionEvent e)
 					{
