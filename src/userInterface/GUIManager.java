@@ -1,34 +1,34 @@
 package userInterface;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.Toolkit;
-import java.awt.CardLayout;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import battle.BattleResults;
+import buttons.GreenlandButton;
 import card.Card;
 import main.Player;
 
@@ -54,12 +54,11 @@ public class GUIManager implements UserInterface
 	private JButton cards;
 	private JButton back;
 
+	private Map<String, JButton> buttons;
+
 	private CardLayout cardDisplay;
 
 	private BufferedReader br;
-
-	private final int WIDTH = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-	private final int HEIGHT = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
 	public GUIManager()
 	{
@@ -68,7 +67,6 @@ public class GUIManager implements UserInterface
 		window = new JFrame();
 		window.setTitle("Risk (GUI TEST)");
 		window.setSize(1230, 745);
-		//window.setResizable(false);
 
 		mainPane = new JPanel(new GridBagLayout());
 		mapArea = new JPanel();
@@ -101,7 +99,6 @@ public class GUIManager implements UserInterface
 
 		window.add(mainPane);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //terminates the program on close
-		window.setVisible(true);
 		//TODO: Setting the window to visible allows me to access the dimensions of the mainPane,
 		//TODO: but I can not add anything to the window after this. Make sure setVisible is at the END
 
@@ -190,6 +187,8 @@ public class GUIManager implements UserInterface
 		mainPane.add(playerStatsArea, constr);
 
 		// Map Area
+		initButtons();
+
 		constr.gridx = 1;
 		constr.gridy = 1;
 		constr.fill = GridBagConstraints.BOTH;
@@ -209,17 +208,8 @@ public class GUIManager implements UserInterface
 		footerArea.setVisible(true);
 		mainPane.add(footerArea, constr);
 
-
-
-		//Allows termination of program when closed
-		//window.addWindowListener(new java.awt.event.WindowAdapter()
-		//{
-		//	public void windowClosing(WindowEvent evt)
-		//	{
-		//		System.exit(0);
-		//	}
-		//});
-
+		window.pack();
+		window.setVisible(true);
 	}
 
 
@@ -456,5 +446,14 @@ public class GUIManager implements UserInterface
 	{
 		int fontSizeToUse = (int)(300.0 / text.length());
 		return fontSizeToUse;
+	}
+
+	private void initButtons()
+	{
+		buttons = new HashMap<String, JButton> ();
+
+		JButton greenland = new GreenlandButton();
+		buttons.put("Greenland", greenland);
+		mapArea.add(greenland);
 	}
 }
