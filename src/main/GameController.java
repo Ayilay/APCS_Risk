@@ -75,6 +75,8 @@ public class GameController
 			{
 				userInterface.generateWarning("Select a card");
 				Card c = userInterface.selectCard(p);
+				if(!p.ownsTerritory(c.getTerritory()))
+					break test;
 				if(c == null)
 					break test;
 				p.getCards().remove(c);
@@ -355,7 +357,14 @@ public class GameController
 		players.add(new Player("George", "Germany"));
 		//Testing card drawings
 		players.get(0).addCards(new Card("China",3));
+		players.get(0).addCards(deck.deal());
+		players.get(0).addCards(deck.deal());
+		players.get(0).addCards(deck.deal());
 		players.get(1).addCards(new Card("Germany",3));
+		players.get(1).addCards(deck.deal());
+		players.get(1).addCards(deck.deal());
+		players.get(1).addCards(deck.deal());
+		
 	}
 
 	private Set<String> getPlayerNames()

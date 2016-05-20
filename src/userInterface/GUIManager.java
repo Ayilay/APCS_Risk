@@ -358,19 +358,25 @@ public class GUIManager implements UserInterface
 		JFrame parent = new JFrame();
 		JOptionPane optionPane = new JOptionPane();
 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
-		String s = (String) optionPane.showInputDialog(parent, "Use card? (Y/N)");
-		if(s.equals("Y"))
+		if(optionPane.showConfirmDialog(null,"Do you want to use a card?","Card",JOptionPane.YES_NO_OPTION)
+				==JOptionPane.YES_OPTION)
 		{
 			return true;
 		}
-		
 		return false;
 	}
 
 	@Override
 	public boolean promptTradeCard()
 	{
-		// TODO Auto-generated method stub
+		JFrame parent = new JFrame();
+		JOptionPane optionPane = new JOptionPane();
+		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
+		if(optionPane.showConfirmDialog(null,"Do you want to trade cards?","Trading",JOptionPane.YES_NO_OPTION)
+				==JOptionPane.YES_OPTION)
+		{
+			return true;
+		}
 		return false;
 	}
 
