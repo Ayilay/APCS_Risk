@@ -34,6 +34,7 @@ import main.Player;
 
 public class GUIManager implements UserInterface
 {
+	public static Card lastCardSelected;
 	private JFrame window;
 	private JPanel mainPane;
 
@@ -163,7 +164,7 @@ public class GUIManager implements UserInterface
 		initPane.setBackground(Color.GREEN);
 		deck.add(back);
 		deck.setBackground(Color.MAGENTA);
-
+		
 		playerStatsArea.add(initPane, "1");
 		playerStatsArea.add(deck, "2");
 
@@ -324,14 +325,21 @@ public class GUIManager implements UserInterface
 	@Override
 	public Card selectCard(Player p)
 	{
-		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
-		return null;
+		System.out.println("You selected this card!: " + lastCardSelected.toString());
+		return lastCardSelected;
 	}
 
 	@Override
 	public boolean promptUseCard()
 	{
-		// TODO Auto-generated method stub
+		JFrame parent = new JFrame();
+		JOptionPane optionPane = new JOptionPane();
+		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
+		String s = (String) optionPane.showInputDialog(parent, "Use card? (Y/N)");
+		if(s.equals("Y"))
+		{
+			return true;
+		}
 		return false;
 	}
 

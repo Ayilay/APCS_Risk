@@ -3,12 +3,17 @@ package card;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import userInterface.GUIManager;
 
 public class Card
 {
@@ -20,7 +25,10 @@ public class Card
 		this.territory = ter;
 		stars = value;
 	}
-
+	public Card getCard()
+	{
+		return this;
+	}
 	public int getValue()
 	{
 		return stars;
@@ -73,6 +81,19 @@ public class Card
 		card.setBorder(BorderFactory.createLineBorder(Color.black));
 
 		card.setSize(new Dimension(20, 20));
+		
+		JButton btn = new JButton("Use");
+		btn.addActionListener(new ActionListener()
+				{
+
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
+						GUIManager.lastCardSelected = getCard();
+					}
+					
+				});
+		card.add(btn);
 		return card;
 
 	}
