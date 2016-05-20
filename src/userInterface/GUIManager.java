@@ -55,7 +55,7 @@ public class GUIManager implements UserInterface
 	private JPanel deck;
 	private JPanel initPane;
 	private JScrollPane scroll;
-	
+
 	private JButton cards;
 	private JButton back;
 
@@ -83,13 +83,13 @@ public class GUIManager implements UserInterface
 
 		playerNameArea_label = new JLabel();
 		messageArea_label = new JLabel();
-		
+
 		GridBagConstraints constr = new GridBagConstraints();
 
 		deck = new JPanel();
 		initPane = new JPanel();
 		scroll = new JScrollPane(deck);
-		
+
 		cards = new JButton("Display cards");
 		back = new JButton("Back");
 
@@ -143,7 +143,7 @@ public class GUIManager implements UserInterface
 		constr.gridheight = 1;
 		messageArea.setBackground(Color.ORANGE);
 		messageArea.setPreferredSize(new Dimension(1000, (600 - 512)));
-		messageArea_label.setPreferredSize(new Dimension(1000,(600-512)));
+		messageArea_label.setPreferredSize(new Dimension(1000, (600 - 512)));
 		messageArea_label.setHorizontalAlignment(JLabel.CENTER);
 		messageArea_label.setVerticalAlignment(JLabel.CENTER);
 		messageArea.add(messageArea_label, BorderLayout.CENTER);
@@ -174,8 +174,8 @@ public class GUIManager implements UserInterface
 		deck.setBackground(Color.DARK_GRAY);
 		back.setAlignmentX(Component.CENTER_ALIGNMENT);
 		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-	    scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-	//    scroll.setBounds(50, 30, 300, 50);
+		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+		//    scroll.setBounds(50, 30, 300, 50);
 		scroll.setBackground(Color.MAGENTA);
 		playerStatsArea.add(initPane, "1");
 		playerStatsArea.add(scroll, "2");
@@ -349,7 +349,7 @@ public class GUIManager implements UserInterface
 			}
 		}
 		return lastCardSelected;
-		
+
 	}
 	@Override
 	public boolean promptUseCard()
@@ -357,8 +357,8 @@ public class GUIManager implements UserInterface
 		JFrame parent = new JFrame();
 		JOptionPane optionPane = new JOptionPane();
 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
-		if(optionPane.showConfirmDialog(null,"Do you want to use a card?","Card",JOptionPane.YES_NO_OPTION)
-				==JOptionPane.YES_OPTION)
+		if(optionPane.showConfirmDialog(null, "Do you want to use a card?", "Card", JOptionPane.YES_NO_OPTION)
+		        == JOptionPane.YES_OPTION)
 		{
 			return true;
 		}
@@ -371,8 +371,8 @@ public class GUIManager implements UserInterface
 		JFrame parent = new JFrame();
 		JOptionPane optionPane = new JOptionPane();
 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
-		if(optionPane.showConfirmDialog(null,"Do you want to trade cards?","Trading",JOptionPane.YES_NO_OPTION)
-				==JOptionPane.YES_OPTION)
+		if(optionPane.showConfirmDialog(null, "Do you want to trade cards?", "Trading", JOptionPane.YES_NO_OPTION)
+		        == JOptionPane.YES_OPTION)
 		{
 			return true;
 		}

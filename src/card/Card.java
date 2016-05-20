@@ -77,25 +77,25 @@ public class Card
 
 		JLabel name = new JLabel(territory);
 		name.setForeground(Color.BLACK);
-		
+
 		card.add(name);
 		card.add(new JLabel(ter));
 		card.add(new JLabel(val));
 
 		card.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-		
+
 		JButton btn = new JButton("Use");
 		btn.addActionListener(new ActionListener()
-				{
-					@Override
-					public void actionPerformed(ActionEvent e)
-					{
-						card.setBackground(Color.GREEN);
-						GUIManager.lastCardSelected = getCard();
-					}
-					
-				});
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				card.setBackground(Color.GREEN);
+				GUIManager.lastCardSelected = getCard();
+			}
+
+		});
 		card.add(btn);
 		return card;
 
