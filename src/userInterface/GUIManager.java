@@ -351,7 +351,6 @@ public class GUIManager implements UserInterface
 		return lastCardSelected;
 		
 	}
-
 	@Override
 	public boolean promptUseCard()
 	{
