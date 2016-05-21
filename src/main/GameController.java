@@ -74,11 +74,14 @@ public class GameController
 			test: if(userInterface.promptUseCard())
 			{
 				userInterface.generateWarning("Select a card");
+
 				Card c = null;
 				boolean valid = false;
 				while(!valid)
 				{
 					c = userInterface.selectCard(p);
+					if(c == null)
+						break;
 					if(p.ownsTerritory(c.getTerritory()))
 					{
 						p.getCards().remove(c);
@@ -86,6 +89,15 @@ public class GameController
 						valid = true;
 					}
 				}
+				
+				/*if(c == null)
+					break test;
+				if(!p.ownsTerritory(c.getTerritory()))
+					break test;
+				p.getCards().remove(c);
+				
+				p.deployReinforcements(c.getTerritory(), c.getValue());*/
+
 			}
 		}
 		else if(!p.hasCardsToUse())
@@ -108,6 +120,8 @@ public class GameController
 					c1 = userInterface.selectCard(p);
 					c2 = userInterface.selectCard(p);
 					c3 = userInterface.selectCard(p);
+					if(c1 == null || c2 == null || c3 == null)
+						break;
 					if(c1.getValue() != c2.getValue() || c2.getValue() != c3.getValue()
 					        || c1.getValue() != c3.getValue())
 					{
