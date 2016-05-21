@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,15 +23,17 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.JScrollPane;
 
 import battle.BattleResults;
+import buttons.AlbertaButton;
 import buttons.GreenlandButton;
+import buttons.OntarioButton;
+import buttons.QuebecButton;
 import card.Card;
-import card.CardDeck;
 import main.Player;
 import territoryMap.Territory;
 import territoryMap.TerritoryMap;
@@ -418,8 +419,16 @@ public class GUIManager implements UserInterface
 	@Override
 	public int getNumArmiesToAttackWith(Player p, String territoryToAttackID, String territoryToAttackFromID)
 	{
-		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
-		return 0;
+		JFrame parent = new JFrame();
+		JOptionPane optionPane = new JOptionPane();
+		JSlider slider = getSlider(optionPane,0,TerritoryMap.get(territoryToAttackID).getNumArmies());
+		optionPane.setMessage(new Object[]
+		                      { "Choose number of armies to attack " + territoryToAttackFromID + " with.", slider });
+		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);
+		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
+		JDialog dialog = optionPane.createDialog(parent, "Attack!");
+		dialog.setVisible(true);
+		return (Integer) slider.getValue();
 	}
 
 	@Override
@@ -484,8 +493,19 @@ public class GUIManager implements UserInterface
 		buttons = new HashMap<String, JButton> ();
 
 		JButton greenland = new GreenlandButton();
+		JButton quebec = new QuebecButton();
+		JButton ontario = new OntarioButton();
+		JButton alberta = new AlbertaButton();
+		
 		buttons.put("Greenland", greenland);
+		buttons.put("Quebec", quebec);
+		buttons.put("Ontario", ontario);
+		buttons.put("Alberta", alberta);
+		
 		mapArea.add(greenland);
+		mapArea.add(quebec);
+		mapArea.add(ontario);
+		mapArea.add(alberta);
 	}
 	/*
 	 * See above for credits
