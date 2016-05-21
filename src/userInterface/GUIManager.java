@@ -30,7 +30,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.JScrollPane;
 
 import battle.BattleResults;
-import buttons.GreenlandButton;
+import buttons.*;
 import card.Card;
 import card.CardDeck;
 import main.Player;
@@ -494,6 +494,10 @@ public class GUIManager implements UserInterface
 		JButton greenland = new GreenlandButton();
 		buttons.put("Greenland", greenland);
 		mapArea.add(greenland);
+		
+		JButton china = new ChinaButton();
+		buttons.put("China", china);
+		mapArea.add(china);
 	}
 }
 
