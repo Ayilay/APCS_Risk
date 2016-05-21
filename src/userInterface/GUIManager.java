@@ -41,7 +41,7 @@ import territoryMap.TerritoryMap;
 public class GUIManager implements UserInterface
 {
 	public static Card lastCardSelected;
-	public static Territory lastTerritorySelected;
+	public static String lastTerritorySelected;
 	private JFrame window;
 	private JPanel mainPane;
 
@@ -530,10 +530,10 @@ public class GUIManager implements UserInterface
 	{
 		buttons = new HashMap<String, JButton> ();
 
-		JButton greenland = new GreenlandButton();
-		JButton quebec = new QuebecButton();
-		JButton ontario = new OntarioButton();
-		JButton alberta = new AlbertaButton();
+		JButton greenland = new GreenlandButton("Greenland");
+		JButton quebec = new QuebecButton("Quebec");
+		JButton ontario = new OntarioButton("Ontario");
+		JButton alberta = new AlbertaButton("Alberta");
 		
 		buttons.put("Greenland", greenland);
 		buttons.put("Quebec", quebec);
@@ -567,5 +567,5 @@ public class GUIManager implements UserInterface
 		};
 		return slider;
 	}
-}
+}	
 

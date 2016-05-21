@@ -58,7 +58,7 @@ public class Card
 	public JPanel drawCard()
 	{
 		JPanel card = new JPanel();
-		card.setBackground(Color.MAGENTA);
+		card.setBackground(Color.WHITE);
 		card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
 
 		String territory = this.getTerritory();

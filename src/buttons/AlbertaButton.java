@@ -4,8 +4,9 @@ import java.awt.Dimension;
 
 public class AlbertaButton extends TerritoryButton
 {
-	public AlbertaButton()
+	public AlbertaButton(String s)
 	{
+		super(s);
 		this.setPreferredSize(new Dimension(89, 38));
 		shape.addPoint(0, 1);
 		shape.addPoint(89, 0);

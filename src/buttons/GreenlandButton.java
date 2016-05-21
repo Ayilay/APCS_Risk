@@ -6,8 +6,9 @@ public class GreenlandButton extends TerritoryButton
 {
 	private static final long serialVersionUID = -4017492434666001404L;
 
-	public GreenlandButton()
+	public GreenlandButton(String s)
 	{
+		super(s);
 		this.setPreferredSize(new Dimension(111, 63));
 		shape.addPoint(0, 9);
 		shape.addPoint(111, 0);
