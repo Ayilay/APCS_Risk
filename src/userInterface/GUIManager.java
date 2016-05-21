@@ -34,11 +34,13 @@ import buttons.GreenlandButton;
 import card.Card;
 import card.CardDeck;
 import main.Player;
+import territoryMap.Territory;
 import territoryMap.TerritoryMap;
 
 public class GUIManager implements UserInterface
 {
 	public static Card lastCardSelected;
+	public static Territory lastTerritorySelected;
 	private JFrame window;
 	private JPanel mainPane;
 
@@ -232,7 +234,7 @@ public class GUIManager implements UserInterface
 	//	Init Methods
 	////////////////////////////////////////////////////////////
 	/*
-	 * Slider code modified off: http://www.java2s.com/Tutorial/Java/0240__Swing/UsingJOptionPanewithaJSlider.htm
+	 * getSlider code modified off: http://www.java2s.com/Tutorial/Java/0240__Swing/UsingJOptionPanewithaJSlider.htm
 	 * Textfield code modified off http://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html#input
 	 */
 	@Override
@@ -241,7 +243,7 @@ public class GUIManager implements UserInterface
 		JFrame parent = new JFrame();
 
 		JOptionPane optionPane = new JOptionPane();
-		JSlider slider = getSlider(optionPane);
+		JSlider slider = getSlider(optionPane,2,5);
 		optionPane.setMessage(new Object[]
 		                      { "How many players will be playing?", slider });
 		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);
@@ -251,25 +253,7 @@ public class GUIManager implements UserInterface
 		return (Integer) slider.getValue();
 	}
 
-	private static JSlider getSlider(final JOptionPane dialog)
-	{
-		JSlider slider = new JSlider(2, 5);
-		slider.setMajorTickSpacing(1);
-		slider.setPaintTicks(true);
-		slider.setPaintLabels(true);
-		ChangeListener changeListener = new ChangeListener()
-		{
-			public void stateChanged(ChangeEvent changeEvent)
-			{
-				JSlider theSlider = (JSlider) changeEvent.getSource();
-				if(!theSlider.getValueIsAdjusting())
-				{
-					dialog.setInputValue(new Integer(theSlider.getValue()));
-				}
-			}
-		};
-		return slider;
-	}
+	
 
 	@Override
 	public String getPlayerName()
@@ -394,8 +378,16 @@ public class GUIManager implements UserInterface
 	@Override
 	public int getNumArmiesToDeploy(Player p, String deployTerritory)
 	{
-		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
-		return 0;
+		JFrame parent = new JFrame();
+		JOptionPane optionPane = new JOptionPane();
+		JSlider slider = getSlider(optionPane,0,p.getNumReinforcementsAvailable());
+		optionPane.setMessage(new Object[]
+		                      { "Choose number of armies to deploy to " + deployTerritory, slider });
+		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);
+		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
+		JDialog dialog = optionPane.createDialog(parent, "Deploy");
+		dialog.setVisible(true);
+		return (Integer) slider.getValue();
 	}
 
 	////////////////////////////////////////////////////////////
@@ -494,6 +486,28 @@ public class GUIManager implements UserInterface
 		JButton greenland = new GreenlandButton();
 		buttons.put("Greenland", greenland);
 		mapArea.add(greenland);
+	}
+	/*
+	 * See above for credits
+	 */
+	private static JSlider getSlider(final JOptionPane dialog, int start, int end)
+	{
+		JSlider slider = new JSlider(start, end);
+		slider.setMajorTickSpacing(1);
+		slider.setPaintTicks(true);
+		slider.setPaintLabels(true);
+		ChangeListener changeListener = new ChangeListener()
+		{
+			public void stateChanged(ChangeEvent changeEvent)
+			{
+				JSlider theSlider = (JSlider) changeEvent.getSource();
+				if(!theSlider.getValueIsAdjusting())
+				{
+					dialog.setInputValue(new Integer(theSlider.getValue()));
+				}
+			}
+		};
+		return slider;
 	}
 }
 
