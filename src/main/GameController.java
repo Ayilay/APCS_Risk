@@ -85,6 +85,7 @@ public class GameController
 					if(p.ownsTerritory(c.getTerritory()))
 					{
 						p.getCards().remove(c);
+						userInterface.updateCards(p);
 						p.deployReinforcements(c.getTerritory(), c.getValue());
 						valid = true;
 					}
@@ -137,6 +138,7 @@ public class GameController
 				deck.getDeck().add(c1);
 				deck.getDeck().add(c2);
 				deck.getDeck().add(c3);
+				userInterface.updateCards(p);
 
 				p.addReinforcements((p.getSetsTraded() + 1) * 2);
 				p.incrementSets();

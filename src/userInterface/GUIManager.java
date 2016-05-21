@@ -287,19 +287,7 @@ public class GUIManager implements UserInterface
 	@Override
 	public void promptPlayerTurn(Player p)
 	{
-		deck.removeAll();
-		deck.add(back);
-		//TODO: Does not clear card pane on new turn
-		deck.removeAll();
-		deck.add(back);
-		deck.setBackground(Color.DARK_GRAY);
-		for(Card c : p.getCards())
-		{
-			System.out.println(c.getTerritory());
-			JPanel panel = c.drawCard();
-			deck.add(panel);
-			deck.getComponents();
-		}
+		updateCards(p);
 
 		String text = p.getName() + "'s Turn";
 		playerNameArea_label.setForeground(Color.BLACK);
@@ -321,7 +309,20 @@ public class GUIManager implements UserInterface
 	//	Use Card Methods
 	////////////////////////////////////////////////////////////
 
-
+	public void updateCards(Player p)
+	{
+		deck.removeAll();
+		deck.add(back);
+		deck.setBackground(Color.DARK_GRAY);
+		for(Card c : p.getCards())
+		{
+			System.out.println(c.getTerritory());
+			JPanel panel = c.drawCard();
+			deck.add(panel);
+			deck.getComponents();
+		}
+	}
+	
 	@Override
 	public Card selectCard(Player p)
 	{
