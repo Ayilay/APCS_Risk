@@ -258,6 +258,8 @@ public class Player
 
 		if(numOne >= 3 || numTwo >= 3 || numThree >= 3)
 			return true;
+		else if(numOne != 0 && numTwo != 0 && numThree != 0)
+			return true;
 		else
 			return false;
 	}

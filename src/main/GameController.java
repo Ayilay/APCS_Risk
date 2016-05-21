@@ -117,16 +117,17 @@ public class GameController
 
 				while(!isDone)
 				{
-					userInterface.generateWarning("Select 3 cards to trade. The three cards must be the same value");
+					userInterface.generateWarning("Select 3 cards to trade. The three cards must be the same value"
+							+ " or be all unique");
 					c1 = userInterface.selectCard(p);
 					c2 = userInterface.selectCard(p);
 					c3 = userInterface.selectCard(p);
 					if(c1 == null || c2 == null || c3 == null)
 						break;
-					if(c1.getValue() != c2.getValue() || c2.getValue() != c3.getValue()
-					        || c1.getValue() != c3.getValue())
+					if(!(c1.getValue() == c2.getValue() && c3.getValue() == c3.getValue())
+							|| !(c1.getValue() != c2.getValue() && c2.getValue() != c3.getValue() && c1.getValue() != c3.getValue()))
 					{
-						userInterface.generateWarning("Must be 3 Cards of the same value");
+						userInterface.generateWarning("Must be 3 Cards of the same value or unique");
 						continue;
 					}
 					isDone = true;

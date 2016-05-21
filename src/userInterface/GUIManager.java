@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -25,17 +26,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
+import javax.swing.OverlayLayout;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import battle.BattleResults;
+import buttons.AlaskaButton;
 import buttons.AlbertaButton;
 import buttons.GreenlandButton;
+import buttons.NorthwestTerritoryButton;
 import buttons.OntarioButton;
 import buttons.QuebecButton;
 import card.Card;
 import main.Player;
-import territoryMap.Territory;
 import territoryMap.TerritoryMap;
 
 public class GUIManager implements UserInterface
@@ -51,7 +54,8 @@ public class GUIManager implements UserInterface
 	private JPanel playerStatsArea;
 	private JPanel gameStateArea;
 	private JPanel footerArea;
-
+	
+	
 	private JLabel playerNameArea_label;
 	private JLabel messageArea_label;
 
@@ -215,6 +219,8 @@ public class GUIManager implements UserInterface
 		constr.gridy = 1;
 		constr.fill = GridBagConstraints.BOTH;
 		constr.gridheight = 3;
+
+		
 		mapArea.add(new JLabel(img));
 		mapArea.setBackground(Color.WHITE);
 		mapArea.setPreferredSize(new Dimension(1000, 512));
@@ -530,20 +536,43 @@ public class GUIManager implements UserInterface
 	{
 		buttons = new HashMap<String, JButton> ();
 
+		////////////////////////////////////////////////////////////
+		//	Init Buttons
+		////////////////////////////////////////////////////////////
+		
+		//North America
 		JButton greenland = new GreenlandButton("Greenland");
 		JButton quebec = new QuebecButton("Quebec");
 		JButton ontario = new OntarioButton("Ontario");
 		JButton alberta = new AlbertaButton("Alberta");
+		JButton alaska = new AlaskaButton("Alaska");
+		JButton northWestTerritory = new NorthwestTerritoryButton("Northwest Territory");
 		
+		
+		////////////////////////////////////////////////////////////
+		//	Add buttons to map
+		////////////////////////////////////////////////////////////
+		
+		//North America
 		buttons.put("Greenland", greenland);
 		buttons.put("Quebec", quebec);
 		buttons.put("Ontario", ontario);
 		buttons.put("Alberta", alberta);
+		buttons.put("Alaska", alaska);
+		buttons.put("Northwest Territory", northWestTerritory);
 		
+		
+		////////////////////////////////////////////////////////////
+		//	Add to map
+		////////////////////////////////////////////////////////////
+		
+		//North America
 		mapArea.add(greenland);
 		mapArea.add(quebec);
 		mapArea.add(ontario);
 		mapArea.add(alberta);
+		mapArea.add(alaska);
+		mapArea.add(northWestTerritory);
 	}
 	/*
 	 * See above for credits
