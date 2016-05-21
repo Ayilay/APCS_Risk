@@ -99,6 +99,12 @@ public class CLIManager implements UserInterface
 	//	Use Card Methods
 	////////////////////////////////////////////////////////////
 	@Override
+	public void updateCards(Player p)
+	{
+		//unimplemented feature in CLI 
+	}
+	
+	@Override
 	public boolean promptUseCard()
 	{
 		String response = "";
