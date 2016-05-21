@@ -67,6 +67,8 @@ public class GUIManager implements UserInterface
 
 	private BufferedReader br;
 
+	private boolean quit;
+	
 	public GUIManager()
 	{
 		br = new BufferedReader(new InputStreamReader(System.in));
@@ -97,6 +99,8 @@ public class GUIManager implements UserInterface
 
 		cardDisplay = new CardLayout();
 
+		quit = false;
+		
 		System.out.println(window.getWidth());
 		System.out.println(window.getHeight());
 
@@ -294,6 +298,7 @@ public class GUIManager implements UserInterface
 			System.out.println(c.getTerritory());
 			JPanel panel = c.drawCard();
 			deck.add(panel);
+			deck.getComponents();
 		}
 
 		String text = p.getName() + "'s Turn";
@@ -320,16 +325,48 @@ public class GUIManager implements UserInterface
 	@Override
 	public Card selectCard(Player p)
 	{
+		
 		cardDisplay.show(playerStatsArea, "2");
+		
+		if(!p.hasCards())
+		{
+			System.out.println("You do not have any cards");
+			return null;
+		}
+		
 		generateWarning("Select a card");
 		boolean selected = false;
+		quit = false;
 		lastCardSelected = null;
+		
 		while(!selected)
 		{
+			back.addActionListener(new ActionListener()
+			{
+				
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
+					quit = true;
+				}
+			});
+			
+			if(quit == true)
+				return null;
+			
 			if(lastCardSelected != null)
 			{
-				generateWarning("You selected card with: " + lastCardSelected.toString());
-				selected = true;
+
+				if(!p.getOccupiedTerritories().contains(lastCardSelected.getTerritory()))
+				{
+					generateWarning("You do not own this territory");
+					continue;
+				}
+				else
+				{
+					generateWarning("You selected card with: " + lastCardSelected.toString());
+					selected = true;
+				}
 			}
 		}
 		return lastCardSelected;
