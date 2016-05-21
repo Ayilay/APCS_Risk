@@ -74,13 +74,18 @@ public class GameController
 			test: if(userInterface.promptUseCard())
 			{
 				userInterface.generateWarning("Select a card");
-				Card c = userInterface.selectCard(p);
-				if(!p.ownsTerritory(c.getTerritory()))
-					break test;
-				if(c == null)
-					break test;
-				p.getCards().remove(c);
-				p.deployReinforcements(c.getTerritory(), c.getValue());
+				Card c = null;
+				boolean valid = false;
+				while(!valid)
+				{
+					c = userInterface.selectCard(p);
+					if(p.ownsTerritory(c.getTerritory()))
+					{
+						p.getCards().remove(c);
+						p.deployReinforcements(c.getTerritory(), c.getValue());
+						valid = true;
+					}
+				}
 			}
 		}
 		else if(!p.hasCardsToUse())

@@ -91,6 +91,7 @@ public class Card
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
+				System.out.println("You clicked on card: " + getCard().toString());
 				card.setBackground(Color.GREEN);
 				GUIManager.lastCardSelected = getCard();
 			}
