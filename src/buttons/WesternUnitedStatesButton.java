@@ -16,7 +16,7 @@ public class WesternUnitedStatesButton extends TerritoryButton
 		shape.addPoint(50, 59);
 		shape.addPoint(6, 59);
 		shape.addPoint(0, 27);
-		
+
 	}
 
 }

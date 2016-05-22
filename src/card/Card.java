@@ -19,6 +19,7 @@ public class Card
 {
 	private String territory;
 	private int stars;
+	private JPanel card;
 
 	public Card(String ter, int value)
 	{
@@ -57,7 +58,7 @@ public class Card
 
 	public JPanel drawCard()
 	{
-		JPanel card = new JPanel();
+		card = new JPanel();
 		card.setBackground(Color.WHITE);
 		card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
 

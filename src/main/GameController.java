@@ -88,8 +88,8 @@ public class GameController
 						p.deployReinforcements(c.getTerritory(), c.getValue());
 						valid = true;
 					}
-				
-					
+
+
 				}
 			}
 		}
@@ -111,14 +111,14 @@ public class GameController
 				while(!isDone)
 				{
 					userInterface.generateWarning("Select 3 cards to trade. The three cards must be the same value"
-							+ " or be all unique");
+					                              + " or be all unique");
 					c1 = userInterface.selectCard(p);
 					c2 = userInterface.selectCard(p);
 					c3 = userInterface.selectCard(p);
 					if(c1 == null || c2 == null || c3 == null)
 						break test;
 					if((c1.getValue() == c2.getValue() && c2.getValue() == c3.getValue())
-							|| (c1.getValue() != c2.getValue() && c2.getValue() != c3.getValue() && c1.getValue() != c3.getValue()))
+					        || (c1.getValue() != c2.getValue() && c2.getValue() != c3.getValue() && c1.getValue() != c3.getValue()))
 					{
 						isDone = true;
 					}
