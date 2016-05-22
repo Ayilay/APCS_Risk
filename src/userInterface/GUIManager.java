@@ -543,6 +543,10 @@ public class GUIManager implements UserInterface
 		JButton alaska = new AlaskaButton("Alaska");
 		JButton northWestTerritory = new NorthwestTerritoryButton("Northwest Territory");
 		
+		//Asia
+		JButton china = new ChinaButton("China");
+		
+		
 		
 		////////////////////////////////////////////////////////////
 		//	Add buttons to map
@@ -556,6 +560,8 @@ public class GUIManager implements UserInterface
 		buttons.put("Alaska", alaska);
 		buttons.put("Northwest Territory", northWestTerritory);
 		
+		//Asia
+		buttons.put("China", china);
 		
 		////////////////////////////////////////////////////////////
 		//	Add to map
@@ -563,17 +569,14 @@ public class GUIManager implements UserInterface
 		
 		//North America
 		mapArea.add(greenland);
-<<<<<<< HEAD
-		
-		JButton china = new ChinaButton();
-		buttons.put("China", china);
-		mapArea.add(china);
-=======
 		mapArea.add(quebec);
 		mapArea.add(ontario);
 		mapArea.add(alberta);
 		mapArea.add(alaska);
 		mapArea.add(northWestTerritory);
+		
+		//Asia
+		mapArea.add(china);
 	}
 	/*
 	 * See above for credits
@@ -596,7 +599,6 @@ public class GUIManager implements UserInterface
 			}
 		};
 		return slider;
->>>>>>> a59abab2a70359564e89d6441c8a17206b0d73b3
 	}
 }	
 

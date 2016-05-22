@@ -50,10 +50,6 @@ public class GameController
 			Player p = getNextPlayer();
 			userInterface.promptPlayerTurn(p);
 			userInterface.generateWarning("This is a test!");
-<<<<<<< HEAD
-=======
-
->>>>>>> a59abab2a70359564e89d6441c8a17206b0d73b3
 			// // Perform the player actions
 			// useCards(p);
 			// deployReinforcements(p);
@@ -76,10 +72,6 @@ public class GameController
 		{
 			test: if(userInterface.promptUseCard())
 			{
-<<<<<<< HEAD
-				Card c = userInterface.selectCard(p);
-				if(c == null)
-=======
 				userInterface.generateWarning("Select a card");
 
 				Card c = null;
@@ -125,12 +117,8 @@ public class GameController
 
 				while(!isDone)
 				{
-<<<<<<< HEAD
-					System.out.println("Select 3 cards to trade. The three cards must be the same value");
-=======
 					userInterface.generateWarning("Select 3 cards to trade. The three cards must be the same value"
 							+ " or be all unique");
->>>>>>> a59abab2a70359564e89d6441c8a17206b0d73b3
 					c1 = userInterface.selectCard(p);
 					c2 = userInterface.selectCard(p);
 					c3 = userInterface.selectCard(p);
@@ -394,9 +382,6 @@ public class GameController
 		players.add(new Player("Richard's long name", "China"));
 		players.add(new Player("George", "Germany"));
 		//Testing card drawings
-<<<<<<< HEAD
-		players.get(0).addCards(deck.deal());
-=======
 		players.get(0).addCards(new Card("China", 3));
 		players.get(0).addCards(new Card("New Guinea", 2));
 		for(int i = 0; i < 5; i++)
@@ -408,8 +393,6 @@ public class GameController
 		{
 			players.get(1).addCards(deck.deal());
 		}
-
->>>>>>> a59abab2a70359564e89d6441c8a17206b0d73b3
 	}
 
 	private Set<String> getPlayerNames()
