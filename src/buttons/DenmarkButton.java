@@ -4,7 +4,7 @@ import java.awt.Dimension;
 
 public class DenmarkButton extends TerritoryButton 
 {
-	public DenmarkButton()
+	public DenmarkButton(String s)
 	{
 		super(s);
 		/*
