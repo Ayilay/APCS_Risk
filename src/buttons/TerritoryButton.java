@@ -28,11 +28,12 @@ public abstract class TerritoryButton extends JButton
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
-				System.out.println("You clicked on " + getTerritory());
 				GUIManager.lastTerritorySelected = getTerritory();
+				System.out.println("You clicked: " + GUIManager.lastTerritorySelected);
 			}
 
 		});
+		this.setToolTipText(s);
 	}
 
 	public String getTerritory()

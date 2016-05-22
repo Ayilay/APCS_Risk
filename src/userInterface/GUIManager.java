@@ -560,6 +560,7 @@ public class GUIManager implements UserInterface
 		JButton westernUnitedStates = new WesternUnitedStatesButton("Western United States");
 		JButton easternUnitedStates = new EasternUnitedStatesButton("Eastern United States");
 		JButton mexico = new MexicoButton("Mexico");
+		JButton centralAmerica = new CentralAmericaButton("Central America");
 
 		//Asia
 		JButton china = new ChinaButton("China");
@@ -578,7 +579,7 @@ public class GUIManager implements UserInterface
 		buttons.put("Western United States", westernUnitedStates);
 		buttons.put("Eastern United States", easternUnitedStates);
 		buttons.put("Mexico", mexico);
-
+		buttons.put("Central America", centralAmerica);
 		//Asia
 		buttons.put("China", china);
 
@@ -596,6 +597,7 @@ public class GUIManager implements UserInterface
 		mapArea.add(westernUnitedStates);
 		mapArea.add(easternUnitedStates);
 		mapArea.add(mexico);
+		mapArea.add(centralAmerica);
 
 		//Asia
 		mapArea.add(china);
