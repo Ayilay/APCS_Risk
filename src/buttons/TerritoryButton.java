@@ -1,40 +1,66 @@
 package buttons;
 
-import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+
+import userInterface.GUIManager;
 
 public abstract class TerritoryButton extends JButton
 {
 	private static final long serialVersionUID = 1954471042174703089L;
-	protected Polygon shape;
 
-	public TerritoryButton()
+	protected Polygon shape;
+	private String thisTerritory;
+
+	public TerritoryButton(String s)
 	{
 		shape = new Polygon();
+		thisTerritory = s;
+		this.addActionListener(new ActionListener()
+				{
+
+					@Override
+					public void actionPerformed(ActionEvent arg0)
+					{
+						System.out.println("You clicked on " + getTerritory());
+						GUIManager.lastTerritorySelected = getTerritory();
+					}
+					
+				});
+	}
+	
+	public String getTerritory()
+	{
+		return thisTerritory;
 	}
 
 	@Override
-	public boolean contains(int x, int y)
+	public void paintBorder(Graphics g)
 	{
-		return this.shape.contains(x, y);
+		((Graphics2D) g).draw(shape);
 	}
 
 	@Override
 	public void paintComponent(Graphics g)
 	{
-		super.paintComponent(g);
-		g.setColor(Color.GRAY);
-		g.fillPolygon(shape);
-		g.drawPolygon(shape);
+		((Graphics2D) g).fill(shape);
 	}
 
 	//@Override
-	//public void paintBorder(Graphics g)
-	//{
+	//public Dimension getPreferredSize()
+	//{	
+	//	return new Dimension(50, 90);
 	//}
 
+	@Override
+	public boolean contains(int x, int y)
+	{
+		return shape.contains(x, y);
+	}
 }

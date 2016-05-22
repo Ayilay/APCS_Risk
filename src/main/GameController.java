@@ -50,6 +50,10 @@ public class GameController
 			Player p = getNextPlayer();
 			userInterface.promptPlayerTurn(p);
 			userInterface.generateWarning("This is a test!");
+<<<<<<< HEAD
+=======
+
+>>>>>>> a59abab2a70359564e89d6441c8a17206b0d73b3
 			// // Perform the player actions
 			// useCards(p);
 			// deployReinforcements(p);
@@ -72,11 +76,37 @@ public class GameController
 		{
 			test: if(userInterface.promptUseCard())
 			{
+<<<<<<< HEAD
 				Card c = userInterface.selectCard(p);
 				if(c == null)
+=======
+				userInterface.generateWarning("Select a card");
+
+				Card c = null;
+				boolean valid = false;
+				while(!valid)
+				{
+					c = userInterface.selectCard(p);
+					if(c == null)
+						break;
+					if(p.ownsTerritory(c.getTerritory()))
+					{
+						p.getCards().remove(c);
+						userInterface.updateCards(p);
+						p.deployReinforcements(c.getTerritory(), c.getValue());
+						valid = true;
+					}
+				}
+				
+				/*if(c == null)
+					break test;
+				if(!p.ownsTerritory(c.getTerritory()))
+>>>>>>> a59abab2a70359564e89d6441c8a17206b0d73b3
 					break test;
 				p.getCards().remove(c);
-				p.deployReinforcements(c.getTerritory(), c.getValue());
+				
+				p.deployReinforcements(c.getTerritory(), c.getValue());*/
+
 			}
 		}
 		else if(!p.hasCardsToUse())
@@ -95,14 +125,21 @@ public class GameController
 
 				while(!isDone)
 				{
+<<<<<<< HEAD
 					System.out.println("Select 3 cards to trade. The three cards must be the same value");
+=======
+					userInterface.generateWarning("Select 3 cards to trade. The three cards must be the same value"
+							+ " or be all unique");
+>>>>>>> a59abab2a70359564e89d6441c8a17206b0d73b3
 					c1 = userInterface.selectCard(p);
 					c2 = userInterface.selectCard(p);
 					c3 = userInterface.selectCard(p);
-					if(c1.getValue() != c2.getValue() || c2.getValue() != c3.getValue()
-					        || c1.getValue() != c3.getValue())
+					if(c1 == null || c2 == null || c3 == null)
+						break;
+					if(!(c1.getValue() == c2.getValue() && c3.getValue() == c3.getValue())
+							|| !(c1.getValue() != c2.getValue() && c2.getValue() != c3.getValue() && c1.getValue() != c3.getValue()))
 					{
-						userInterface.generateWarning("Must be 3 Cards of the same value");
+						userInterface.generateWarning("Must be 3 Cards of the same value or unique");
 						continue;
 					}
 					isDone = true;
@@ -114,6 +151,7 @@ public class GameController
 				deck.getDeck().add(c1);
 				deck.getDeck().add(c2);
 				deck.getDeck().add(c3);
+				userInterface.updateCards(p);
 
 				p.addReinforcements((p.getSetsTraded() + 1) * 2);
 				p.incrementSets();
@@ -353,7 +391,22 @@ public class GameController
 		players.add(new Player("Richard's long name", "China"));
 		players.add(new Player("George", "Germany"));
 		//Testing card drawings
+<<<<<<< HEAD
 		players.get(0).addCards(deck.deal());
+=======
+		players.get(0).addCards(new Card("China", 3));
+		players.get(0).addCards(new Card("New Guinea", 2));
+		for(int i = 0; i < 5; i++)
+		{
+			players.get(0).addCards(deck.deal());
+		}
+		players.get(1).addCards(new Card("Germany", 3));
+		for(int i = 0; i < 5; i++)
+		{
+			players.get(1).addCards(deck.deal());
+		}
+
+>>>>>>> a59abab2a70359564e89d6441c8a17206b0d73b3
 	}
 
 	private Set<String> getPlayerNames()

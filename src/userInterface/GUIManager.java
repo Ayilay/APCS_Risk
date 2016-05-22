@@ -8,12 +8,12 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,21 +24,31 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSlider;
+import javax.swing.OverlayLayout;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.JScrollPane;
 
 import battle.BattleResults;
+<<<<<<< HEAD
 import buttons.*;
+=======
+import buttons.AlaskaButton;
+import buttons.AlbertaButton;
+import buttons.GreenlandButton;
+import buttons.NorthwestTerritoryButton;
+import buttons.OntarioButton;
+import buttons.QuebecButton;
+>>>>>>> a59abab2a70359564e89d6441c8a17206b0d73b3
 import card.Card;
-import card.CardDeck;
 import main.Player;
 import territoryMap.TerritoryMap;
 
 public class GUIManager implements UserInterface
 {
 	public static Card lastCardSelected;
+	public static String lastTerritorySelected;
 	private JFrame window;
 	private JPanel mainPane;
 
@@ -48,14 +58,15 @@ public class GUIManager implements UserInterface
 	private JPanel playerStatsArea;
 	private JPanel gameStateArea;
 	private JPanel footerArea;
-
+	
+	
 	private JLabel playerNameArea_label;
 	private JLabel messageArea_label;
 
 	private JPanel deck;
 	private JPanel initPane;
 	private JScrollPane scroll;
-	
+
 	private JButton cards;
 	private JButton back;
 
@@ -65,6 +76,8 @@ public class GUIManager implements UserInterface
 
 	private BufferedReader br;
 
+	private boolean quit;
+	
 	public GUIManager()
 	{
 		br = new BufferedReader(new InputStreamReader(System.in));
@@ -83,18 +96,20 @@ public class GUIManager implements UserInterface
 
 		playerNameArea_label = new JLabel();
 		messageArea_label = new JLabel();
-		
+
 		GridBagConstraints constr = new GridBagConstraints();
 
 		deck = new JPanel();
 		initPane = new JPanel();
 		scroll = new JScrollPane(deck);
-		
+
 		cards = new JButton("Display cards");
 		back = new JButton("Back");
 
 		cardDisplay = new CardLayout();
 
+		quit = false;
+		
 		System.out.println(window.getWidth());
 		System.out.println(window.getHeight());
 
@@ -143,7 +158,7 @@ public class GUIManager implements UserInterface
 		constr.gridheight = 1;
 		messageArea.setBackground(Color.ORANGE);
 		messageArea.setPreferredSize(new Dimension(1000, (600 - 512)));
-		messageArea_label.setPreferredSize(new Dimension(1000,(600-512)));
+		messageArea_label.setPreferredSize(new Dimension(1000, (600 - 512)));
 		messageArea_label.setHorizontalAlignment(JLabel.CENTER);
 		messageArea_label.setVerticalAlignment(JLabel.CENTER);
 		messageArea.add(messageArea_label, BorderLayout.CENTER);
@@ -174,8 +189,8 @@ public class GUIManager implements UserInterface
 		deck.setBackground(Color.DARK_GRAY);
 		back.setAlignmentX(Component.CENTER_ALIGNMENT);
 		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-	    scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-	//    scroll.setBounds(50, 30, 300, 50);
+		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+		//    scroll.setBounds(50, 30, 300, 50);
 		scroll.setBackground(Color.MAGENTA);
 		playerStatsArea.add(initPane, "1");
 		playerStatsArea.add(scroll, "2");
@@ -208,6 +223,8 @@ public class GUIManager implements UserInterface
 		constr.gridy = 1;
 		constr.fill = GridBagConstraints.BOTH;
 		constr.gridheight = 3;
+
+		
 		mapArea.add(new JLabel(img));
 		mapArea.setBackground(Color.WHITE);
 		mapArea.setPreferredSize(new Dimension(1000, 512));
@@ -232,7 +249,7 @@ public class GUIManager implements UserInterface
 	//	Init Methods
 	////////////////////////////////////////////////////////////
 	/*
-	 * Slider code modified off: http://www.java2s.com/Tutorial/Java/0240__Swing/UsingJOptionPanewithaJSlider.htm
+	 * getSlider code modified off: http://www.java2s.com/Tutorial/Java/0240__Swing/UsingJOptionPanewithaJSlider.htm
 	 * Textfield code modified off http://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html#input
 	 */
 	@Override
@@ -241,7 +258,7 @@ public class GUIManager implements UserInterface
 		JFrame parent = new JFrame();
 
 		JOptionPane optionPane = new JOptionPane();
-		JSlider slider = getSlider(optionPane);
+		JSlider slider = getSlider(optionPane,2,5);
 		optionPane.setMessage(new Object[]
 		                      { "How many players will be playing?", slider });
 		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);
@@ -251,25 +268,7 @@ public class GUIManager implements UserInterface
 		return (Integer) slider.getValue();
 	}
 
-	private static JSlider getSlider(final JOptionPane dialog)
-	{
-		JSlider slider = new JSlider(2, 5);
-		slider.setMajorTickSpacing(1);
-		slider.setPaintTicks(true);
-		slider.setPaintLabels(true);
-		ChangeListener changeListener = new ChangeListener()
-		{
-			public void stateChanged(ChangeEvent changeEvent)
-			{
-				JSlider theSlider = (JSlider) changeEvent.getSource();
-				if(!theSlider.getValueIsAdjusting())
-				{
-					dialog.setInputValue(new Integer(theSlider.getValue()));
-				}
-			}
-		};
-		return slider;
-	}
+	
 
 	@Override
 	public String getPlayerName()
@@ -299,18 +298,7 @@ public class GUIManager implements UserInterface
 	@Override
 	public void promptPlayerTurn(Player p)
 	{
-		deck.removeAll();
-		deck.add(back);
-		//TODO: Does not clear card pane on new turn
-		deck.removeAll();
-		deck.add(back);
-		deck.setBackground(Color.DARK_GRAY);
-		for(Card c : p.getCards())
-		{
-			System.out.println(c.getTerritory());
-			JPanel panel = c.drawCard();
-			deck.add(panel);
-		}
+		updateCards(p);
 
 		String text = p.getName() + "'s Turn";
 		playerNameArea_label.setForeground(Color.BLACK);
@@ -332,24 +320,69 @@ public class GUIManager implements UserInterface
 	//	Use Card Methods
 	////////////////////////////////////////////////////////////
 
-
+	public void updateCards(Player p)
+	{
+		deck.removeAll();
+		deck.add(back);
+		deck.setBackground(Color.DARK_GRAY);
+		for(Card c : p.getCards())
+		{
+			System.out.println(c.getTerritory());
+			JPanel panel = c.drawCard();
+			deck.add(panel);
+			deck.getComponents();
+		}
+	}
+	
 	@Override
 	public Card selectCard(Player p)
 	{
+		
 		cardDisplay.show(playerStatsArea, "2");
+		
+		if(!p.hasCards())
+		{
+			System.out.println("You do not have any cards");
+			return null;
+		}
+		
 		generateWarning("Select a card");
 		boolean selected = false;
+		quit = false;
 		lastCardSelected = null;
+		
 		while(!selected)
 		{
+			back.addActionListener(new ActionListener()
+			{
+				
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
+					quit = true;
+				}
+			});
+			
+			if(quit == true)
+				return null;
+			
 			if(lastCardSelected != null)
 			{
-				generateWarning("You selected card with: " + lastCardSelected.toString());
-				selected = true;
+
+				if(!p.getOccupiedTerritories().contains(lastCardSelected.getTerritory()))
+				{
+					generateWarning("You do not own this territory");
+					continue;
+				}
+				else
+				{
+					generateWarning("You selected card with: " + lastCardSelected.toString());
+					selected = true;
+				}
 			}
 		}
 		return lastCardSelected;
-		
+
 	}
 	@Override
 	public boolean promptUseCard()
@@ -357,8 +390,8 @@ public class GUIManager implements UserInterface
 		JFrame parent = new JFrame();
 		JOptionPane optionPane = new JOptionPane();
 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
-		if(optionPane.showConfirmDialog(null,"Do you want to use a card?","Card",JOptionPane.YES_NO_OPTION)
-				==JOptionPane.YES_OPTION)
+		if(optionPane.showConfirmDialog(null, "Do you want to use a card?", "Card", JOptionPane.YES_NO_OPTION)
+		        == JOptionPane.YES_OPTION)
 		{
 			return true;
 		}
@@ -371,8 +404,8 @@ public class GUIManager implements UserInterface
 		JFrame parent = new JFrame();
 		JOptionPane optionPane = new JOptionPane();
 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
-		if(optionPane.showConfirmDialog(null,"Do you want to trade cards?","Trading",JOptionPane.YES_NO_OPTION)
-				==JOptionPane.YES_OPTION)
+		if(optionPane.showConfirmDialog(null, "Do you want to trade cards?", "Trading", JOptionPane.YES_NO_OPTION)
+		        == JOptionPane.YES_OPTION)
 		{
 			return true;
 		}
@@ -394,8 +427,16 @@ public class GUIManager implements UserInterface
 	@Override
 	public int getNumArmiesToDeploy(Player p, String deployTerritory)
 	{
-		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
-		return 0;
+		JFrame parent = new JFrame();
+		JOptionPane optionPane = new JOptionPane();
+		JSlider slider = getSlider(optionPane,0,p.getNumReinforcementsAvailable());
+		optionPane.setMessage(new Object[]
+		                      { "Choose number of armies to deploy to " + deployTerritory, slider });
+		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);
+		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
+		JDialog dialog = optionPane.createDialog(parent, "Deploy");
+		dialog.setVisible(true);
+		return (Integer) slider.getValue();
 	}
 
 	////////////////////////////////////////////////////////////
@@ -426,8 +467,16 @@ public class GUIManager implements UserInterface
 	@Override
 	public int getNumArmiesToAttackWith(Player p, String territoryToAttackID, String territoryToAttackFromID)
 	{
-		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
-		return 0;
+		JFrame parent = new JFrame();
+		JOptionPane optionPane = new JOptionPane();
+		JSlider slider = getSlider(optionPane,0,TerritoryMap.get(territoryToAttackID).getNumArmies());
+		optionPane.setMessage(new Object[]
+		                      { "Choose number of armies to attack " + territoryToAttackFromID + " with.", slider });
+		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);
+		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
+		JDialog dialog = optionPane.createDialog(parent, "Attack!");
+		dialog.setVisible(true);
+		return (Integer) slider.getValue();
 	}
 
 	@Override
@@ -491,13 +540,72 @@ public class GUIManager implements UserInterface
 	{
 		buttons = new HashMap<String, JButton> ();
 
-		JButton greenland = new GreenlandButton();
+		////////////////////////////////////////////////////////////
+		//	Init Buttons
+		////////////////////////////////////////////////////////////
+		
+		//North America
+		JButton greenland = new GreenlandButton("Greenland");
+		JButton quebec = new QuebecButton("Quebec");
+		JButton ontario = new OntarioButton("Ontario");
+		JButton alberta = new AlbertaButton("Alberta");
+		JButton alaska = new AlaskaButton("Alaska");
+		JButton northWestTerritory = new NorthwestTerritoryButton("Northwest Territory");
+		
+		
+		////////////////////////////////////////////////////////////
+		//	Add buttons to map
+		////////////////////////////////////////////////////////////
+		
+		//North America
 		buttons.put("Greenland", greenland);
+		buttons.put("Quebec", quebec);
+		buttons.put("Ontario", ontario);
+		buttons.put("Alberta", alberta);
+		buttons.put("Alaska", alaska);
+		buttons.put("Northwest Territory", northWestTerritory);
+		
+		
+		////////////////////////////////////////////////////////////
+		//	Add to map
+		////////////////////////////////////////////////////////////
+		
+		//North America
 		mapArea.add(greenland);
+<<<<<<< HEAD
 		
 		JButton china = new ChinaButton();
 		buttons.put("China", china);
 		mapArea.add(china);
+=======
+		mapArea.add(quebec);
+		mapArea.add(ontario);
+		mapArea.add(alberta);
+		mapArea.add(alaska);
+		mapArea.add(northWestTerritory);
 	}
-}
+	/*
+	 * See above for credits
+	 */
+	private static JSlider getSlider(final JOptionPane dialog, int start, int end)
+	{
+		JSlider slider = new JSlider(start, end);
+		slider.setMajorTickSpacing(1);
+		slider.setPaintTicks(true);
+		slider.setPaintLabels(true);
+		ChangeListener changeListener = new ChangeListener()
+		{
+			public void stateChanged(ChangeEvent changeEvent)
+			{
+				JSlider theSlider = (JSlider) changeEvent.getSource();
+				if(!theSlider.getValueIsAdjusting())
+				{
+					dialog.setInputValue(new Integer(theSlider.getValue()));
+				}
+			}
+		};
+		return slider;
+>>>>>>> a59abab2a70359564e89d6441c8a17206b0d73b3
+	}
+}	
 

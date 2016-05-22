@@ -58,7 +58,7 @@ public class Card
 	public JPanel drawCard()
 	{
 		JPanel card = new JPanel();
-		card.setBackground(Color.MAGENTA);
+		card.setBackground(Color.WHITE);
 		card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
 
 		String territory = this.getTerritory();
@@ -77,25 +77,26 @@ public class Card
 
 		JLabel name = new JLabel(territory);
 		name.setForeground(Color.BLACK);
-		
+
 		card.add(name);
 		card.add(new JLabel(ter));
 		card.add(new JLabel(val));
 
 		card.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-		
+
 		JButton btn = new JButton("Use");
 		btn.addActionListener(new ActionListener()
-				{
-					@Override
-					public void actionPerformed(ActionEvent e)
-					{
-						card.setBackground(Color.GREEN);
-						GUIManager.lastCardSelected = getCard();
-					}
-					
-				});
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				System.out.println("You clicked on card: " + getCard().toString());
+				card.setBackground(Color.GREEN);
+				GUIManager.lastCardSelected = getCard();
+			}
+
+		});
 		card.add(btn);
 		return card;
 
