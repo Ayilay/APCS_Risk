@@ -330,6 +330,7 @@ public class GUIManager implements UserInterface
 		deck.setBackground(Color.DARK_GRAY);
 		for(Card c : p.getCards())
 		{
+			//System.out.println(p.getCards().size());
 			System.out.println(c.getTerritory());
 			JPanel panel = c.drawCard();
 			deck.add(panel);
@@ -358,7 +359,6 @@ public class GUIManager implements UserInterface
 		{
 			back.addActionListener(new ActionListener()
 			{
-				
 				@Override
 				public void actionPerformed(ActionEvent e)
 				{
@@ -369,11 +369,23 @@ public class GUIManager implements UserInterface
 			if(quit == true)
 				return null;
 			
+		
+			
 			if(lastCardSelected != null)
 			{
+				if(!p.ownsTerritory(lastCardSelected.getTerritory()))
+				{
+					generateWarning("You selected card with: " + lastCardSelected.toString()+ "|| You do not own this territory");
+					//updateCards(p);
+					continue;
+				}
+				else
+				{
 					generateWarning("You selected card with: " + lastCardSelected.toString());
 					selected = true;
+				}
 			}
+			
 		}
 		return lastCardSelected;
 

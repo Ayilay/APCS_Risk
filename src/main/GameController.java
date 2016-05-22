@@ -88,17 +88,9 @@ public class GameController
 						p.deployReinforcements(c.getTerritory(), c.getValue());
 						valid = true;
 					}
+				
+					
 				}
-				
-				/*if(c == null)
-					break test;
-				if(!p.ownsTerritory(c.getTerritory()))
->>>>>>> a59abab2a70359564e89d6441c8a17206b0d73b3
-					break test;
-				p.getCards().remove(c);
-				
-				p.deployReinforcements(c.getTerritory(), c.getValue());*/
-
 			}
 		}
 		else if(!p.hasCardsToUse())
@@ -108,6 +100,7 @@ public class GameController
 
 		if(p.hasCardsToTrade())
 		{
+			test:
 			if(userInterface.promptTradeCard())
 			{
 				Card c1 = null;
@@ -123,7 +116,7 @@ public class GameController
 					c2 = userInterface.selectCard(p);
 					c3 = userInterface.selectCard(p);
 					if(c1 == null || c2 == null || c3 == null)
-						break;
+						break test;
 					if((c1.getValue() == c2.getValue() && c2.getValue() == c3.getValue())
 							|| (c1.getValue() != c2.getValue() && c2.getValue() != c3.getValue() && c1.getValue() != c3.getValue()))
 					{
