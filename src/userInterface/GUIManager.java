@@ -359,17 +359,8 @@ public class GUIManager implements UserInterface
 			
 			if(lastCardSelected != null)
 			{
-
-				if(!p.getOccupiedTerritories().contains(lastCardSelected.getTerritory()))
-				{
-					generateWarning("You do not own this territory");
-					continue;
-				}
-				else
-				{
 					generateWarning("You selected card with: " + lastCardSelected.toString());
 					selected = true;
-				}
 			}
 		}
 		return lastCardSelected;
@@ -543,6 +534,10 @@ public class GUIManager implements UserInterface
 		JButton alaska = new AlaskaButton("Alaska");
 		JButton northWestTerritory = new NorthwestTerritoryButton("Northwest Territory");
 		
+		//Asia
+		JButton china = new ChinaButton("China");
+		
+		
 		
 		////////////////////////////////////////////////////////////
 		//	Add buttons to map
@@ -556,6 +551,8 @@ public class GUIManager implements UserInterface
 		buttons.put("Alaska", alaska);
 		buttons.put("Northwest Territory", northWestTerritory);
 		
+		//Asia
+		buttons.put("China", china);
 		
 		////////////////////////////////////////////////////////////
 		//	Add to map
@@ -563,14 +560,20 @@ public class GUIManager implements UserInterface
 		
 		//North America
 		mapArea.add(greenland);
+<<<<<<< HEAD
 		JButton china = new ChinaButton();
 		buttons.put("China", china);
 		mapArea.add(china);
+=======
+>>>>>>> 27fc5247a9a9c49d87141a5b35dd3019ccf98c05
 		mapArea.add(quebec);
 		mapArea.add(ontario);
 		mapArea.add(alberta);
 		mapArea.add(alaska);
 		mapArea.add(northWestTerritory);
+		
+		//Asia
+		mapArea.add(china);
 	}
 	/*
 	 * See above for credits
@@ -593,7 +596,10 @@ public class GUIManager implements UserInterface
 			}
 		};
 		return slider;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 27fc5247a9a9c49d87141a5b35dd3019ccf98c05
 	}
 }	
 

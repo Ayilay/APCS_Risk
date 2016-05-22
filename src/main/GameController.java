@@ -50,7 +50,10 @@ public class GameController
 			Player p = getNextPlayer();
 			userInterface.promptPlayerTurn(p);
 			userInterface.generateWarning("This is a test!");
+<<<<<<< HEAD
 
+=======
+>>>>>>> 27fc5247a9a9c49d87141a5b35dd3019ccf98c05
 			// // Perform the player actions
 			// useCards(p);
 			// deployReinforcements(p);
@@ -73,8 +76,11 @@ public class GameController
 		{
 			test: if(userInterface.promptUseCard())
 			{
+<<<<<<< HEAD
 				Card c = userInterface.selectCard(p);
 				if(c == null)
+=======
+>>>>>>> 27fc5247a9a9c49d87141a5b35dd3019ccf98c05
 				userInterface.generateWarning("Select a card");
 
 				Card c = null;
@@ -120,22 +126,30 @@ public class GameController
 
 				while(!isDone)
 				{
+<<<<<<< HEAD
 					System.out.println("Select 3 cards to trade. The three cards must be the same value");
 					userInterface.generateWarning("Select 3 cards to trade. The three cards must be the same value"
 							+ " or be all unique");
 
+=======
+					userInterface.generateWarning("Select 3 cards to trade. The three cards must be the same value"
+							+ " or be all unique");
+>>>>>>> 27fc5247a9a9c49d87141a5b35dd3019ccf98c05
 					c1 = userInterface.selectCard(p);
 					c2 = userInterface.selectCard(p);
 					c3 = userInterface.selectCard(p);
 					if(c1 == null || c2 == null || c3 == null)
 						break;
-					if(!(c1.getValue() == c2.getValue() && c3.getValue() == c3.getValue())
-							|| !(c1.getValue() != c2.getValue() && c2.getValue() != c3.getValue() && c1.getValue() != c3.getValue()))
+					if((c1.getValue() == c2.getValue() && c2.getValue() == c3.getValue())
+							|| (c1.getValue() != c2.getValue() && c2.getValue() != c3.getValue() && c1.getValue() != c3.getValue()))
+					{
+						isDone = true;
+					}
+					else
 					{
 						userInterface.generateWarning("Must be 3 Cards of the same value or unique");
 						continue;
 					}
-					isDone = true;
 				}
 
 				p.getCards().remove(c1);
@@ -384,9 +398,6 @@ public class GameController
 		players.add(new Player("Richard's long name", "China"));
 		players.add(new Player("George", "Germany"));
 		//Testing card drawings
-<<<<<<< HEAD
-		players.get(0).addCards(deck.deal());
-=======
 		players.get(0).addCards(new Card("China", 3));
 		players.get(0).addCards(new Card("New Guinea", 2));
 		for(int i = 0; i < 5; i++)
@@ -398,8 +409,6 @@ public class GameController
 		{
 			players.get(1).addCards(deck.deal());
 		}
-
->>>>>>> a59abab2a70359564e89d6441c8a17206b0d73b3
 	}
 
 	private Set<String> getPlayerNames()
