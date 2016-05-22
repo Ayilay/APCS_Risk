@@ -44,6 +44,8 @@ public class GUIManager implements UserInterface
 	private JPanel mainPane;
 
 	private JPanel mapArea;
+	private JPanel mapBackground;
+	private JPanel mapOverlayArea;
 	private JPanel messageArea;
 	private JPanel playerNameArea;
 	private JPanel playerStatsArea;
@@ -79,6 +81,8 @@ public class GUIManager implements UserInterface
 
 		mainPane = new JPanel(new GridBagLayout());
 		mapArea = new JPanel();
+		mapBackground = new JPanel();
+		mapOverlayArea = new JPanel();
 		messageArea = new JPanel(new BorderLayout());
 		playerNameArea = new JPanel(new BorderLayout());
 		playerStatsArea = new JPanel();
@@ -215,12 +219,20 @@ public class GUIManager implements UserInterface
 		constr.fill = GridBagConstraints.BOTH;
 		constr.gridheight = 3;
 
+		mapBackground.add(new JLabel(img));
+		mapBackground.setBackground(Color.WHITE);
+		mapBackground.setPreferredSize(new Dimension(1000, 512));
+		mapBackground.setVisible(true);
 		
-		mapArea.add(new JLabel(img));
-		mapArea.setBackground(Color.WHITE);
-		mapArea.setPreferredSize(new Dimension(1000, 512));
-		mapArea.setVisible(true);
-		mainPane.add(mapArea, constr);
+		mapArea.setPreferredSize(new Dimension(1000,512));
+		mapArea.setOpaque(false);
+		
+		LayoutManager overlay = new OverlayLayout(mapOverlayArea);
+		mapOverlayArea.setLayout(overlay);
+		
+		mapOverlayArea.add(mapArea);
+		mapOverlayArea.add(mapBackground);
+		mainPane.add(mapOverlayArea, constr);
 
 		// Footer
 		constr.gridx = 1;
@@ -533,6 +545,10 @@ public class GUIManager implements UserInterface
 		JButton alberta = new AlbertaButton("Alberta");
 		JButton alaska = new AlaskaButton("Alaska");
 		JButton northWestTerritory = new NorthwestTerritoryButton("Northwest Territory");
+		JButton westernUnitedStates = new WesternUnitedStatesButton("Western United States");
+		JButton easternUnitedStates = new EasternUnitedStatesButton("Eastern United States");
+		JButton mexico = new MexicoButton("Mexico");
+		
 		
 		//Asia
 		JButton china = new ChinaButton("China");
@@ -550,6 +566,9 @@ public class GUIManager implements UserInterface
 		buttons.put("Alberta", alberta);
 		buttons.put("Alaska", alaska);
 		buttons.put("Northwest Territory", northWestTerritory);
+		buttons.put("Western United States", westernUnitedStates);
+		buttons.put("Eastern United States", easternUnitedStates);
+		buttons.put("Mexico", mexico);
 		
 		//Asia
 		buttons.put("China", china);
@@ -565,6 +584,9 @@ public class GUIManager implements UserInterface
 		mapArea.add(alberta);
 		mapArea.add(alaska);
 		mapArea.add(northWestTerritory);
+		mapArea.add(westernUnitedStates);
+		mapArea.add(easternUnitedStates);
+		mapArea.add(mexico);
 		
 		//Asia
 		mapArea.add(china);
