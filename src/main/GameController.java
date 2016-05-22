@@ -50,12 +50,8 @@ public class GameController
 			Player p = getNextPlayer();
 			userInterface.promptPlayerTurn(p);
 			userInterface.generateWarning("This is a test!");
-<<<<<<< HEAD
-
-=======
->>>>>>> 27fc5247a9a9c49d87141a5b35dd3019ccf98c05
 			// // Perform the player actions
-			// useCards(p);
+			useCards(p);
 			// deployReinforcements(p);
 			// attackTerritory(p);
 			// fortifyTroops(p);
@@ -76,11 +72,6 @@ public class GameController
 		{
 			test: if(userInterface.promptUseCard())
 			{
-<<<<<<< HEAD
-				Card c = userInterface.selectCard(p);
-				if(c == null)
-=======
->>>>>>> 27fc5247a9a9c49d87141a5b35dd3019ccf98c05
 				userInterface.generateWarning("Select a card");
 
 				Card c = null;
@@ -126,15 +117,8 @@ public class GameController
 
 				while(!isDone)
 				{
-<<<<<<< HEAD
-					System.out.println("Select 3 cards to trade. The three cards must be the same value");
 					userInterface.generateWarning("Select 3 cards to trade. The three cards must be the same value"
 							+ " or be all unique");
-
-=======
-					userInterface.generateWarning("Select 3 cards to trade. The three cards must be the same value"
-							+ " or be all unique");
->>>>>>> 27fc5247a9a9c49d87141a5b35dd3019ccf98c05
 					c1 = userInterface.selectCard(p);
 					c2 = userInterface.selectCard(p);
 					c3 = userInterface.selectCard(p);

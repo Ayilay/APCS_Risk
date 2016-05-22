@@ -560,12 +560,6 @@ public class GUIManager implements UserInterface
 		
 		//North America
 		mapArea.add(greenland);
-<<<<<<< HEAD
-		JButton china = new ChinaButton();
-		buttons.put("China", china);
-		mapArea.add(china);
-=======
->>>>>>> 27fc5247a9a9c49d87141a5b35dd3019ccf98c05
 		mapArea.add(quebec);
 		mapArea.add(ontario);
 		mapArea.add(alberta);
@@ -596,10 +590,6 @@ public class GUIManager implements UserInterface
 			}
 		};
 		return slider;
-<<<<<<< HEAD
-
-=======
->>>>>>> 27fc5247a9a9c49d87141a5b35dd3019ccf98c05
 	}
 }	
 
