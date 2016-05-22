@@ -124,13 +124,16 @@ public class GameController
 					c3 = userInterface.selectCard(p);
 					if(c1 == null || c2 == null || c3 == null)
 						break;
-					if(!(c1.getValue() == c2.getValue() && c3.getValue() == c3.getValue())
-							|| !(c1.getValue() != c2.getValue() && c2.getValue() != c3.getValue() && c1.getValue() != c3.getValue()))
+					if((c1.getValue() == c2.getValue() && c2.getValue() == c3.getValue())
+							|| (c1.getValue() != c2.getValue() && c2.getValue() != c3.getValue() && c1.getValue() != c3.getValue()))
+					{
+						isDone = true;
+					}
+					else
 					{
 						userInterface.generateWarning("Must be 3 Cards of the same value or unique");
 						continue;
 					}
-					isDone = true;
 				}
 
 				p.getCards().remove(c1);

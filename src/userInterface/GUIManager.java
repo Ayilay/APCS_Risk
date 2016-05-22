@@ -364,17 +364,8 @@ public class GUIManager implements UserInterface
 			
 			if(lastCardSelected != null)
 			{
-
-				if(!p.getOccupiedTerritories().contains(lastCardSelected.getTerritory()))
-				{
-					generateWarning("You do not own this territory");
-					continue;
-				}
-				else
-				{
 					generateWarning("You selected card with: " + lastCardSelected.toString());
 					selected = true;
-				}
 			}
 		}
 		return lastCardSelected;
