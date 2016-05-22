@@ -1,6 +1,7 @@
 package buttons;
 
-public class IrkutskButton extends TerritoryButton {
+public class IrkutskButton extends TerritoryButton
+{
 
 	public IrkutskButton(String s)
 	{

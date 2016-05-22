@@ -1,6 +1,7 @@
 package buttons;
 
-public class SaudiArabiaButton extends TerritoryButton {
+public class SaudiArabiaButton extends TerritoryButton
+{
 
 	public SaudiArabiaButton(String s)
 	{

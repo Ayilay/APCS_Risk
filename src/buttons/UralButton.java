@@ -1,6 +1,7 @@
 package buttons;
 
-public class UralButton extends TerritoryButton {
+public class UralButton extends TerritoryButton
+{
 
 	public UralButton(String s)
 	{

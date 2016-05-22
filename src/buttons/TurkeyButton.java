@@ -1,6 +1,7 @@
 package buttons;
 
-public class TurkeyButton extends TerritoryButton {
+public class TurkeyButton extends TerritoryButton
+{
 
 	public TurkeyButton(String s)
 	{

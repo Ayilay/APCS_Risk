@@ -1,6 +1,7 @@
 package buttons;
 
-public class KamchatkaButton extends TerritoryButton {
+public class KamchatkaButton extends TerritoryButton
+{
 
 	public KamchatkaButton(String s)
 	{

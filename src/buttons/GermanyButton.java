@@ -2,7 +2,7 @@ package buttons;
 
 import java.awt.Dimension;
 
-public class GermanyButton extends TerritoryButton 
+public class GermanyButton extends TerritoryButton
 {
 	public GermanyButton(String s)
 	{
