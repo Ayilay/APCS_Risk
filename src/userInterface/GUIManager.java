@@ -31,16 +31,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import battle.BattleResults;
-<<<<<<< HEAD
 import buttons.*;
-=======
-import buttons.AlaskaButton;
-import buttons.AlbertaButton;
-import buttons.GreenlandButton;
-import buttons.NorthwestTerritoryButton;
-import buttons.OntarioButton;
-import buttons.QuebecButton;
->>>>>>> a59abab2a70359564e89d6441c8a17206b0d73b3
 import card.Card;
 import main.Player;
 import territoryMap.TerritoryMap;
@@ -572,12 +563,9 @@ public class GUIManager implements UserInterface
 		
 		//North America
 		mapArea.add(greenland);
-<<<<<<< HEAD
-		
 		JButton china = new ChinaButton();
 		buttons.put("China", china);
 		mapArea.add(china);
-=======
 		mapArea.add(quebec);
 		mapArea.add(ontario);
 		mapArea.add(alberta);
@@ -605,7 +593,7 @@ public class GUIManager implements UserInterface
 			}
 		};
 		return slider;
->>>>>>> a59abab2a70359564e89d6441c8a17206b0d73b3
+
 	}
 }	
 
