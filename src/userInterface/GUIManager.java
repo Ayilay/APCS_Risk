@@ -570,15 +570,15 @@ public class GUIManager implements UserInterface
 		JButton iceland = new IcelandButton("Iceland");
 		JButton scandinavia = new ScandinaviaButton("Scandinavia");
 		JButton sweden = new SwedenButton("Sweden");
-		//JButton eastEurope = new EasternEuropeButton("Eastern Europe");
-		//JButton lowCountries = new LowCountriesButton("Low Countries");
-		//JButton spain = new SpainButton("Spain");
-		//JButton france = new FranceButton("France");
-		//JButton denmark = new DenmarkButton("Denmark");
-		//JButton germany = new GermanyButton("Germany");
-		//JButton poland = new PolandButton("Poland");
-		//JButton czechoslovakia = new CzechoslovakiaButton("Czechoslovakia");
-		//JButton southernEurope = new SouthernEuropeButton("Southern Europe");
+		JButton eastEurope = new EasternEuropeButton("Eastern Europe");
+		JButton lowCountries = new LowCountriesButton("Low Countries");
+		JButton spain = new SpainButton("Spain");
+		JButton france = new FranceButton("France");
+		JButton denmark = new DenmarkButton("Denmark");
+		JButton germany = new GermanyButton("Germany");
+		JButton poland = new PolandButton("Poland");
+		JButton czechoslovakia = new CzechoslovakiaButton("Czechoslovakia");
+		JButton southernEurope = new SouthernEuropeButton("Southern Europe");
 
 		////////////////////////////////////////////////////////////
 		//	Add buttons to HashMap
@@ -595,6 +595,7 @@ public class GUIManager implements UserInterface
 		buttons.put("Eastern United States", easternUnitedStates);
 		buttons.put("Mexico", mexico);
 		buttons.put("Central America", centralAmerica);
+
 		//Asia
 		buttons.put("China", china);
 
@@ -603,15 +604,15 @@ public class GUIManager implements UserInterface
 		buttons.put("Iceland", iceland);
 		buttons.put("Scandinavia", scandinavia);
 		buttons.put("Sweden", sweden);
-		//buttons.put("Eastern Europe", eastEurope);
-		//buttons.put("Low Countries", lowCountries);
-		//buttons.put("Spain", spain);
-		//buttons.put("France", france);
-		//buttons.put("Denmark", denmark);
-		//buttons.put("Germany", germany);
-		//buttons.put("Poland", poland);
-		//buttons.put("Czechoslovakia", czechoslovakia);
-		//buttons.put("Southern Europe", southernEurope);
+		buttons.put("Eastern Europe", eastEurope);
+		buttons.put("Low Countries", lowCountries);
+		buttons.put("Spain", spain);
+		buttons.put("France", france);
+		buttons.put("Denmark", denmark);
+		buttons.put("Germany", germany);
+		buttons.put("Poland", poland);
+		buttons.put("Czechoslovakia", czechoslovakia);
+		buttons.put("Southern Europe", southernEurope);
 
 		////////////////////////////////////////////////////////////
 		//	Add to GUI map area
@@ -637,15 +638,15 @@ public class GUIManager implements UserInterface
 		mapArea.add(iceland);
 		mapArea.add(scandinavia);
 		mapArea.add(sweden);
-		//mapArea.add(eastEurope);
-		//mapArea.add(lowCountries);
-		//mapArea.add(spain);
-		//mapArea.add(france);
-		//mapArea.add(denmark);
-		//mapArea.add(germany);
-		//mapArea.add(poland);
-		//mapArea.add(czechoslovakia);
-		//mapArea.add(southernEurope);
+		mapArea.add(eastEurope);
+		mapArea.add(lowCountries);
+		mapArea.add(spain);
+		mapArea.add(france);
+		mapArea.add(denmark);
+		mapArea.add(germany);
+		mapArea.add(poland);
+		mapArea.add(czechoslovakia);
+		mapArea.add(southernEurope);
 	}
 	/*
 	 * See above for credits

@@ -7,14 +7,15 @@ public class FranceButton extends TerritoryButton
 	public FranceButton(String s)
 	{
 		super(s);
-		/*
-		 * 453,119
-		 * 458,133
-		 * 471,137
-		 * 483,136
-		 * 477,124
-		 * 481,118
-		 * 469,111
-		 */
+		this.setPreferredSize(new Dimension(30, 26));
+		this.setSize(new Dimension(30, 26));
+		this.setLocation(453, 116);
+		shape.addPoint(0, 8);
+		shape.addPoint(5, 22);
+		shape.addPoint(18, 26);
+		shape.addPoint(30, 25);
+		shape.addPoint(24, 13);
+		shape.addPoint(28, 7);
+		shape.addPoint(16, 0);
 	}
 }

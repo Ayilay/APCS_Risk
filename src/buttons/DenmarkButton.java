@@ -7,11 +7,11 @@ public class DenmarkButton extends TerritoryButton
 	public DenmarkButton(String s)
 	{
 		super(s);
-		/*
-		 * 488,87
-		 * 493,87
-		 * 493,95
-		 * 486,95
-		 */
+		this.setSize(new Dimension(5, 7));
+		this.setLocation(487, 92);
+		shape.addPoint(0, 0);
+		shape.addPoint(5, 0);
+		shape.addPoint(5, 7);
+		shape.addPoint(0, 7);
 	}
 }

@@ -7,16 +7,18 @@ public class CzechoslovakiaButton extends TerritoryButton
 	public CzechoslovakiaButton(String s)
 	{
 		super(s);
-		/*
-		 * 502,117
-		 * 499,112
-		 * 506,110
-		 * 515,115
-		 * 527,117
-		 * 525,125
-		 * 513,125
-		 * 515,117
-		 * 507,116
-		 */
+		this.setPreferredSize(new Dimension(30, 17));
+		this.setSize(new Dimension(30, 17));
+		this.setLocation(498, 114);
+		shape.addPoint(18, 7);
+		shape.addPoint(30, 7);
+		shape.addPoint(30, 12);
+		shape.addPoint(24, 17);
+		shape.addPoint(13, 15);
+		shape.addPoint(16, 10);
+		shape.addPoint(12, 7);
+		shape.addPoint(0, 7);
+		shape.addPoint(0, 2);
+		shape.addPoint(8, 0);
 	}
 }
