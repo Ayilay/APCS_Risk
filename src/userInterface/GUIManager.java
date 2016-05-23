@@ -580,6 +580,16 @@ public class GUIManager implements UserInterface
 		JButton czechoslovakia = new CzechoslovakiaButton("Czechoslovakia");
 		JButton southernEurope = new SouthernEuropeButton("Southern Europe");
 
+		//Africa
+		JButton morocco = new MoroccoButton("Morocco");
+		JButton algeria = new AlgeriaButton("Algeria");
+		JButton egypt = new EgyptButton("Egypt");
+		JButton eastAfrica = new EastAfricaButton("East Africa");
+		JButton westAfrica = new WestAfricaButton("West Africa");
+		JButton madagascar = new MadagascarButton("Madagascar");
+		JButton southAfrica = new SouthAfricaButton("South Africa");
+		JButton congo = new CongoButton("Congo");
+
 		////////////////////////////////////////////////////////////
 		//	Add buttons to HashMap
 		////////////////////////////////////////////////////////////
@@ -614,21 +624,31 @@ public class GUIManager implements UserInterface
 		buttons.put("Czechoslovakia", czechoslovakia);
 		buttons.put("Southern Europe", southernEurope);
 
+		//Africa
+		buttons.put("Morocco", morocco);
+		buttons.put("Algeria", algeria);
+		buttons.put("Egypt", egypt);
+		buttons.put("East Africa", eastAfrica);
+		buttons.put("West Africa", westAfrica);
+		buttons.put("Madagascar", madagascar);
+		buttons.put("South Africa", southAfrica);
+		buttons.put("Congo", congo);
+
 		////////////////////////////////////////////////////////////
 		//	Add to GUI map area
 		////////////////////////////////////////////////////////////
 
 		//North America
 		mapArea.add(greenland);
-		mapArea.add(quebec);
-		mapArea.add(ontario);
-		mapArea.add(alberta);
-		mapArea.add(alaska);
-		mapArea.add(northWestTerritory);
-		mapArea.add(westernUnitedStates);
-		mapArea.add(easternUnitedStates);
-		mapArea.add(mexico);
-		mapArea.add(centralAmerica);
+		//mapArea.add(quebec);
+		//mapArea.add(ontario);
+		//mapArea.add(alberta);
+		//mapArea.add(alaska);
+		//mapArea.add(northWestTerritory);
+		//mapArea.add(westernUnitedStates);
+		//mapArea.add(easternUnitedStates);
+		//mapArea.add(mexico);
+		//mapArea.add(centralAmerica);
 
 		//Asia
 		mapArea.add(china);
@@ -647,6 +667,16 @@ public class GUIManager implements UserInterface
 		mapArea.add(poland);
 		mapArea.add(czechoslovakia);
 		mapArea.add(southernEurope);
+
+		//Africa
+		mapArea.add(morocco);
+		mapArea.add(algeria);
+		mapArea.add(egypt);
+		mapArea.add(eastAfrica);
+		mapArea.add(westAfrica);
+		mapArea.add(madagascar);
+		mapArea.add(southAfrica);
+		mapArea.add(congo);
 	}
 	/*
 	 * See above for credits
