@@ -159,7 +159,7 @@ public class GameController
 				deck.getDeck().add(c3);
 				userInterface.updateCards(p);
 
-				p.addReinforcements((p.getSetsTraded() + 1) * 2);
+				p.addAvailableReinforcements((p.getSetsTraded() + 1) * 2);
 				p.incrementSets();
 			}
 		}
@@ -171,6 +171,7 @@ public class GameController
 
 	private void deployReinforcements(Player p)
 	{
+		userInterface.generateWarning("Select a territory to deploy reinforcements to");
 		p.calculateReinforcements();
 		while(p.getNumReinforcementsAvailable() > 0)
 		{
@@ -282,8 +283,17 @@ public class GameController
 			if(results.getAttackSuccess())
 			{
 				timeline.addVictoryToTimeline(turn, territoryToAttack.getID(), p);
-				Card c = deck.deal();
-				p.addCards(c);
+				if(p.getCards().size() < 5)
+				{	
+					Card c = deck.deal();
+					p.addCards(c);
+				}
+				else
+				{
+					userInterface.generateWarning("Card deck has 5 cards, can't deal more");
+				}
+				
+				
 			}
 			else
 			{

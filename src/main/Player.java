@@ -112,7 +112,7 @@ public class Player
 		//Super Hax Mode: For use with Achievement testing only. Comment out if playing actual game :)
 		//numReinforcements += 100;
 
-		numReinforcementsAvailable = numReinforcements;
+		numReinforcementsAvailable += numReinforcements;
 	}
 
 	/*
@@ -273,6 +273,11 @@ public class Player
 	{
 		numReinforcements += num;
 	}
+	
+	public void addAvailableReinforcements(int num)
+	{
+		numReinforcementsAvailable += num;
+	} 
 
 	public void incrementSets()
 	{
