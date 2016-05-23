@@ -89,7 +89,8 @@ public class GameController
 					{
 						p.getCards().remove(c);
 						userInterface.updateCards(p);
-						p.deployReinforcements(c.getTerritory(), c.getValue());
+						TerritoryMap.get(c.getTerritory()).incrementArmiesBy(c.getValue());
+						//p.deployReinforcements(c.getTerritory(), c.getValue());
 						valid = true;
 					}
 
