@@ -490,12 +490,16 @@ public class GUIManager implements UserInterface
 		JFrame parent = new JFrame();
 		JOptionPane optionPane = new JOptionPane();
 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
-		if(optionPane.showConfirmDialog(null, "Do you want to keep attacking?", "Attack!", JOptionPane.YES_NO_OPTION)
+		if(optionPane.showConfirmDialog(null, "Do you want to stop attacking?", "Attack!", JOptionPane.YES_NO_OPTION)
 		        == JOptionPane.YES_OPTION)
 		{
+			System.out.println("selected yes");
 			return true;
 		}
-		return false;
+		else
+		{
+			return false;
+		}
 	}
 
 	@Override
@@ -537,7 +541,7 @@ public class GUIManager implements UserInterface
 		JOptionPane optionPane = new JOptionPane();
 		JSlider slider = getSlider(optionPane, 0, TerritoryMap.get(territoryToAttackID).getNumArmies());
 		optionPane.setMessage(new Object[]
-		                      { "Choose number of armies to attack " + territoryToAttackFromID + " with.", slider });
+		                      { "Choose number of armies to attack " + territoryToAttackID + " with.", slider });
 		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);
 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
 		JDialog dialog = optionPane.createDialog(parent, "Attack!");
@@ -548,8 +552,20 @@ public class GUIManager implements UserInterface
 	@Override
 	public void displayBattleResults(BattleResults results)
 	{
-		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
-
+		JLabel label;
+		if(results.getAttackSuccess())
+		{
+			label = new JLabel("Attack was a victory! Attacker lost " + results.getNumAttackerLosses()
+			+ " armies and defender lost " + results.getNumDefenderLosses() + " armies");
+		}
+		else
+		{
+			label = new JLabel("Attack was a unsuccessful. Attacker lost " + results.getNumAttackerLosses()
+			+ " armies and defender lost " + results.getNumDefenderLosses() + " armies");
+		}
+		JPanel panel = new JPanel();
+		panel.add(label);
+		JOptionPane.showConfirmDialog(null, panel, "Results", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
 	}
 
 	////////////////////////////////////////////////////////////

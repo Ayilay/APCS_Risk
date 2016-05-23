@@ -54,7 +54,7 @@ public class GameController
 			// // Perform the player actions
 			useCards(p);
 			deployReinforcements(p);
-			//attackTerritory(p);
+			attackTerritory(p);
 			// fortifyTroops(p);
 
 			// turn ++;
@@ -239,6 +239,7 @@ public class GameController
 			while(true)
 			{
 				territoryToAttackFromID = userInterface.getTerritoryToAttackFrom(p, territoryToAttackID);
+				System.out.println(territoryToAttackFromID);
 				if(!territoryToAttack.isNeighborWith(territoryToAttackFromID))
 				{
 					userInterface.generateWarning("Cannot attack from selected territory");
