@@ -561,6 +561,15 @@ public class GUIManager implements UserInterface
 		JButton easternUnitedStates = new EasternUnitedStatesButton("Eastern United States");
 		JButton mexico = new MexicoButton("Mexico");
 		JButton centralAmerica = new CentralAmericaButton("Central America");
+		JButton cuba = new CubaButton("Cuba");
+		JButton hawaii = new HawaiiButton("Hawaii");
+		
+		//South America
+		JButton venezuela = new VenezuelaButton("Venezuela");
+		JButton peru = new PeruButton("Peru");
+		JButton argentina = new ArgentinaButton("Argentina");
+		JButton bolivia = new BoliviaButton("Bolivia");
+		JButton brazil = new BrazilButton("Brazil");
 
 		//Asia
 		JButton china = new ChinaButton("China");
@@ -595,6 +604,15 @@ public class GUIManager implements UserInterface
 		buttons.put("Eastern United States", easternUnitedStates);
 		buttons.put("Mexico", mexico);
 		buttons.put("Central America", centralAmerica);
+		buttons.put("Cuba", cuba);
+		buttons.put("Hawaii", hawaii);
+		
+		//South America
+		buttons.put("Venezuela", venezuela);
+		buttons.put("Peru", peru);
+		buttons.put("Argentina", argentina);
+		buttons.put("Bolivia", bolivia);
+		buttons.put("Brazil", brazil);
 		//Asia
 		buttons.put("China", china);
 
@@ -628,7 +646,16 @@ public class GUIManager implements UserInterface
 		mapArea.add(easternUnitedStates);
 		mapArea.add(mexico);
 		mapArea.add(centralAmerica);
-
+		mapArea.add(cuba);
+		mapArea.add(hawaii);
+		
+		//South America
+		mapArea.add(venezuela);
+		mapArea.add(peru);
+		mapArea.add(argentina);
+		mapArea.add(bolivia);
+		mapArea.add(brazil);
+		
 		//Asia
 		mapArea.add(china);
 
