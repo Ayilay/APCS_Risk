@@ -56,7 +56,7 @@ public class GUIManager implements UserInterface
 	private JLabel playerNameArea_label;
 	private JLabel messageArea_label;
 
-	private JPanel deck;
+	private JPanel deckPane;
 	private JPanel initPane;
 	private JScrollPane scroll;
 
@@ -94,9 +94,9 @@ public class GUIManager implements UserInterface
 
 		GridBagConstraints constr = new GridBagConstraints();
 
-		deck = new JPanel();
+		deckPane = new JPanel();
 		initPane = new JPanel();
-		scroll = new JScrollPane(deck);
+		scroll = new JScrollPane(deckPane);
 
 		cards = new JButton("Display cards");
 		back = new JButton("Back");
@@ -180,8 +180,8 @@ public class GUIManager implements UserInterface
 
 		initPane.add(cards);
 		initPane.setBackground(Color.GREEN);
-		deck.add(back);
-		deck.setBackground(Color.DARK_GRAY);
+		deckPane.add(back);
+		deckPane.setBackground(Color.DARK_GRAY);
 		back.setAlignmentX(Component.CENTER_ALIGNMENT);
 		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
@@ -325,17 +325,21 @@ public class GUIManager implements UserInterface
 
 	public void updateCards(Player p)
 	{
-		deck.removeAll();
-		deck.add(back);
-		deck.setBackground(Color.DARK_GRAY);
+		deckPane.setVisible(false);
+		
+		deckPane.removeAll();
+		deckPane.add(back);
+		deckPane.setBackground(Color.DARK_GRAY);
 		for(Card c : p.getCards())
 		{
 			//System.out.println(p.getCards().size());
 			System.out.println(c.getTerritory());
 			JPanel panel = c.drawCard();
-			deck.add(panel);
-			deck.getComponents();
+			deckPane.add(panel);
+			//deck.getComponents();
 		}
+		deckPane.setVisible(true);
+		
 	}
 	
 	@Override
@@ -346,11 +350,10 @@ public class GUIManager implements UserInterface
 		
 		if(!p.hasCards())
 		{
-			System.out.println("You do not have any cards");
+			generateWarning("You do not have any cards");
 			return null;
 		}
 		
-		generateWarning("Select a card");
 		boolean selected = false;
 		quit = false;
 		lastCardSelected = null;
@@ -373,17 +376,17 @@ public class GUIManager implements UserInterface
 			
 			if(lastCardSelected != null)
 			{
-				if(!p.ownsTerritory(lastCardSelected.getTerritory()))
-				{
-					generateWarning("You selected card with: " + lastCardSelected.toString()+ "|| You do not own this territory");
-					//updateCards(p);
-					continue;
-				}
-				else
-				{
+				//if(!p.ownsTerritory(lastCardSelected.getTerritory()))
+				//{
+				//	generateWarning("You selected card with: " + lastCardSelected.toString()+ "|| You do not own this territory");
+				//	//updateCards(p);
+				//	continue;
+				//}
+				//else
+				//{
 					generateWarning("You selected card with: " + lastCardSelected.toString());
 					selected = true;
-				}
+				//}
 			}
 			
 		}
