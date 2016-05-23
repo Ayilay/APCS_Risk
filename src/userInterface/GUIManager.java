@@ -539,7 +539,7 @@ public class GUIManager implements UserInterface
 	{
 		JFrame parent = new JFrame();
 		JOptionPane optionPane = new JOptionPane();
-		JSlider slider = getSlider(optionPane, 0, TerritoryMap.get(territoryToAttackID).getNumArmies());
+		JSlider slider = getSlider(optionPane, 0, TerritoryMap.get(territoryToAttackFromID).getNumArmies()-1);
 		optionPane.setMessage(new Object[]
 		                      { "Choose number of armies to attack " + territoryToAttackID + " with.", slider });
 		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);
