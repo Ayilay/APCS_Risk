@@ -51,8 +51,8 @@ public class GUIManager implements UserInterface
 	private JPanel playerStatsArea;
 	private JPanel gameStateArea;
 	private JPanel footerArea;
-	
-	
+
+
 	private JLabel playerNameArea_label;
 	private JLabel messageArea_label;
 
@@ -70,7 +70,7 @@ public class GUIManager implements UserInterface
 	private BufferedReader br;
 
 	private boolean quit;
-	
+
 	public GUIManager()
 	{
 		br = new BufferedReader(new InputStreamReader(System.in));
@@ -80,7 +80,7 @@ public class GUIManager implements UserInterface
 		window.setSize(1230, 745);
 
 		mainPane = new JPanel(new GridBagLayout());
-		mapArea = new JPanel();
+		mapArea = new JPanel(null);
 		mapBackground = new JPanel();
 		mapOverlayArea = new JPanel();
 		messageArea = new JPanel(new BorderLayout());
@@ -104,7 +104,7 @@ public class GUIManager implements UserInterface
 		cardDisplay = new CardLayout();
 
 		quit = false;
-		
+
 		System.out.println(window.getWidth());
 		System.out.println(window.getHeight());
 
@@ -223,13 +223,13 @@ public class GUIManager implements UserInterface
 		mapBackground.setBackground(Color.WHITE);
 		mapBackground.setPreferredSize(new Dimension(1000, 512));
 		mapBackground.setVisible(true);
-		
-		mapArea.setPreferredSize(new Dimension(1000,512));
+
+		mapArea.setPreferredSize(new Dimension(1000, 512));
 		mapArea.setOpaque(false);
-		
+
 		LayoutManager overlay = new OverlayLayout(mapOverlayArea);
 		mapOverlayArea.setLayout(overlay);
-		
+
 		mapOverlayArea.add(mapArea);
 		mapOverlayArea.add(mapBackground);
 		mainPane.add(mapOverlayArea, constr);
@@ -261,7 +261,7 @@ public class GUIManager implements UserInterface
 		JFrame parent = new JFrame();
 
 		JOptionPane optionPane = new JOptionPane();
-		JSlider slider = getSlider(optionPane,2,5);
+		JSlider slider = getSlider(optionPane, 2, 5);
 		optionPane.setMessage(new Object[]
 		                      { "How many players will be playing?", slider });
 		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);
@@ -271,7 +271,7 @@ public class GUIManager implements UserInterface
 		return (Integer) slider.getValue();
 	}
 
-	
+
 
 	@Override
 	public String getPlayerName()
@@ -341,23 +341,23 @@ public class GUIManager implements UserInterface
 		deckPane.setVisible(true);
 		
 	}
-	
+
 	@Override
 	public Card selectCard(Player p)
 	{
-		
+
 		cardDisplay.show(playerStatsArea, "2");
-		
+
 		if(!p.hasCards())
 		{
 			generateWarning("You do not have any cards");
 			return null;
 		}
-		
+
 		boolean selected = false;
 		quit = false;
 		lastCardSelected = null;
-		
+
 		while(!selected)
 		{
 			back.addActionListener(new ActionListener()
@@ -368,30 +368,20 @@ public class GUIManager implements UserInterface
 					quit = true;
 				}
 			});
-			
+
 			if(quit == true)
 				return null;
-			
-		
-			
+
+
+
 			if(lastCardSelected != null)
-			{
-				//if(!p.ownsTerritory(lastCardSelected.getTerritory()))
-				//{
-				//	generateWarning("You selected card with: " + lastCardSelected.toString()+ "|| You do not own this territory");
-				//	//updateCards(p);
-				//	continue;
-				//}
-				//else
-				//{
-					generateWarning("You selected card with: " + lastCardSelected.toString());
-					selected = true;
-				//}
+			{		
+				generateWarning("You selected card with: " + lastCardSelected.toString());
+				selected = true;	
 			}
-			
 		}
 		return lastCardSelected;
-
+		
 	}
 	@Override
 	public boolean promptUseCard()
@@ -438,7 +428,7 @@ public class GUIManager implements UserInterface
 	{
 		JFrame parent = new JFrame();
 		JOptionPane optionPane = new JOptionPane();
-		JSlider slider = getSlider(optionPane,0,p.getNumReinforcementsAvailable());
+		JSlider slider = getSlider(optionPane, 0, p.getNumReinforcementsAvailable());
 		optionPane.setMessage(new Object[]
 		                      { "Choose number of armies to deploy to " + deployTerritory, slider });
 		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);
@@ -478,7 +468,7 @@ public class GUIManager implements UserInterface
 	{
 		JFrame parent = new JFrame();
 		JOptionPane optionPane = new JOptionPane();
-		JSlider slider = getSlider(optionPane,0,TerritoryMap.get(territoryToAttackID).getNumArmies());
+		JSlider slider = getSlider(optionPane, 0, TerritoryMap.get(territoryToAttackID).getNumArmies());
 		optionPane.setMessage(new Object[]
 		                      { "Choose number of armies to attack " + territoryToAttackFromID + " with.", slider });
 		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);
@@ -552,7 +542,7 @@ public class GUIManager implements UserInterface
 		////////////////////////////////////////////////////////////
 		//	Init Buttons
 		////////////////////////////////////////////////////////////
-		
+
 		//North America
 		JButton greenland = new GreenlandButton("Greenland");
 		JButton quebec = new QuebecButton("Quebec");
@@ -563,17 +553,49 @@ public class GUIManager implements UserInterface
 		JButton westernUnitedStates = new WesternUnitedStatesButton("Western United States");
 		JButton easternUnitedStates = new EasternUnitedStatesButton("Eastern United States");
 		JButton mexico = new MexicoButton("Mexico");
-		
-		
+		JButton centralAmerica = new CentralAmericaButton("Central America");
+		JButton cuba = new CubaButton("Cuba");
+		JButton hawaii = new HawaiiButton("Hawaii");
+
+		//South America
+		JButton venezuela = new VenezuelaButton("Venezuela");
+		JButton peru = new PeruButton("Peru");
+		JButton argentina = new ArgentinaButton("Argentina");
+		JButton bolivia = new BoliviaButton("Bolivia");
+		JButton brazil = new BrazilButton("Brazil");
+
 		//Asia
 		JButton china = new ChinaButton("China");
-		
-		
-		
+
+		//Europe
+		JButton unitedKingdom = new UnitedKingdomButton("United Kingdom");
+		JButton iceland = new IcelandButton("Iceland");
+		JButton scandinavia = new ScandinaviaButton("Scandinavia");
+		JButton sweden = new SwedenButton("Sweden");
+		JButton eastEurope = new EasternEuropeButton("Eastern Europe");
+		JButton lowCountries = new LowCountriesButton("Low Countries");
+		JButton spain = new SpainButton("Spain");
+		JButton france = new FranceButton("France");
+		JButton denmark = new DenmarkButton("Denmark");
+		JButton germany = new GermanyButton("Germany");
+		JButton poland = new PolandButton("Poland");
+		JButton czechoslovakia = new CzechoslovakiaButton("Czechoslovakia");
+		JButton southernEurope = new SouthernEuropeButton("Southern Europe");
+
+		//Africa
+		JButton morocco = new MoroccoButton("Morocco");
+		JButton algeria = new AlgeriaButton("Algeria");
+		JButton egypt = new EgyptButton("Egypt");
+		JButton eastAfrica = new EastAfricaButton("East Africa");
+		JButton westAfrica = new WestAfricaButton("West Africa");
+		JButton madagascar = new MadagascarButton("Madagascar");
+		JButton southAfrica = new SouthAfricaButton("South Africa");
+		JButton congo = new CongoButton("Congo");
+
 		////////////////////////////////////////////////////////////
-		//	Add buttons to map
+		//	Add buttons to HashMap
 		////////////////////////////////////////////////////////////
-		
+
 		//North America
 		buttons.put("Greenland", greenland);
 		buttons.put("Quebec", quebec);
@@ -584,14 +606,49 @@ public class GUIManager implements UserInterface
 		buttons.put("Western United States", westernUnitedStates);
 		buttons.put("Eastern United States", easternUnitedStates);
 		buttons.put("Mexico", mexico);
-		
+		buttons.put("Central America", centralAmerica);
+		buttons.put("Cuba", cuba);
+		buttons.put("Hawaii", hawaii);
+
+		//South America
+		buttons.put("Venezuela", venezuela);
+		buttons.put("Peru", peru);
+		buttons.put("Argentina", argentina);
+		buttons.put("Bolivia", bolivia);
+		buttons.put("Brazil", brazil);
+
 		//Asia
 		buttons.put("China", china);
-		
+
+		//Europe
+		buttons.put("United Kingdom", unitedKingdom);
+		buttons.put("Iceland", iceland);
+		buttons.put("Scandinavia", scandinavia);
+		buttons.put("Sweden", sweden);
+		buttons.put("Eastern Europe", eastEurope);
+		buttons.put("Low Countries", lowCountries);
+		buttons.put("Spain", spain);
+		buttons.put("France", france);
+		buttons.put("Denmark", denmark);
+		buttons.put("Germany", germany);
+		buttons.put("Poland", poland);
+		buttons.put("Czechoslovakia", czechoslovakia);
+		buttons.put("Southern Europe", southernEurope);
+
+		//Africa
+		buttons.put("Morocco", morocco);
+		buttons.put("Algeria", algeria);
+		buttons.put("Egypt", egypt);
+		buttons.put("East Africa", eastAfrica);
+		buttons.put("West Africa", westAfrica);
+		buttons.put("Madagascar", madagascar);
+		buttons.put("South Africa", southAfrica);
+		buttons.put("Congo", congo);
+
 		////////////////////////////////////////////////////////////
-		//	Add to map
+		//	Add to GUI map area
 		////////////////////////////////////////////////////////////
-		
+
 		//North America
 		mapArea.add(greenland);
 		mapArea.add(quebec);
@@ -602,9 +659,44 @@ public class GUIManager implements UserInterface
 		mapArea.add(westernUnitedStates);
 		mapArea.add(easternUnitedStates);
 		mapArea.add(mexico);
-		
+		mapArea.add(centralAmerica);
+		mapArea.add(cuba);
+		mapArea.add(hawaii);
+
+		//South America
+		mapArea.add(venezuela);
+		mapArea.add(peru);
+		mapArea.add(argentina);
+		mapArea.add(bolivia);
+		mapArea.add(brazil);
+
 		//Asia
 		mapArea.add(china);
+
+		//Europe
+		mapArea.add(unitedKingdom);
+		mapArea.add(iceland);
+		mapArea.add(scandinavia);
+		mapArea.add(sweden);
+		mapArea.add(eastEurope);
+		mapArea.add(lowCountries);
+		mapArea.add(spain);
+		mapArea.add(france);
+		mapArea.add(denmark);
+		mapArea.add(germany);
+		mapArea.add(poland);
+		mapArea.add(czechoslovakia);
+		mapArea.add(southernEurope);
+
+		//Africa
+		mapArea.add(morocco);
+		mapArea.add(algeria);
+		mapArea.add(egypt);
+		mapArea.add(eastAfrica);
+		mapArea.add(westAfrica);
+		mapArea.add(madagascar);
+		mapArea.add(southAfrica);
+		mapArea.add(congo);
 	}
 	/*
 	 * See above for credits
@@ -628,5 +720,5 @@ public class GUIManager implements UserInterface
 		};
 		return slider;
 	}
-}	
+}
 

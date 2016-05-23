@@ -2,9 +2,10 @@ package buttons;
 
 import java.awt.Dimension;
 
-public class ChinaButton extends TerritoryButton
+public class CentralAmericaButton extends TerritoryButton
 {
-	public ChinaButton(String s)
+
+	public CentralAmericaButton(String s)
 	{
 		super(s);
 		this.setPreferredSize(new Dimension(45, 41));
@@ -23,4 +24,5 @@ public class ChinaButton extends TerritoryButton
 		shape.addPoint(11, 20);
 		shape.addPoint(0, 16);
 	}
+
 }

@@ -23,18 +23,19 @@ public abstract class TerritoryButton extends JButton
 		shape = new Polygon();
 		thisTerritory = s;
 		this.addActionListener(new ActionListener()
-				{
+		{
 
-					@Override
-					public void actionPerformed(ActionEvent arg0)
-					{
-						System.out.println("You clicked on " + getTerritory());
-						GUIManager.lastTerritorySelected = getTerritory();
-					}
-					
-				});
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				GUIManager.lastTerritorySelected = getTerritory();
+				System.out.println("You clicked: " + GUIManager.lastTerritorySelected);
+			}
+
+		});
+		this.setToolTipText(s);
 	}
-	
+
 	public String getTerritory()
 	{
 		return thisTerritory;
@@ -51,12 +52,6 @@ public abstract class TerritoryButton extends JButton
 	{
 		((Graphics2D) g).fill(shape);
 	}
-
-	//@Override
-	//public Dimension getPreferredSize()
-	//{	
-	//	return new Dimension(50, 90);
-	//}
 
 	@Override
 	public boolean contains(int x, int y)

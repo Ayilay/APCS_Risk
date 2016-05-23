@@ -50,6 +50,7 @@ public class GameController
 			Player p = getNextPlayer();
 			userInterface.promptPlayerTurn(p);
 			userInterface.generateWarning("This is a test!");
+
 			// // Perform the player actions
 			useCards(p);
 			// deployReinforcements(p);
@@ -72,8 +73,6 @@ public class GameController
 		{
 			test: if(userInterface.promptUseCard())
 			{
-				userInterface.generateWarning("Select a card");
-
 				Card c = null;
 				boolean valid = false;
 				while(!valid)
@@ -93,7 +92,9 @@ public class GameController
 						p.deployReinforcements(c.getTerritory(), c.getValue());
 						valid = true;
 					}
+
 				}
+
 			}
 		}
 		else if(!p.hasCardsToUse())
@@ -103,8 +104,7 @@ public class GameController
 
 		if(p.hasCardsToTrade())
 		{
-			test:
-			if(userInterface.promptTradeCard())
+			test: if(userInterface.promptTradeCard())
 			{
 				Card c1 = null;
 				Card c2 = null;
@@ -113,8 +113,8 @@ public class GameController
 
 				while(!isDone)
 				{
-					userInterface.generateWarning("Select 3 cards to trade. The three cards must be the same value"
-							+ " or be all unique");
+					userInterface.generateWarning(
+					    "Select 3 cards to trade. The three cards must be the same value" + " or be all unique");
 					c1 = userInterface.selectCard(p);
 					c2 = userInterface.selectCard(p);
 					c3 = userInterface.selectCard(p);
@@ -129,7 +129,8 @@ public class GameController
 					}
 					
 					if((c1.getValue() == c2.getValue() && c2.getValue() == c3.getValue())
-							|| (c1.getValue() != c2.getValue() && c2.getValue() != c3.getValue() && c1.getValue() != c3.getValue()))
+					        || (c1.getValue() != c2.getValue() && c2.getValue() != c3.getValue()
+					            && c1.getValue() != c3.getValue()))
 					{
 						isDone = true;
 						userInterface.updateCards(p);
@@ -360,41 +361,41 @@ public class GameController
 	{
 		int numPlayers = userInterface.getNumPlayers();
 
-		//for(int i = 0; i < numPlayers; i++)
-		//{
-		//	String name = "";
-		//	boolean valid = false;
-		//	while(!valid)
-		//	{
-		//		valid = true;
-		//		name = userInterface.getPlayerName();
-		//		if(getPlayerNames().contains(name))
-		//		{
-		//			userInterface.generateWarning("Already player with that name");
-		//			valid = false;
-		//		}
-		//	}
-		//	String territory = "";
-		//	valid = false;
-		//	while(!valid)
-		//	{
-		//		territory = userInterface.getStartingTerritory(name);
-		//		if(TerritoryMap.get(territory) == null ||
-		//		        TerritoryMap.getOccupierOnTerritory(territory) != null)
-		//		{
-		//			userInterface.generateWarning("Not a valid territory");
-		//		}
-		//		else
-		//		{
-		//			valid = true;
-		//		}
-		//	}
+		// for(int i = 0; i < numPlayers; i++)
+		// {
+		// String name = "";
+		// boolean valid = false;
+		// while(!valid)
+		// {
+		// valid = true;
+		// name = userInterface.getPlayerName();
+		// if(getPlayerNames().contains(name))
+		// {
+		// userInterface.generateWarning("Already player with that name");
+		// valid = false;
+		// }
+		// }
+		// String territory = "";
+		// valid = false;
+		// while(!valid)
+		// {
+		// territory = userInterface.getStartingTerritory(name);
+		// if(TerritoryMap.get(territory) == null ||
+		// TerritoryMap.getOccupierOnTerritory(territory) != null)
+		// {
+		// userInterface.generateWarning("Not a valid territory");
+		// }
+		// else
+		// {
+		// valid = true;
+		// }
+		// }
 
-		//	players.add(new Player(name, territory));
-		//}
+		// players.add(new Player(name, territory));
+		// }
 		players.add(new Player("Richard's long name", "China"));
 		players.add(new Player("George", "Germany"));
-		//Testing card drawings
+		// Testing card drawings
 		players.get(0).addCards(new Card("China", 3));
 		players.get(0).addCards(new Card("New Guinea", 2));
 		for(int i = 0; i < 5; i++)

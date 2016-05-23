@@ -101,9 +101,9 @@ public class CLIManager implements UserInterface
 	@Override
 	public void updateCards(Player p)
 	{
-		//unimplemented feature in CLI 
+		//unimplemented feature in CLI
 	}
-	
+
 	@Override
 	public boolean promptUseCard()
 	{

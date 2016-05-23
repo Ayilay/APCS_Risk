@@ -4,12 +4,12 @@ import java.awt.Dimension;
 
 public class GreenlandButton extends TerritoryButton
 {
-	private static final long serialVersionUID = -4017492434666001404L;
-
 	public GreenlandButton(String s)
 	{
 		super(s);
 		this.setPreferredSize(new Dimension(111, 63));
+		this.setSize(new Dimension(111, 63));
+		this.setLocation(314, 17);
 		shape.addPoint(0, 9);
 		shape.addPoint(111, 0);
 		shape.addPoint(81, 35);
