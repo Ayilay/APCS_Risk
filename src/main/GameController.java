@@ -284,7 +284,7 @@ public class GameController
 			{
 				timeline.addVictoryToTimeline(turn, territoryToAttack.getID(), p);
 				if(p.getCards().size() < 5)
-				{	
+				{
 					Card c = deck.deal();
 					p.addCards(c);
 				}
@@ -292,8 +292,8 @@ public class GameController
 				{
 					userInterface.generateWarning("Card deck has 5 cards, can't deal more");
 				}
-				
-				
+
+
 			}
 			else
 			{

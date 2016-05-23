@@ -273,11 +273,11 @@ public class Player
 	{
 		numReinforcements += num;
 	}
-	
+
 	public void addAvailableReinforcements(int num)
 	{
 		numReinforcementsAvailable += num;
-	} 
+	}
 
 	public void incrementSets()
 	{

@@ -13,9 +13,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,45 +30,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import battle.BattleResults;
-import buttons.AlaskaButton;
-import buttons.AlbertaButton;
-import buttons.AlgeriaButton;
-import buttons.ArgentinaButton;
-import buttons.BoliviaButton;
-import buttons.BrazilButton;
-import buttons.CentralAmericaButton;
-import buttons.ChinaButton;
-import buttons.CongoButton;
-import buttons.CubaButton;
-import buttons.CzechoslovakiaButton;
-import buttons.DenmarkButton;
-import buttons.EastAfricaButton;
-import buttons.EasternEuropeButton;
-import buttons.EasternUnitedStatesButton;
-import buttons.EgyptButton;
-import buttons.FranceButton;
-import buttons.GermanyButton;
-import buttons.GreenlandButton;
-import buttons.HawaiiButton;
-import buttons.IcelandButton;
-import buttons.LowCountriesButton;
-import buttons.MadagascarButton;
-import buttons.MexicoButton;
-import buttons.MoroccoButton;
-import buttons.NorthwestTerritoryButton;
-import buttons.OntarioButton;
-import buttons.PeruButton;
-import buttons.PolandButton;
-import buttons.QuebecButton;
-import buttons.ScandinaviaButton;
-import buttons.SouthAfricaButton;
-import buttons.SouthernEuropeButton;
-import buttons.SpainButton;
-import buttons.SwedenButton;
-import buttons.UnitedKingdomButton;
-import buttons.VenezuelaButton;
-import buttons.WestAfricaButton;
-import buttons.WesternUnitedStatesButton;
+import buttons.*;
 import card.Card;
 import main.Player;
 import territoryMap.TerritoryMap;
@@ -107,16 +66,12 @@ public class GUIManager implements UserInterface
 
 	private CardLayout cardDisplay;
 
-	private BufferedReader br;
-
 	private boolean quit;
 
 	public GUIManager()
 	{
-		br = new BufferedReader(new InputStreamReader(System.in));
-
 		window = new JFrame();
-		window.setTitle("Risk (GUI TEST)");
+		window.setTitle("Risk");
 		window.setSize(1230, 745);
 
 		mainPane = new JPanel(new GridBagLayout());
@@ -155,19 +110,10 @@ public class GUIManager implements UserInterface
 
 		window.add(mainPane);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //terminates the program on close
-		//TODO: Setting the window to visible allows me to access the dimensions of the mainPane,
-		//TODO: but I can not add anything to the window after this. Make sure setVisible is at the END
-
-		//int width = mainPane.getWidth() - 100;
-		//int height = mainPane.getHeight() - 20;
-		//System.out.println(width);
-		//System.out.println(height);
-		//mainPane.setVisible(true);
 
 		// add the elements
 		constr.weightx = 0;
 		constr.weighty = 0;
-
 
 		// Player Name area
 		playerNameArea_label = new JLabel();
@@ -417,7 +363,6 @@ public class GUIManager implements UserInterface
 	@Override
 	public boolean promptUseCard()
 	{
-		JFrame parent = new JFrame();
 		JOptionPane optionPane = new JOptionPane();
 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
 		if(optionPane.showConfirmDialog(null, "Do you want to use a card?", "Card", JOptionPane.YES_NO_OPTION)
@@ -431,7 +376,6 @@ public class GUIManager implements UserInterface
 	@Override
 	public boolean promptTradeCard()
 	{
-		JFrame parent = new JFrame();
 		JOptionPane optionPane = new JOptionPane();
 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
 		if(optionPane.showConfirmDialog(null, "Do you want to trade cards?", "Trading", JOptionPane.YES_NO_OPTION)
@@ -487,7 +431,6 @@ public class GUIManager implements UserInterface
 	@Override
 	public boolean getFinishedAttacking()
 	{
-		JFrame parent = new JFrame();
 		JOptionPane optionPane = new JOptionPane();
 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
 		if(optionPane.showConfirmDialog(null, "Do you want to stop attacking?", "Attack!", JOptionPane.YES_NO_OPTION)
@@ -506,13 +449,16 @@ public class GUIManager implements UserInterface
 	public String getTerritoryToAttack(Player p)
 	{
 		this.generateWarning("Choose a territory to attack");
-		boolean isDone = false;
 		lastTerritorySelected = null;
-		while(!isDone)
+		while(lastTerritorySelected == null)
 		{
-			if(lastTerritorySelected != null)
+			try
 			{
-				isDone = true;
+				Thread.sleep(200);
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
 			}
 		}
 		return lastTerritorySelected;
@@ -539,7 +485,7 @@ public class GUIManager implements UserInterface
 	{
 		JFrame parent = new JFrame();
 		JOptionPane optionPane = new JOptionPane();
-		JSlider slider = getSlider(optionPane, 0, TerritoryMap.get(territoryToAttackFromID).getNumArmies()-1);
+		JSlider slider = getSlider(optionPane, 0, TerritoryMap.get(territoryToAttackFromID).getNumArmies() - 1);
 		optionPane.setMessage(new Object[]
 		                      { "Choose number of armies to attack " + territoryToAttackID + " with.", slider });
 		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);
@@ -556,12 +502,12 @@ public class GUIManager implements UserInterface
 		if(results.getAttackSuccess())
 		{
 			label = new JLabel("Attack was a victory! Attacker lost " + results.getNumAttackerLosses()
-			+ " armies and defender lost " + results.getNumDefenderLosses() + " armies");
+			                   + " armies and defender lost " + results.getNumDefenderLosses() + " armies");
 		}
 		else
 		{
 			label = new JLabel("Attack was a unsuccessful. Attacker lost " + results.getNumAttackerLosses()
-			+ " armies and defender lost " + results.getNumDefenderLosses() + " armies");
+			                   + " armies and defender lost " + results.getNumDefenderLosses() + " armies");
 		}
 		JPanel panel = new JPanel();
 		panel.add(label);
@@ -675,6 +621,13 @@ public class GUIManager implements UserInterface
 		JButton southAfrica = new SouthAfricaButton("South Africa");
 		JButton congo = new CongoButton("Congo");
 
+		//Australia
+		JButton eastAustralia = new EasternAustraliaButton("Eastern Australia");
+		JButton westAustralia = new WesternAustraliaButton("Western Australia");
+		JButton newGuinea = new NewGuineaButton("New Guinea");
+		JButton indonesia = new IndonesiaButton("Indonesia");
+		JButton philippines = new PhilippinesButton("Philippines");
+
 		////////////////////////////////////////////////////////////
 		//	Add buttons to HashMap
 		////////////////////////////////////////////////////////////
@@ -727,6 +680,13 @@ public class GUIManager implements UserInterface
 		buttons.put("Madagascar", madagascar);
 		buttons.put("South Africa", southAfrica);
 		buttons.put("Congo", congo);
+
+		//Australia
+		buttons.put("Eastern Australia", eastAustralia);
+		buttons.put("Western Australia", westAustralia);
+		buttons.put("New Guinea", newGuinea);
+		buttons.put("Indonesia", indonesia);
+		buttons.put("Philippines", philippines);
 
 		////////////////////////////////////////////////////////////
 		//	Add to GUI map area
@@ -781,6 +741,12 @@ public class GUIManager implements UserInterface
 		mapArea.add(southAfrica);
 		mapArea.add(congo);
 
+		//Australia
+		mapArea.add(eastAustralia);
+		mapArea.add(westAustralia);
+		mapArea.add(newGuinea);
+		mapArea.add(indonesia);
+		mapArea.add(philippines);
 
 		//Add hover listener to update side panel
 		for(String s : buttons.keySet())
