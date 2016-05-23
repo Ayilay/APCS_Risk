@@ -54,7 +54,7 @@ public class GameController
 			// // Perform the player actions
 			useCards(p);
 			deployReinforcements(p);
-			attackTerritory(p);
+			//attackTerritory(p);
 			// fortifyTroops(p);
 
 			// turn ++;
@@ -125,9 +125,9 @@ public class GameController
 						userInterface.generateWarning("Please select 3 different cards");
 						userInterface.updateCards(p);
 						continue;
-						
+
 					}
-					
+
 					if((c1.getValue() == c2.getValue() && c2.getValue() == c3.getValue())
 					        || (c1.getValue() != c2.getValue() && c2.getValue() != c3.getValue()
 					            && c1.getValue() != c3.getValue()))
@@ -140,14 +140,14 @@ public class GameController
 						userInterface.generateWarning("Must be 3 Cards of the same value or unique");
 						userInterface.updateCards(p);
 					}
-					
+
 					if(c1.getTerritory().equals(c2.getTerritory()) || c1.getTerritory().equals(c3.getTerritory()) || c2.getTerritory().equals(c3.getTerritory()))
 					{
 						userInterface.generateWarning("Please select 3 different cards");
 						userInterface.updateCards(p);
-						
+
 					}
-					
+
 				}
 
 				p.getCards().remove(c1);
@@ -174,6 +174,7 @@ public class GameController
 		while(p.getNumReinforcementsAvailable() > 0)
 		{
 			String territory = userInterface.getDeployTerritory(p);
+			System.out.println("Got a territory: " + territory);
 
 			if(!TerritoryMap.isValidTerritory(territory))
 			{

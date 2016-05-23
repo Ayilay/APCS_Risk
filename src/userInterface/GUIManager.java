@@ -348,15 +348,6 @@ public class GUIManager implements UserInterface
 		int fontSize = getFontSize(playerNameArea_label, text);
 		playerNameArea_label.setFont(new Font("Times New Roman", Font.PLAIN, fontSize));
 		playerNameArea_label.setText(text);
-		try
-		{
-			br.readLine();
-		}
-		catch(IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	////////////////////////////////////////////////////////////
@@ -366,7 +357,7 @@ public class GUIManager implements UserInterface
 	public void updateCards(Player p)
 	{
 		deckPane.setVisible(false);
-		
+
 		deckPane.removeAll();
 		deckPane.add(back);
 		deckPane.setBackground(Color.DARK_GRAY);
@@ -379,7 +370,7 @@ public class GUIManager implements UserInterface
 			//deck.getComponents();
 		}
 		deckPane.setVisible(true);
-		
+
 	}
 
 	@Override
@@ -415,13 +406,13 @@ public class GUIManager implements UserInterface
 
 
 			if(lastCardSelected != null)
-			{		
+			{
 				generateWarning("You selected card with: " + lastCardSelected.toString());
-				selected = true;	
+				selected = true;
 			}
 		}
 		return lastCardSelected;
-		
+
 	}
 	@Override
 	public boolean promptUseCard()
@@ -460,12 +451,15 @@ public class GUIManager implements UserInterface
 	public String getDeployTerritory(Player p)
 	{
 		lastTerritorySelected = null;
-		boolean isDone = false;
-		while(!isDone)
+		while(lastTerritorySelected == null)
 		{
-			if(lastTerritorySelected!=null)
+			try
 			{
-				isDone = true;
+				Thread.sleep(200);
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
 			}
 		}
 		return lastTerritorySelected;
@@ -770,12 +764,12 @@ public class GUIManager implements UserInterface
 		mapArea.add(madagascar);
 		mapArea.add(southAfrica);
 		mapArea.add(congo);
-		
-		
+
+
 		//Add hover listener to update side panel
 		for(String s : buttons.keySet())
 		{
-			
+
 		}
 	}
 	/*
