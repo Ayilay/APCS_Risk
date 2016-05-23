@@ -87,6 +87,10 @@ public class GameController
 						p.deployReinforcements(c.getTerritory(), c.getValue());
 						valid = true;
 					}
+					else
+					{
+						userInterface.generateWarning("You do not own this territory.");
+					}
 				}
 
 			}

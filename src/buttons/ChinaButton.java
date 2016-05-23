@@ -7,33 +7,20 @@ public class ChinaButton extends TerritoryButton
 	public ChinaButton(String s)
 	{
 		super(s);
-		//TODO: add setPrefferredSize method
-		shape.addPoint(0, 0);
-		shape.addPoint(30, 0);
-		shape.addPoint(30, 90);
-		shape.addPoint(0, 90);
-		/*
-		 * 722,120
-		 * 786,158
-		 * 801,159
-		 * 824,143
-		 * 831,149
-		 * 828,154
-		 * 855,189
-		 * 847,210
-		 * 817,215
-		 * 810,209
-		 * 791,214
-		 * 784,205
-		 * 786,194
-		 * 769,187
-		 * 761,192
-		 * 716,179
-		 * 718,167
-		 * 698,158
-		 * 696,150
-		 * 710,143
-		 * 715,126
-		 */
+		this.setPreferredSize(new Dimension(45, 41));
+		this.setSize(new Dimension(45, 41));
+		this.setLocation(151, 233);
+		shape.addPoint(14, 0);
+		shape.addPoint(10, 8);
+		shape.addPoint(27, 8);
+		shape.addPoint(25, 27);
+		shape.addPoint(29, 33);
+		shape.addPoint(45, 34);
+		shape.addPoint(43, 40);
+		shape.addPoint(39, 36);
+		shape.addPoint(34, 41);
+		shape.addPoint(15, 30);
+		shape.addPoint(11, 20);
+		shape.addPoint(0, 16);
 	}
 }
