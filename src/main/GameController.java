@@ -52,8 +52,8 @@ public class GameController
 			userInterface.generateWarning("This is a test!");
 
 			// // Perform the player actions
-			// useCards(p);
-			// deployReinforcements(p);
+			useCards(p);
+			deployReinforcements(p);
 			// attackTerritory(p);
 			// fortifyTroops(p);
 
@@ -374,16 +374,16 @@ public class GameController
 
 		// players.add(new Player(name, territory));
 		// }
-		players.add(new Player("Richard's long name", "China"));
 		players.add(new Player("George", "Germany"));
+		players.add(new Player("Richard's long name", "China"));
 		// Testing card drawings
-		players.get(0).addCards(new Card("China", 3));
-		players.get(0).addCards(new Card("New Guinea", 2));
+		players.get(1).addCards(new Card("China", 3));
+		players.get(1).addCards(new Card("New Guinea", 2));
 		for(int i = 0; i < 5; i++)
 		{
 			players.get(0).addCards(deck.deal());
 		}
-		players.get(1).addCards(new Card("Germany", 3));
+		players.get(0).addCards(new Card("Germany", 3));
 		for(int i = 0; i < 5; i++)
 		{
 			players.get(1).addCards(deck.deal());

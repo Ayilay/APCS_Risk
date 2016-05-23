@@ -11,6 +11,8 @@ import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -31,7 +33,45 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import battle.BattleResults;
-import buttons.*;
+import buttons.AlaskaButton;
+import buttons.AlbertaButton;
+import buttons.AlgeriaButton;
+import buttons.ArgentinaButton;
+import buttons.BoliviaButton;
+import buttons.BrazilButton;
+import buttons.CentralAmericaButton;
+import buttons.ChinaButton;
+import buttons.CongoButton;
+import buttons.CubaButton;
+import buttons.CzechoslovakiaButton;
+import buttons.DenmarkButton;
+import buttons.EastAfricaButton;
+import buttons.EasternEuropeButton;
+import buttons.EasternUnitedStatesButton;
+import buttons.EgyptButton;
+import buttons.FranceButton;
+import buttons.GermanyButton;
+import buttons.GreenlandButton;
+import buttons.HawaiiButton;
+import buttons.IcelandButton;
+import buttons.LowCountriesButton;
+import buttons.MadagascarButton;
+import buttons.MexicoButton;
+import buttons.MoroccoButton;
+import buttons.NorthwestTerritoryButton;
+import buttons.OntarioButton;
+import buttons.PeruButton;
+import buttons.PolandButton;
+import buttons.QuebecButton;
+import buttons.ScandinaviaButton;
+import buttons.SouthAfricaButton;
+import buttons.SouthernEuropeButton;
+import buttons.SpainButton;
+import buttons.SwedenButton;
+import buttons.UnitedKingdomButton;
+import buttons.VenezuelaButton;
+import buttons.WestAfricaButton;
+import buttons.WesternUnitedStatesButton;
 import card.Card;
 import main.Player;
 import territoryMap.TerritoryMap;
@@ -426,8 +466,16 @@ public class GUIManager implements UserInterface
 	@Override
 	public String getDeployTerritory(Player p)
 	{
-		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
-		return null;
+		lastTerritorySelected = null;
+		boolean isDone = false;
+		while(!isDone)
+		{
+			if(lastTerritorySelected!=null)
+			{
+				isDone = true;
+			}
+		}
+		return lastTerritorySelected;
 	}
 
 	@Override
@@ -704,6 +752,13 @@ public class GUIManager implements UserInterface
 		mapArea.add(madagascar);
 		mapArea.add(southAfrica);
 		mapArea.add(congo);
+		
+		
+		//Add hover listener to update side panel
+		for(String s : buttons.keySet())
+		{
+			
+		}
 	}
 	/*
 	 * See above for credits
