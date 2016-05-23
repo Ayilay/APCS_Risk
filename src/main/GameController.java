@@ -54,7 +54,7 @@ public class GameController
 			// // Perform the player actions
 			useCards(p);
 			deployReinforcements(p);
-			// attackTerritory(p);
+			attackTerritory(p);
 			// fortifyTroops(p);
 
 			// turn ++;

@@ -500,22 +500,47 @@ public class GUIManager implements UserInterface
 	@Override
 	public boolean getFinishedAttacking()
 	{
-		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
+		JFrame parent = new JFrame();
+		JOptionPane optionPane = new JOptionPane();
+		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
+		if(optionPane.showConfirmDialog(null, "Do you want to keep attacking?", "Attack!", JOptionPane.YES_NO_OPTION)
+		        == JOptionPane.YES_OPTION)
+		{
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public String getTerritoryToAttack(Player p)
 	{
-		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
-		return null;
+		this.generateWarning("Choose a territory to attack");
+		boolean isDone = false;
+		lastTerritorySelected = null;
+		while(!isDone)
+		{
+			if(lastTerritorySelected != null)
+			{
+				isDone = true;
+			}
+		}
+		return lastTerritorySelected;
 	}
 
 	@Override
 	public String getTerritoryToAttackFrom(Player p, String territoryToAttack)
 	{
-		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
-		return null;
+		this.generateWarning("Choose territory to attack from");
+		boolean isDone = false;
+		lastTerritorySelected = null;
+		while(!isDone)
+		{
+			if(lastTerritorySelected != null)
+			{
+				isDone = true;
+			}
+		}
+		return lastTerritorySelected;
 	}
 
 	@Override
