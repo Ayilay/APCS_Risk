@@ -44,13 +44,13 @@ public class KamchatkaButton extends TerritoryButton
 		shape.addPoint(56, 36);
 		shape.addPoint(28, 36);
 		shape.addPoint(21, 50);
-		shape.addPoint(129, 53);
+		shape.addPoint(29, 53);
 		shape.addPoint(29, 54);
 		shape.addPoint(33, 52);
 		shape.addPoint(35, 52);
 		shape.addPoint(46, 55);
 		shape.addPoint(61, 69);
-		shape.addPoint(61, 121);
+		shape.addPoint(61, 71);
 		shape.addPoint(65, 80);
 		shape.addPoint(52, 80);
 		shape.addPoint(46, 93);

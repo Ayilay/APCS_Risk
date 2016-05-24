@@ -679,6 +679,7 @@ public class GUIManager implements UserInterface
 		JButton china = new ChinaButton("China");
 		JButton kamchatka = new KamchatkaButton("Kamchatka");
 		JButton yakutsk = new YakutskButton("Yakutsk");
+		JButton irkutsk = new IrkutskButton("Irkutsk");
 
 		//Europe
 		JButton unitedKingdom = new UnitedKingdomButton("United Kingdom");
@@ -741,6 +742,7 @@ public class GUIManager implements UserInterface
 		buttons.put("China", china);
 		buttons.put("Kamchatka", kamchatka);
 		buttons.put("Yakutsk", yakutsk);
+		buttons.put("Irkutsk", irkutsk);
 
 		//Europe
 		buttons.put("United Kingdom", unitedKingdom);
@@ -803,6 +805,7 @@ public class GUIManager implements UserInterface
 		mapArea.add(china);
 		mapArea.add(kamchatka);
 		mapArea.add(yakutsk);
+		mapArea.add(irkutsk);
 
 		//Europe
 		mapArea.add(unitedKingdom);
