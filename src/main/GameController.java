@@ -51,7 +51,7 @@ public class GameController
 			userInterface.promptPlayerTurn(p);
 
 			// // Perform the player actions
-			//useCards(p);
+			useCards(p);
 			deployReinforcements(p);
 			attackTerritory(p);
 			// fortifyTroops(p);
@@ -72,22 +72,26 @@ public class GameController
 		{
 			test: if(userInterface.promptUseCard())
 			{
+				userInterface.updateCards(p, true);
 				Card c = null;
 				boolean valid = false;
 				while(!valid)
 				{
 					c = userInterface.selectCard(p);
 					if(c == null)
+					{
+						userInterface.updateCards(p,false);
 						break;
+					}
 					if(!p.ownsTerritory(c.getTerritory()))
 					{
 						userInterface.generateWarning("You do not own this territory, select another card"); //generate warning gets overriden immediately by select Card
-						userInterface.updateCards(p);
+						userInterface.updateCards(p, true);
 					}
 					else if(p.ownsTerritory(c.getTerritory()))
 					{
 						p.getCards().remove(c);
-						userInterface.updateCards(p);
+						userInterface.updateCards(p, false);
 						TerritoryMap.get(c.getTerritory()).incrementArmiesBy(c.getValue());
 						//p.deployReinforcements(c.getTerritory(), c.getValue());
 						valid = true;
@@ -106,6 +110,7 @@ public class GameController
 		{
 			test: if(userInterface.promptTradeCard())
 			{
+				userInterface.updateCards(p, true);
 				Card c1 = null;
 				Card c2 = null;
 				Card c3 = null;
@@ -119,11 +124,14 @@ public class GameController
 					c2 = userInterface.selectCard(p);
 					c3 = userInterface.selectCard(p);
 					if(c1 == null || c2 == null || c3 == null)
+					{
+						userInterface.updateCards(p, false);
 						break test;
+					}
 					if(c1.getTerritory().equals(c2.getTerritory()) || c1.getTerritory().equals(c3.getTerritory()) || c2.getTerritory().equals(c3.getTerritory()))
 					{
 						userInterface.generateWarning("Please select 3 different cards");
-						userInterface.updateCards(p);
+						userInterface.updateCards(p, true);
 						continue;
 
 					}
@@ -133,18 +141,18 @@ public class GameController
 					            && c1.getValue() != c3.getValue()))
 					{
 						isDone = true;
-						userInterface.updateCards(p);
+						userInterface.updateCards(p, false);
 					}
 					else
 					{
 						userInterface.generateWarning("Must be 3 Cards of the same value or unique");
-						userInterface.updateCards(p);
+						userInterface.updateCards(p, true);
 					}
 
 					if(c1.getTerritory().equals(c2.getTerritory()) || c1.getTerritory().equals(c3.getTerritory()) || c2.getTerritory().equals(c3.getTerritory()))
 					{
 						userInterface.generateWarning("Please select 3 different cards");
-						userInterface.updateCards(p);
+						userInterface.updateCards(p, true);
 
 					}
 
@@ -156,7 +164,7 @@ public class GameController
 				deck.getDeck().add(c1);
 				deck.getDeck().add(c2);
 				deck.getDeck().add(c3);
-				userInterface.updateCards(p);
+				//userInterface.updateCards(p, false);
 
 				p.addAvailableReinforcements((p.getSetsTraded() + 1) * 2);
 				p.incrementSets();

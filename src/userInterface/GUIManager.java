@@ -289,7 +289,7 @@ public class GUIManager implements UserInterface
 	@Override
 	public void promptPlayerTurn(Player p)
 	{
-		updateCards(p);
+		updateCards(p, false);
 
 		String text = p.getName() + "'s Turn";
 		playerNameArea_label.setForeground(Color.BLACK);
@@ -302,7 +302,7 @@ public class GUIManager implements UserInterface
 	//	Use Card Methods
 	////////////////////////////////////////////////////////////
 
-	public void updateCards(Player p)
+	public void updateCards(Player p, boolean turn)
 	{
 		deckPane.setVisible(false);
 
@@ -313,7 +313,7 @@ public class GUIManager implements UserInterface
 		{
 			//System.out.println(p.getCards().size());
 			System.out.println(c.getTerritory());
-			JPanel panel = c.drawCard();
+			JPanel panel = c.drawCard(turn);
 			deckPane.add(panel);
 			//deck.getComponents();
 		}

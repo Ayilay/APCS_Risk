@@ -17,7 +17,7 @@ public interface UserInterface
 	public Card selectCard(Player p);
 	public boolean promptUseCard();
 	public boolean promptTradeCard();
-	public void updateCards(Player p);
+	public void updateCards(Player p, boolean turn);
 
 	// Deploy Armies Methods
 	public String getDeployTerritory(Player p);

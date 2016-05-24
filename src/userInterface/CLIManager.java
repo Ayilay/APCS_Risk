@@ -99,7 +99,7 @@ public class CLIManager implements UserInterface
 	//	Use Card Methods
 	////////////////////////////////////////////////////////////
 	@Override
-	public void updateCards(Player p)
+	public void updateCards(Player p, boolean turn)
 	{
 		//unimplemented feature in CLI
 	}

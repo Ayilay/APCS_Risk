@@ -56,7 +56,7 @@ public class Card
 		return territory.equals(other.getTerritory()) && stars == other.getValue();
 	}
 
-	public JPanel drawCard()
+	public JPanel drawCard(Boolean turn)
 	{
 		card = new JPanel();
 		card.setBackground(Color.WHITE);
@@ -96,19 +96,24 @@ public class Card
 		card.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 
-		JButton btn = new JButton("Use");
-		btn.addActionListener(new ActionListener()
+		if(turn == true)
 		{
-			@Override
-			public void actionPerformed(ActionEvent e)
+			JButton btn = new JButton("Use");
+			btn.addActionListener(new ActionListener()
 			{
-				System.out.println("You clicked on card: " + getCard().toString());
-				card.setBackground(Color.GREEN);
-				GUIManager.lastCardSelected = getCard();
-			}
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
 
-		});
-		card.add(btn);
+						System.out.println("You clicked on card: " + getCard().toString());
+						card.setBackground(Color.GREEN);
+						GUIManager.lastCardSelected = getCard();
+				}
+
+			});
+			card.add(btn);
+		}
+	
 		return card;
 
 	}
