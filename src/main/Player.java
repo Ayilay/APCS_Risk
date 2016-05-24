@@ -1,4 +1,6 @@
 package main;
+import java.awt.Color;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -11,11 +13,8 @@ import card.Card;
 import territoryMap.Territory;
 import territoryMap.TerritoryMap;
 
-import java.util.ArrayList;
-
 /*
  * This program defines a player of the game.
- * Author: Ethan Yao
  */
 public class Player
 {
@@ -25,6 +24,7 @@ public class Player
 	private Set<String> occupiedTerritories;//which locations the player has
 	private ArrayList<Achievement> notFulfilled;//achievements that the player has not yet obtained
 	private int setsTraded;
+	private Color color;
 
 	private String name;
 
@@ -33,7 +33,7 @@ public class Player
 	 * @param name: The name of the player
 	 * @param starter: The territory the player initially control.
 	 */
-	public Player(String name, String starter)
+	public Player(String name, String starter, Color color)
 	{
 		setsTraded = 0;
 		numReinforcements = 3;
@@ -41,6 +41,7 @@ public class Player
 		occupiedTerritories.add(starter);
 		TerritoryMap.get(starter).setOccupier(this);
 		this.name = name;
+		this.color = color;
 
 		deck = new ArrayList<Card>();
 		notFulfilled = new ArrayList<Achievement>(AchievementManager.achievements);
@@ -63,6 +64,10 @@ public class Player
 		return bonus;
 	}
 
+	public Color getColor()
+	{
+		return color;
+	}
 	/**
 	 * Mounts an attack from a territory to another.
 	 * @param attacker: The territory that the attack is being mounted from.

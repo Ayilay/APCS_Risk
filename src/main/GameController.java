@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -51,7 +52,7 @@ public class GameController
 			userInterface.promptPlayerTurn(p);
 
 			// // Perform the player actions
-			//useCards(p);
+			useCards(p);
 			deployReinforcements(p);
 			attackTerritory(p);
 			fortifyTroops(p);
@@ -415,8 +416,8 @@ public class GameController
 
 		// players.add(new Player(name, territory));
 		// }
-		players.add(new Player("George", "Germany"));
-		players.add(new Player("Richard", "China"));
+		players.add(new Player("George", "Germany", Color.BLUE));
+		players.add(new Player("Richard", "China",Color.ORANGE));
 		// Testing card drawings
 		players.get(1).addCards(new Card("China", 3));
 		players.get(1).addCards(new Card("New Guinea", 2));

@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 
+import territoryMap.TerritoryMap;
 import userInterface.GUIManager;
 
 public abstract class TerritoryButton extends JButton
@@ -45,7 +46,14 @@ public abstract class TerritoryButton extends JButton
 			@Override
 			public void mouseEntered(MouseEvent e)
 			{
-				TerritoryButton.this.setForeground(Color.green);
+				if(TerritoryMap.get(thisTerritory).getOccupier() == null)
+				{
+					TerritoryButton.this.setForeground(Color.GREEN);
+				}
+				else
+				{
+					TerritoryButton.this.setForeground(TerritoryMap.get(thisTerritory).getOccupier().getColor());
+				}
 			}
 			@Override
 			public void mouseExited(MouseEvent e)
