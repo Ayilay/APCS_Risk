@@ -372,7 +372,7 @@ public class GameController
 
 	private void initPlayers()
 	{
-		int numPlayers = userInterface.getNumPlayers();
+		//int numPlayers = userInterface.getNumPlayers();
 
 		// for(int i = 0; i < numPlayers; i++)
 		// {

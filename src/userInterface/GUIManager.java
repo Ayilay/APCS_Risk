@@ -16,6 +16,7 @@ import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -50,7 +51,6 @@ public class GUIManager implements UserInterface
 	private JPanel playerStatsArea;
 	private JPanel gameStateArea;
 	private JPanel footerArea;
-
 
 	private JLabel playerNameArea_label;
 	private JLabel messageArea_label;
@@ -100,13 +100,18 @@ public class GUIManager implements UserInterface
 
 		quit = false;
 
-		System.out.println(window.getWidth());
-		System.out.println(window.getHeight());
-
 		//mainPane.setPreferredSize(new Dimension(1200, 700));
 		mainPane.setBackground(Color.BLACK);
 
-		ImageIcon img = new ImageIcon("Risk_Final_Map.png");
+		ImageIcon img = null;
+		try
+		{
+			img = new ImageIcon(ImageIO.read(getClass().getResource("/resources/Risk_Final_Map.png")));
+		}
+		catch(Exception e)
+		{
+			System.err.println("Failed in reading the map image");
+		}
 
 		window.add(mainPane);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //terminates the program on close
@@ -233,7 +238,6 @@ public class GUIManager implements UserInterface
 		window.setVisible(true);
 	}
 
-
 	////////////////////////////////////////////////////////////
 	//	Init Methods
 	////////////////////////////////////////////////////////////
@@ -256,8 +260,6 @@ public class GUIManager implements UserInterface
 		dialog.setVisible(true);
 		return (Integer) slider.getValue();
 	}
-
-
 
 	@Override
 	public String getPlayerName()
@@ -316,13 +318,11 @@ public class GUIManager implements UserInterface
 			//deck.getComponents();
 		}
 		deckPane.setVisible(true);
-
 	}
 
 	@Override
 	public Card selectCard(Player p)
 	{
-
 		cardDisplay.show(playerStatsArea, "2");
 
 		if(!p.hasCards())
@@ -348,8 +348,6 @@ public class GUIManager implements UserInterface
 
 			if(quit == true)
 				return null;
-
-
 
 			if(lastCardSelected != null)
 			{
@@ -385,7 +383,6 @@ public class GUIManager implements UserInterface
 		}
 		return false;
 	}
-
 
 	////////////////////////////////////////////////////////////
 	//	Deploy Armies methods

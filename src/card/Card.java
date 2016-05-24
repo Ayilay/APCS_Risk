@@ -1,11 +1,11 @@
 package card;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -65,8 +65,18 @@ public class Card
 		String territory = this.getTerritory();
 		int numStars = this.getValue();
 
-		ImageIcon ter = new ImageIcon("territory icons/" + territory + ".png");
-		ImageIcon val = new ImageIcon("territory icons/" + numStars + "stars.png");
+		ImageIcon ter = null;
+		ImageIcon val = null;
+		try
+		{
+			ter = new ImageIcon(ImageIO.read(getClass().getResource("/resources/" + territory + ".png")));
+			val = new ImageIcon(ImageIO.read(getClass().getResource("/resources/" + numStars + "stars.png")));
+		}
+		catch(Exception e)
+		{
+			System.err.println("Failed in reading card icon for " + territory);
+		}
+
 
 		Image img = ter.getImage();//rescale
 		Image newImg = img.getScaledInstance(ter.getIconWidth() / 2, ter.getIconHeight() / 2, Image.SCALE_SMOOTH);
