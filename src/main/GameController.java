@@ -51,10 +51,10 @@ public class GameController
 			userInterface.promptPlayerTurn(p);
 
 			// // Perform the player actions
-			useCards(p);
+			//useCards(p);
 			deployReinforcements(p);
 			attackTerritory(p);
-			// fortifyTroops(p);
+			fortifyTroops(p);
 
 			// turn ++;
 		}

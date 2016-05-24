@@ -30,7 +30,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import buttons.*;
-
 import battle.BattleResults;
 import card.Card;
 import main.Player;
@@ -530,29 +529,71 @@ public class GUIManager implements UserInterface
 	@Override
 	public boolean getWantsToFortify(Player p)
 	{
-		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
+		JOptionPane optionPane = new JOptionPane();
+		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
+		if(optionPane.showConfirmDialog(null, "Do you want to fortify territories?", "Fortify", JOptionPane.YES_NO_OPTION)
+		        == JOptionPane.YES_OPTION)
+		{
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public String getTerritoryToFortify(Player p)
 	{
-		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
-		return null;
+		this.generateWarning("Choose territory to fortify");
+		lastTerritorySelected = null;
+		while(lastTerritorySelected == null)
+		{
+			try
+			{
+				Thread.sleep(200);
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return lastTerritorySelected;
 	}
 
 	@Override
 	public String getTerritoryToFortifyFrom(Player p, String terrID)
 	{
-		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
-		return null;
+		this.generateWarning("Choose territory to fortify from");
+		lastTerritorySelected = null;
+		while(lastTerritorySelected == null)
+		{
+			try
+			{
+				Thread.sleep(200);
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return lastTerritorySelected;
 	}
 
 	@Override
 	public int getNumArmiesToFortify(String terrToFortFrom)
 	{
-		System.err.println("Unimplemented Feature"); // TODO Auto-generated method stub
-		return 0;
+		int maxArmies = TerritoryMap.getNumArmiesDeployedOn(terrToFortFrom) - 1;
+		generateWarning("Number of armies to send (max of " + maxArmies + "):");
+
+		JFrame parent = new JFrame();
+		JOptionPane optionPane = new JOptionPane();
+		JSlider slider = getSlider(optionPane, 0, maxArmies);
+		optionPane.setMessage(new Object[]
+		                      { "Choose number of armies to fortify from " + terrToFortFrom, slider });
+		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);
+		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
+		JDialog dialog = optionPane.createDialog(parent, "Fortify");
+		dialog.setVisible(true);
+		return (Integer) slider.getValue();
+		
 	}
 
 	////////////////////////////////////////////////////////////
