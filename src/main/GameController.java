@@ -49,10 +49,9 @@ public class GameController
 		{
 			Player p = getNextPlayer();
 			userInterface.promptPlayerTurn(p);
-			userInterface.generateWarning("This is a test!");
 
 			// // Perform the player actions
-			useCards(p);
+			//useCards(p);
 			deployReinforcements(p);
 			attackTerritory(p);
 			// fortifyTroops(p);
@@ -188,6 +187,7 @@ public class GameController
 				userInterface.generateWarning("You do not own this territory, try again");
 				continue;
 			}
+			userInterface.clearWarnings();
 
 			int numArmies = userInterface.getNumArmiesToDeploy(p, territory);
 			// Check if numArmies is valid
@@ -201,6 +201,7 @@ public class GameController
 			}
 			else
 			{
+				userInterface.clearWarnings();
 				p.deployReinforcements(territory, numArmies);
 			}
 		}

@@ -421,4 +421,10 @@ public class CLIManager implements UserInterface
 
 		return num;
 	}
+
+	@Override
+	public void clearWarnings()
+	{
+		// do nothing
+	}
 }

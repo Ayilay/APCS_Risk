@@ -38,5 +38,6 @@ public interface UserInterface
 
 	// Utility Methods
 	public void generateWarning(String string);
+	public void clearWarnings();
 
 }

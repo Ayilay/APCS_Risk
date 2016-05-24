@@ -1,11 +1,13 @@
 package buttons;
 
-import java.awt.Dimension;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 
@@ -20,19 +22,38 @@ public abstract class TerritoryButton extends JButton
 
 	public TerritoryButton(String s)
 	{
+		super();
+		this.setOpaque(true);
+		this.setContentAreaFilled(true);
+		this.setForeground(Color.gray);
+
 		shape = new Polygon();
 		thisTerritory = s;
+
 		this.addActionListener(new ActionListener()
 		{
-
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
 				GUIManager.lastTerritorySelected = getTerritory();
 				System.out.println("You clicked: " + GUIManager.lastTerritorySelected);
 			}
-
 		});
+
+		this.addMouseListener(new MouseAdapter()
+		{
+			@Override
+			public void mouseEntered(MouseEvent e)
+			{
+				TerritoryButton.this.setForeground(Color.green);
+			}
+			@Override
+			public void mouseExited(MouseEvent e)
+			{
+				TerritoryButton.this.setForeground(Color.gray);
+			}
+		});
+
 		this.setToolTipText(s);
 	}
 
@@ -44,7 +65,8 @@ public abstract class TerritoryButton extends JButton
 	@Override
 	public void paintBorder(Graphics g)
 	{
-		((Graphics2D) g).draw(shape);
+		Graphics2D graphics = (Graphics2D) g;
+		graphics.draw(shape);
 	}
 
 	@Override

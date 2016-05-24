@@ -550,12 +550,27 @@ public class GUIManager implements UserInterface
 	@Override
 	public void generateWarning(String string)
 	{
+		messageArea_label.setText("");
+		try
+		{
+			Thread.sleep(80);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		messageArea_label.setForeground(Color.BLACK);
 		messageArea_label.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		messageArea_label.setText(string);
 	}
 
-	public int getFontSize(JLabel label, String text)
+	@Override
+	public void clearWarnings()
+	{
+		messageArea_label.setText("");
+	}
+
+	private int getFontSize(JLabel label, String text)
 	{
 		int fontSizeToUse = (int)(300.0 / text.length());
 		return fontSizeToUse;
