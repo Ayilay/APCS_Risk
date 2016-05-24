@@ -430,10 +430,9 @@ public class GUIManager implements UserInterface
 	{
 		JOptionPane optionPane = new JOptionPane();
 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
-		if(optionPane.showConfirmDialog(null, "Do you want to stop attacking?", "Attack!", JOptionPane.YES_NO_OPTION)
-		        == JOptionPane.YES_OPTION)
+		if(optionPane.showConfirmDialog(null, "Do you want to attack another territory?", "Attack!", JOptionPane.YES_NO_OPTION)
+		        == JOptionPane.NO_OPTION)
 		{
-			System.out.println("selected yes");
 			return true;
 		}
 		else
@@ -465,13 +464,16 @@ public class GUIManager implements UserInterface
 	public String getTerritoryToAttackFrom(Player p, String territoryToAttack)
 	{
 		this.generateWarning("Choose territory to attack from");
-		boolean isDone = false;
 		lastTerritorySelected = null;
-		while(!isDone)
+		while(lastTerritorySelected == null)
 		{
-			if(lastTerritorySelected != null)
+			try
 			{
-				isDone = true;
+				Thread.sleep(200);
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
 			}
 		}
 		return lastTerritorySelected;
