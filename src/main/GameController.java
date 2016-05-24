@@ -80,7 +80,7 @@ public class GameController
 					c = userInterface.selectCard(p);
 					if(c == null)
 					{
-						userInterface.updateCards(p,false);
+						userInterface.updateCards(p, false);
 						break;
 					}
 					if(!p.ownsTerritory(c.getTerritory()))

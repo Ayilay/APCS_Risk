@@ -16,7 +16,7 @@ public class YakutskButton extends TerritoryButton
 		shape.addPoint(92, 57);
 		shape.addPoint(14, 26);
 		shape.addPoint(0, 1);
-		
+
 	}
 
 }

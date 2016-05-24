@@ -25,7 +25,7 @@ public abstract class TerritoryButton extends JButton
 		super();
 		this.setOpaque(false);
 		this.setContentAreaFilled(false);
-		this.setForeground(new Color(0,0,0,0));
+		this.setForeground(new Color(0, 0, 0, 0));
 
 		shape = new Polygon();
 		thisTerritory = s;
@@ -50,7 +50,7 @@ public abstract class TerritoryButton extends JButton
 			@Override
 			public void mouseExited(MouseEvent e)
 			{
-				TerritoryButton.this.setForeground(new Color(0,0,0,0));
+				TerritoryButton.this.setForeground(new Color(0, 0, 0, 0));
 			}
 		});
 
