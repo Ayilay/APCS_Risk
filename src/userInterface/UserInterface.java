@@ -37,6 +37,7 @@ public interface UserInterface
 	public int getNumArmiesToFortify(String terrToFortFrom);
 
 	// Utility Methods
+	public void createAnnouncement(String string);
 	public void generateWarning(String string);
 	public void clearWarnings();
 

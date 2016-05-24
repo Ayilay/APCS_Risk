@@ -118,7 +118,7 @@ public class GameController
 
 				while(!isDone)
 				{
-					userInterface.generateWarning(
+					userInterface.createAnnouncement(
 					    "Select 3 cards to trade. The three cards must be the same value" + " or be all unique");
 					c1 = userInterface.selectCard(p);
 					c2 = userInterface.selectCard(p);
@@ -178,7 +178,7 @@ public class GameController
 
 	private void deployReinforcements(Player p)
 	{
-		userInterface.generateWarning("Select a territory to deploy reinforcements to");
+		userInterface.createAnnouncement("Select a territory to deploy reinforcements to");
 		p.calculateReinforcements();
 		while(p.getNumReinforcementsAvailable() > 0)
 		{
@@ -205,7 +205,7 @@ public class GameController
 			}
 			else if(numArmies == 0)
 			{
-				userInterface.generateWarning("Cancelling deploy to " + territory);
+				userInterface.createAnnouncement("Cancelling deploy to " + territory);
 			}
 			else
 			{
@@ -416,7 +416,7 @@ public class GameController
 		// players.add(new Player(name, territory));
 		// }
 		players.add(new Player("George", "Germany"));
-		players.add(new Player("Richard's long name", "China"));
+		players.add(new Player("Richard", "China"));
 		// Testing card drawings
 		players.get(1).addCards(new Card("China", 3));
 		players.get(1).addCards(new Card("New Guinea", 2));

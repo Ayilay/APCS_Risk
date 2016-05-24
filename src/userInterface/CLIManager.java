@@ -427,4 +427,10 @@ public class CLIManager implements UserInterface
 	{
 		// do nothing
 	}
+
+	@Override
+	public void createAnnouncement(String string)
+	{
+		System.out.println(string);
+	}
 }

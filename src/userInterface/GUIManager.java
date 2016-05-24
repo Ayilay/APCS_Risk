@@ -8,11 +8,10 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,8 +29,9 @@ import javax.swing.OverlayLayout;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import battle.BattleResults;
 import buttons.*;
+
+import battle.BattleResults;
 import card.Card;
 import main.Player;
 import territoryMap.TerritoryMap;
@@ -54,6 +54,7 @@ public class GUIManager implements UserInterface
 
 	private JLabel playerNameArea_label;
 	private JLabel messageArea_label;
+	private JLabel warningArea_label;
 
 	private JPanel deckPane;
 	private JPanel initPane;
@@ -78,14 +79,18 @@ public class GUIManager implements UserInterface
 		mapArea = new JPanel(null);
 		mapBackground = new JPanel();
 		mapOverlayArea = new JPanel();
-		messageArea = new JPanel(new BorderLayout());
 		playerNameArea = new JPanel(new BorderLayout());
 		playerStatsArea = new JPanel();
 		gameStateArea = new JPanel();
 		footerArea = new JPanel();
 
+		GridLayout messageLayout = new GridLayout(2, 0, 0, 0);
+		//messageLayout.setVgap(10);
+		messageArea = new JPanel(messageLayout);
+
 		playerNameArea_label = new JLabel();
 		messageArea_label = new JLabel();
+		warningArea_label = new JLabel();
 
 		GridBagConstraints constr = new GridBagConstraints();
 
@@ -147,7 +152,12 @@ public class GUIManager implements UserInterface
 		messageArea_label.setPreferredSize(new Dimension(1000, (600 - 512)));
 		messageArea_label.setHorizontalAlignment(JLabel.CENTER);
 		messageArea_label.setVerticalAlignment(JLabel.CENTER);
-		messageArea.add(messageArea_label, BorderLayout.CENTER);
+		warningArea_label.setPreferredSize(new Dimension(1000, (600 - 512)));
+		warningArea_label.setHorizontalAlignment(JLabel.CENTER);
+		warningArea_label.setVerticalAlignment(JLabel.CENTER);
+		warningArea_label.setForeground(Color.red);
+		messageArea.add(messageArea_label);
+		messageArea.add(warningArea_label);
 		messageArea.setVisible(true);
 		mainPane.add(messageArea, constr);
 
@@ -351,7 +361,7 @@ public class GUIManager implements UserInterface
 
 			if(lastCardSelected != null)
 			{
-				generateWarning("You selected card with: " + lastCardSelected.toString());
+				createAnnouncement("You selected card with: " + lastCardSelected.toString());
 				selected = true;
 			}
 		}
@@ -444,7 +454,7 @@ public class GUIManager implements UserInterface
 	@Override
 	public String getTerritoryToAttack(Player p)
 	{
-		this.generateWarning("Choose a territory to attack");
+		this.createAnnouncement("Choose a territory to attack");
 		lastTerritorySelected = null;
 		while(lastTerritorySelected == null)
 		{
@@ -463,7 +473,7 @@ public class GUIManager implements UserInterface
 	@Override
 	public String getTerritoryToAttackFrom(Player p, String territoryToAttack)
 	{
-		this.generateWarning("Choose territory to attack from");
+		this.createAnnouncement("Choose territory to attack from");
 		lastTerritorySelected = null;
 		while(lastTerritorySelected == null)
 		{
@@ -550,7 +560,7 @@ public class GUIManager implements UserInterface
 	////////////////////////////////////////////////////////////
 
 	@Override
-	public void generateWarning(String string)
+	public void createAnnouncement(String string)
 	{
 		messageArea_label.setText("");
 		try
@@ -567,9 +577,26 @@ public class GUIManager implements UserInterface
 	}
 
 	@Override
+	public void generateWarning(String string)
+	{
+		warningArea_label.setText("");
+		try
+		{
+			Thread.sleep(80);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		warningArea_label.setForeground(Color.RED);
+		warningArea_label.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		warningArea_label.setText(string);
+	}
+
+	@Override
 	public void clearWarnings()
 	{
-		messageArea_label.setText("");
+		warningArea_label.setText("");
 	}
 
 	private int getFontSize(JLabel label, String text)
