@@ -226,6 +226,7 @@ public class GameController
 			if(!p.hasArmiesToAttackWith())
 			{
 				userInterface.generateWarning("You have no more armies to attack with!");
+
 				break;
 			}
 
@@ -313,6 +314,8 @@ public class GameController
 			{
 				timeline.addDefenseVictory(turn, territoryToAttack.getID(), p);
 			}
+
+			((GUIManager) userInterface).updateButtonColors();
 		}
 
 	}
@@ -347,7 +350,7 @@ public class GameController
 			Territory territoryToFortify = TerritoryMap.get(territoryToFortifyID);
 
 			// Get territory to fortify from
-            userInterface.createAnnouncement("Choose territory to fortify from");
+			userInterface.createAnnouncement("Choose territory to fortify from");
 			String territoryToFortifyFromID = userInterface.getTerritoryToFortifyFrom(p, territoryToFortifyID);
 			if(!TerritoryMap.isValidTerritory(territoryToFortifyFromID))
 			{
@@ -425,6 +428,7 @@ public class GameController
 		// }
 		players.add(new Player("George", "Germany", Color.BLUE));
 		players.add(new Player("Richard", "China", Color.ORANGE));
+		((GUIManager) userInterface).updateButtonColors();
 		// Testing card drawings
 		players.get(1).addCards(new Card("China", 3));
 		players.get(1).addCards(new Card("New Guinea", 2));

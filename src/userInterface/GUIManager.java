@@ -855,5 +855,13 @@ public class GUIManager implements UserInterface
 		};
 		return slider;
 	}
+
+	public void updateButtonColors()
+	{
+		for(String buttonID : buttons.keySet())
+		{
+			((TerritoryButton) buttons.get(buttonID)).updateColor();
+		}
+	}
 }
 

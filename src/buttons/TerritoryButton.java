@@ -46,19 +46,12 @@ public abstract class TerritoryButton extends JButton
 			@Override
 			public void mouseEntered(MouseEvent e)
 			{
-				if(TerritoryMap.get(thisTerritory).getOccupier() == null)
-				{
-					TerritoryButton.this.setForeground(Color.GREEN);
-				}
-				else
-				{
-					TerritoryButton.this.setForeground(TerritoryMap.get(thisTerritory).getOccupier().getColor());
-				}
+				TerritoryButton.this.setForeground(Color.GREEN);
 			}
 			@Override
 			public void mouseExited(MouseEvent e)
 			{
-				TerritoryButton.this.setForeground(new Color(0, 0, 0, 0));
+				updateColor();
 			}
 		});
 
@@ -87,5 +80,17 @@ public abstract class TerritoryButton extends JButton
 	public boolean contains(int x, int y)
 	{
 		return shape.contains(x, y);
+	}
+
+	public void updateColor()
+	{
+		if(TerritoryMap.get(thisTerritory).getOccupier() == null)
+		{
+			this.setForeground(new Color(0, 0, 0, 0));
+		}
+		else
+		{
+			this.setForeground(TerritoryMap.get(thisTerritory).getOccupier().getColor());
+		}
 	}
 }
