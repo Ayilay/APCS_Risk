@@ -66,12 +66,14 @@ public class GameController
 
 	private void useCards(Player p)
 	{
+		userInterface.clearWarnings();
 		if(!p.hasCards())
 			return;
 
 		if(p.hasCardsToUse())
 		{
-			test: if(userInterface.promptUseCard())
+			userInterface.createAnnouncement("Using Cards");
+			if(userInterface.promptUseCard())
 			{
 				userInterface.updateCards(p, true);
 				Card c = null;
@@ -179,13 +181,12 @@ public class GameController
 
 	private void deployReinforcements(Player p)
 	{
+		userInterface.clearWarnings();
 		userInterface.createAnnouncement("Select a territory to deploy reinforcements to");
 		p.calculateReinforcements();
 		while(p.getNumReinforcementsAvailable() > 0)
 		{
 			String territory = userInterface.getDeployTerritory(p);
-			System.out.println("Got a territory: " + territory);
-
 			if(!TerritoryMap.isValidTerritory(territory))
 			{
 				userInterface.generateWarning(territory + " is not a valid territory");
@@ -218,6 +219,7 @@ public class GameController
 
 	private void attackTerritory(Player p)
 	{
+		userInterface.clearWarnings();
 		while(true)
 		{
 			// Check if user has enough armies to attack with
@@ -232,6 +234,7 @@ public class GameController
 				break;
 
 			// Get territory to attack
+			userInterface.createAnnouncement("Choose a territory to attack");
 			String territoryToAttackID = "";
 			while(true)
 			{
@@ -250,6 +253,7 @@ public class GameController
 			String territoryToAttackFromID = "";
 			while(true)
 			{
+				userInterface.createAnnouncement("Choose territory to attack from");
 				territoryToAttackFromID = userInterface.getTerritoryToAttackFrom(p, territoryToAttackID);
 				System.out.println(territoryToAttackFromID);
 				if(!territoryToAttack.isNeighborWith(territoryToAttackFromID))
@@ -315,6 +319,7 @@ public class GameController
 
 	private void fortifyTroops(Player p)
 	{
+		userInterface.clearWarnings();
 		if(p.getOccupiedTerritories().size() == 1)
 		{
 			userInterface.generateWarning("Nowhere to fortify from, skipping turn");
@@ -326,6 +331,7 @@ public class GameController
 			return;
 		}
 
+		userInterface.createAnnouncement("Choose territory to fortify");
 		if(!userInterface.getWantsToFortify(p))
 			return;
 
@@ -341,6 +347,7 @@ public class GameController
 			Territory territoryToFortify = TerritoryMap.get(territoryToFortifyID);
 
 			// Get territory to fortify from
+            userInterface.createAnnouncement("Choose territory to fortify from");
 			String territoryToFortifyFromID = userInterface.getTerritoryToFortifyFrom(p, territoryToFortifyID);
 			if(!TerritoryMap.isValidTerritory(territoryToFortifyFromID))
 			{
@@ -417,7 +424,7 @@ public class GameController
 		// players.add(new Player(name, territory));
 		// }
 		players.add(new Player("George", "Germany", Color.BLUE));
-		players.add(new Player("Richard", "China",Color.ORANGE));
+		players.add(new Player("Richard", "China", Color.ORANGE));
 		// Testing card drawings
 		players.get(1).addCards(new Card("China", 3));
 		players.get(1).addCards(new Card("New Guinea", 2));

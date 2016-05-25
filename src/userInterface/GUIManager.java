@@ -453,7 +453,6 @@ public class GUIManager implements UserInterface
 	@Override
 	public String getTerritoryToAttack(Player p)
 	{
-		this.createAnnouncement("Choose a territory to attack");
 		lastTerritorySelected = null;
 		while(lastTerritorySelected == null)
 		{
@@ -472,7 +471,6 @@ public class GUIManager implements UserInterface
 	@Override
 	public String getTerritoryToAttackFrom(Player p, String territoryToAttack)
 	{
-		this.createAnnouncement("Choose territory to attack from");
 		lastTerritorySelected = null;
 		while(lastTerritorySelected == null)
 		{
@@ -542,7 +540,6 @@ public class GUIManager implements UserInterface
 	@Override
 	public String getTerritoryToFortify(Player p)
 	{
-		this.generateWarning("Choose territory to fortify");
 		lastTerritorySelected = null;
 		while(lastTerritorySelected == null)
 		{
@@ -561,7 +558,6 @@ public class GUIManager implements UserInterface
 	@Override
 	public String getTerritoryToFortifyFrom(Player p, String terrID)
 	{
-		this.generateWarning("Choose territory to fortify from");
 		lastTerritorySelected = null;
 		while(lastTerritorySelected == null)
 		{
@@ -581,7 +577,6 @@ public class GUIManager implements UserInterface
 	public int getNumArmiesToFortify(String terrToFortFrom)
 	{
 		int maxArmies = TerritoryMap.getNumArmiesDeployedOn(terrToFortFrom) - 1;
-		generateWarning("Number of armies to send (max of " + maxArmies + "):");
 
 		JFrame parent = new JFrame();
 		JOptionPane optionPane = new JOptionPane();
@@ -593,7 +588,7 @@ public class GUIManager implements UserInterface
 		JDialog dialog = optionPane.createDialog(parent, "Fortify");
 		dialog.setVisible(true);
 		return (Integer) slider.getValue();
-		
+
 	}
 
 	////////////////////////////////////////////////////////////
@@ -604,14 +599,6 @@ public class GUIManager implements UserInterface
 	public void createAnnouncement(String string)
 	{
 		messageArea_label.setText("");
-		try
-		{
-			Thread.sleep(80);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
 		messageArea_label.setForeground(Color.BLACK);
 		messageArea_label.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		messageArea_label.setText(string);
@@ -623,6 +610,7 @@ public class GUIManager implements UserInterface
 		warningArea_label.setText("");
 		try
 		{
+			// Makes a flashing effect
 			Thread.sleep(80);
 		}
 		catch(Exception e)
