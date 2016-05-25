@@ -89,13 +89,13 @@ public class GameController
 					if(!p.ownsTerritory(c.getTerritory()))
 					{
 						userInterface.generateWarning("You do not own this territory, select another card"); // generate
-																												// warning
-																												// gets
-																												// overriden
-																												// immediately
-																												// by
-																												// select
-																												// Card
+						// warning
+						// gets
+						// overriden
+						// immediately
+						// by
+						// select
+						// Card
 						userInterface.updateCards(p, true);
 					}
 					else if(p.ownsTerritory(c.getTerritory()))
@@ -130,7 +130,7 @@ public class GameController
 				while(!isDone)
 				{
 					userInterface.createAnnouncement(
-							"Select 3 cards to trade. The three cards must be the same value" + " or be all unique");
+					    "Select 3 cards to trade. The three cards must be the same value" + " or be all unique");
 					c1 = userInterface.selectCard(p);
 					c2 = userInterface.selectCard(p);
 					c3 = userInterface.selectCard(p);
@@ -140,7 +140,7 @@ public class GameController
 						break test;
 					}
 					if(c1.getTerritory().equals(c2.getTerritory()) || c1.getTerritory().equals(c3.getTerritory())
-							|| c2.getTerritory().equals(c3.getTerritory()))
+					        || c2.getTerritory().equals(c3.getTerritory()))
 					{
 						userInterface.generateWarning("Please select 3 different cards");
 						userInterface.updateCards(p, true);
@@ -149,8 +149,8 @@ public class GameController
 					}
 
 					if((c1.getValue() == c2.getValue() && c2.getValue() == c3.getValue())
-							|| (c1.getValue() != c2.getValue() && c2.getValue() != c3.getValue()
-									&& c1.getValue() != c3.getValue()))
+					        || (c1.getValue() != c2.getValue() && c2.getValue() != c3.getValue()
+					            && c1.getValue() != c3.getValue()))
 					{
 						isDone = true;
 						userInterface.updateCards(p, false);
@@ -162,7 +162,7 @@ public class GameController
 					}
 
 					if(c1.getTerritory().equals(c2.getTerritory()) || c1.getTerritory().equals(c3.getTerritory())
-							|| c2.getTerritory().equals(c3.getTerritory()))
+					        || c2.getTerritory().equals(c3.getTerritory()))
 					{
 						userInterface.generateWarning("Please select 3 different cards");
 						userInterface.updateCards(p, true);
@@ -273,7 +273,7 @@ public class GameController
 					continue;
 				}
 				if(TerritoryMap.getOccupierOnTerritory(territoryToAttackFromID) == null
-						|| !p.getName().equals(TerritoryMap.getOccupierOnTerritory(territoryToAttackFromID).getName()))
+				        || !p.getName().equals(TerritoryMap.getOccupierOnTerritory(territoryToAttackFromID).getName()))
 				{
 					userInterface.generateWarning("You do not own this territory");
 					continue;

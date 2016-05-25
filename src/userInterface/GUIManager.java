@@ -285,12 +285,15 @@ public class GUIManager implements UserInterface
 	public String getStartingTerritory(String playerName)
 	{
 		lastTerritorySelected = null;
-		boolean isDone = false;
-		while(!isDone)
+		while(lastTerritorySelected == null)
 		{
-			if(lastTerritorySelected!=null)
+			try
 			{
-				isDone = true;
+				Thread.sleep(200);
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
 			}
 		}
 		return lastTerritorySelected;
@@ -684,8 +687,8 @@ public class GUIManager implements UserInterface
 		JButton iran = new IranButton("Iran");
 		JButton turkey = new TurkeyButton("Turkey");
 		JButton saudiArabia = new SaudiArabiaButton("Saudi Arabia");
-		JButton japan = new JButton("Japan");
-		
+		JButton japan = new JapanButton("Japan");
+
 		//Europe
 		JButton unitedKingdom = new UnitedKingdomButton("United Kingdom");
 		JButton iceland = new IcelandButton("Iceland");
@@ -901,7 +904,13 @@ public class GUIManager implements UserInterface
 	{
 		for(String buttonID : buttons.keySet())
 		{
-			((TerritoryButton) buttons.get(buttonID)).updateColor();
+			if(buttons.get(buttonID) instanceof TerritoryButton)
+				((TerritoryButton) buttons.get(buttonID)).updateColor();
+			else
+			{
+				System.out.println(buttonID);
+				System.out.println("weird class: " + buttons.get(buttonID).getClass());
+			}
 		}
 	}
 }
