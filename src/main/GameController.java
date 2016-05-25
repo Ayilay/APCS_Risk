@@ -57,7 +57,7 @@ public class GameController
 			attackTerritory(p);
 			fortifyTroops(p);
 
-			// turn ++;
+			turn ++;
 		}
 	}
 	////////////////////////////////////////////////////////////
