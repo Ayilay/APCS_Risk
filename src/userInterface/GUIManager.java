@@ -674,7 +674,18 @@ public class GUIManager implements UserInterface
 		JButton yakutsk = new YakutskButton("Yakutsk");
 		JButton irkutsk = new IrkutskButton("Irkutsk");
 		JButton mongolia = new MongoliaButton("Mongolia");
-
+		JButton siberia = new SiberiaButton("Siberia");
+		JButton ural = new UralButton("Ural");
+		JButton kazakhstan = new KazakhstanButton("Kazakhstan");
+		JButton afganistan = new AfganistanButton("Afganistan");
+		JButton pakistan = new PakistanButton("Pakistan");
+		JButton india = new IndiaButton("India");
+		JButton indochina = new IndochinaButton("Indochina");
+		JButton iran = new IranButton("Iran");
+		JButton turkey = new TurkeyButton("Turkey");
+		JButton saudiArabia = new SaudiArabiaButton("Saudi Arabia");
+		JButton japan = new JButton("Japan");
+		
 		//Europe
 		JButton unitedKingdom = new UnitedKingdomButton("United Kingdom");
 		JButton iceland = new IcelandButton("Iceland");
@@ -738,6 +749,17 @@ public class GUIManager implements UserInterface
 		buttons.put("Yakutsk", yakutsk);
 		buttons.put("Irkutsk", irkutsk);
 		buttons.put("Mongolia", mongolia);
+		buttons.put("Siberia", siberia);
+		buttons.put("Ural", ural);
+		buttons.put("Kazakhstan", kazakhstan);
+		buttons.put("Afganistan", afganistan);
+		buttons.put("Pakistan", pakistan);
+		buttons.put("India", india);
+		buttons.put("Indochina", indochina);
+		buttons.put("Iran", iran);
+		buttons.put("Turkey", turkey);
+		buttons.put("Saudi Arabia", saudiArabia);
+		buttons.put("Japan", japan);
 
 		//Europe
 		buttons.put("United Kingdom", unitedKingdom);
@@ -802,6 +824,17 @@ public class GUIManager implements UserInterface
 		mapArea.add(yakutsk);
 		mapArea.add(irkutsk);
 		mapArea.add(mongolia);
+		mapArea.add(siberia);
+		mapArea.add(ural);
+		mapArea.add(kazakhstan);
+		mapArea.add(afganistan);
+		mapArea.add(pakistan);
+		mapArea.add(india);
+		mapArea.add(indochina);
+		mapArea.add(iran);
+		mapArea.add(turkey);
+		mapArea.add(saudiArabia);
+		mapArea.add(japan);
 
 		//Europe
 		mapArea.add(unitedKingdom);
