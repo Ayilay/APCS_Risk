@@ -309,8 +309,10 @@ public class Player
 				{
 					// in case we need to remove more than 1 element, advance the iterator
 					if(numRemoved != 0)
+					{
 						iter.next();
-					iter.remove();
+						iter.remove();
+					}
 					numRemoved ++;
 				}
 			}

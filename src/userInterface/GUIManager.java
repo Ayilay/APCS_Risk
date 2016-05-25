@@ -284,11 +284,16 @@ public class GUIManager implements UserInterface
 	@Override
 	public String getStartingTerritory(String playerName)
 	{
-		JFrame parent = new JFrame();
-		JOptionPane optionPane = new JOptionPane();
-		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
-		String s = (String) optionPane.showInputDialog(parent, "Enter Starting territory, " + playerName, "Territory");
-		return s;
+		lastTerritorySelected = null;
+		boolean isDone = false;
+		while(!isDone)
+		{
+			if(lastTerritorySelected!=null)
+			{
+				isDone = true;
+			}
+		}
+		return lastTerritorySelected;
 	}
 
 	////////////////////////////////////////////////////////////
@@ -668,6 +673,7 @@ public class GUIManager implements UserInterface
 		JButton kamchatka = new KamchatkaButton("Kamchatka");
 		JButton yakutsk = new YakutskButton("Yakutsk");
 		JButton irkutsk = new IrkutskButton("Irkutsk");
+		JButton mongolia = new MongoliaButton("Mongolia");
 
 		//Europe
 		JButton unitedKingdom = new UnitedKingdomButton("United Kingdom");
@@ -731,6 +737,7 @@ public class GUIManager implements UserInterface
 		buttons.put("Kamchatka", kamchatka);
 		buttons.put("Yakutsk", yakutsk);
 		buttons.put("Irkutsk", irkutsk);
+		buttons.put("Mongolia", mongolia);
 
 		//Europe
 		buttons.put("United Kingdom", unitedKingdom);
@@ -794,6 +801,7 @@ public class GUIManager implements UserInterface
 		mapArea.add(kamchatka);
 		mapArea.add(yakutsk);
 		mapArea.add(irkutsk);
+		mapArea.add(mongolia);
 
 		//Europe
 		mapArea.add(unitedKingdom);

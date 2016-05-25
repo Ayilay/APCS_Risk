@@ -88,7 +88,14 @@ public class GameController
 					}
 					if(!p.ownsTerritory(c.getTerritory()))
 					{
-						userInterface.generateWarning("You do not own this territory, select another card"); //generate warning gets overriden immediately by select Card
+						userInterface.generateWarning("You do not own this territory, select another card"); // generate
+																												// warning
+																												// gets
+																												// overriden
+																												// immediately
+																												// by
+																												// select
+																												// Card
 						userInterface.updateCards(p, true);
 					}
 					else if(p.ownsTerritory(c.getTerritory()))
@@ -96,7 +103,8 @@ public class GameController
 						p.getCards().remove(c);
 						userInterface.updateCards(p, false);
 						TerritoryMap.get(c.getTerritory()).incrementArmiesBy(c.getValue());
-						//p.deployReinforcements(c.getTerritory(), c.getValue());
+						// p.deployReinforcements(c.getTerritory(),
+						// c.getValue());
 						valid = true;
 					}
 
@@ -122,7 +130,7 @@ public class GameController
 				while(!isDone)
 				{
 					userInterface.createAnnouncement(
-					    "Select 3 cards to trade. The three cards must be the same value" + " or be all unique");
+							"Select 3 cards to trade. The three cards must be the same value" + " or be all unique");
 					c1 = userInterface.selectCard(p);
 					c2 = userInterface.selectCard(p);
 					c3 = userInterface.selectCard(p);
@@ -131,7 +139,8 @@ public class GameController
 						userInterface.updateCards(p, false);
 						break test;
 					}
-					if(c1.getTerritory().equals(c2.getTerritory()) || c1.getTerritory().equals(c3.getTerritory()) || c2.getTerritory().equals(c3.getTerritory()))
+					if(c1.getTerritory().equals(c2.getTerritory()) || c1.getTerritory().equals(c3.getTerritory())
+							|| c2.getTerritory().equals(c3.getTerritory()))
 					{
 						userInterface.generateWarning("Please select 3 different cards");
 						userInterface.updateCards(p, true);
@@ -140,8 +149,8 @@ public class GameController
 					}
 
 					if((c1.getValue() == c2.getValue() && c2.getValue() == c3.getValue())
-					        || (c1.getValue() != c2.getValue() && c2.getValue() != c3.getValue()
-					            && c1.getValue() != c3.getValue()))
+							|| (c1.getValue() != c2.getValue() && c2.getValue() != c3.getValue()
+									&& c1.getValue() != c3.getValue()))
 					{
 						isDone = true;
 						userInterface.updateCards(p, false);
@@ -152,7 +161,8 @@ public class GameController
 						userInterface.updateCards(p, true);
 					}
 
-					if(c1.getTerritory().equals(c2.getTerritory()) || c1.getTerritory().equals(c3.getTerritory()) || c2.getTerritory().equals(c3.getTerritory()))
+					if(c1.getTerritory().equals(c2.getTerritory()) || c1.getTerritory().equals(c3.getTerritory())
+							|| c2.getTerritory().equals(c3.getTerritory()))
 					{
 						userInterface.generateWarning("Please select 3 different cards");
 						userInterface.updateCards(p, true);
@@ -167,7 +177,7 @@ public class GameController
 				deck.getDeck().add(c1);
 				deck.getDeck().add(c2);
 				deck.getDeck().add(c3);
-				//userInterface.updateCards(p, false);
+				// userInterface.updateCards(p, false);
 
 				p.addAvailableReinforcements((p.getSetsTraded() + 1) * 2);
 				p.incrementSets();
@@ -263,7 +273,7 @@ public class GameController
 					continue;
 				}
 				if(TerritoryMap.getOccupierOnTerritory(territoryToAttackFromID) == null
-				        || !p.getName().equals(TerritoryMap.getOccupierOnTerritory(territoryToAttackFromID).getName()))
+						|| !p.getName().equals(TerritoryMap.getOccupierOnTerritory(territoryToAttackFromID).getName()))
 				{
 					userInterface.generateWarning("You do not own this territory");
 					continue;
@@ -307,7 +317,6 @@ public class GameController
 				{
 					userInterface.generateWarning("Card deck has 5 cards, can't deal more");
 				}
-
 
 			}
 			else
@@ -392,55 +401,41 @@ public class GameController
 
 	private void initPlayers()
 	{
-		//int numPlayers = userInterface.getNumPlayers();
+		int numPlayers = userInterface.getNumPlayers();
+		Color[] color = {Color.BLUE, Color.ORANGE, Color.YELLOW, Color.PINK, Color.RED};
 
-		// for(int i = 0; i < numPlayers; i++)
-		// {
-		// String name = "";
-		// boolean valid = false;
-		// while(!valid)
-		// {
-		// valid = true;
-		// name = userInterface.getPlayerName();
-		// if(getPlayerNames().contains(name))
-		// {
-		// userInterface.generateWarning("Already player with that name");
-		// valid = false;
-		// }
-		// }
-		// String territory = "";
-		// valid = false;
-		// while(!valid)
-		// {
-		// territory = userInterface.getStartingTerritory(name);
-		// if(TerritoryMap.get(territory) == null ||
-		// TerritoryMap.getOccupierOnTerritory(territory) != null)
-		// {
-		// userInterface.generateWarning("Not a valid territory");
-		// }
-		// else
-		// {
-		// valid = true;
-		// }
-		// }
+		for(int i = 0; i < numPlayers; i++)
+		{
+			String name = "";
+			boolean valid = false;
+			while(!valid)
+			{
+				valid = true;
+				name = userInterface.getPlayerName();
+				if(getPlayerNames().contains(name))
+				{
+					userInterface.generateWarning("Already player with that name");
+					valid = false;
+				}
+			}
+			String territory = "";
+			valid = false;
+			while(!valid)
+			{
+				territory = userInterface.getStartingTerritory(name);
+				if(TerritoryMap.get(territory) == null || TerritoryMap.getOccupierOnTerritory(territory) != null)
+				{
+					userInterface.generateWarning("Not a valid territory");
+				}
+				else
+				{
+					valid = true;
+				}
+			}
 
-		// players.add(new Player(name, territory));
-		// }
-		players.add(new Player("George", "Germany", Color.BLUE));
-		players.add(new Player("Richard", "China", Color.ORANGE));
+			players.add(new Player(name, territory, color[i]));
+		}
 		((GUIManager) userInterface).updateButtonColors();
-		// Testing card drawings
-		players.get(1).addCards(new Card("China", 3));
-		players.get(1).addCards(new Card("New Guinea", 2));
-		for(int i = 0; i < 5; i++)
-		{
-			players.get(0).addCards(deck.deal());
-		}
-		players.get(0).addCards(new Card("Germany", 3));
-		for(int i = 0; i < 5; i++)
-		{
-			players.get(1).addCards(deck.deal());
-		}
 	}
 
 	private Set<String> getPlayerNames()
