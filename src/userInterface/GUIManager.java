@@ -39,6 +39,7 @@ public class GUIManager implements UserInterface
 {
 	public static Card lastCardSelected;
 	public static String lastTerritorySelected;
+
 	private JFrame window;
 	private JPanel mainPane;
 
@@ -51,6 +52,8 @@ public class GUIManager implements UserInterface
 	private JPanel gameStateArea;
 	private JPanel footerArea;
 
+	private JLabel gameState_territoryLabel;
+	private JLabel gameState_numArmies;
 	private JLabel playerNameArea_label;
 	private JLabel messageArea_label;
 	private JLabel warningArea_label;
@@ -80,12 +83,9 @@ public class GUIManager implements UserInterface
 		mapOverlayArea = new JPanel();
 		playerNameArea = new JPanel(new BorderLayout());
 		playerStatsArea = new JPanel();
-		gameStateArea = new JPanel();
+		gameStateArea = new JPanel(new GridLayout(3, 0, 0, 0));
+		messageArea = new JPanel(new GridLayout(2, 0, 0, 0));
 		footerArea = new JPanel();
-
-		GridLayout messageLayout = new GridLayout(2, 0, 0, 0);
-		//messageLayout.setVgap(10);
-		messageArea = new JPanel(messageLayout);
 
 		playerNameArea_label = new JLabel();
 		messageArea_label = new JLabel();
@@ -104,7 +104,6 @@ public class GUIManager implements UserInterface
 
 		quit = false;
 
-		//mainPane.setPreferredSize(new Dimension(1200, 700));
 		mainPane.setBackground(Color.BLACK);
 
 		ImageIcon img = null;
@@ -166,6 +165,16 @@ public class GUIManager implements UserInterface
 		constr.gridy = 2;
 		gameStateArea.setBackground(Color.blue);
 		gameStateArea.setPreferredSize(new Dimension(200, 300));
+		gameState_territoryLabel = new JLabel();
+		gameState_numArmies = new JLabel();
+		gameState_territoryLabel.setText("Test Territory");
+		gameState_territoryLabel.setHorizontalAlignment(JLabel.CENTER);
+		gameState_numArmies.setHorizontalAlignment(JLabel.CENTER);
+		gameStateArea.add(gameState_territoryLabel);
+		gameStateArea.add(gameState_numArmies);
+		//JLabel gameState_territory = new JLabel(TerritoryMap.getTerritoryIcon("Iceland"));
+		//gameStateArea.add(new JLabel("Test text"));
+		//gameStateArea.add(gameState_territory);
 		gameStateArea.setVisible(true);
 		mainPane.add(gameStateArea, constr);
 
@@ -912,6 +921,29 @@ public class GUIManager implements UserInterface
 				System.out.println("weird class: " + buttons.get(buttonID).getClass());
 			}
 		}
+	}
+
+	public void displayTerritoryStats(String terr)
+	{
+		if(terr != null)
+		{
+			gameState_territoryLabel.setText(terr);
+			try
+			{
+				gameState_numArmies.setText("" + TerritoryMap.getNumArmiesDeployedOn(terr));
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				System.exit(1);
+			}
+		}
+		else
+		{
+			gameState_territoryLabel.setText("Hover over a territory");
+			gameState_numArmies.setText("to see stats");
+		}
+		//System.out.println("Printing stats for " + terr);
 	}
 }
 

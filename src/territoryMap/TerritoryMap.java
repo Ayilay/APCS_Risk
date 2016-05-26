@@ -1,8 +1,12 @@
 package territoryMap;
 
+import java.awt.Image;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 import main.Player;
 
@@ -226,6 +230,7 @@ public class TerritoryMap
 
 		algeria.addNeighbor(morocco.getID());
 		algeria.addNeighbor(eastAfrica.getID());
+		algeria.addNeighbor(westAfrica.getID());
 		algeria.addNeighbor(egypt.getID());
 		algeria.addNeighbor(southernEurope.getID());
 
@@ -635,5 +640,23 @@ public class TerritoryMap
 	public static void transferArmies(String territoryToFortifyFromID, String territoryToFortifyID, int numArmies)
 	{
 		allTerritories.get(territoryToFortifyFromID).moveArmies(territoryToFortifyID, numArmies);
+	}
+
+	public  static ImageIcon getTerritoryIcon(String terr)
+	{
+		ImageIcon terIcon = null;
+		try
+		{
+			terIcon = new ImageIcon(ImageIO.read(TerritoryMap.class.getResource("/resources/" + terr + ".png")));
+		}
+		catch(Exception e)
+		{
+			System.err.println("Failed in reading card icon for " + terr);
+		}
+		Image img = terIcon.getImage();//rescale
+		Image newImg = img.getScaledInstance(terIcon.getIconWidth() / 2, terIcon.getIconHeight() / 2, Image.SCALE_SMOOTH);
+		terIcon = new ImageIcon(newImg);
+
+		return terIcon;
 	}
 }
