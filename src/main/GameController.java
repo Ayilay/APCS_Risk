@@ -3,6 +3,7 @@ package main;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import achievement.AchievementManager;
@@ -13,7 +14,6 @@ import card.CardDeck;
 import territoryMap.Territory;
 import territoryMap.TerritoryMap;
 import userInterface.GUIManager;
-import userInterface.CLIManager;
 import userInterface.UserInterface;
 
 public class GameController
@@ -58,6 +58,7 @@ public class GameController
 			fortifyTroops(p);
 
 			turn ++;
+			checkForElimination();
 		}
 	}
 	////////////////////////////////////////////////////////////
@@ -88,14 +89,8 @@ public class GameController
 					}
 					if(!p.ownsTerritory(c.getTerritory()))
 					{
-						userInterface.generateWarning("You do not own this territory, select another card"); // generate
-						// warning
-						// gets
-						// overriden
-						// immediately
-						// by
-						// select
-						// Card
+						userInterface.generateWarning("You do not own this territory, select another card");
+						// generate warning gets overriden immediately by selectCard
 						userInterface.updateCards(p, true);
 					}
 					else if(p.ownsTerritory(c.getTerritory()))
@@ -452,6 +447,17 @@ public class GameController
 		return players.size() != 1;
 	}
 
+	private void checkForElimination()
+	{
+		for(int i = 0; i< players.size(); i++)
+		{
+			if(players.get(i).hasNoTerritories())
+			{
+				players.remove(i);
+				i--;
+			}
+		}
+	}
 	private Player getNextPlayer()
 	{
 		if(currentPlayerTurn >= players.size())

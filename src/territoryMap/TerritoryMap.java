@@ -228,6 +228,7 @@ public class TerritoryMap
 		algeria.addNeighbor(eastAfrica.getID());
 		algeria.addNeighbor(egypt.getID());
 		algeria.addNeighbor(southernEurope.getID());
+		algeria.addNeighbor(westAfrica.getID());
 
 		egypt.addNeighbor(algeria.getID());
 		egypt.addNeighbor(westAfrica.getID());
