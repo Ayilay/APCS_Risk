@@ -293,28 +293,14 @@ public class Player
 	// adjacent territory with at least 1 army
 	public Set<String> getFortifyTargets()
 	{
-		Set<String> targets = new HashSet<String>(occupiedTerritories);
+		Set<String> targets = new HashSet<String>();
 
-		Iterator<String> iter = targets.iterator();
-		while(iter.hasNext())
+		for(String terrID : occupiedTerritories)
 		{
-			String terrID = iter.next();
-
-			Iterator<String> neighborIter = TerritoryMap.get(terrID).getAdjacentTerritoriesOccupiedBy(this).iterator();
-			while(neighborIter.hasNext())
+			for(String neighborTerr : TerritoryMap.get(terrID).getAdjacentTerritoriesOccupiedBy(this))
 			{
-				String neighborTerr = neighborIter.next();
-				int numRemoved = 0;
-				if(TerritoryMap.getNumArmiesDeployedOn(neighborTerr) <= 1)
-				{
-					// in case we need to remove more than 1 element, advance the iterator
-					if(numRemoved != 0)
-					{
-						iter.next();
-					}
-					iter.remove();
-					numRemoved ++;
-				}
+				if(TerritoryMap.getNumArmiesDeployedOn(neighborTerr) > 1 && !targets.contains(neighborTerr))
+					targets.add(terrID);
 			}
 		}
 

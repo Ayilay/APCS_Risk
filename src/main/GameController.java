@@ -110,10 +110,6 @@ public class GameController
 
 			}
 		}
-		else if(!p.hasCardsToUse())
-		{
-			userInterface.generateWarning("You do not have cards to use");
-		}
 
 		if(p.hasCardsToTrade())
 		{
@@ -294,9 +290,14 @@ public class GameController
 			while(true)
 			{
 				numArmies = userInterface.getNumArmiesToAttackWith(p, territoryToAttackID, territoryToAttackFromID);
-				if(numArmies <= 0 || numArmies > territoryToAttackFrom.getNumArmies() - 1)
+				if(numArmies < 0 || numArmies > territoryToAttackFrom.getNumArmies() - 1)
 				{
 					userInterface.generateWarning("Bad number of armies");
+					continue;
+				}
+				else if(numArmies == 0)
+				{
+					userInterface.generateWarning("Cancelling attack");
 					continue;
 				}
 
@@ -342,10 +343,12 @@ public class GameController
 			return;
 		}
 
+		userInterface.clearWarnings();
 		userInterface.createAnnouncement("Choose territory to fortify");
 		if(!userInterface.getWantsToFortify(p))
 			return;
 
+		userInterface.clearWarnings();
 		while(true)
 		{
 			// Get territory to fortify

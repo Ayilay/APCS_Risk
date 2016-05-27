@@ -208,6 +208,7 @@ public class TerritoryMap
 
 		eastAfrica.addNeighbor(congo.getID());
 		eastAfrica.addNeighbor(madagascar.getID());
+		eastAfrica.addNeighbor(southAfrica.getID());
 		eastAfrica.addNeighbor(westAfrica.getID());
 		eastAfrica.addNeighbor(saudiArabia.getID());
 		eastAfrica.addNeighbor(westAfrica.getID());
