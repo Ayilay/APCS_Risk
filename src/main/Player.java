@@ -219,6 +219,7 @@ public class Player
 	}
 
 	// Return true if player has at least 2 armies on at least 1 territory
+	// TODO: not good condition, fix
 	public boolean hasArmiesToAttackWith()
 	{
 		for(String terrID : occupiedTerritories)

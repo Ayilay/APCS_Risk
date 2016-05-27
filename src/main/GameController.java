@@ -298,11 +298,14 @@ public class GameController
 				else if(numArmies == 0)
 				{
 					userInterface.generateWarning("Cancelling attack");
-					continue;
+					break;
 				}
 
 				break;
 			}
+			
+			if(numArmies == 0)
+				continue;
 
 			// Do the actual battle
 			BattleResults results = p.attackTerritory(territoryToAttackFromID, territoryToAttackID, numArmies);

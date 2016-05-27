@@ -9,7 +9,7 @@ import territoryMap.TerritoryMap;
 public class BattleHandler
 {
 	/*
-	 * Engages armies once according to rules.
+	 * Simulates a single battle and returns the results. Does not affect the territory states
 	 */
 	public static BattleResults doBattleOnce(String attackerID, String defenderID, int numAttackingArmies)
 	{
@@ -57,11 +57,9 @@ public class BattleHandler
 			{
 				numDefendingArmies --;
 				defenderLosses ++;
-				defender.decrementArmiesBy(1);
 			}
 			else
 			{
-				attacker.decrementArmiesBy(1);
 				numAttackingArmies --;
 				attackerLosses ++;
 			}
@@ -78,7 +76,6 @@ public class BattleHandler
 		}
 		else if(numDefendingArmies == 0)
 		{
-			attacker.moveArmies(defenderID, numAttackingArmies);
 			return new BattleResults(true, attackerLosses, defenderLosses); // Attacker won the battle
 		}
 		else
@@ -99,8 +96,8 @@ public class BattleHandler
 		Territory defender = TerritoryMap.get(defenderID);
 		int numDefendingArmies = defender.getNumArmies();
 
-		int attackerLosses = 0;
-		int defenderLosses = 0;
+		int totalAttackerLosses = 0;
+		int totalDefenderLosses = 0;
 		boolean attackerVictory = false;
 
 		while(numAttackingArmies != 0 && numDefendingArmies != 0)	//one army must stay behind on the territory
@@ -108,11 +105,17 @@ public class BattleHandler
 		{
 			BattleResults results = doBattleOnce(attackerID, defenderID, numAttackingArmies);
 
-			numAttackingArmies -= results.getNumAttackerLosses();
-			numDefendingArmies -= results.getNumDefenderLosses();
+			int currentAttackLosses = results.getNumAttackerLosses();
+			int currentDefendLosses = results.getNumDefenderLosses();
 
-			attackerLosses  += results.getNumAttackerLosses();
-			defenderLosses += results.getNumDefenderLosses();
+			numAttackingArmies -= currentAttackLosses;
+			numDefendingArmies -= currentDefendLosses;
+
+			totalAttackerLosses  += currentAttackLosses;
+			totalDefenderLosses +=  currentDefendLosses;
+			
+			attacker.decrementArmiesBy(currentAttackLosses);
+			defender.decrementArmiesBy(currentDefendLosses);
 		}
 
 		if(numAttackingArmies == 0) // Attacker lost all armies
@@ -125,6 +128,6 @@ public class BattleHandler
 			attacker.moveArmies(defenderID, numAttackingArmies);
 		}
 
-		return new BattleResults(attackerVictory, attackerLosses, defenderLosses);
+		return new BattleResults(attackerVictory, totalAttackerLosses, totalDefenderLosses);
 	}
 }
