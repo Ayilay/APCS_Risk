@@ -305,14 +305,14 @@ public class Player
 			{
 				String neighborTerr = neighborIter.next();
 				int numRemoved = 0;
-				if(TerritoryMap.getNumArmiesDeployedOn(neighborTerr) < 2)
+				if(TerritoryMap.getNumArmiesDeployedOn(neighborTerr) <= 1)
 				{
 					// in case we need to remove more than 1 element, advance the iterator
 					if(numRemoved != 0)
 					{
 						iter.next();
-						iter.remove();
 					}
+					iter.remove();
 					numRemoved ++;
 				}
 			}

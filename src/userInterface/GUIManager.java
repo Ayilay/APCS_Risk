@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -92,6 +93,7 @@ public class GUIManager implements UserInterface
 		warningArea_label = new JLabel();
 
 		GridBagConstraints constr = new GridBagConstraints();
+		Color bgPaneColor = new Color(200, 200, 200);
 
 		deckPane = new JPanel();
 		initPane = new JPanel();
@@ -129,7 +131,8 @@ public class GUIManager implements UserInterface
 		constr.gridy = 0;
 		constr.fill = GridBagConstraints.VERTICAL;
 		constr.gridheight = 2;
-		playerNameArea.setBackground(Color.RED);
+		playerNameArea.setBackground(bgPaneColor);
+		playerNameArea.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 		playerNameArea.setPreferredSize(new Dimension(200, 120));
 
 		playerNameArea_label.setPreferredSize(new Dimension(200, 120));
@@ -145,7 +148,8 @@ public class GUIManager implements UserInterface
 		constr.gridy = 0;
 		constr.fill = GridBagConstraints.NONE;
 		constr.gridheight = 1;
-		messageArea.setBackground(Color.ORANGE);
+		messageArea.setBackground(bgPaneColor);
+		messageArea.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 		messageArea.setPreferredSize(new Dimension(1000, (600 - 512)));
 		messageArea_label.setPreferredSize(new Dimension(1000, (600 - 512)));
 		messageArea_label.setHorizontalAlignment(JLabel.CENTER);
@@ -163,7 +167,8 @@ public class GUIManager implements UserInterface
 		// Game State area
 		constr.gridx = 0;
 		constr.gridy = 2;
-		gameStateArea.setBackground(Color.blue);
+		gameStateArea.setBackground(bgPaneColor);
+		gameStateArea.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 		gameStateArea.setPreferredSize(new Dimension(200, 300));
 		gameState_territoryLabel = new JLabel();
 		gameState_numArmies = new JLabel();
@@ -184,11 +189,12 @@ public class GUIManager implements UserInterface
 		constr.gridheight = 2;
 		constr.fill = GridBagConstraints.VERTICAL;
 		playerStatsArea.setLayout(cardDisplay);
-		playerStatsArea.setBackground(Color.magenta);
+		playerStatsArea.setBackground(bgPaneColor);
+		playerStatsArea.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 		playerStatsArea.setPreferredSize(new Dimension(200, 100));
 
 		initPane.add(cards);
-		initPane.setBackground(Color.GREEN);
+		initPane.setBackground(bgPaneColor);
 		deckPane.add(back);
 		deckPane.setBackground(Color.DARK_GRAY);
 		back.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -247,7 +253,8 @@ public class GUIManager implements UserInterface
 		constr.gridx = 1;
 		constr.gridy = 4;
 		constr.gridheight = 1;
-		footerArea.setBackground(Color.cyan);
+		footerArea.setBackground(bgPaneColor);
+		footerArea.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 		footerArea.setPreferredSize(new Dimension(100, 10));
 		footerArea.setVisible(true);
 		mainPane.add(footerArea, constr);
@@ -318,6 +325,7 @@ public class GUIManager implements UserInterface
 		updateCards(p, false);
 
 		String text = p.getName() + "'s Turn";
+		playerNameArea.setBackground(p.getColor());
 		playerNameArea_label.setForeground(Color.BLACK);
 		int fontSize = getFontSize(playerNameArea_label, text);
 		playerNameArea_label.setFont(new Font("Times New Roman", Font.PLAIN, fontSize));

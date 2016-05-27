@@ -401,10 +401,12 @@ public class GameController
 	private void initPlayers()
 	{
 		int numPlayers = userInterface.getNumPlayers();
-		Color[] color = {Color.BLUE, Color.ORANGE, Color.YELLOW, Color.PINK, Color.RED};
+		Color[] color = {Color.BLUE, Color.ORANGE, Color.CYAN, Color.PINK, Color.RED};
 
 		for(int i = 0; i < numPlayers; i++)
 		{
+			userInterface.clearWarnings();
+			userInterface.createAnnouncement("Enter player " + (i + 1) + "'s name");
 			String name = "";
 			boolean valid = false;
 			while(!valid)
@@ -417,6 +419,9 @@ public class GameController
 					valid = false;
 				}
 			}
+
+			userInterface.clearWarnings();
+			userInterface.createAnnouncement("Select a starting territory for " + name);
 			String territory = "";
 			valid = false;
 			while(!valid)
