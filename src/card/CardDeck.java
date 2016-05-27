@@ -8,7 +8,9 @@ public class CardDeck
 	public CardDeck(Set<String> s)
 	{
 		String[] rearranged = s.toArray(new String[s.size()]);
+
 		rearranged = shuffle(rearranged);
+
 
 		for(int i = 0; i < s.size(); i++)
 		{
@@ -23,7 +25,7 @@ public class CardDeck
 		{
 			int rand = (int)((t.length - 1) * Math.random());
 
-			String temp = t[i];
+			String temp = t[rand];
 			t[rand] = t[i];
 			t[i] = temp;
 		}
@@ -32,10 +34,15 @@ public class CardDeck
 
 	public Card deal()
 	{
+
 		if(cards.size() == 0)
 			return null;
 
-		return cards.poll();
+
+		Card c = cards.poll();
+		System.out.println("polled card:" + c);
+		System.out.println("Next card " + cards.peek());
+		return c;
 	}
 
 	public Queue<Card> getDeck()

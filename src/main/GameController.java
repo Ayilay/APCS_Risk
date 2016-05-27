@@ -41,6 +41,10 @@ public class GameController
 		deck = new CardDeck(TerritoryMap.getAllTerritories());
 		AchievementManager.init();
 
+		for(Card c : deck.getDeck())
+		{
+			System.out.println(c);
+		}
 		// Get player names and starting territories
 		initPlayers();
 		// players.add(new Player("Richard","China"));
@@ -171,7 +175,7 @@ public class GameController
 				deck.getDeck().add(c1);
 				deck.getDeck().add(c2);
 				deck.getDeck().add(c3);
-				// userInterface.updateCards(p, false);
+				userInterface.updateCards(p, false);
 
 				p.addAvailableReinforcements((p.getSetsTraded() + 1) * 2);
 				p.incrementSets();
@@ -262,7 +266,7 @@ public class GameController
 			while(true)
 			{
 				territoryToAttackFromID = userInterface.getTerritoryToAttackFrom(p, territoryToAttackID);
-				System.out.println(territoryToAttackFromID);
+				System.out.println("territory to attack from: " + territoryToAttackFromID);
 				if(!territoryToAttack.isNeighborWith(territoryToAttackFromID))
 				{
 					userInterface.generateWarning("Cannot attack from selected territory");
@@ -303,7 +307,7 @@ public class GameController
 
 				break;
 			}
-			
+
 			if(numArmies == 0)
 				continue;
 
@@ -317,6 +321,7 @@ public class GameController
 				{
 					Card c = deck.deal();
 					p.addCards(c);
+					userInterface.updateCards(p, false);
 				}
 				else
 				{
@@ -464,7 +469,7 @@ public class GameController
 
 	private void checkForElimination()
 	{
-		for(int i = 0; i< players.size(); i++)
+		for(int i = 0; i < players.size(); i++)
 		{
 			if(players.get(i).hasNoTerritories())
 			{

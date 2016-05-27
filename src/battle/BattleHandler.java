@@ -113,7 +113,7 @@ public class BattleHandler
 
 			totalAttackerLosses  += currentAttackLosses;
 			totalDefenderLosses +=  currentDefendLosses;
-			
+
 			attacker.decrementArmiesBy(currentAttackLosses);
 			defender.decrementArmiesBy(currentDefendLosses);
 		}
