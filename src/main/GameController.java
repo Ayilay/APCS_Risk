@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import buttons.TerritoryButton;
+
 import achievement.AchievementManager;
 import battle.BattleResults;
 import battle.Timeline;
@@ -29,6 +31,7 @@ public class GameController
 	{
 		players = new ArrayList<Player>();
 		userInterface = new GUIManager();
+		TerritoryButton.initGUIManager((GUIManager) userInterface);
 		timeline = new Timeline();
 
 		turn = 0;
@@ -240,6 +243,7 @@ public class GameController
 				break;
 
 			// Get territory to attack
+			userInterface.clearWarnings();
 			userInterface.createAnnouncement("Choose a territory to attack");
 			String territoryToAttackID = "";
 			while(true)
@@ -256,10 +260,11 @@ public class GameController
 			Territory territoryToAttack = TerritoryMap.get(territoryToAttackID);
 
 			// Get territory to attack from
+			userInterface.clearWarnings();
+			userInterface.createAnnouncement("Choose territory to attack from");
 			String territoryToAttackFromID = "";
 			while(true)
 			{
-				userInterface.createAnnouncement("Choose territory to attack from");
 				territoryToAttackFromID = userInterface.getTerritoryToAttackFrom(p, territoryToAttackID);
 				System.out.println(territoryToAttackFromID);
 				if(!territoryToAttack.isNeighborWith(territoryToAttackFromID))
@@ -285,6 +290,7 @@ public class GameController
 
 			// Get number of armies to attack with
 			int numArmies = 0;
+			userInterface.clearWarnings();
 			while(true)
 			{
 				numArmies = userInterface.getNumArmiesToAttackWith(p, territoryToAttackID, territoryToAttackFromID);
@@ -312,7 +318,6 @@ public class GameController
 				{
 					userInterface.generateWarning("Card deck has 5 cards, can't deal more");
 				}
-
 			}
 			else
 			{
@@ -321,7 +326,6 @@ public class GameController
 
 			((GUIManager) userInterface).updateButtonColors();
 		}
-
 	}
 
 	private void fortifyTroops(Player p)

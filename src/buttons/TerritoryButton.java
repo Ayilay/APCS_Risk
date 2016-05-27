@@ -18,8 +18,15 @@ public abstract class TerritoryButton extends JButton
 {
 	private static final long serialVersionUID = 1954471042174703089L;
 
+	private static GUIManager guiManager;
+
 	protected Polygon shape;
 	private String thisTerritory;
+
+	public static void initGUIManager(GUIManager gui)
+	{
+		guiManager = gui;
+	}
 
 	public TerritoryButton(String s)
 	{
@@ -47,11 +54,13 @@ public abstract class TerritoryButton extends JButton
 			public void mouseEntered(MouseEvent e)
 			{
 				TerritoryButton.this.setForeground(Color.GREEN);
+				TerritoryButton.this.guiManager.displayTerritoryStats(TerritoryButton.this.thisTerritory);
 			}
 			@Override
 			public void mouseExited(MouseEvent e)
 			{
 				updateColor();
+				TerritoryButton.this.guiManager.displayTerritoryStats(null);
 			}
 		});
 
