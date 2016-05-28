@@ -55,18 +55,20 @@ public class GameController
 	{
 		while(isStillPlaying())
 		{
-			Player p = getNextPlayer();
-			userInterface.promptPlayerTurn(p);
+				Player p = getNextPlayer();
+				userInterface.promptPlayerTurn(p);
 
-			// // Perform the player actions
-			useCards(p);
-			deployReinforcements(p);
-			attackTerritory(p);
-			fortifyTroops(p);
+				// // Perform the player actions
+				useCards(p);
+				deployReinforcements(p);
+				attackTerritory(p);
+				fortifyTroops(p);
 
-			turn ++;
-			checkForElimination();
+				turn ++;
+				checkForElimination();
 		}
+		userInterface.createAnnouncement("Congratulations, " + players.get(0).getName() + ", you won!");
+		
 	}
 	////////////////////////////////////////////////////////////
 	// Player Turn Methods
