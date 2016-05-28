@@ -9,28 +9,35 @@ import main.Player;
  */
 public class Timeline
 {
-	Queue<String> timeline;
+	private Queue<String> timeline;
+	private int numTurns;
 
 	public Timeline()
 	{
 		timeline = new LinkedList<String>();
+		numTurns = 1;
 	}
 
-	public void addVictoryToTimeline(int turn, String territoryConquered, Player p)
+	public void incrementTurns()
 	{
-		String entry = "Turn " + turn + ": " + p.getName() + " conquered " + territoryConquered + "!";
+		numTurns++;
+	}
+	
+	public void addVictoryToTimeline(String territoryConquered, Player p)
+	{
+		String entry = "Turn " + numTurns + ": " + p.getName() + " conquered " + territoryConquered + "!";
 		timeline.add(entry);
 	}
 
-	public void addDefenseVictory(int turn, String territoryDefended, Player p)
+	public void addDefenseVictory(String territoryDefended, Player p)
 	{
-		String entry = "Turn " + turn + ": " + p.getName() + "'s attack on " + territoryDefended + " was repulsed!";
+		String entry = "Turn " + numTurns + ": " + p.getName() + "'s attack on " + territoryDefended + " was repulsed!";
 		timeline.add(entry);
 	}
 
-	public void addPlayerConquered(int turn, Player p)
+	public void addPlayerConquered(Player p)
 	{
-		String entry = "Turn " + turn + ": " + p.getName() + " was eliminated from the game!";
+		String entry = "Turn " + numTurns + ": " + p.getName() + " was eliminated from the game!";
 		timeline.add(entry);
 	}
 	@Override

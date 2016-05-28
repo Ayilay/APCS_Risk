@@ -318,7 +318,7 @@ public class GameController
 			userInterface.displayBattleResults(results);
 			if(results.getAttackSuccess())
 			{
-				timeline.addVictoryToTimeline(turn, territoryToAttack.getID(), p);
+				timeline.addVictoryToTimeline(territoryToAttack.getID(), p);
 				if(p.getCards().size() < 5)
 				{
 					Card c = deck.deal();
@@ -332,7 +332,7 @@ public class GameController
 			}
 			else
 			{
-				timeline.addDefenseVictory(turn, territoryToAttack.getID(), p);
+				timeline.addDefenseVictory(territoryToAttack.getID(), p);
 			}
 
 			((GUIManager) userInterface).updateButtonColors();
@@ -475,6 +475,8 @@ public class GameController
 		{
 			if(players.get(i).hasNoTerritories())
 			{
+
+				timeline.addPlayerConquered(players.get(i));
 				players.remove(i);
 				i--;
 			}
