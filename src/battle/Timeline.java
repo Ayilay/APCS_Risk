@@ -15,7 +15,7 @@ public class Timeline
 	public Timeline()
 	{
 		timeline = new LinkedList<String>();
-		numTurns = 1;
+		numTurns = 0;
 	}
 
 	public void incrementTurns()

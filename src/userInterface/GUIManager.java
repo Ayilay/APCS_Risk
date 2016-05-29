@@ -26,12 +26,73 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
+import javax.swing.JTextArea;
 import javax.swing.OverlayLayout;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import buttons.*;
 import battle.BattleResults;
+import battle.Timeline;
+import buttons.AfganistanButton;
+import buttons.AlaskaButton;
+import buttons.AlbertaButton;
+import buttons.AlgeriaButton;
+import buttons.ArgentinaButton;
+import buttons.BoliviaButton;
+import buttons.BrazilButton;
+import buttons.CentralAmericaButton;
+import buttons.ChinaButton;
+import buttons.CongoButton;
+import buttons.CubaButton;
+import buttons.CzechoslovakiaButton;
+import buttons.DenmarkButton;
+import buttons.EastAfricaButton;
+import buttons.EasternAustraliaButton;
+import buttons.EasternEuropeButton;
+import buttons.EasternUnitedStatesButton;
+import buttons.EgyptButton;
+import buttons.FranceButton;
+import buttons.GermanyButton;
+import buttons.GreenlandButton;
+import buttons.HawaiiButton;
+import buttons.IcelandButton;
+import buttons.IndiaButton;
+import buttons.IndochinaButton;
+import buttons.IndonesiaButton;
+import buttons.IranButton;
+import buttons.IrkutskButton;
+import buttons.JapanButton;
+import buttons.KamchatkaButton;
+import buttons.KazakhstanButton;
+import buttons.LowCountriesButton;
+import buttons.MadagascarButton;
+import buttons.MexicoButton;
+import buttons.MongoliaButton;
+import buttons.MoroccoButton;
+import buttons.NewGuineaButton;
+import buttons.NorthwestTerritoryButton;
+import buttons.OntarioButton;
+import buttons.PakistanButton;
+import buttons.PeruButton;
+import buttons.PhilippinesButton;
+import buttons.PolandButton;
+import buttons.QuebecButton;
+import buttons.SaudiArabiaButton;
+import buttons.ScandinaviaButton;
+import buttons.SiberiaButton;
+import buttons.SouthAfricaButton;
+import buttons.SouthernEuropeButton;
+import buttons.SpainButton;
+import buttons.SwedenButton;
+import buttons.TerritoryButton;
+import buttons.TurkeyButton;
+import buttons.UnitedKingdomButton;
+import buttons.UralButton;
+import buttons.VenezuelaButton;
+import buttons.WestAfricaButton;
+import buttons.WesternAustraliaButton;
+import buttons.WesternUnitedStatesButton;
+import buttons.YakutskButton;
 import card.Card;
 import main.Player;
 import territoryMap.TerritoryMap;
@@ -345,8 +406,6 @@ public class GUIManager implements UserInterface
 		deckPane.setBackground(Color.DARK_GRAY);
 		for(Card c : p.getCards())
 		{
-			//System.out.println(p.getCards().size());
-			System.out.println(c.getTerritory());
 			JPanel panel = c.drawCard(turn);
 			deckPane.add(panel);
 			//deck.getComponents();
@@ -952,6 +1011,27 @@ public class GUIManager implements UserInterface
 			gameState_numArmies.setText("to see stats");
 		}
 		//System.out.println("Printing stats for " + terr);
+	}
+	public void displayTimeline(Timeline t)
+	{
+		JTextArea text = new JTextArea(t.toString());
+		JScrollPane scrollPane = new JScrollPane(text);
+		text.setLineWrap(true);
+		text.setWrapStyleWord(true);
+		scrollPane.setPreferredSize( new Dimension( 500, 500 ) );
+		JOptionPane.showMessageDialog(null, scrollPane, "Time line",  
+		                                       JOptionPane.DEFAULT_OPTION);
+	}
+	public boolean promptTimeline()
+	{
+		JOptionPane optionPane = new JOptionPane();
+		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
+		if(optionPane.showConfirmDialog(null, "Do you want to see the timeline?", "Timeline", JOptionPane.YES_NO_OPTION)
+		        == JOptionPane.YES_OPTION)
+		{
+			return true;
+		}
+		return false;
 	}
 }
 

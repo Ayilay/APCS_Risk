@@ -34,7 +34,6 @@ public class GameController
 		TerritoryButton.initGUIManager((GUIManager) userInterface);
 		timeline = new Timeline();
 
-		turn = 0;
 		currentPlayerTurn = 0;
 
 		TerritoryMap.init();
@@ -58,16 +57,20 @@ public class GameController
 				Player p = getNextPlayer();
 				userInterface.promptPlayerTurn(p);
 
-				// // Perform the player actions
+				//Perform the player actions
 				useCards(p);
 				deployReinforcements(p);
 				attackTerritory(p);
 				fortifyTroops(p);
 
-				turn ++;
+				timeline.incrementTurns();
 				checkForElimination();
 		}
 		userInterface.createAnnouncement("Congratulations, " + players.get(0).getName() + ", you won!");
+		if(((GUIManager) userInterface).promptTimeline())
+		{
+			((GUIManager) userInterface).displayTimeline(timeline);
+		}
 		
 	}
 	////////////////////////////////////////////////////////////
