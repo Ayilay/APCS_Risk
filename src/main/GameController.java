@@ -55,6 +55,10 @@ public class GameController
 		while(isStillPlaying())
 		{
 				Player p = getNextPlayer();
+				if(p.equals(players.get(0)))
+				{
+					timeline.incrementTurns();
+				}
 				userInterface.promptPlayerTurn(p);
 
 				//Perform the player actions
@@ -63,7 +67,6 @@ public class GameController
 				attackTerritory(p);
 				fortifyTroops(p);
 
-				timeline.incrementTurns();
 				checkForElimination();
 		}
 		userInterface.createAnnouncement("Congratulations, " + players.get(0).getName() + ", you won!");
