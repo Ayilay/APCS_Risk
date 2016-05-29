@@ -40,8 +40,6 @@ public class CardDeck
 
 
 		Card c = cards.poll();
-		System.out.println("polled card:" + c);
-		System.out.println("Next card " + cards.peek());
 		return c;
 	}
 

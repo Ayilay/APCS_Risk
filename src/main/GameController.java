@@ -39,11 +39,6 @@ public class GameController
 		TerritoryMap.init();
 		deck = new CardDeck(TerritoryMap.getAllTerritories());
 		AchievementManager.init();
-
-		for(Card c : deck.getDeck())
-		{
-			System.out.println(c);
-		}
 		// Get player names and starting territories
 		initPlayers();
 		// players.add(new Player("Richard","China"));
@@ -274,7 +269,6 @@ public class GameController
 			while(true)
 			{
 				territoryToAttackFromID = userInterface.getTerritoryToAttackFrom(p, territoryToAttackID);
-				System.out.println("territory to attack from: " + territoryToAttackFromID);
 				if(!territoryToAttack.isNeighborWith(territoryToAttackFromID))
 				{
 					userInterface.generateWarning("Cannot attack from selected territory");

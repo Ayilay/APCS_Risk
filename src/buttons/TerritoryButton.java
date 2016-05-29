@@ -44,7 +44,6 @@ public abstract class TerritoryButton extends JButton
 			public void actionPerformed(ActionEvent arg0)
 			{
 				GUIManager.lastTerritorySelected = getTerritory();
-				System.out.println("You clicked: " + GUIManager.lastTerritorySelected);
 			}
 		});
 
