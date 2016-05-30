@@ -482,7 +482,6 @@ public class GameController
 				timeline.addPlayerConquered(players.get(i));
 				players.remove(i);
 				i--;
-				decrement ++;
 			}
 		}
 		currentPlayerTurn -= decrement;
