@@ -146,7 +146,7 @@ public class Player
 		for(String s : occupiedTerritories)
 		{
 			if(TerritoryMap.getNumArmiesDeployedOn(s) == 1)
-				break;
+				continue;
 
 			Territory t = TerritoryMap.get(s);
 			Set<String> neighbors = t.getAdjacentTerritories();

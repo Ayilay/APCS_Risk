@@ -50,6 +50,8 @@ public class GameController
 		while(isStillPlaying())
 		{
 			Player p = getNextPlayer();
+			if(!isStillPlaying())//isStillPlaying may change after call to getNextPlayer()
+				break;
 			if(p.equals(players.get(0)))
 			{
 				timeline.incrementTurns();
