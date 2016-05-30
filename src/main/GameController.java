@@ -49,7 +49,6 @@ public class GameController
 	{
 		while(isStillPlaying())
 		{
-			checkForElimination();
 			Player p = getNextPlayer();
 			if(p.equals(players.get(0)))
 			{
@@ -469,23 +468,28 @@ public class GameController
 		return players.size() != 1;
 	}
 
-	private void checkForElimination()
+	private Player getNextPlayer()
 	{
+		int decrement = 0;
 		for(int i = 0; i < players.size(); i++)
 		{
 			if(players.get(i).hasNoTerritories())
 			{
-
+				if(i<currentPlayerTurn)
+				{
+					decrement++;
+				}
 				timeline.addPlayerConquered(players.get(i));
 				players.remove(i);
 				i--;
 			}
 		}
-	}
-	private Player getNextPlayer()
-	{
+		currentPlayerTurn -= decrement;
 		if(currentPlayerTurn >= players.size())
 			currentPlayerTurn = 0;
+
+		//Should correctly update current player turn
+		
 		Player p = players.get(currentPlayerTurn);
 		
 		currentPlayerTurn++;
