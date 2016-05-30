@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.swing.JOptionPane;
+
 import achievement.Achievement;
 import achievement.AchievementManager;
 import battle.BattleHandler;
@@ -55,7 +57,7 @@ public class Player
 			if(notFulfilled.get(i).isFullfilled(this))
 			{
 				bonus += notFulfilled.get(i).getBonus();
-				System.out.println(notFulfilled.get(i).achieved());
+				displayAchievements(notFulfilled.get(i));
 				notFulfilled.remove(i);
 				i--;
 			}
@@ -329,5 +331,10 @@ public class Player
 		{
 			System.out.print("[Territory: " + c.getTerritory() + " Value: " + c.getValue() + "]");
 		}
+	}
+	
+	public void displayAchievements(Achievement a)
+	{
+		JOptionPane.showMessageDialog(null, a.achieved());
 	}
 }

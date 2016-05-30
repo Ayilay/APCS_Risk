@@ -32,7 +32,7 @@ class Trump extends Achievement//self explanatory
 		super("I will build a great, great wall", // name
 		      "Have more than one hundred armies deployed "// description
 		      + "in the United States",
-		      50);// bonus
+		      20);// bonus
 	}
 
 	@Override
@@ -76,7 +76,7 @@ class NuclearGandhi extends Achievement
 	{
 		super("Nuclear Gandhi"
 		      , "Our words are backed by NUCLEAR WEAPONS!",
-		      40);
+		      20);
 	}
 
 	@Override
@@ -91,23 +91,6 @@ class NuclearGandhi extends Achievement
 			}
 		}
 		return continents >= 3;
-	}
-
-}
-class RussianWinter extends Achievement
-{
-	public RussianWinter()
-	{
-		super("If you're going to attack Russia in winter...",
-		      "...pack some winter clothes",
-		      20);
-	}
-
-	@Override
-	public boolean isFullfilled(Player p)
-	{
-
-		return false;
 	}
 
 }

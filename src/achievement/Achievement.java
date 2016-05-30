@@ -19,7 +19,7 @@ public abstract class Achievement
 	public abstract boolean isFullfilled(Player p);
 	public String achieved()//message printed when achievement achieved
 	{
-		String congrats = "Achievement achieved! " + this.name + "\n" + this.description;
+		String congrats = "Achievement get! \n" + this.name + "\n" + this.description;
 		congrats += "\n You receive a one time bonus of " + this.bonus + " armies next turn";
 		return congrats;
 	}
