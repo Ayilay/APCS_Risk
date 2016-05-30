@@ -49,20 +49,20 @@ public class GameController
 	{
 		while(isStillPlaying())
 		{
-				Player p = getNextPlayer();
-				if(p.equals(players.get(0)))
-				{
-					timeline.incrementTurns();
-				}
-				userInterface.promptPlayerTurn(p);
+			checkForElimination();
+			Player p = getNextPlayer();
+			if(p.equals(players.get(0)))
+			{
+				timeline.incrementTurns();
+			}
+			userInterface.promptPlayerTurn(p);
 
-				//Perform the player actions
-				useCards(p);
-				deployReinforcements(p);
-				attackTerritory(p);
-				fortifyTroops(p);
+			//Perform the player actions
+			useCards(p);
+			deployReinforcements(p);
+			attackTerritory(p);
+			fortifyTroops(p);
 
-				checkForElimination();
 		}
 		userInterface.createAnnouncement("Congratulations, " + players.get(0).getName() + ", you won!");
 		if(((GUIManager) userInterface).promptTimeline())
@@ -487,14 +487,7 @@ public class GameController
 		if(currentPlayerTurn >= players.size())
 			currentPlayerTurn = 0;
 		Player p = players.get(currentPlayerTurn);
-
-		// TODO: Check if player is eliminated somewhere else
-		if(p.hasNoTerritories())
-		{
-			players.remove(currentPlayerTurn);
-			p = players.get(currentPlayerTurn);
-		}
-
+		
 		currentPlayerTurn++;
 
 		return p;

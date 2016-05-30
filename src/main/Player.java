@@ -145,8 +145,8 @@ public class Player
 		Set<String> returnSet = new HashSet<String>();
 		for(String s : occupiedTerritories)
 		{
-			if(TerritoryMap.getNumArmiesDeployedOn(s) < 2)
-				continue;
+			if(TerritoryMap.getNumArmiesDeployedOn(s) == 1)
+				break;
 
 			Territory t = TerritoryMap.get(s);
 			Set<String> neighbors = t.getAdjacentTerritories();
