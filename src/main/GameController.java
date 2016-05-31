@@ -23,6 +23,7 @@ public class GameController
 	private ArrayList<Player> players;
 	private Timeline timeline;
 	private int turn;
+	private boolean didDraw;
 	private int currentPlayerTurn; // Player currently playing
 	private CardDeck deck;
 	private static UserInterface userInterface;
@@ -35,7 +36,8 @@ public class GameController
 		timeline = new Timeline();
 
 		currentPlayerTurn = 0;
-
+		didDraw = false;
+		
 		TerritoryMap.init();
 		deck = new CardDeck(TerritoryMap.getAllTerritories());
 		AchievementManager.init();
@@ -63,7 +65,7 @@ public class GameController
 			deployReinforcements(p);
 			attackTerritory(p);
 			fortifyTroops(p);
-
+			didDraw = false;
 		}
 		userInterface.createAnnouncement("Congratulations, " + players.get(0).getName() + ", you won!");
 		if(((GUIManager) userInterface).promptTimeline())
@@ -335,11 +337,12 @@ public class GameController
 			if(results.getAttackSuccess())
 			{
 				timeline.addVictoryToTimeline(territoryToAttack.getID(), p);
-				if(p.getCards().size() < 5)
+				if(p.getCards().size() < 5 && didDraw == false)
 				{
 					Card c = deck.deal();
 					p.addCards(c);
 					userInterface.updateCards(p, false);
+					didDraw = true;
 				}
 				else
 				{
