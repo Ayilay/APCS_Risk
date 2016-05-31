@@ -332,7 +332,7 @@ public class Player
 			System.out.print("[Territory: " + c.getTerritory() + " Value: " + c.getValue() + "]");
 		}
 	}
-	
+
 	public void displayAchievements(Achievement a)
 	{
 		JOptionPane.showMessageDialog(null, a.achieved());

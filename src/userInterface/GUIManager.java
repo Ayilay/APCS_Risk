@@ -31,68 +31,10 @@ import javax.swing.OverlayLayout;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import buttons.*;
+
 import battle.BattleResults;
 import battle.Timeline;
-import buttons.AfganistanButton;
-import buttons.AlaskaButton;
-import buttons.AlbertaButton;
-import buttons.AlgeriaButton;
-import buttons.ArgentinaButton;
-import buttons.BoliviaButton;
-import buttons.BrazilButton;
-import buttons.CentralAmericaButton;
-import buttons.ChinaButton;
-import buttons.CongoButton;
-import buttons.CubaButton;
-import buttons.CzechoslovakiaButton;
-import buttons.DenmarkButton;
-import buttons.EastAfricaButton;
-import buttons.EasternAustraliaButton;
-import buttons.EasternEuropeButton;
-import buttons.EasternUnitedStatesButton;
-import buttons.EgyptButton;
-import buttons.FranceButton;
-import buttons.GermanyButton;
-import buttons.GreenlandButton;
-import buttons.HawaiiButton;
-import buttons.IcelandButton;
-import buttons.IndiaButton;
-import buttons.IndochinaButton;
-import buttons.IndonesiaButton;
-import buttons.IranButton;
-import buttons.IrkutskButton;
-import buttons.JapanButton;
-import buttons.KamchatkaButton;
-import buttons.KazakhstanButton;
-import buttons.LowCountriesButton;
-import buttons.MadagascarButton;
-import buttons.MexicoButton;
-import buttons.MongoliaButton;
-import buttons.MoroccoButton;
-import buttons.NewGuineaButton;
-import buttons.NorthwestTerritoryButton;
-import buttons.OntarioButton;
-import buttons.PakistanButton;
-import buttons.PeruButton;
-import buttons.PhilippinesButton;
-import buttons.PolandButton;
-import buttons.QuebecButton;
-import buttons.SaudiArabiaButton;
-import buttons.ScandinaviaButton;
-import buttons.SiberiaButton;
-import buttons.SouthAfricaButton;
-import buttons.SouthernEuropeButton;
-import buttons.SpainButton;
-import buttons.SwedenButton;
-import buttons.TerritoryButton;
-import buttons.TurkeyButton;
-import buttons.UnitedKingdomButton;
-import buttons.UralButton;
-import buttons.VenezuelaButton;
-import buttons.WestAfricaButton;
-import buttons.WesternAustraliaButton;
-import buttons.WesternUnitedStatesButton;
-import buttons.YakutskButton;
 import card.Card;
 import main.Player;
 import territoryMap.TerritoryMap;
@@ -116,6 +58,9 @@ public class GUIManager implements UserInterface
 
 	private JLabel gameState_territoryLabel;
 	private JLabel gameState_numArmies;
+	private JLabel gameState_numAttackLosses;
+	private JLabel gameState_numDefendLosses;
+	private JButton gameState_cancelButton;
 	private JLabel playerNameArea_label;
 	private JLabel messageArea_label;
 	private JLabel warningArea_label;
@@ -132,6 +77,7 @@ public class GUIManager implements UserInterface
 	private CardLayout cardDisplay;
 
 	private boolean quit;
+	private boolean cancelOperation;
 
 	public GUIManager()
 	{
@@ -145,7 +91,7 @@ public class GUIManager implements UserInterface
 		mapOverlayArea = new JPanel();
 		playerNameArea = new JPanel(new BorderLayout());
 		playerStatsArea = new JPanel();
-		gameStateArea = new JPanel(new GridLayout(3, 0, 0, 0));
+		gameStateArea = new JPanel(new GridLayout(8, 0, 0, 0));
 		messageArea = new JPanel(new GridLayout(2, 0, 0, 0));
 		footerArea = new JPanel();
 
@@ -231,16 +177,28 @@ public class GUIManager implements UserInterface
 		gameStateArea.setBackground(bgPaneColor);
 		gameStateArea.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 		gameStateArea.setPreferredSize(new Dimension(200, 300));
+
 		gameState_territoryLabel = new JLabel();
 		gameState_numArmies = new JLabel();
-		gameState_territoryLabel.setText("Test Territory");
+		gameState_numAttackLosses = new JLabel();
+		gameState_numDefendLosses = new JLabel();
+		gameState_cancelButton = new JButton();
+		gameState_cancelButton.setText("Cancell");
+
 		gameState_territoryLabel.setHorizontalAlignment(JLabel.CENTER);
 		gameState_numArmies.setHorizontalAlignment(JLabel.CENTER);
+		gameState_numAttackLosses.setHorizontalAlignment(JLabel.CENTER);
+		gameState_numDefendLosses.setHorizontalAlignment(JLabel.CENTER);
+		gameState_cancelButton.setHorizontalAlignment(JLabel.CENTER);
 		gameStateArea.add(gameState_territoryLabel);
 		gameStateArea.add(gameState_numArmies);
-		//JLabel gameState_territory = new JLabel(TerritoryMap.getTerritoryIcon("Iceland"));
-		//gameStateArea.add(new JLabel("Test text"));
-		//gameStateArea.add(gameState_territory);
+		gameStateArea.add(gameState_numAttackLosses);
+		gameStateArea.add(gameState_numDefendLosses);
+		// add a bunch of null jlabels for spacing
+		for(int i = 0; i < 2; i++)
+			gameStateArea.add(new JLabel());
+		gameStateArea.add(gameState_cancelButton);
+		gameState_cancelButton.setVisible(false);
 		gameStateArea.setVisible(true);
 		mainPane.add(gameStateArea, constr);
 
@@ -261,7 +219,6 @@ public class GUIManager implements UserInterface
 		back.setAlignmentX(Component.CENTER_ALIGNMENT);
 		scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-		//    scroll.setBounds(50, 30, 300, 50);
 		scroll.setBackground(Color.MAGENTA);
 		playerStatsArea.add(initPane, "1");
 		playerStatsArea.add(scroll, "2");
@@ -281,6 +238,14 @@ public class GUIManager implements UserInterface
 			public void actionPerformed(ActionEvent arg0)
 			{
 				cardDisplay.show(playerStatsArea, "1");
+			}
+		});
+
+		gameState_cancelButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0)
+			{
+				cancelOperation = true;
 			}
 		});
 
@@ -521,24 +486,28 @@ public class GUIManager implements UserInterface
 	@Override
 	public boolean getFinishedAttacking()
 	{
-		JOptionPane optionPane = new JOptionPane();
-		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
-		if(optionPane.showConfirmDialog(null, "Do you want to attack another territory?", "Attack!", JOptionPane.YES_NO_OPTION)
-		        == JOptionPane.NO_OPTION)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		//JOptionPane optionPane = new JOptionPane();
+		//optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
+		//if(optionPane.showConfirmDialog(null, "Do you want to attack another territory?", "Attack!", JOptionPane.YES_NO_OPTION)
+		//        == JOptionPane.NO_OPTION)
+		//{
+		//	return true;
+		//}
+		//else
+		//{
+		//	return false;
+		//}
+		return false;
 	}
 
 	@Override
 	public String getTerritoryToAttack(Player p)
 	{
 		lastTerritorySelected = null;
-		while(lastTerritorySelected == null)
+		cancelOperation = false;
+		gameState_cancelButton.setText("Cancell Attack");
+		gameState_cancelButton.setVisible(true);
+		while(lastTerritorySelected == null && cancelOperation == false)
 		{
 			try
 			{
@@ -549,14 +518,22 @@ public class GUIManager implements UserInterface
 				e.printStackTrace();
 			}
 		}
-		return lastTerritorySelected;
+		gameState_cancelButton.setVisible(false);
+
+		if(cancelOperation == true)
+			return null;
+		else
+			return lastTerritorySelected;
 	}
 
 	@Override
 	public String getTerritoryToAttackFrom(Player p, String territoryToAttack)
 	{
 		lastTerritorySelected = null;
-		while(lastTerritorySelected == null)
+		cancelOperation = false;
+		gameState_cancelButton.setText("Cancell Attack");
+		gameState_cancelButton.setVisible(true);
+		while(lastTerritorySelected == null && cancelOperation == false)
 		{
 			try
 			{
@@ -567,6 +544,10 @@ public class GUIManager implements UserInterface
 				e.printStackTrace();
 			}
 		}
+		gameState_cancelButton.setVisible(false);
+
+		if(cancelOperation)
+			return null;
 		return lastTerritorySelected;
 	}
 
@@ -588,20 +569,22 @@ public class GUIManager implements UserInterface
 	@Override
 	public void displayBattleResults(BattleResults results)
 	{
-		JLabel label;
-		if(results.getAttackSuccess())
-		{
-			label = new JLabel("Attack was a victory! Attacker lost " + results.getNumAttackerLosses()
-			                   + " armies and defender lost " + results.getNumDefenderLosses() + " armies");
-		}
-		else
-		{
-			label = new JLabel("Attack was a unsuccessful. Attacker lost " + results.getNumAttackerLosses()
-			                   + " armies and defender lost " + results.getNumDefenderLosses() + " armies");
-		}
-		JPanel panel = new JPanel();
-		panel.add(label);
-		JOptionPane.showConfirmDialog(null, panel, "Results", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
+		gameState_territoryLabel.setText("Attack was " + (results.getAttackSuccess() ? "a victory!" : "unsuccessful"));
+		gameState_numArmies.setText("");
+		//JLabel label;
+		//if(results.getAttackSuccess())
+		//{
+		//	label = new JLabel("Attack was a victory! Attacker lost " + results.getNumAttackerLosses()
+		//	                   + " armies and defender lost " + results.getNumDefenderLosses() + " armies");
+		//}
+		//else
+		//{
+		//	label = new JLabel("Attack was a unsuccessful. Attacker lost " + results.getNumAttackerLosses()
+		//	                   + " armies and defender lost " + results.getNumDefenderLosses() + " armies");
+		//}
+		//JPanel panel = new JPanel();
+		//panel.add(label);
+		//JOptionPane.showConfirmDialog(null, panel, "Results", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
 	}
 
 	////////////////////////////////////////////////////////////
@@ -611,21 +594,25 @@ public class GUIManager implements UserInterface
 	@Override
 	public boolean getWantsToFortify(Player p)
 	{
-		JOptionPane optionPane = new JOptionPane();
-		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
-		if(optionPane.showConfirmDialog(null, "Do you want to fortify territories?", "Fortify", JOptionPane.YES_NO_OPTION)
-		        == JOptionPane.YES_OPTION)
-		{
-			return true;
-		}
-		return false;
+		return true;
+		//JOptionPane optionPane = new JOptionPane();
+		//optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
+		//if(optionPane.showConfirmDialog(null, "Do you want to fortify territories?", "Fortify", JOptionPane.YES_NO_OPTION)
+		//        == JOptionPane.YES_OPTION)
+		//{
+		//	return true;
+		//}
+		//return false;
 	}
 
 	@Override
 	public String getTerritoryToFortify(Player p)
 	{
 		lastTerritorySelected = null;
-		while(lastTerritorySelected == null)
+		cancelOperation = false;
+		gameState_cancelButton.setText("Cancell Fortify");
+		gameState_cancelButton.setVisible(true);
+		while(lastTerritorySelected == null && cancelOperation == false)
 		{
 			try
 			{
@@ -636,6 +623,10 @@ public class GUIManager implements UserInterface
 				e.printStackTrace();
 			}
 		}
+		gameState_cancelButton.setVisible(false);
+
+		if(cancelOperation)
+			return null;
 		return lastTerritorySelected;
 	}
 
@@ -643,7 +634,10 @@ public class GUIManager implements UserInterface
 	public String getTerritoryToFortifyFrom(Player p, String terrID)
 	{
 		lastTerritorySelected = null;
-		while(lastTerritorySelected == null)
+		cancelOperation = false;
+		gameState_cancelButton.setText("Cancell Fortify");
+		gameState_cancelButton.setVisible(true);
+		while(lastTerritorySelected == null && cancelOperation == false)
 		{
 			try
 			{
@@ -654,6 +648,10 @@ public class GUIManager implements UserInterface
 				e.printStackTrace();
 			}
 		}
+		gameState_cancelButton.setVisible(false);
+
+		if(cancelOperation)
+			return null;
 		return lastTerritorySelected;
 	}
 
@@ -995,22 +993,13 @@ public class GUIManager implements UserInterface
 		if(terr != null)
 		{
 			gameState_territoryLabel.setText(terr);
-			try
-			{
-				gameState_numArmies.setText("" + TerritoryMap.getNumArmiesDeployedOn(terr));
-			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
-				System.exit(1);
-			}
+			gameState_numArmies.setText("has " + TerritoryMap.getNumArmiesDeployedOn(terr) + "  territories");
 		}
 		else
 		{
 			gameState_territoryLabel.setText("Hover over a territory");
 			gameState_numArmies.setText("to see stats");
 		}
-		//System.out.println("Printing stats for " + terr);
 	}
 	public void displayTimeline(Timeline t)
 	{
@@ -1018,9 +1007,9 @@ public class GUIManager implements UserInterface
 		JScrollPane scrollPane = new JScrollPane(text);
 		text.setLineWrap(true);
 		text.setWrapStyleWord(true);
-		scrollPane.setPreferredSize( new Dimension( 500, 500 ) );
-		JOptionPane.showMessageDialog(null, scrollPane, "Time line",  
-		                                       JOptionPane.DEFAULT_OPTION);
+		scrollPane.setPreferredSize(new Dimension(500, 500));
+		JOptionPane.showMessageDialog(null, scrollPane, "Time line",
+		                              JOptionPane.DEFAULT_OPTION);
 	}
 	public boolean promptTimeline()
 	{

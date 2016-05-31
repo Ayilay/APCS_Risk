@@ -22,7 +22,7 @@ public class Timeline
 	{
 		numTurns++;
 	}
-	
+
 	public void addVictoryToTimeline(String territoryConquered, Player p)
 	{
 		String entry = "Turn " + numTurns + ": " + p.getName() + " conquered " + territoryConquered + "!";

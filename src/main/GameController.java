@@ -70,7 +70,7 @@ public class GameController
 		{
 			((GUIManager) userInterface).displayTimeline(timeline);
 		}
-		
+
 	}
 	////////////////////////////////////////////////////////////
 	// Player Turn Methods
@@ -231,6 +231,7 @@ public class GameController
 
 	private void attackTerritory(Player p)
 	{
+		boolean doneAttacking = false;
 		userInterface.clearWarnings();
 		while(true)
 		{
@@ -242,17 +243,20 @@ public class GameController
 				break;
 			}
 
-			// See if user wants to continue attacking
-			if(userInterface.getFinishedAttacking())
-				break;
-
 			// Get territory to attack
 			userInterface.clearWarnings();
 			userInterface.createAnnouncement("Choose a territory to attack");
+			doneAttacking = false;
 			String territoryToAttackID = "";
 			while(true)
 			{
 				territoryToAttackID = userInterface.getTerritoryToAttack(p);
+				if(territoryToAttackID == null)
+				{
+					// break from external while loop as well
+					doneAttacking = true;
+					break;
+				}
 				if(!p.isValidAttackTarget(territoryToAttackID))
 				{
 					userInterface.generateWarning("not a valid territory to attack");
@@ -261,15 +265,24 @@ public class GameController
 
 				break;
 			}
+			if(doneAttacking)
+				break;
+
 			Territory territoryToAttack = TerritoryMap.get(territoryToAttackID);
 
 			// Get territory to attack from
 			userInterface.clearWarnings();
 			userInterface.createAnnouncement("Choose territory to attack from");
 			String territoryToAttackFromID = "";
+			doneAttacking = false;
 			while(true)
 			{
 				territoryToAttackFromID = userInterface.getTerritoryToAttackFrom(p, territoryToAttackID);
+				if(territoryToAttackFromID == null)
+				{
+					doneAttacking = true;
+					break;
+				}
 				if(!territoryToAttack.isNeighborWith(territoryToAttackFromID))
 				{
 					userInterface.generateWarning("Cannot attack from selected territory");
@@ -289,6 +302,8 @@ public class GameController
 
 				break;
 			}
+			if(doneAttacking)
+				break;
 			Territory territoryToAttackFrom = TerritoryMap.get(territoryToAttackFromID);
 
 			// Get number of armies to attack with
@@ -477,7 +492,7 @@ public class GameController
 		{
 			if(players.get(i).hasNoTerritories())
 			{
-				if(i<currentPlayerTurn)
+				if(i < currentPlayerTurn)
 				{
 					decrement++;
 				}
@@ -491,9 +506,9 @@ public class GameController
 			currentPlayerTurn = 0;
 
 		//Should correctly update current player turn
-		
+
 		Player p = players.get(currentPlayerTurn);
-		
+
 		currentPlayerTurn++;
 
 		return p;
