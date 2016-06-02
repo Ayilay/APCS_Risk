@@ -382,6 +382,8 @@ public class GameController
 		{
 			// Get territory to fortify
 			String territoryToFortifyID = userInterface.getTerritoryToFortify(p);
+			if(territoryToFortifyID == null) // user clicked on cancelFortify button
+				break;
 			if(!p.canFortifyTerritory(territoryToFortifyID))
 			{
 				userInterface.generateWarning("You cannot fortify this territory");
@@ -392,6 +394,8 @@ public class GameController
 			// Get territory to fortify from
 			userInterface.createAnnouncement("Choose territory to fortify from");
 			String territoryToFortifyFromID = userInterface.getTerritoryToFortifyFrom(p, territoryToFortifyID);
+			if(territoryToFortifyFromID == null) // user clicked on cancelFortify button
+				break;
 			if(!TerritoryMap.isValidTerritory(territoryToFortifyFromID))
 			{
 				userInterface.generateWarning("Not a valid territory");

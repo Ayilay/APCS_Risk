@@ -58,6 +58,7 @@ public class GUIManager implements UserInterface
 
 	private JLabel gameState_territoryLabel;
 	private JLabel gameState_numArmies;
+	private JLabel gameState_battleResults;
 	private JLabel gameState_numAttackLosses;
 	private JLabel gameState_numDefendLosses;
 	private JButton gameState_cancelButton;
@@ -180,23 +181,25 @@ public class GUIManager implements UserInterface
 
 		gameState_territoryLabel = new JLabel();
 		gameState_numArmies = new JLabel();
+		gameState_battleResults = new JLabel();
 		gameState_numAttackLosses = new JLabel();
 		gameState_numDefendLosses = new JLabel();
 		gameState_cancelButton = new JButton();
-		gameState_cancelButton.setText("Cancell");
+		gameState_cancelButton.setText("Cancel");
 
 		gameState_territoryLabel.setHorizontalAlignment(JLabel.CENTER);
 		gameState_numArmies.setHorizontalAlignment(JLabel.CENTER);
+		gameState_battleResults.setHorizontalAlignment(JLabel.CENTER);
 		gameState_numAttackLosses.setHorizontalAlignment(JLabel.CENTER);
 		gameState_numDefendLosses.setHorizontalAlignment(JLabel.CENTER);
 		gameState_cancelButton.setHorizontalAlignment(JLabel.CENTER);
 		gameStateArea.add(gameState_territoryLabel);
 		gameStateArea.add(gameState_numArmies);
+		gameStateArea.add(new JLabel()); // For spacing
+		gameStateArea.add(gameState_battleResults);
 		gameStateArea.add(gameState_numAttackLosses);
 		gameStateArea.add(gameState_numDefendLosses);
-		// add a bunch of null jlabels for spacing
-		for(int i = 0; i < 2; i++)
-			gameStateArea.add(new JLabel());
+		gameStateArea.add(new JLabel()); // For spacing
 		gameStateArea.add(gameState_cancelButton);
 		gameState_cancelButton.setVisible(false);
 		gameStateArea.setVisible(true);
@@ -230,6 +233,7 @@ public class GUIManager implements UserInterface
 			public void actionPerformed(ActionEvent arg0)
 			{
 				cardDisplay.show(playerStatsArea, "2");
+				clearBattleStats();
 			}
 		});
 
@@ -238,6 +242,7 @@ public class GUIManager implements UserInterface
 			public void actionPerformed(ActionEvent arg0)
 			{
 				cardDisplay.show(playerStatsArea, "1");
+				clearBattleStats();
 			}
 		});
 
@@ -246,6 +251,7 @@ public class GUIManager implements UserInterface
 			public void actionPerformed(ActionEvent arg0)
 			{
 				cancelOperation = true;
+				clearBattleStats();
 			}
 		});
 
@@ -287,6 +293,7 @@ public class GUIManager implements UserInterface
 
 		window.pack();
 		window.setVisible(true);
+
 	}
 
 	////////////////////////////////////////////////////////////
@@ -569,8 +576,10 @@ public class GUIManager implements UserInterface
 	@Override
 	public void displayBattleResults(BattleResults results)
 	{
-		gameState_territoryLabel.setText("Attack was " + (results.getAttackSuccess() ? "a victory!" : "unsuccessful"));
-		gameState_numArmies.setText("");
+		gameState_battleResults.setText("Attack was " + (results.getAttackSuccess() ? "a victory!" : "unsuccessful"));
+		gameState_numAttackLosses.setText("Attacker lost " + results.getNumAttackerLosses() + " armies");
+		gameState_numDefendLosses.setText("Defender lost " + results.getNumDefenderLosses() + " armies");
+		//gameState_numArmies.setText("");
 		//JLabel label;
 		//if(results.getAttackSuccess())
 		//{
@@ -988,12 +997,19 @@ public class GUIManager implements UserInterface
 		}
 	}
 
+	public void clearBattleStats()
+	{
+		gameState_battleResults.setText("");
+		gameState_numAttackLosses.setText("");
+		gameState_numDefendLosses.setText("");
+	}
+
 	public void displayTerritoryStats(String terr)
 	{
 		if(terr != null)
 		{
 			gameState_territoryLabel.setText(terr);
-			gameState_numArmies.setText("has " + TerritoryMap.getNumArmiesDeployedOn(terr) + "  territories");
+			gameState_numArmies.setText("has " + TerritoryMap.getNumArmiesDeployedOn(terr) + " armies");
 		}
 		else
 		{
@@ -1001,6 +1017,7 @@ public class GUIManager implements UserInterface
 			gameState_numArmies.setText("to see stats");
 		}
 	}
+
 	public void displayTimeline(Timeline t)
 	{
 		JTextArea text = new JTextArea(t.toString());
@@ -1011,6 +1028,7 @@ public class GUIManager implements UserInterface
 		JOptionPane.showMessageDialog(null, scrollPane, "Time line",
 		                              JOptionPane.DEFAULT_OPTION);
 	}
+
 	public boolean promptTimeline()
 	{
 		JOptionPane optionPane = new JOptionPane();
