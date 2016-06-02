@@ -49,6 +49,7 @@ public class GameController
 
 	public void play()
 	{
+		((GUIManager)userInterface).displayInstructions(); //WTF
 		while(isStillPlaying())
 		{
 			Player p = getNextPlayer();

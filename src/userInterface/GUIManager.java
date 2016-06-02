@@ -72,6 +72,7 @@ public class GUIManager implements UserInterface
 
 	private JButton cards;
 	private JButton back;
+	private JButton instructions;
 
 	private Map<String, JButton> buttons;
 
@@ -109,6 +110,7 @@ public class GUIManager implements UserInterface
 
 		cards = new JButton("Display cards");
 		back = new JButton("Back");
+		instructions = new JButton("Instructions");
 
 		cardDisplay = new CardLayout();
 
@@ -216,6 +218,7 @@ public class GUIManager implements UserInterface
 		playerStatsArea.setPreferredSize(new Dimension(200, 100));
 
 		initPane.add(cards);
+		initPane.add(instructions);
 		initPane.setBackground(bgPaneColor);
 		deckPane.add(back);
 		deckPane.setBackground(Color.DARK_GRAY);
@@ -228,6 +231,14 @@ public class GUIManager implements UserInterface
 
 		cardDisplay.show(playerStatsArea, "1");
 
+		instructions.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0)
+			{
+				displayInstructions();
+			}
+
+		});
 		cards.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent arg0)
@@ -311,7 +322,7 @@ public class GUIManager implements UserInterface
 		JOptionPane optionPane = new JOptionPane();
 		JSlider slider = getSlider(optionPane, 2, 5);
 		optionPane.setMessage(new Object[]
-		                      { "How many players will be playing?", slider });
+				{ "How many players will be playing?", slider });
 		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);
 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
 		JDialog dialog = optionPane.createDialog(parent, "Risk Set-Up");
@@ -429,7 +440,7 @@ public class GUIManager implements UserInterface
 		JOptionPane optionPane = new JOptionPane();
 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
 		if(optionPane.showConfirmDialog(null, "Do you want to use a card?", "Card", JOptionPane.YES_NO_OPTION)
-		        == JOptionPane.YES_OPTION)
+				== JOptionPane.YES_OPTION)
 		{
 			return true;
 		}
@@ -442,7 +453,7 @@ public class GUIManager implements UserInterface
 		JOptionPane optionPane = new JOptionPane();
 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
 		if(optionPane.showConfirmDialog(null, "Do you want to trade cards?", "Trading", JOptionPane.YES_NO_OPTION)
-		        == JOptionPane.YES_OPTION)
+				== JOptionPane.YES_OPTION)
 		{
 			return true;
 		}
@@ -478,7 +489,7 @@ public class GUIManager implements UserInterface
 		JOptionPane optionPane = new JOptionPane();
 		JSlider slider = getSlider(optionPane, 0, p.getNumReinforcementsAvailable());
 		optionPane.setMessage(new Object[]
-		                      { "Choose number of armies to deploy to " + deployTerritory, slider });
+				{ "Choose number of armies to deploy to " + deployTerritory, slider });
 		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);
 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
 		JDialog dialog = optionPane.createDialog(parent, "Deploy");
@@ -565,7 +576,7 @@ public class GUIManager implements UserInterface
 		JOptionPane optionPane = new JOptionPane();
 		JSlider slider = getSlider(optionPane, 0, TerritoryMap.get(territoryToAttackFromID).getNumArmies() - 1);
 		optionPane.setMessage(new Object[]
-		                      { "Choose number of armies to attack " + territoryToAttackID + " with.", slider });
+				{ "Choose number of armies to attack " + territoryToAttackID + " with.", slider });
 		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);
 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
 		JDialog dialog = optionPane.createDialog(parent, "Attack!");
@@ -673,7 +684,7 @@ public class GUIManager implements UserInterface
 		JOptionPane optionPane = new JOptionPane();
 		JSlider slider = getSlider(optionPane, 0, maxArmies);
 		optionPane.setMessage(new Object[]
-		                      { "Choose number of armies to fortify from " + terrToFortFrom, slider });
+				{ "Choose number of armies to fortify from " + terrToFortFrom, slider });
 		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);
 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
 		JDialog dialog = optionPane.createDialog(parent, "Fortify");
@@ -1026,7 +1037,7 @@ public class GUIManager implements UserInterface
 		text.setWrapStyleWord(true);
 		scrollPane.setPreferredSize(new Dimension(500, 500));
 		JOptionPane.showMessageDialog(null, scrollPane, "Time line",
-		                              JOptionPane.DEFAULT_OPTION);
+				JOptionPane.DEFAULT_OPTION);
 	}
 
 	public boolean promptTimeline()
@@ -1034,11 +1045,40 @@ public class GUIManager implements UserInterface
 		JOptionPane optionPane = new JOptionPane();
 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
 		if(optionPane.showConfirmDialog(null, "Do you want to see the timeline?", "Timeline", JOptionPane.YES_NO_OPTION)
-		        == JOptionPane.YES_OPTION)
+				== JOptionPane.YES_OPTION)
 		{
 			return true;
 		}
 		return false;
+	}
+	
+	public void displayInstructions()
+	{
+		JFrame parent = new JFrame();
+
+		JTextArea textArea = new JTextArea(100, 100);
+		textArea.setText("						Welcome To Risk !\n\n"
+				+ "	Risk is a turn based game where the players attempt to conquer the world with their armies. "
+				+ "Each turn players will be asked to use/trade cards if possible, deploy reinforcements to a \n"
+				+ "player's territories, attack opposing territories, and fortify a player's territories.\n\n"
+				+ "CARDS: Cards contain two values, a territory and a value from 1-3. Each player can hold up to a maximum of 5 cards. Cards are given everytime a player conquers a territory"
+				+ " but they are only given once\n"
+				+ " per turn. Players can use a card if they hold the territory displayed on the card. Using a card gives that territory extra armies based on how the value of the card. Players can also trade\n"
+				+ " 3 cards in for extra reinforcements that turn"
+				+ "If the player owns 3 cards of all different values (ex. 1, 2, 3) or 3 cards of the same value (ex. 1,1,1 or 2,2,2 or 3,3,3), the player can trade in the cards\n"
+				+ "The more set of cards traded in, the more reinforcements a player gets."
+				);
+	    textArea.setEditable(false);
+	    
+		
+	    // wrap a scrollpane around it
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		
+		// display them in a message dialog
+		JOptionPane.showMessageDialog(parent, scrollPane, "Instructions", 1);
+		//JOptionPane.showMessageDialog(parent, scrollPane);				
 	}
 }
 

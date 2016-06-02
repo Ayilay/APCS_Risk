@@ -1,0 +1,186 @@
+[1mdiff --git a/src/main/GameController.java b/src/main/GameController.java[m
+[1mindex 2804c81..dddc8a9 100644[m
+[1m--- a/src/main/GameController.java[m
+[1m+++ b/src/main/GameController.java[m
+[36m@@ -49,6 +49,7 @@[m [mpublic class GameController[m
+ [m
+ 	public void play()[m
+ 	{[m
+[32m+[m		[32m((GUIManager)userInterface).displayInstructions(); //WTF[m
+ 		while(isStillPlaying())[m
+ 		{[m
+ 			Player p = getNextPlayer();[m
+[1mdiff --git a/src/userInterface/CLIManager.java b/src/userInterface/CLIManager.java[m
+[1mindex f8129b0..3353293 100644[m
+[1m--- a/src/userInterface/CLIManager.java[m
+[1m+++ b/src/userInterface/CLIManager.java[m
+[36m@@ -433,4 +433,9 @@[m [mpublic class CLIManager implements UserInterface[m
+ 	{[m
+ 		System.out.println(string);[m
+ 	}[m
+[32m+[m[41m	[m
+[32m+[m	[32mpublic void displayInstructions()[m
+[32m+[m	[32m{[m
+[32m+[m		[32m//unimplemented feature[m
+[32m+[m	[32m}[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/src/userInterface/GUIManager.java b/src/userInterface/GUIManager.java[m
+[1mindex 8d78c6d..8493f87 100644[m
+[1m--- a/src/userInterface/GUIManager.java[m
+[1m+++ b/src/userInterface/GUIManager.java[m
+[36m@@ -72,6 +72,7 @@[m [mpublic class GUIManager implements UserInterface[m
+ [m
+ 	private JButton cards;[m
+ 	private JButton back;[m
+[32m+[m	[32mprivate JButton instructions;[m
+ [m
+ 	private Map<String, JButton> buttons;[m
+ [m
+[36m@@ -109,6 +110,7 @@[m [mpublic class GUIManager implements UserInterface[m
+ [m
+ 		cards = new JButton("Display cards");[m
+ 		back = new JButton("Back");[m
+[32m+[m		[32minstructions = new JButton("Instructions");[m
+ [m
+ 		cardDisplay = new CardLayout();[m
+ [m
+[36m@@ -216,6 +218,7 @@[m [mpublic class GUIManager implements UserInterface[m
+ 		playerStatsArea.setPreferredSize(new Dimension(200, 100));[m
+ [m
+ 		initPane.add(cards);[m
+[32m+[m		[32minitPane.add(instructions);[m
+ 		initPane.setBackground(bgPaneColor);[m
+ 		deckPane.add(back);[m
+ 		deckPane.setBackground(Color.DARK_GRAY);[m
+[36m@@ -228,6 +231,14 @@[m [mpublic class GUIManager implements UserInterface[m
+ [m
+ 		cardDisplay.show(playerStatsArea, "1");[m
+ [m
+[32m+[m		[32minstructions.addActionListener(new ActionListener()[m
+[32m+[m		[32m{[m
+[32m+[m			[32mpublic void actionPerformed(ActionEvent arg0)[m
+[32m+[m			[32m{[m
+[32m+[m				[32mdisplayInstructions();[m
+[32m+[m			[32m}[m
+[32m+[m
+[32m+[m		[32m});[m
+ 		cards.addActionListener(new ActionListener()[m
+ 		{[m
+ 			public void actionPerformed(ActionEvent arg0)[m
+[36m@@ -311,7 +322,7 @@[m [mpublic class GUIManager implements UserInterface[m
+ 		JOptionPane optionPane = new JOptionPane();[m
+ 		JSlider slider = getSlider(optionPane, 2, 5);[m
+ 		optionPane.setMessage(new Object[][m
+[31m-		                      { "How many players will be playing?", slider });[m
+[32m+[m				[32m{ "How many players will be playing?", slider });[m
+ 		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);[m
+ 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);[m
+ 		JDialog dialog = optionPane.createDialog(parent, "Risk Set-Up");[m
+[36m@@ -429,7 +440,7 @@[m [mpublic class GUIManager implements UserInterface[m
+ 		JOptionPane optionPane = new JOptionPane();[m
+ 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);[m
+ 		if(optionPane.showConfirmDialog(null, "Do you want to use a card?", "Card", JOptionPane.YES_NO_OPTION)[m
+[31m-		        == JOptionPane.YES_OPTION)[m
+[32m+[m				[32m== JOptionPane.YES_OPTION)[m
+ 		{[m
+ 			return true;[m
+ 		}[m
+[36m@@ -442,7 +453,7 @@[m [mpublic class GUIManager implements UserInterface[m
+ 		JOptionPane optionPane = new JOptionPane();[m
+ 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);[m
+ 		if(optionPane.showConfirmDialog(null, "Do you want to trade cards?", "Trading", JOptionPane.YES_NO_OPTION)[m
+[31m-		        == JOptionPane.YES_OPTION)[m
+[32m+[m				[32m== JOptionPane.YES_OPTION)[m
+ 		{[m
+ 			return true;[m
+ 		}[m
+[36m@@ -478,7 +489,7 @@[m [mpublic class GUIManager implements UserInterface[m
+ 		JOptionPane optionPane = new JOptionPane();[m
+ 		JSlider slider = getSlider(optionPane, 0, p.getNumReinforcementsAvailable());[m
+ 		optionPane.setMessage(new Object[][m
+[31m-		                      { "Choose number of armies to deploy to " + deployTerritory, slider });[m
+[32m+[m				[32m{ "Choose number of armies to deploy to " + deployTerritory, slider });[m
+ 		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);[m
+ 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);[m
+ 		JDialog dialog = optionPane.createDialog(parent, "Deploy");[m
+[36m@@ -565,7 +576,7 @@[m [mpublic class GUIManager implements UserInterface[m
+ 		JOptionPane optionPane = new JOptionPane();[m
+ 		JSlider slider = getSlider(optionPane, 0, TerritoryMap.get(territoryToAttackFromID).getNumArmies() - 1);[m
+ 		optionPane.setMessage(new Object[][m
+[31m-		                      { "Choose number of armies to attack " + territoryToAttackID + " with.", slider });[m
+[32m+[m				[32m{ "Choose number of armies to attack " + territoryToAttackID + " with.", slider });[m
+ 		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);[m
+ 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);[m
+ 		JDialog dialog = optionPane.createDialog(parent, "Attack!");[m
+[36m@@ -673,7 +684,7 @@[m [mpublic class GUIManager implements UserInterface[m
+ 		JOptionPane optionPane = new JOptionPane();[m
+ 		JSlider slider = getSlider(optionPane, 0, maxArmies);[m
+ 		optionPane.setMessage(new Object[][m
+[31m-		                      { "Choose number of armies to fortify from " + terrToFortFrom, slider });[m
+[32m+[m				[32m{ "Choose number of armies to fortify from " + terrToFortFrom, slider });[m
+ 		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);[m
+ 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);[m
+ 		JDialog dialog = optionPane.createDialog(parent, "Fortify");[m
+[36m@@ -1026,7 +1037,7 @@[m [mpublic class GUIManager implements UserInterface[m
+ 		text.setWrapStyleWord(true);[m
+ 		scrollPane.setPreferredSize(new Dimension(500, 500));[m
+ 		JOptionPane.showMessageDialog(null, scrollPane, "Time line",[m
+[31m-		                              JOptionPane.DEFAULT_OPTION);[m
+[32m+[m				[32mJOptionPane.DEFAULT_OPTION);[m
+ 	}[m
+ [m
+ 	public boolean promptTimeline()[m
+[36m@@ -1034,11 +1045,40 @@[m [mpublic class GUIManager implements UserInterface[m
+ 		JOptionPane optionPane = new JOptionPane();[m
+ 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);[m
+ 		if(optionPane.showConfirmDialog(null, "Do you want to see the timeline?", "Timeline", JOptionPane.YES_NO_OPTION)[m
+[31m-		        == JOptionPane.YES_OPTION)[m
+[32m+[m				[32m== JOptionPane.YES_OPTION)[m
+ 		{[m
+ 			return true;[m
+ 		}[m
+ 		return false;[m
+ 	}[m
+[32m+[m[41m	[m
+[32m+[m	[32mpublic void displayInstructions()[m
+[32m+[m	[32m{[m
+[32m+[m		[32mJFrame parent = new JFrame();[m
+[32m+[m
+[32m+[m		[32mJTextArea textArea = new JTextArea(100, 100);[m
+[32m+[m		[32mtextArea.setText("						Welcome To Risk !\n\n"[m
+[32m+[m				[32m+ "	Risk is a turn based game where the players attempt to conquer the world with their armies. "[m
+[32m+[m				[32m+ "Each turn players will be asked to use/trade cards if possible, deploy reinforcements to a \n"[m
+[32m+[m				[32m+ "player's territories, attack opposing territories, and fortify a player's territories.\n\n"[m
+[32m+[m				[32m+ "CARDS: Cards contain two values, a territory and a value from 1-3. Each player can hold up to a maximum of 5 cards. Cards are given everytime a player conquers a territory"[m
+[32m+[m				[32m+ " but they are only given once\n"[m
+[32m+[m				[32m+ " per turn. Players can use a card if they hold the territory displayed on the card. Using a card gives that territory extra armies based on how the value of the card. Players can also trade\n"[m
+[32m+[m				[32m+ " 3 cards in for extra reinforcements that turn"[m
+[32m+[m				[32m+ "If the player owns 3 cards of all different values (ex. 1, 2, 3) or 3 cards of the same value (ex. 1,1,1 or 2,2,2 or 3,3,3), the player can trade in the cards\n"[m
+[32m+[m				[32m+ "The more set of cards traded in, the more reinforcements a player gets."[m
+[32m+[m				[32m);[m
+[32m+[m	[32m    textArea.setEditable(false);[m
+[32m+[m[41m	    [m
+[32m+[m[41m		[m
+[32m+[m	[32m    // wrap a scrollpane around it[m
+[32m+[m		[32mJScrollPane scrollPane = new JScrollPane(textArea);[m
+[32m+[m		[32mscrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);[m
+[32m+[m		[32mscrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);[m
+[32m+[m[41m		[m
+[32m+[m		[32m// display them in a message dialog[m
+[32m+[m		[32mJOptionPane.showMessageDialog(parent, scrollPane, "Instructions", 1);[m
+[32m+[m		[32m//JOptionPane.showMessageDialog(parent, scrollPane);[m[41m				[m
+[32m+[m	[32m}[m
+ }[m
+ [m
+[1mdiff --git a/src/userInterface/UserInterface.java b/src/userInterface/UserInterface.java[m
+[1mindex 67da878..0a5f78c 100644[m
+[1m--- a/src/userInterface/UserInterface.java[m
+[1m+++ b/src/userInterface/UserInterface.java[m
+[36m@@ -40,5 +40,6 @@[m [mpublic interface UserInterface[m
+ 	public void createAnnouncement(String string);[m
+ 	public void generateWarning(String string);[m
+ 	public void clearWarnings();[m
+[32m+[m	[32mpublic void displayInstructions();[m
+ [m
+ }[m

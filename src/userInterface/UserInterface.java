@@ -40,5 +40,6 @@ public interface UserInterface
 	public void createAnnouncement(String string);
 	public void generateWarning(String string);
 	public void clearWarnings();
+	public void displayInstructions();
 
 }

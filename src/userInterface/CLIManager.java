@@ -433,4 +433,9 @@ public class CLIManager implements UserInterface
 	{
 		System.out.println(string);
 	}
+	
+	public void displayInstructions()
+	{
+		//unimplemented feature
+	}
 }
