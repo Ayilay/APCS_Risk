@@ -1066,13 +1066,15 @@ public class GUIManager implements UserInterface
 				+ " per turn. Players can use a card if they hold the territory displayed on the card. Using a card gives that territory extra armies based on how the value of the card. Players can also trade\n"
 				+ " 3 cards in for extra reinforcements that turn"
 				+ "If the player owns 3 cards of all different values (ex. 1, 2, 3) or 3 cards of the same value (ex. 1,1,1 or 2,2,2 or 3,3,3), the player can trade in the cards\n"
-				+ "The more set of cards traded in, the more reinforcements a player gets from tradings. The number of reinforcements is given by 2(n+1) where n is the number of sets traded. "
+				+ "The more set of cards traded in, the more reinforcements a player gets from tradings. The number of reinforcements is given by 2(n+1) where n is the number of sets traded.\n\n "
 				+ "REINFORCEMENTS:\n	Every turn, a player gets 3 reinforcements to deploy to their territories. Player MUST deploy all 3 of their reinforcements before continuing the turn. "
-				+ "After controlling more than 9 territories, players get more reinforcements per turn. \n\n"
-				+ "ATTACKING:\n		After deploying reinforcements, players can attack territories ADJACENT to the ones they already own. Players use armies from their territories to attack other territories."
+				+ "After controlling more than 9 territories,\n players get more reinforcements per turn. \n\n"
+				+ "ATTACKING:\n	After deploying reinforcements, players can attack territories ADJACENT to the ones they already own. Players use armies from their territories to attack other territories."
 				+ "Neutral territories automatically contain 2 armies in them. Defending territories generally have the advantage during battles, so the attacker should generally send more armies than the defending"
 				+ "territory has.\n"
 				+ "There is no definite win. All battles can result in defeats for either side no matter how many armies are sent or defending, but sending more armies during attack increases a player's success rate. \n\n"
+				+ "FORTIFY:\n	After attacking, players can fortify their territories by moving troops and repositioning troops from their territories. Players can only transfer armies to adjacent territories but can do multiple per turn"
+				
 				);
 	    textArea.setEditable(false);
 	    
