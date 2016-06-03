@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,11 +29,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.OverlayLayout;
+import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import buttons.*;
-
 import battle.BattleResults;
 import battle.Timeline;
 import card.Card;
@@ -326,6 +327,7 @@ public class GUIManager implements UserInterface
 		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);
 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
 		JDialog dialog = optionPane.createDialog(parent, "Risk Set-Up");
+		dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		dialog.setVisible(true);
 		return (Integer) slider.getValue();
 	}
@@ -493,6 +495,7 @@ public class GUIManager implements UserInterface
 		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);
 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
 		JDialog dialog = optionPane.createDialog(parent, "Deploy");
+		dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		dialog.setVisible(true);
 		return (Integer) slider.getValue();
 	}
@@ -580,6 +583,7 @@ public class GUIManager implements UserInterface
 		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);
 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
 		JDialog dialog = optionPane.createDialog(parent, "Attack!");
+		dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		dialog.setVisible(true);
 		return (Integer) slider.getValue();
 	}
@@ -688,6 +692,7 @@ public class GUIManager implements UserInterface
 		optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);
 		optionPane.setOptionType(JOptionPane.DEFAULT_OPTION);
 		JDialog dialog = optionPane.createDialog(parent, "Fortify");
+		dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		dialog.setVisible(true);
 		return (Integer) slider.getValue();
 
@@ -1056,28 +1061,33 @@ public class GUIManager implements UserInterface
 	{
 		JFrame parent = new JFrame();
 
-		JTextArea textArea = new JTextArea(100, 100);
-		textArea.setText("						Welcome To Risk !\n\n"
+		JTextArea textArea = new JTextArea(20, 70);
+		textArea.setText("                                                                                     Welcome To Risk !\n\n"
 				+ "	Risk is a turn based game where the players attempt to conquer the world with their armies. "
-				+ "Each turn players will be asked to use/trade cards if possible, deploy reinforcements to a \n"
-				+ "player's territories, attack opposing territories, and fortify a player's territories.\n\n"
-				+ "CARDS:\n	Cards contain two values, a territory and a value from 1-3. Each player can hold up to a maximum of 5 cards. Cards are given everytime a player conquers a territory"
-				+ " but they are only given\n once"
-				+ " per turn. Players can use a card if they hold the territory displayed on the card. Using a card gives that territory extra armies based on how the value of the card. Players can also trade 3 cards\n"
-				+ "in for extra reinforcements that turn"
-				+ "If the player owns 3 cards of all different values (ex. 1, 2, 3) or 3 cards of the same value (ex. 1,1,1 or 2,2,2 or 3,3,3), the player can trade in the cards\n"
-				+ "The more set of cards traded in, the more reinforcements a player gets from tradings. The number of reinforcements is given by 2(n+1) where n is the number of sets traded.\n\n "
-				+ "REINFORCEMENTS:\n	Every turn, a player gets 3 reinforcements to deploy to their territories. Player MUST deploy all 3 of their reinforcements before continuing the turn. "
-				+ "After controlling more than 9 territories,\n players get more reinforcements per turn. \n\n"
-				+ "ATTACKING:\n	After deploying reinforcements, players can attack territories ADJACENT to the ones they already own. Players use armies from their territories to attack other territories.\n"
-				+ "Neutral territories automatically contain 2 armies in them. Defending territories generally have the advantage during battles, so the attacker should generally send more armies than the defending\n"
-				+ "territory has."
-				+ "There is no definite win. All battles can result in defeats for either side no matter how many armies are sent or defending, but sending more armies during attack increases a player's\nsuccess rate. \n\n"
-				+ "FORTIFY:\n	After attacking, players can fortify their territories by moving troops and repositioning troops from their territories. Players can only transfer armies to adjacent territories but can do multiple\n per turn."
+				+ "Each turn, players will be asked to use/trade cards if possible, deploy reinforcements to a"
+				+ "player's territories, attack opposing territories, and fortify a player's own territories.\n\n"
+				+ "GAME SETUP:\n	Enter how many players will be playing. For every player, enter the player's name, and select a territory to start from. You may start from any territory you desire, and you will conquer more later.\n\n"
+				+ "CARDS:\n	Cards contain two values, a territory and a value from 1-3. Each player can hold up to a maximum of 5 cards. Cards are given everytime a player conquers a territorybut they are only given once per turn.\n"
+				+ "	Players can use a card if they hold the territory displayed on the card. Using a card gives that territory extra armies based on how the value of the card.\n"
+				+ "	Players can also trade 3 cards in for extra reinforcements that turn. "
+				+ "If the player owns 3 cards of all different values (ex. 1, 2, 3) or 3 cards of the same value (ex. 1,1,1 or 2,2,2 or 3,3,3), the player can trade in the cards"
+				+ "The more set of cards traded in, the more reinforcements a player gets from tradings. The number of reinforcements is given by 2(n+1) where n is the number of sets traded.\n\n"
+				+ "REINFORCEMENTS:\n	Every turn, a player gets 3 reinforcements to deploy to their territories. Player MUST deploy all 3 of their reinforcements before continuing the turn. You can deploy many reinforcements to more than one territory. "
+				+ "After controlling more than 9 territories, players get more reinforcements per turn. \n"
+				+ "	If you own entire continents, that gives you an army boost per turn. That can be super advantageous, so try to conquer entire continents if possible!\n\n"
+				+ "ATTACKING:\n	After deploying reinforcements, players can attack territories ADJACENT to the ones they already own. Players use armies from their territories to attack other territories. "
+				+ "Neutral territories automatically contain 2 armies in them. Defending territories generally have the advantage during battles, so the attacker should generally send more armies than the defending "
+				+ "territory has.\n"
+				+ "	There is no definite win. All battles can result in defeats for either side no matter how many armies are sent or defending, but sending more armies during attack increases a player's success rate. \n\n"
+				+ "FORTIFY:\n	After attacking, players can fortify one of their territories by moving troops from their own territories. Players can only transfer armies to adjacent territories and can only do it once per turn. Fortify wisely!"
+
 				
 				);
 	    textArea.setEditable(false);
-	    
+	    textArea.setLineWrap(true);
+	    textArea.setWrapStyleWord(true);
+	    textArea.setTabSize(2);
+	    textArea.setMargin(new Insets(10, 2, 10, 10));
 		
 	    // wrap a scrollpane around it
 		JScrollPane scrollPane = new JScrollPane(textArea);
