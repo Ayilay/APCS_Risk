@@ -42,6 +42,7 @@ public class GameController
 		deck = new CardDeck(TerritoryMap.getAllTerritories());
 		AchievementManager.init();
 		// Get player names and starting territories
+		((GUIManager)userInterface).displayInstructions(); //WTF
 		initPlayers();
 		// players.add(new Player("Richard","China"));
 		// players.add(new Player("Fluffles","Mongolia"));
@@ -49,7 +50,6 @@ public class GameController
 
 	public void play()
 	{
-		((GUIManager)userInterface).displayInstructions(); //WTF
 		while(isStillPlaying())
 		{
 			Player p = getNextPlayer();
@@ -112,8 +112,6 @@ public class GameController
 						p.getCards().remove(c);
 						userInterface.updateCards(p, false);
 						TerritoryMap.get(c.getTerritory()).incrementArmiesBy(c.getValue());
-						// p.deployReinforcements(c.getTerritory(),
-						// c.getValue());
 						valid = true;
 					}
 
