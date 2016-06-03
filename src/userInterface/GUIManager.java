@@ -523,7 +523,7 @@ public class GUIManager implements UserInterface
 	{
 		lastTerritorySelected = null;
 		cancelOperation = false;
-		gameState_cancelButton.setText("Cancell Attack");
+		gameState_cancelButton.setText("Cancel Attack");
 		gameState_cancelButton.setVisible(true);
 		while(lastTerritorySelected == null && cancelOperation == false)
 		{
@@ -549,7 +549,7 @@ public class GUIManager implements UserInterface
 	{
 		lastTerritorySelected = null;
 		cancelOperation = false;
-		gameState_cancelButton.setText("Cancell Attack");
+		gameState_cancelButton.setText("Cancel Attack");
 		gameState_cancelButton.setVisible(true);
 		while(lastTerritorySelected == null && cancelOperation == false)
 		{
@@ -630,7 +630,7 @@ public class GUIManager implements UserInterface
 	{
 		lastTerritorySelected = null;
 		cancelOperation = false;
-		gameState_cancelButton.setText("Cancell Fortify");
+		gameState_cancelButton.setText("Cancel Fortify");
 		gameState_cancelButton.setVisible(true);
 		while(lastTerritorySelected == null && cancelOperation == false)
 		{
@@ -655,7 +655,7 @@ public class GUIManager implements UserInterface
 	{
 		lastTerritorySelected = null;
 		cancelOperation = false;
-		gameState_cancelButton.setText("Cancell Fortify");
+		gameState_cancelButton.setText("Cancel Fortify");
 		gameState_cancelButton.setVisible(true);
 		while(lastTerritorySelected == null && cancelOperation == false)
 		{

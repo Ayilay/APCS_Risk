@@ -391,6 +391,7 @@ public class GameController
 			Territory territoryToFortify = TerritoryMap.get(territoryToFortifyID);
 
 			// Get territory to fortify from
+            userInterface.clearWarnings();
 			userInterface.createAnnouncement("Choose territory to fortify from");
 			String territoryToFortifyFromID = userInterface.getTerritoryToFortifyFrom(p, territoryToFortifyID);
 			if(territoryToFortifyFromID == null) // user clicked on cancelFortify button
@@ -407,6 +408,7 @@ public class GameController
 			}
 
 			// Get num armies to fortify with
+            userInterface.clearWarnings();
 			int numArmies = userInterface.getNumArmiesToFortify(territoryToFortifyFromID);
 			if(numArmies >= TerritoryMap.getNumArmiesDeployedOn(territoryToFortifyFromID))
 			{
@@ -424,6 +426,7 @@ public class GameController
 				break;
 			}
 
+            userInterface.clearWarnings();
 			TerritoryMap.transferArmies(territoryToFortifyFromID, territoryToFortifyID, numArmies);
 			break;
 		}
